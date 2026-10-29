@@ -20,7 +20,7 @@ export default defineConfig({
         name: 'serve-core-dist',
         apply: 'serve',
         configureServer(server) {
-          server.middlewares.use('/dist', (req, res, next) => {
+          server.middlewares.use('/__core', (req, res, next) => {
             const file = resolve(coreDist, decodeURIComponent(req.url ?? '').replace(/^\//, ''));
             if (!existsSync(file)) { next(); return; }
             const ext = file.split('.').pop()?.toLowerCase() ?? '';

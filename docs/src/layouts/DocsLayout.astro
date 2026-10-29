@@ -17,8 +17,8 @@ const activeGroup = NAV.find((g) => g.items.some((i) => i.href === currentHref))
 // const CDN = `https://cdn.jsdelivr.net/npm/dgarz-design@1.0.0/dist`;
 // const cssHref = `${CDN}/dgarz.full.min.css`;
 // const jsHref  = `${CDN}/dgarz.min.js`;
-const cssHref = import.meta.env.DEV ? "/dist/dgarz.full.css" : "/dist/dgarz.full.min.css";
-const jsHref  = "/dist/dgarz.js";
+const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.full.min.css";
+const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 ---
 
 <!doctype html>
