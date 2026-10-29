@@ -34,8 +34,14 @@ const jsHref  = "/dist/dgarz.js";
   <link rel="stylesheet" href={cssHref} />
   <style is:global>
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-    :root        { --doc-page-bg: var(--dg-0); }
-    [data-theme="dark"] { --doc-page-bg: var(--dg-paper); }
+    :root {
+      --doc-page-bg: #f8f8f8;
+      --doc-panel-bg: #fff;
+    }
+    [data-theme="dark"] {
+      --doc-page-bg: var(--dg-paper);
+      --doc-panel-bg: var(--dg-surface);
+    }
     body { overflow-x: hidden; background: var(--doc-page-bg); }
 
     /* ---- topbar ---- */
@@ -43,9 +49,7 @@ const jsHref  = "/dist/dgarz.js";
       position: sticky; top: 0; z-index: 30;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 var(--dg-space-5); min-height: 57px;
-      background: color-mix(in oklab, var(--doc-page-bg) 72%, transparent);
-      backdrop-filter: blur(22px) saturate(200%);
-      -webkit-backdrop-filter: blur(22px) saturate(200%);
+      background: var(--doc-panel-bg);
       border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
     }
     .doc-brand {
@@ -102,6 +106,7 @@ const jsHref  = "/dist/dgarz.js";
     .doc-sidebar {
       position: sticky; top: 57px; align-self: start;
       height: calc(100vh - 57px); overflow-y: auto;
+      background: var(--doc-panel-bg);
       padding: var(--dg-space-6) var(--dg-space-4) var(--dg-space-8) var(--dg-space-5);
       border-right: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
     }
@@ -150,9 +155,7 @@ const jsHref  = "/dist/dgarz.js";
       margin-inline: calc(-1 * var(--dg-space-7));
       padding-inline: var(--dg-space-7);
       font-size: var(--dg-text-xs); color: var(--dg-text-faint);
-      background: color-mix(in oklab, var(--doc-page-bg) 82%, transparent);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: var(--doc-page-bg);
       border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 50%, transparent);
     }
     .doc-breadcrumb span { color: var(--dg-text-faint); }
@@ -184,9 +187,9 @@ const jsHref  = "/dist/dgarz.js";
     /* ---- demo block ---- */
     .doc-demo {
       border-radius: var(--dg-radius-lg);
-      padding: var(--dg-space-6); background:
-        radial-gradient(var(--dg-border) 1px, transparent 1px);
-      background-size: 22px 22px; background-color: var(--dg-surface-2);
+      padding: var(--dg-space-6);
+      background: var(--doc-panel-bg);
+      border: 1px solid var(--dg-border);
     }
     .doc-demo.is-plain { background-image: none; }
     .doc-demo:has(+ .doc-code) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
@@ -201,7 +204,7 @@ const jsHref  = "/dist/dgarz.js";
       margin: var(--dg-space-5) 0;
       font-size: var(--dg-text-xs);
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+      box-shadow: none;
     }
     /* macOS chrome bar */
     .doc-code::before {
@@ -298,6 +301,7 @@ const jsHref  = "/dist/dgarz.js";
       display: flex; flex-direction: column; gap: 4px;
       padding: var(--dg-space-4) var(--dg-space-5);
       border: 1px solid var(--dg-border); border-radius: var(--dg-radius-lg);
+      background: var(--doc-panel-bg);
       text-decoration: none; color: var(--dg-text);
       transition: border-color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
       max-width: 240px; flex: 1;
