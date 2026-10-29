@@ -44,6 +44,16 @@ const jsHref  = "/dist/dgarz.js";
     }
     body { overflow-x: hidden; background: var(--doc-page-bg); }
 
+    /* Flat presentation across the entire docs site, including live examples. */
+    *, *::before, *::after {
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    :focus-visible {
+      outline: 2px solid var(--dg-accent) !important;
+      outline-offset: 3px;
+    }
+
     /* ---- topbar ---- */
     .doc-topbar {
       position: sticky; top: 0; z-index: 30;
