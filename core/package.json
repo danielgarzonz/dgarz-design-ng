@@ -60,7 +60,9 @@
     "url": "https://github.com/dgarzonz/dgarz-design/issues"
   },
   "devDependencies": {
+    "clean-css-cli": "^5.6.3",
     "sass": "^1.86.0",
+    "terser": "^5.51.2",
     "vite": "^6.0.0"
   }
 }
