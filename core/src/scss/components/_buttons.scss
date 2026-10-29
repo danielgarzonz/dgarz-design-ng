@@ -22,7 +22,7 @@
   letter-spacing: 0.01em;
   padding: 0.72em 1.4em;
   border-radius: var(--dg-radius-pill);
-  border: 1px solid transparent;
+  border: none;
   background: var(--dg-solid);
   color: var(--dg-on-solid);
   cursor: pointer;
@@ -58,12 +58,12 @@
 .dg-btn-cancel:hover { background: #303030; color: #fff; opacity: 1; box-shadow: none; }
 
 /* Outline — borde visible, fondo transparente */
-.dg-btn-outline { background: transparent; border-color: var(--dg-border-strong); color: var(--dg-text); }
+.dg-btn-outline { background: transparent; border: 1px solid var(--dg-border-strong); color: var(--dg-text); }
 .dg-btn-outline:hover { background: var(--dg-surface-2); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
 
-/* Ghost — secundario visible: relleno sutil + borde, funciona en light y dark */
-.dg-btn-ghost { background: var(--dg-surface-3); border-color: var(--dg-border-strong); color: var(--dg-text); }
-.dg-btn-ghost:hover { background: var(--dg-border); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
+/* Ghost — relleno sutil sin borde, funciona en light y dark */
+.dg-btn-ghost { background: var(--dg-surface-3); color: var(--dg-text); }
+.dg-btn-ghost:hover { background: var(--dg-border); opacity: 1; box-shadow: none; }
 
 /* Danger */
 .dg-btn-danger { background: var(--dg-danger); color: var(--dg-on-danger); border-color: transparent; }
