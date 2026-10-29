@@ -39,7 +39,7 @@ function buildDialog(opts) {
     '</div>';
 
   var cancelHtml = opts.cancelText !== null
-    ? '<button type="button" class="dg-btn dg-btn-ghost" data-dgc-cancel>' + escHtml(opts.cancelText) + '</button>'
+    ? '<button type="button" class="dg-btn dg-btn-cancel" data-dgc-cancel>' + escHtml(opts.cancelText) + '</button>'
     : '';
   var confirmHtml =
     '<button type="button" class="dg-btn' + (opts.icon === 'danger' ? ' dg-btn-danger' : '') + '" data-dgc-confirm>' +

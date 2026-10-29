@@ -53,6 +53,10 @@
 .dg-btn-solid, .dg-btn-primary { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; opacity: 1; }
 .dg-btn-solid:hover, .dg-btn-primary:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
 
+/* Cancel actions keep a dark gray fill in both themes. */
+.dg-btn-cancel { background: #404040; color: #fff; border-color: transparent; }
+.dg-btn-cancel:hover { background: #303030; color: #fff; opacity: 1; box-shadow: none; }
+
 /* Outline — borde visible, fondo transparente */
 .dg-btn-outline { background: transparent; border-color: var(--dg-border-strong); color: var(--dg-text); }
 .dg-btn-outline:hover { background: var(--dg-surface-2); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
