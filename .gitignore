@@ -1,6 +1,7 @@
 node_modules/
 core/dist/
 docs/dist/
+docs/public/dist/
 docs/.astro/
 .DS_Store
 *.log
