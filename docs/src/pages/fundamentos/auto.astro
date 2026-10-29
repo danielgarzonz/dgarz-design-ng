@@ -1,0 +1,136 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-5">
+        <p class="dg-callout-title">Cómo funciona</p>
+        Encabezados, párrafos y listas ya se ven con la identidad de dgarz sin ninguna clase — eso es el
+        reset base, siempre activo. <code class="dg-code">.dg-auto</code> extiende esa misma idea a
+        <code class="dg-code">button</code>, <code class="dg-code">input</code>, <code class="dg-code">select</code>,
+        <code class="dg-code">textarea</code>, <code class="dg-code">label</code> y <code class="dg-code">table</code> —
+        pero esos sí necesitan que lo pidas explícitamente, porque convertir cada
+        <code class="dg-code">&lt;button&gt;</code> nativo de una página en un botón negro sin avisar sería un
+        cambio inesperado para cualquiera que use el framework junto a controles nativos sin estilizar.
+      </div>
+
+      <div class="doc-sub">Dos formas de adopción</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Es la misma regla en ambos casos — solo cambia dónde pones la clase.
+      </p>
+      <div class="dg-row dg-mb-5">
+        <div class="dg-col-12 dg-col-md-6">
+          <div class="dg-card"><div class="dg-card-body">
+            <h3 class="dg-card-title dg-text-lg">Global</h3>
+            <p class="dg-muted dg-text-sm dg-mt-2">Para un proyecto nuevo que adopta dgarz en toda la página.</p>
+            <div class="doc-code dg-mt-3"><pre>&lt;html class="dg-auto"&gt;…&lt;/html&gt;</pre></div>
+          </div></div>
+        </div>
+        <div class="dg-col-12 dg-col-md-6">
+          <div class="dg-card"><div class="dg-card-body">
+            <h3 class="dg-card-title dg-text-lg">Por contenedor</h3>
+            <p class="dg-muted dg-text-sm dg-mt-2">Para una migración gradual que convive con otro framework en el resto de la página.</p>
+            <div class="doc-code dg-mt-3"><pre>&lt;div class="dg-auto"&gt;
+  &lt;form&gt;…&lt;/form&gt;
+&lt;/div&gt;</pre></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="doc-sub">En vivo — el mismo formulario, con y sin .dg-auto</div>
+      <div class="dg-row">
+        <div class="dg-col-12 dg-col-md-6">
+          <p class="dg-text-xs dg-faint dg-mb-2">Sin clases, sin <code class="dg-code">.dg-auto</code> — controles nativos del navegador</p>
+          <div class="doc-demo is-plain">
+            <form class="dg-stack" style="gap:.6rem">
+              <label for="autoOffName">Nombre</label>
+              <input id="autoOffName" name="nombre" required />
+              <button type="submit">Guardar</button>
+            </form>
+          </div>
+        </div>
+        <div class="dg-col-12 dg-col-md-6">
+          <p class="dg-text-xs dg-faint dg-mb-2">Mismo HTML, dentro de <code class="dg-code">.dg-auto</code></p>
+          <div class="doc-demo is-plain dg-auto">
+            <form class="dg-stack" style="gap:.6rem">
+              <label for="autoOnName">Nombre</label>
+              <input id="autoOnName" name="nombre" required />
+              <button type="submit">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- idéntico en ambas columnas — la única diferencia es el .dg-auto del padre --&gt;
+&lt;form&gt;
+  &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+  &lt;input id="nombre" name="nombre" required /&gt;
+  &lt;button type="submit"&gt;Guardar&lt;/button&gt;
+&lt;/form&gt;</pre></div>
+
+      <div class="doc-sub">Qué cubre</div>
+      <div class="dg-table-card">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Elemento clasless</th><th>Mismas reglas que</th></tr></thead>
+          <tbody>
+            <tr><td><code class="dg-code">button</code>, <code class="dg-code">input[type=submit]</code>, <code class="dg-code">[type=button]</code>, <code class="dg-code">[type=reset]</code></td><td><code class="dg-code">.dg-btn</code></td></tr>
+            <tr><td><code class="dg-code">input</code> de tipo texto (incluye sin <code class="dg-code">type</code>), <code class="dg-code">textarea</code></td><td><code class="dg-code">.dg-input</code> / <code class="dg-code">.dg-textarea</code></td></tr>
+            <tr><td><code class="dg-code">select</code></td><td><code class="dg-code">.dg-select</code></td></tr>
+            <tr><td><code class="dg-code">label</code></td><td><code class="dg-code">.dg-label</code></td></tr>
+            <tr><td><code class="dg-code">table</code></td><td><code class="dg-code">.dg-table</code></td></tr>
+            <tr><td><code class="dg-code">h1</code>–<code class="dg-code">h6</code>, <code class="dg-code">p</code>, listas</td><td class="dg-muted">Siempre activo — no depende de <code class="dg-code">.dg-auto</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="dg-muted dg-text-sm dg-mt-3">
+        Todavía no cubierto: <code class="dg-code">input[type=checkbox]</code>, <code class="dg-code">[type=radio]</code>,
+        <code class="dg-code">[type=file]</code>, <code class="dg-code">[type=range]</code> (necesitan un
+        elemento visual acompañante, no un look de campo de texto) y <code class="dg-code">a</code>
+        (subrayar todo enlace suelto por defecto — nav, tarjetas, footer — probablemente no es lo que quieres;
+        usa <code class="dg-code">.dg-link</code> explícito por ahora).
+      </p>
+
+      <div class="doc-sub">Variantes e intención explícita</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-auto</code> solo entrega el look <strong>por defecto</strong>. En cuanto el
+        elemento lleva alguna clase propia, deja de aplicarle nada — a partir de ahí funciona exactamente
+        igual que fuera de <code class="dg-code">.dg-auto</code>: para una variante, sigues escribiendo las
+        clases normales (<code class="dg-code">dg-btn</code> + <code class="dg-code">dg-btn-outline</code>,
+        <code class="dg-code">dg-btn-danger</code> para una acción destructiva…). Ningún estilo se infiere del
+        texto del botón.
+      </p>
+      <div class="doc-demo is-plain dg-auto">
+        <div class="dg-cluster">
+          <button type="submit">Guardar (auto, sin clases)</button>
+          <button type="button" class="dg-btn dg-btn-outline">Cancelar (variante explícita)</button>
+          <button type="button" class="dg-btn dg-btn-danger">Eliminar (variante explícita)</button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- dentro de .dg-auto --&gt;
+&lt;button type="submit"&gt;Guardar&lt;/button&gt;                        &lt;!-- look por defecto, sin clases --&gt;
+&lt;button class="dg-btn dg-btn-outline"&gt;Cancelar&lt;/button&gt;         &lt;!-- variante explícita, igual que siempre --&gt;
+&lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;          &lt;!-- variante explícita, igual que siempre --&gt;</pre></div>
+
+      <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-5">
+        <p class="dg-callout-title">Por qué es seguro combinarlo con el resto del framework</p>
+        Cada botón interno de un componente (el cierre de un modal, una pestaña, la paginación, un toggle de
+        dropdown…) siempre lleva una clase <code class="dg-code">dg-*</code> propia. Como el contrato solo
+        alcanza a elementos <strong>sin ninguna clase</strong>, esos botones internos nunca heredan
+        accidentalmente la apariencia de botón primario, aunque vivan dentro de un contenedor
+        <code class="dg-code">.dg-auto</code>.
+      </div>
+
+      <div class="doc-sub">Estados y validación</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-auto</code> respeta <code class="dg-code">required</code>,
+        <code class="dg-code">disabled</code>, <code class="dg-code">readonly</code> y
+        <code class="dg-code">aria-invalid</code> tal cual el navegador los expone — no dibuja un campo como
+        erróneo solo por ser obligatorio, antes de que corresponda mostrar una validación.
+      </p>
+      <div class="doc-demo is-plain dg-auto">
+        <div class="dg-cluster">
+          <input placeholder="Campo normal" />
+          <input placeholder="Deshabilitado" disabled />
+        </div>
+      </div>`;
+---
+
+<Layout title="HTML semántico (auto)" lead="button, input, select, textarea, label y table con la apariencia del framework sin escribir clases." currentHref="/fundamentos/auto">
+  <Fragment set:html={pageContent} />
+</Layout>

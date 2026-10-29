@@ -1,0 +1,166 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
+      <div class="dg-table-card dg-mb-5">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Prefijo</th><th>Mínimo</th><th>Clases</th><th>Típico</th></tr></thead>
+          <tbody>
+            <tr><td>(sin prefijo)</td><td>0px — todos</td><td><code class="dg-code">.dg-col-6</code></td><td>Móvil primero, siempre aplica</td></tr>
+            <tr><td><code class="dg-code">sm</code></td><td>≥ 576px</td><td><code class="dg-code">.dg-col-sm-6</code></td><td>Teléfonos grandes</td></tr>
+            <tr><td><code class="dg-code">md</code></td><td>≥ 768px</td><td><code class="dg-code">.dg-col-md-6</code></td><td>Tablets</td></tr>
+            <tr><td><code class="dg-code">lg</code></td><td>≥ 992px</td><td><code class="dg-code">.dg-col-lg-6</code></td><td>Laptops</td></tr>
+            <tr><td><code class="dg-code">xl</code></td><td>≥ 1200px</td><td><code class="dg-code">.dg-col-xl-6</code></td><td>Pantallas grandes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-sub">Grid de 12 columnas</div>
+      <div class="doc-demo">
+        <div class="dg-row dg-mb-4">
+          <div class="dg-col-12 dg-col-md-6"><div class="doc-grid-cell">col-12 col-md-6</div></div>
+          <div class="dg-col-12 dg-col-md-6"><div class="doc-grid-cell">col-12 col-md-6</div></div>
+        </div>
+        <div class="dg-row dg-mb-4">
+          <div class="dg-col-12 dg-col-md-4"><div class="doc-grid-cell">col-md-4</div></div>
+          <div class="dg-col-12 dg-col-md-4"><div class="doc-grid-cell">col-md-4</div></div>
+          <div class="dg-col-12 dg-col-md-4"><div class="doc-grid-cell">col-md-4</div></div>
+        </div>
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-3"><div class="doc-grid-cell">col-md-3</div></div>
+          <div class="dg-col-12 dg-col-md-9"><div class="doc-grid-cell">col-md-9</div></div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Patrón básico: 1 col en móvil, N cols desde breakpoint --&gt;
+&lt;div class="dg-row"&gt;
+  &lt;div class="dg-col-12 dg-col-md-6"&gt;Mitad desde tablet&lt;/div&gt;
+  &lt;div class="dg-col-12 dg-col-md-6"&gt;Mitad desde tablet&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tres columnas iguales --&gt;
+&lt;div class="dg-row"&gt;
+  &lt;div class="dg-col-12 dg-col-md-4"&gt;…&lt;/div&gt;
+  &lt;div class="dg-col-12 dg-col-md-4"&gt;…&lt;/div&gt;
+  &lt;div class="dg-col-12 dg-col-md-4"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Sidebar + contenido principal --&gt;
+&lt;div class="dg-row"&gt;
+  &lt;div class="dg-col-12 dg-col-lg-3"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="dg-col-12 dg-col-lg-9"&gt;Contenido principal&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Columnas disponibles: 1 a 12
+     .dg-col-auto — ancho automático según contenido --&gt;</pre></div>
+
+      <div class="doc-sub">Offsets — empujar columnas a la derecha</div>
+      <div class="doc-demo">
+        <div class="dg-row dg-mb-3">
+          <div class="dg-col-12 dg-col-md-6 dg-offset-3"><div class="doc-grid-cell">col-md-6 offset-3 (centrado)</div></div>
+        </div>
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-4"><div class="doc-grid-cell">col-md-4</div></div>
+          <div class="dg-col-12 dg-col-md-4 dg-offset-4"><div class="doc-grid-cell">col-md-4 offset-4</div></div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Centrar una columna con offset simétrico --&gt;
+&lt;div class="dg-row"&gt;
+  &lt;div class="dg-col-md-6 dg-offset-3"&gt;Centrado&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Offsets disponibles: offset-1, 2, 3, 4, 6 --&gt;</pre></div>
+
+      <div class="doc-sub">Grid automático (CSS Grid)</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Para galerías, grids de tarjetas y listados donde todas las columnas son iguales.</p>
+      <div class="doc-demo">
+        <div class="dg-grid dg-grid-4">
+          <div class="doc-grid-cell">1</div>
+          <div class="doc-grid-cell">2</div>
+          <div class="doc-grid-cell">3</div>
+          <div class="doc-grid-cell">4</div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-grid dg-grid-2"&gt;…&lt;/div&gt;    &lt;!-- 2 cols iguales --&gt;
+&lt;div class="dg-grid dg-grid-3"&gt;…&lt;/div&gt;    &lt;!-- 3 cols iguales --&gt;
+&lt;div class="dg-grid dg-grid-4"&gt;…&lt;/div&gt;    &lt;!-- 4 cols iguales --&gt;
+&lt;div class="dg-grid dg-grid-auto"&gt;…&lt;/div&gt; &lt;!-- auto-fill, mínimo 220px por col --&gt;
+
+&lt;!-- Nota: en mobile (≤768px) todas colapsan a 1 columna --&gt;</pre></div>
+
+      <div class="doc-sub">Contenedores</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-container"&gt;…&lt;/div&gt;          &lt;!-- max 1140px, centrado --&gt;
+&lt;div class="dg-container dg-container-narrow"&gt;…&lt;/div&gt;  &lt;!-- max 760px (artículos, prose) --&gt;
+&lt;div class="dg-container dg-container-wide"&gt;…&lt;/div&gt;    &lt;!-- max 1320px (dashboards) --&gt;</pre></div>
+
+      <div class="doc-sub">Utilidades de layout — stack, cluster, section</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Atajos para patrones comunes de composición.</p>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Stack: flex vertical con gap uniforme --&gt;
+&lt;div class="dg-stack"&gt;
+  &lt;p&gt;Elemento 1&lt;/p&gt;
+  &lt;p&gt;Elemento 2&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Cluster: flex horizontal que envuelve, alineado al centro --&gt;
+&lt;div class="dg-cluster"&gt;
+  &lt;span class="dg-badge"&gt;React&lt;/span&gt;
+  &lt;span class="dg-badge"&gt;Vue&lt;/span&gt;
+  &lt;span class="dg-badge"&gt;Svelte&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Section: bloque con padding vertical generoso --&gt;
+&lt;section class="dg-section"&gt;…&lt;/section&gt;</pre></div>
+
+      <div class="doc-sub">Barra de acciones</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-actions</code> — cada botón conserva el ancho de su propio texto en vez de
+        repartirse en columnas de <code class="dg-code">.dg-row</code>; cuando no caben, pasan a otra línea
+        en vez de comprimirse o partir el texto. <code class="dg-code">.dg-actions-search</code> es el único
+        hijo que sí crece para llenar el espacio restante.
+      </p>
+      <div class="doc-demo">
+        <div class="dg-actions">
+          <button class="dg-btn">Alta masiva</button>
+          <div class="dg-field dg-actions-search">
+            <label class="dg-label" for="gridActionsSearch">Buscar</label>
+            <input id="gridActionsSearch" class="dg-input" type="search" placeholder="Buscar…" />
+          </div>
+          <button class="dg-btn dg-btn-ghost">Exportar histórico</button>
+          <button class="dg-btn dg-btn-outline">Agregar promotor</button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-actions"&gt;
+  &lt;button class="dg-btn"&gt;Alta masiva&lt;/button&gt;
+
+  &lt;div class="dg-field dg-actions-search"&gt;
+    &lt;label class="dg-label" for="buscar"&gt;Buscar&lt;/label&gt;
+    &lt;input id="buscar" class="dg-input" type="search" /&gt;
+  &lt;/div&gt;
+
+  &lt;button class="dg-btn dg-btn-ghost"&gt;Exportar histórico&lt;/button&gt;
+  &lt;button class="dg-btn dg-btn-outline"&gt;Agregar promotor&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Etiqueta tan larga que no cabe en ningún viewport: permite que
+     envuelva en vez de desbordar --&gt;
+&lt;button class="dg-btn dg-actions-wrap"&gt;Un texto de botón excepcionalmente largo&lt;/button&gt;
+
+&lt;!-- Ajustables por token: --dg-actions-gap, --dg-actions-search-basis --&gt;</pre></div>
+
+      <div class="doc-sub">Contenedor con scroll propio</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-page-scroll</code> — para layouts de app shell con altura fija
+        (<code class="dg-code">height: 100%</code> heredado de un contenedor con altura definida, típicamente
+        <code class="dg-code">100vh</code>): el contenido hace scroll internamente y un <code class="dg-code">&lt;footer&gt;</code>
+        directo queda pegado al fondo cuando el contenido es corto.
+      </p>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div style="height: 100vh"&gt;
+  &lt;div class="dg-page-scroll"&gt;
+    &lt;main&gt;Contenido que puede exceder la altura disponible…&lt;/main&gt;
+    &lt;footer&gt;Pegado al fondo si el contenido es corto&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+`;
+---
+
+<Layout title="Grid & Layout" lead="Sistema de 12 columnas mobile-first y helpers de layout." currentHref="/fundamentos/grid">
+  <Fragment set:html={pageContent} />
+</Layout>

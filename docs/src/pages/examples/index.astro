@@ -1,0 +1,68 @@
+---
+import "../../styles/example-collection.css";
+import Preview from "../../components/examples/Preview.astro";
+import Layout from "../../layouts/DocsLayout.astro";
+import { desktopExamples, mobileExamples } from "../../data/examples";
+---
+
+<Layout
+  title="Galería de ejemplos"
+  lead="Interfaces para conectar, crear y crecer. Explora 20 composiciones de escritorio y móvil con una identidad clara y un acento azul."
+  currentHref="/examples"
+>
+  <div class="gallery-intro">
+    <div><span class="gallery-eyebrow">DGARZ DESIGN / COLECCIÓN 01</span><h2>Buenas ideas.<br /><span>Mejores interfaces.</span></h2><p>Una colección para llevar tu próximo proyecto del boceto a la pantalla.</p></div>
+    <div class="gallery-count"><strong>20</strong><span>ideas para construir ↗</span></div>
+  </div>
+  <div class="doc-sub">Explora las demos completas</div>
+  <div class="dg-cluster dg-mb-5 dg-gap-3 dg-wrap">
+    <a class="dg-btn dg-btn-gradient dg-btn-sm" href="/examples/desktop.html">Workspace PC</a>
+    <a class="dg-btn dg-btn-gradient dg-btn-sm" href="/examples/mobile.html">Wallet móvil</a>
+    <a class="dg-btn dg-btn-outline dg-btn-sm" href="/examples/dashboard.html">Dashboard base</a>
+    <a class="dg-btn dg-btn-glass dg-btn-sm" href="/examples/series">Series visuales</a>
+  </div>
+
+  <div class="doc-sub" id="desktop">Desktop · 10 ideas</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-lg">
+    Pensadas como referencias de pantalla completa o bloques hero para escritorio. Aquí el foco es cómo conviven
+    navegación, densidad, cards, CTA y jerarquía en pantallas amplias.
+  </p>
+  <div class="doc-showcase-grid-2">
+    {desktopExamples.map((example) => (
+      <a class="dg-card dg-card-hover doc-gallery-card doc-gallery-link" href={`/examples/${example.slug}`}>
+        <Preview example={example} />
+        <div class="dg-card-body">
+          <div class="dg-flex dg-items-center dg-justify-between dg-gap-3">
+            <span class="dg-glass-pill">{example.tag}</span>
+            <span class="dg-text-xs dg-muted">{example.components.slice(0, 2).join(" · ")}</span>
+          </div>
+          <h3 class="dg-card-title dg-mt-3 dg-text-xl">{example.title}</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">{example.desc}</p>
+          <div class="dg-text-sm dg-mt-3 doc-gallery-open">Abrir ejemplo</div>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="doc-sub" id="mobile">Mobile · 10 ideas</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-lg">
+    Referencias para flujos compactos. El foco aquí es el ritmo vertical, CTAs claros, fondos con identidad y
+    tarjetas que se lean bien en un viewport angosto.
+  </p>
+  <div class="doc-showcase-grid-2">
+    {mobileExamples.map((example) => (
+      <a class="dg-card dg-card-hover doc-gallery-card doc-gallery-link" href={`/examples/${example.slug}`}>
+        <Preview example={example} />
+        <div class="dg-card-body">
+          <div class="dg-flex dg-items-center dg-justify-between dg-gap-3">
+            <span class="dg-glass-pill">{example.tag}</span>
+            <span class="dg-text-xs dg-muted">{example.components.slice(0, 2).join(" · ")}</span>
+          </div>
+          <h3 class="dg-card-title dg-mt-3 dg-text-xl">{example.title}</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">{example.desc}</p>
+          <div class="dg-text-sm dg-mt-3 doc-gallery-open">Abrir ejemplo</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Chips (etiquetas removibles)</div>
+      <p class="dg-muted dg-text-sm">Para filtros activos, tags seleccionados o entradas de tipo multi-valor.</p>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <div class="dg-chip">
+            Diseño
+            <button aria-label="Quitar Diseño"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+          </div>
+          <div class="dg-chip">
+            Desarrollo
+            <button aria-label="Quitar Desarrollo"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+          </div>
+          <div class="dg-chip">
+            UX Research
+            <button aria-label="Quitar UX Research"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-chip"&gt;
+  Diseño
+  &lt;button aria-label="Quitar Diseño"&gt;
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Divider con etiqueta</div>
+      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+        <div class="dg-divider-label">O continúa con</div>
+        <div class="dg-divider-label">Paso 2</div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-divider-label"&gt;O continúa con&lt;/div&gt;
+
+&lt;!-- Divider simple (sin texto) --&gt;
+&lt;hr class="dg-hr"&gt;</pre></div>
+
+      <div class="doc-sub">Código preformateado (.dg-pre)</div>
+      <div class="doc-demo">
+        <pre class="dg-pre">npm install dgarz-design
+
+import "dgarz-design";
+import "dgarz-design/app";</pre>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Bloque de código estilizado --&gt;
+&lt;pre class="dg-pre"&gt;npm install dgarz-design&lt;/pre&gt;
+
+&lt;!-- Inline code --&gt;
+&lt;code class="dg-code"&gt;.dg-btn-primary&lt;/code&gt;</pre></div>`;
+---
+
+<Layout title="Chips" lead="Etiquetas removibles y divider con label." currentHref="/componentes/chips">
+  <Fragment set:html={pageContent} />
+</Layout>

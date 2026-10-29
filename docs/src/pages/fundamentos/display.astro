@@ -1,0 +1,187 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+---
+
+<Layout title="Display" lead="Controla el tipo de caja de cualquier elemento." currentHref="/fundamentos/display">
+
+  <div class="doc-sub">Valores de display</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Cada clase fuerza el valor de <code class="dg-code">display</code> en el elemento. Combínalas con utilidades de flex, grid o spacing.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="doc-disp-table">
+      <div class="doc-disp-thead">
+        <span>Clase</span>
+        <span>Valor CSS</span>
+        <span>Ejemplo</span>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-block</code>
+        <span class="doc-disp-val">display: block</span>
+        <div class="doc-disp-preview">
+          <div class="doc-disp-swatch dg-block">Bloque A</div>
+          <div class="doc-disp-swatch dg-block">Bloque B</div>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-inline</code>
+        <span class="doc-disp-val">display: inline</span>
+        <div class="doc-disp-preview">
+          <span class="doc-disp-swatch dg-inline">Inline A</span>
+          <span class="doc-disp-swatch dg-inline">Inline B</span>
+          <span class="doc-disp-swatch dg-inline">Inline C</span>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-inline-block</code>
+        <span class="doc-disp-val">display: inline-block</span>
+        <div class="doc-disp-preview">
+          <span class="doc-disp-swatch dg-inline-block" style="width:80px">80px</span>
+          <span class="doc-disp-swatch dg-inline-block" style="width:60px">60px</span>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-flex</code>
+        <span class="doc-disp-val">display: flex</span>
+        <div class="doc-disp-preview">
+          <div class="doc-disp-track dg-flex" style="gap:6px">
+            <div class="doc-disp-swatch">A</div>
+            <div class="doc-disp-swatch">B</div>
+            <div class="doc-disp-swatch">C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-inline-flex</code>
+        <span class="doc-disp-val">display: inline-flex</span>
+        <div class="doc-disp-preview">
+          <span class="doc-disp-swatch dg-inline-flex" style="gap:4px">
+            <span class="doc-disp-dot"></span> Inline flex
+          </span>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-grid-d</code>
+        <span class="doc-disp-val">display: grid</span>
+        <div class="doc-disp-preview">
+          <div class="doc-disp-track dg-grid-d" style="grid-template-columns:repeat(3,1fr);gap:6px">
+            <div class="doc-disp-swatch">1</div>
+            <div class="doc-disp-swatch">2</div>
+            <div class="doc-disp-swatch">3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-hidden</code>
+        <span class="doc-disp-val">display: none</span>
+        <div class="doc-disp-preview">
+          <span class="doc-disp-note">El elemento no ocupa espacio en el DOM visual</span>
+        </div>
+      </div>
+
+      <div class="doc-disp-row">
+        <code>.dg-sr-only</code>
+        <span class="doc-disp-val">visualmente oculto</span>
+        <div class="doc-disp-preview">
+          <span class="doc-disp-note">Accesible para lectores de pantalla, invisible visualmente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-block"&gt;...&lt;/div&gt;
+&lt;span class="dg-inline"&gt;...&lt;/span&gt;
+&lt;span class="dg-inline-block"&gt;...&lt;/span&gt;
+&lt;div class="dg-flex"&gt;...&lt;/div&gt;
+&lt;span class="dg-inline-flex"&gt;...&lt;/span&gt;
+&lt;div class="dg-grid-d"&gt;...&lt;/div&gt;
+&lt;div class="dg-hidden"&gt;...&lt;/div&gt;
+&lt;span class="dg-sr-only"&gt;Texto accesible&lt;/span&gt;</pre></div>
+
+  <div class="doc-sub">Visibilidad responsive</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Oculta elementos según el breakpoint activo. Usan <code class="dg-code">display: none</code>, no <code class="dg-code">visibility: hidden</code>.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="doc-disp-table">
+      <div class="doc-disp-thead">
+        <span>Clase</span>
+        <span>Breakpoint</span>
+        <span>Descripción</span>
+      </div>
+      <div class="doc-disp-row">
+        <code>.dg-hidden-xs</code>
+        <span class="doc-disp-val">&lt; 576px</span>
+        <span>Oculto en móvil pequeño</span>
+      </div>
+      <div class="doc-disp-row">
+        <code>.dg-hidden-sm</code>
+        <span class="doc-disp-val">576 – 767px</span>
+        <span>Oculto en móvil</span>
+      </div>
+      <div class="doc-disp-row">
+        <code>.dg-hidden-md</code>
+        <span class="doc-disp-val">768 – 991px</span>
+        <span>Oculto en tablet</span>
+      </div>
+      <div class="doc-disp-row">
+        <code>.dg-hidden-mobile</code>
+        <span class="doc-disp-val">&lt; 992px</span>
+        <span>Oculto en móvil + tablet</span>
+      </div>
+      <div class="doc-disp-row">
+        <code>.dg-hidden-desktop</code>
+        <span class="doc-disp-val">&ge; 992px</span>
+        <span>Oculto en desktop</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;Solo visible en desktop&lt;/div&gt;
+&lt;div class="dg-hidden-desktop"&gt;Solo visible en móvil&lt;/div&gt;
+&lt;div class="dg-hidden-xs"&gt;Oculto en pantallas muy pequeñas&lt;/div&gt;</pre></div>
+
+<style>
+  .doc-disp-table { border: 1px solid var(--dg-border); border-radius: var(--dg-radius); overflow: hidden; }
+  .doc-disp-thead {
+    display: grid; grid-template-columns: 180px 1fr 1fr;
+    background: var(--dg-surface-2);
+    padding: 0.5em 1em;
+    font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+    color: var(--dg-text-muted); text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--dg-border);
+  }
+  .doc-disp-row {
+    display: grid; grid-template-columns: 180px 1fr 1fr;
+    align-items: center;
+    padding: 0.7em 1em;
+    border-bottom: 1px solid var(--dg-border);
+    font-size: var(--dg-text-sm);
+  }
+  .doc-disp-row:last-child { border-bottom: none; }
+  .doc-disp-row code { font-size: var(--dg-text-xs); }
+  .doc-disp-val  { font-family: var(--dg-font-mono); font-size: var(--dg-text-xs); color: var(--dg-text-muted); }
+  .doc-disp-note { font-size: var(--dg-text-xs); color: var(--dg-text-faint); font-style: italic; }
+  .doc-disp-preview { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .doc-disp-swatch {
+    background: var(--dg-surface-3); border: 1px solid var(--dg-border);
+    border-radius: var(--dg-radius-sm);
+    padding: 0.28em 0.6em;
+    font-size: var(--dg-text-xs); color: var(--dg-text-muted);
+    font-family: var(--dg-font-mono);
+    white-space: nowrap;
+  }
+  .doc-disp-track { width: 100%; }
+  .doc-disp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dg-border-strong); flex-shrink: 0; }
+</style>
+
+</Layout>

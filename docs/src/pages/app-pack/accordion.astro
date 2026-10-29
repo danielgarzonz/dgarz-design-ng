@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain">
+        <div class="dg-accordion dg-max-w-xl" data-dg-accordion="single">
+          <div class="dg-accordion-item is-open">
+            <button class="dg-accordion-trigger">¿Qué incluye dgarz design?<svg class="dg-icon dg-accordion-chevron"><use href="#dg-chevron-down"/></svg></button>
+            <div class="dg-accordion-panel"><div class="dg-accordion-content">Tokens, grid responsive, componentes, app pack, iconos y una capa de comportamiento accesible.</div></div>
+          </div>
+          <div class="dg-accordion-item">
+            <button class="dg-accordion-trigger">¿Necesito JavaScript?<svg class="dg-icon dg-accordion-chevron"><use href="#dg-chevron-down"/></svg></button>
+            <div class="dg-accordion-panel"><div class="dg-accordion-content">No para los estilos. Para interacciones, <code class="dg-code">dgarz.js</code> las cablea por ti vía atributos.</div></div>
+          </div>
+          <div class="dg-accordion-item">
+            <button class="dg-accordion-trigger">¿Funciona con React o Vue?<svg class="dg-icon dg-accordion-chevron"><use href="#dg-chevron-down"/></svg></button>
+            <div class="dg-accordion-panel"><div class="dg-accordion-content">Sí: son clases CSS, funcionan en cualquier stack. El JS se distribuye también como módulo ES.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-accordion" data-dg-accordion="single"&gt;
+
+  &lt;div class="dg-accordion-item is-open"&gt;
+    &lt;button class="dg-accordion-trigger"&gt;
+      Pregunta 1
+      &lt;svg class="dg-icon dg-accordion-chevron"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="dg-accordion-panel"&gt;
+      &lt;div class="dg-accordion-content"&gt;Respuesta aquí.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="dg-accordion-item"&gt;
+    &lt;button class="dg-accordion-trigger"&gt;
+      Pregunta 2
+      &lt;svg class="dg-icon dg-accordion-chevron"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="dg-accordion-panel"&gt;
+      &lt;div class="dg-accordion-content"&gt;Respuesta aquí.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- Sin "single": múltiples paneles pueden estar abiertos --&gt;
+&lt;div class="dg-accordion" data-dg-accordion&gt;…&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Accordion" lead="Listas expandibles con animación de altura." currentHref="/app-pack/accordion">
+  <Fragment set:html={pageContent} />
+</Layout>

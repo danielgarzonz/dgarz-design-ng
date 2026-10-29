@@ -1,0 +1,148 @@
+/* ---- Buttons ---------------------------------------------- */
+/* Semantic auto-styling (.dg-auto contract, see _grid.scss bottom-of-file
+   note): a plain, classless <button> or submit/button/reset <input> inside
+   a .dg-auto scope gets the exact same declarations via :where() — zero
+   added specificity, so .dg-btn-outline/.dg-btn-danger/etc. or any consumer
+   class still overrides it without !important. Component-internal buttons
+   (.dg-modal-close, .dg-tab, pagination, dropdown toggles…) always carry a
+   dg-* class, so the :not([class]) guard keeps this from ever touching them. */
+.dg-btn,
+:where(.dg-auto) button:not([class]),
+:where(.dg-auto) input:not([class])[type="submit"],
+:where(.dg-auto) input:not([class])[type="button"],
+:where(.dg-auto) input:not([class])[type="reset"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dg-space-2);
+  font-family: var(--dg-font-sans);
+  font-size: var(--dg-text-sm);
+  font-weight: var(--dg-weight-medium);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  padding: 0.72em 1.4em;
+  border-radius: var(--dg-radius-pill);
+  border: 1px solid transparent;
+  background: var(--dg-solid);
+  color: var(--dg-on-solid);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--dg-dur) var(--dg-ease),
+              color var(--dg-dur) var(--dg-ease),
+              opacity var(--dg-dur) var(--dg-ease),
+              transform var(--dg-dur) var(--dg-ease),
+              box-shadow var(--dg-dur) var(--dg-ease);
+}
+.dg-btn:hover,
+:where(.dg-auto) button:not([class]):hover,
+:where(.dg-auto) input:not([class])[type="submit"]:hover,
+:where(.dg-auto) input:not([class])[type="button"]:hover,
+:where(.dg-auto) input:not([class])[type="reset"]:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
+.dg-btn:not(:disabled):not(.is-disabled):active,
+:where(.dg-auto) button:not([class]):not(:disabled):active,
+:where(.dg-auto) input:not([class])[type="submit"]:not(:disabled):active,
+:where(.dg-auto) input:not([class])[type="button"]:not(:disabled):active,
+:where(.dg-auto) input:not([class])[type="reset"]:not(:disabled):active { transform: scale(0.96); transition-duration: .08s; }
+.dg-btn:disabled, .dg-btn.is-disabled,
+:where(.dg-auto) button:not([class]):disabled,
+:where(.dg-auto) input:not([class])[type="submit"]:disabled,
+:where(.dg-auto) input:not([class])[type="button"]:disabled,
+:where(.dg-auto) input:not([class])[type="reset"]:disabled { opacity: .35; pointer-events: none; }
+
+/* Solid — alias, idéntico al base */
+.dg-btn-solid, .dg-btn-primary { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; opacity: 1; }
+.dg-btn-solid:hover, .dg-btn-primary:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
+
+/* Outline — borde visible, fondo transparente */
+.dg-btn-outline { background: transparent; border-color: var(--dg-border-strong); color: var(--dg-text); }
+.dg-btn-outline:hover { background: var(--dg-surface-2); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
+
+/* Ghost — secundario visible: relleno sutil + borde, funciona en light y dark */
+.dg-btn-ghost { background: var(--dg-surface-3); border-color: var(--dg-border-strong); color: var(--dg-text); }
+.dg-btn-ghost:hover { background: var(--dg-border); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
+
+/* Danger */
+.dg-btn-danger { background: var(--dg-danger); color: var(--dg-on-danger); border-color: transparent; }
+.dg-btn-danger:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
+
+.dg-btn-sm { font-size: var(--dg-text-xs); padding: 0.55em 1em; }
+.dg-btn-lg { font-size: var(--dg-text-base); padding: 0.85em 1.7em; }
+.dg-btn-icon { padding: 0.6em; aspect-ratio: 1; }
+.dg-btn-block { display: flex; width: 100%; }
+.dg-icon-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--dg-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dg-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+}
+.dg-icon-btn:hover {
+  background: var(--dg-surface-2);
+  color: var(--dg-text);
+  border-color: color-mix(in oklab, var(--dg-border) 60%, transparent);
+  opacity: 1;
+  box-shadow: none;
+}
+
+.dg-btn-group { display: inline-flex; }
+.dg-btn-group .dg-btn { border-radius: 0; }
+.dg-btn-group .dg-btn:first-child { border-radius: var(--dg-radius-pill) 0 0 var(--dg-radius-pill); }
+.dg-btn-group .dg-btn:last-child { border-radius: 0 var(--dg-radius-pill) var(--dg-radius-pill) 0; }
+.dg-btn-group .dg-btn:first-child:last-child { border-radius: var(--dg-radius-pill); }
+.dg-btn-group .dg-btn + .dg-btn { margin-left: -1px; }
+
+/* ---- Button: loading & with-icon -------------------------- */
+.dg-btn.is-loading { color: transparent !important; pointer-events: none; position: relative; }
+.dg-btn.is-loading::after {
+  content: ""; position: absolute; width: 1.1em; height: 1.1em; border-radius: 50%;
+  border: 2px solid currentColor; border-top-color: transparent; opacity: .6;
+  animation: dg-spin .7s linear infinite;
+  color: var(--dg-on-solid);
+}
+.dg-btn-outline.is-loading::after, .dg-btn-ghost.is-loading::after { color: var(--dg-text); }
+
+/* ---- Button: semantic variants ---------------------------- */
+.dg-btn-success { background: var(--dg-success); color: var(--dg-on-success); border-color: transparent; }
+.dg-btn-success:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
+.dg-btn-warning { background: var(--dg-warning); color: var(--dg-on-warning); border-color: transparent; }
+.dg-btn-warning:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
+.dg-btn-info    { background: var(--dg-info);    color: var(--dg-on-info); border-color: transparent; }
+.dg-btn-info:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
+
+/* ---- Button: visual variants ------------------------------ */
+.dg-btn-glass {
+  background: color-mix(in oklab, var(--dg-surface) 58%, transparent);
+  color: var(--dg-text);
+  border-color: color-mix(in oklab, var(--dg-border-strong) 42%, transparent);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 50%, transparent),
+    0 10px 24px color-mix(in oklab, #000 8%, transparent);
+}
+.dg-btn-glass:hover {
+  background: color-mix(in oklab, var(--dg-surface) 48%, transparent);
+  border-color: color-mix(in oklab, var(--dg-border-strong) 60%, transparent);
+  opacity: 1;
+}
+
+.dg-btn-gradient {
+  background: linear-gradient(135deg, var(--dg-accent), color-mix(in oklab, var(--dg-accent-violet) 38%, var(--dg-accent) 62%));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent) 24%, transparent);
+}
+.dg-btn-gradient:hover { opacity: .92; }
+
+.dg-btn-gradient-warm {
+  background: linear-gradient(135deg, var(--dg-accent-warm), color-mix(in oklab, #ffb47d 44%, var(--dg-accent-warm) 56%));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 24%, transparent);
+}
+.dg-btn-gradient-warm:hover { opacity: .92; }

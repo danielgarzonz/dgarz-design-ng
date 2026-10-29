@@ -1,0 +1,191 @@
+/* ---- Layout & Grid --------------------------------------- */
+.dg-container { width: 100%; max-width: var(--dg-container); margin-inline: auto; padding-inline: var(--dg-space-5); }
+.dg-container-narrow { max-width: 760px; }
+.dg-container-wide { max-width: 1320px; }
+
+/* Mobile-first 12-col grid. Base `.dg-col-N` applies at all widths;
+   use `.dg-col-{sm,md,lg,xl}-N` to change span per breakpoint. */
+.dg-row { display: flex; flex-wrap: wrap; gap: var(--dg-gutter); }
+[class*="dg-col"] { flex: 1 1 0%; min-width: 0; }
+/* Explicit rule for the bare "equal width" column — redundant with the substring
+   selector above, but makes `class="dg-col"` (no -N) discoverable in the CSS. */
+.dg-col { flex: 1 1 0%; min-width: 0; }
+
+.dg-col-auto { flex: 0 0 auto; width: auto; }
+.dg-col-1  { flex: 0 0 auto; width: calc(8.3333% - var(--dg-gutter) * 11/12); }
+.dg-col-2  { flex: 0 0 auto; width: calc(16.6667% - var(--dg-gutter) * 10/12); }
+.dg-col-3  { flex: 0 0 auto; width: calc(25% - var(--dg-gutter) * 9/12); }
+.dg-col-4  { flex: 0 0 auto; width: calc(33.3333% - var(--dg-gutter) * 8/12); }
+.dg-col-5  { flex: 0 0 auto; width: calc(41.6667% - var(--dg-gutter) * 7/12); }
+.dg-col-6  { flex: 0 0 auto; width: calc(50% - var(--dg-gutter) / 2); }
+.dg-col-7  { flex: 0 0 auto; width: calc(58.3333% - var(--dg-gutter) * 5/12); }
+.dg-col-8  { flex: 0 0 auto; width: calc(66.6667% - var(--dg-gutter) * 4/12); }
+.dg-col-9  { flex: 0 0 auto; width: calc(75% - var(--dg-gutter) * 3/12); }
+.dg-col-10 { flex: 0 0 auto; width: calc(83.3333% - var(--dg-gutter) * 2/12); }
+.dg-col-11 { flex: 0 0 auto; width: calc(91.6667% - var(--dg-gutter) * 1/12); }
+.dg-col-12 { flex: 0 0 auto; width: 100%; }
+
+/* Offsets */
+.dg-offset-1  { margin-left: 8.3333%; }
+.dg-offset-2  { margin-left: 16.6667%; }
+.dg-offset-3  { margin-left: 25%; }
+.dg-offset-4  { margin-left: 33.3333%; }
+.dg-offset-6  { margin-left: 50%; }
+
+/* sm ≥ 576px */
+@media (min-width: 576px) {
+  .dg-col-sm-1  { flex: 0 0 auto; width: calc(8.3333% - var(--dg-gutter) * 11/12); }
+  .dg-col-sm-2  { flex: 0 0 auto; width: calc(16.6667% - var(--dg-gutter) * 10/12); }
+  .dg-col-sm-3  { flex: 0 0 auto; width: calc(25% - var(--dg-gutter) * 9/12); }
+  .dg-col-sm-4  { flex: 0 0 auto; width: calc(33.3333% - var(--dg-gutter) * 8/12); }
+  .dg-col-sm-5  { flex: 0 0 auto; width: calc(41.6667% - var(--dg-gutter) * 7/12); }
+  .dg-col-sm-6  { flex: 0 0 auto; width: calc(50% - var(--dg-gutter) / 2); }
+  .dg-col-sm-7  { flex: 0 0 auto; width: calc(58.3333% - var(--dg-gutter) * 5/12); }
+  .dg-col-sm-8  { flex: 0 0 auto; width: calc(66.6667% - var(--dg-gutter) * 4/12); }
+  .dg-col-sm-9  { flex: 0 0 auto; width: calc(75% - var(--dg-gutter) * 3/12); }
+  .dg-col-sm-10 { flex: 0 0 auto; width: calc(83.3333% - var(--dg-gutter) * 2/12); }
+  .dg-col-sm-11 { flex: 0 0 auto; width: calc(91.6667% - var(--dg-gutter) * 1/12); }
+  .dg-col-sm-12 { flex: 0 0 auto; width: 100%; }
+}
+
+/* md ≥ 768px */
+@media (min-width: 768px) {
+  .dg-col-md-1  { flex: 0 0 auto; width: calc(8.3333% - var(--dg-gutter) * 11/12); }
+  .dg-col-md-2  { flex: 0 0 auto; width: calc(16.6667% - var(--dg-gutter) * 10/12); }
+  .dg-col-md-3  { flex: 0 0 auto; width: calc(25% - var(--dg-gutter) * 9/12); }
+  .dg-col-md-4  { flex: 0 0 auto; width: calc(33.3333% - var(--dg-gutter) * 8/12); }
+  .dg-col-md-5  { flex: 0 0 auto; width: calc(41.6667% - var(--dg-gutter) * 7/12); }
+  .dg-col-md-6  { flex: 0 0 auto; width: calc(50% - var(--dg-gutter) / 2); }
+  .dg-col-md-7  { flex: 0 0 auto; width: calc(58.3333% - var(--dg-gutter) * 5/12); }
+  .dg-col-md-8  { flex: 0 0 auto; width: calc(66.6667% - var(--dg-gutter) * 4/12); }
+  .dg-col-md-9  { flex: 0 0 auto; width: calc(75% - var(--dg-gutter) * 3/12); }
+  .dg-col-md-10 { flex: 0 0 auto; width: calc(83.3333% - var(--dg-gutter) * 2/12); }
+  .dg-col-md-11 { flex: 0 0 auto; width: calc(91.6667% - var(--dg-gutter) * 1/12); }
+  .dg-col-md-12 { flex: 0 0 auto; width: 100%; }
+}
+
+/* lg ≥ 992px */
+@media (min-width: 992px) {
+  .dg-col-lg-1  { flex: 0 0 auto; width: calc(8.3333% - var(--dg-gutter) * 11/12); }
+  .dg-col-lg-2  { flex: 0 0 auto; width: calc(16.6667% - var(--dg-gutter) * 10/12); }
+  .dg-col-lg-3  { flex: 0 0 auto; width: calc(25% - var(--dg-gutter) * 9/12); }
+  .dg-col-lg-4  { flex: 0 0 auto; width: calc(33.3333% - var(--dg-gutter) * 8/12); }
+  .dg-col-lg-5  { flex: 0 0 auto; width: calc(41.6667% - var(--dg-gutter) * 7/12); }
+  .dg-col-lg-6  { flex: 0 0 auto; width: calc(50% - var(--dg-gutter) / 2); }
+  .dg-col-lg-7  { flex: 0 0 auto; width: calc(58.3333% - var(--dg-gutter) * 5/12); }
+  .dg-col-lg-8  { flex: 0 0 auto; width: calc(66.6667% - var(--dg-gutter) * 4/12); }
+  .dg-col-lg-9  { flex: 0 0 auto; width: calc(75% - var(--dg-gutter) * 3/12); }
+  .dg-col-lg-10 { flex: 0 0 auto; width: calc(83.3333% - var(--dg-gutter) * 2/12); }
+  .dg-col-lg-11 { flex: 0 0 auto; width: calc(91.6667% - var(--dg-gutter) * 1/12); }
+  .dg-col-lg-12 { flex: 0 0 auto; width: 100%; }
+}
+
+/* xl ≥ 1200px */
+@media (min-width: 1200px) {
+  .dg-col-xl-1  { flex: 0 0 auto; width: calc(8.3333% - var(--dg-gutter) * 11/12); }
+  .dg-col-xl-2  { flex: 0 0 auto; width: calc(16.6667% - var(--dg-gutter) * 10/12); }
+  .dg-col-xl-3  { flex: 0 0 auto; width: calc(25% - var(--dg-gutter) * 9/12); }
+  .dg-col-xl-4  { flex: 0 0 auto; width: calc(33.3333% - var(--dg-gutter) * 8/12); }
+  .dg-col-xl-5  { flex: 0 0 auto; width: calc(41.6667% - var(--dg-gutter) * 7/12); }
+  .dg-col-xl-6  { flex: 0 0 auto; width: calc(50% - var(--dg-gutter) / 2); }
+  .dg-col-xl-7  { flex: 0 0 auto; width: calc(58.3333% - var(--dg-gutter) * 5/12); }
+  .dg-col-xl-8  { flex: 0 0 auto; width: calc(66.6667% - var(--dg-gutter) * 4/12); }
+  .dg-col-xl-9  { flex: 0 0 auto; width: calc(75% - var(--dg-gutter) * 3/12); }
+  .dg-col-xl-10 { flex: 0 0 auto; width: calc(83.3333% - var(--dg-gutter) * 2/12); }
+  .dg-col-xl-11 { flex: 0 0 auto; width: calc(91.6667% - var(--dg-gutter) * 1/12); }
+  .dg-col-xl-12 { flex: 0 0 auto; width: 100%; }
+}
+
+@media (max-width: 575px) { .dg-row { gap: var(--dg-space-4); } }
+
+/* Auto-fit card grid */
+.dg-grid { display: grid; gap: var(--dg-gutter); }
+.dg-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.dg-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.dg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.dg-grid-auto { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+@media (max-width: 768px) {
+  .dg-grid-2, .dg-grid-3, .dg-grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Fine breakpoint for auto-fit grids of cards (module/home menus): at 220px
+   minmax, two columns still fit at 640px but look desktop-sized — tighten them. */
+@media (max-width: 640px) {
+  .dg-grid.dg-grid-auto { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dg-space-3); }
+  .dg-grid.dg-grid-auto .dg-card { min-height: 150px; }
+  .dg-grid.dg-grid-auto .dg-card-body { padding: var(--dg-space-3); }
+  .dg-grid.dg-grid-auto .dg-avatar { width: 36px; height: 36px; font-size: 1rem; }
+}
+
+.dg-section { padding-block: var(--dg-space-8); }
+.dg-stack { display: flex; flex-direction: column; gap: var(--dg-space-4); }
+.dg-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--dg-space-3); }
+
+/* ---- Action bar --------------------------------------------
+   Each button keeps the width of its own label (no more, no less) instead
+   of being squeezed into a grid column. Wraps to a new row when it runs
+   out of space — no framework can promise one line for every label at
+   every viewport. Pair with .dg-actions-search for a search field that
+   grows to fill the remaining space. */
+.dg-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--dg-actions-gap);
+}
+.dg-actions > :is(button, .dg-btn) {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+}
+/* Escape hatch for a label too long to fit any viewport on one line. */
+.dg-actions > .dg-actions-wrap { white-space: normal; }
+.dg-actions > .dg-actions-search {
+  flex: 1 1 var(--dg-actions-search-basis);
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/* Page container with its own scroll — footer sticks to the bottom of short content,
+   scrolls normally when content overflows. For app-shell layouts with a fixed viewport height. */
+.dg-page-scroll {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.dg-page-scroll > footer { flex-shrink: 0; margin-top: auto; }
+
+/* ============================================================
+   .dg-auto — semantic HTML auto-styling contract
+   ============================================================
+   Headings (h1–h6), paragraphs, and lists already get dgarz's look with
+   zero classes, unconditionally — that's been true since the base reset.
+   Buttons and form controls don't, because turning every bare <button>/
+   <input> on a page into a styled pill/field unconditionally would be a
+   breaking, unpredictable default for any consumer mixing this framework
+   with plain native controls. Those need an explicit opt-in: add
+   class="dg-auto" to <html>/<body> (global adoption, every page) or to
+   any single container (scoped adoption for a gradual migration that
+   still has to coexist with another framework's controls elsewhere).
+
+   Covered while classless (no `class` attribute at all — the instant an
+   element carries one, its own classes take over and this contract no
+   longer applies to it):
+     - button, input[type=submit|button|reset]  → same rules as .dg-btn
+     - input[text-like types] (default type included), textarea, select
+       → same rules as .dg-input / .dg-textarea / .dg-select
+     - label  → same rules as .dg-label
+     - table  → same rules as .dg-table
+
+   Not covered yet: checkbox/radio/file/range inputs (they need a visual
+   companion element, not a text-field treatment) and <a> (an unconditional
+   underline on every bare link — nav, footer, cards — is likely an
+   unwanted default; use .dg-link explicitly until this is designed).
+
+   Every rule above is declared as `.dg-real-class, :where(.dg-auto) tag:not([class])`
+   — the SAME declarations, not a second implementation — and :where()
+   keeps the semantic selector's specificity at zero. That's what lets a
+   variant class (`dg-btn-outline`, a consumer's own CSS) win over the
+   auto-styled base without a single !important anywhere in this file. */

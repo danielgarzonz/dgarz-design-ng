@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import { CHANGELOG } from "../../data/changelog";
+
+const latest = CHANGELOG[0];
+---
+
+<Layout title="Changelog" lead="Todo lo que cambia en dgarz design, versión por versión." currentHref="/comenzar/changelog">
+  <div class="changelog-list">
+    {CHANGELOG.map((release, i) => (
+      <div class="dg-card changelog-item">
+        <div class="dg-card-body">
+          <div class="changelog-item-head">
+            <div class="changelog-item-title">
+              <span class="dg-eyebrow">v{release.version}</span>
+              {i === 0 && <span class="dg-badge dg-badge-solid">Última</span>}
+            </div>
+            <div class="changelog-item-meta">
+              <time datetime={release.date}>{release.date}</time>
+              <a href={`https://www.npmjs.com/package/dgarz-design/v/${release.version}`} target="_blank" rel="noopener">npm ↗</a>
+            </div>
+          </div>
+          <p class="dg-muted dg-text-sm dg-mt-2 dg-mb-3">{release.summary}</p>
+          <ul class="changelog-highlights">
+            {release.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="dg-muted dg-text-sm dg-mt-6">
+    dgarz design sigue <a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a>.
+    Historial completo en el <a href="https://github.com/dgarzonz/dgarz-design/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a> del repo.
+  </p>
+</Layout>
+
+<style>
+  .changelog-list { display: flex; flex-direction: column; gap: var(--dg-space-4); }
+  .changelog-item-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: var(--dg-space-4); flex-wrap: wrap;
+  }
+  .changelog-item-title { display: flex; align-items: center; gap: var(--dg-space-3); }
+  .changelog-item-title .dg-eyebrow { margin: 0; }
+  .changelog-item-meta {
+    display: flex; align-items: center; gap: var(--dg-space-3);
+    font-size: var(--dg-text-xs); color: var(--dg-text-faint);
+  }
+  .changelog-item-meta a { color: var(--dg-text-faint); }
+  .changelog-item-meta a:hover { color: var(--dg-text); }
+  .changelog-highlights {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: var(--dg-space-2);
+  }
+  .changelog-highlights li {
+    position: relative; padding-left: 1.1em;
+    font-size: var(--dg-text-sm); color: var(--dg-text);
+  }
+  .changelog-highlights li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--dg-text-faint);
+  }
+</style>

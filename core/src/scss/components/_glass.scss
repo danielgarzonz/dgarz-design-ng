@@ -1,0 +1,147 @@
+/* ============================================================
+   SURFACE FX — glassmorphism · liquid glass · gradients
+   Opt-in visual layer for cards, panels, buttons and shells
+   ============================================================ */
+
+.dg-surface-glass,
+.dg-glass {
+  position: relative;
+  background: color-mix(in oklab, var(--dg-surface) 34%, transparent);
+  backdrop-filter: blur(var(--dg-glass-blur)) saturate(130%);
+  -webkit-backdrop-filter: blur(var(--dg-glass-blur)) saturate(130%);
+  border: 1px solid color-mix(in oklab, #fff 14%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 18%, transparent),
+    0 3px 12px color-mix(in oklab, #000 4%, transparent);
+}
+
+.dg-surface-glass-strong,
+.dg-glass-strong {
+  position: relative;
+  background: color-mix(in oklab, var(--dg-surface) 26%, transparent);
+  backdrop-filter: blur(var(--dg-glass-blur-strong)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--dg-glass-blur-strong)) saturate(150%);
+  border: 1px solid color-mix(in oklab, #fff 12%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 14%, transparent),
+    0 4px 18px color-mix(in oklab, #000 5%, transparent);
+}
+
+.dg-surface-glass-dark,
+.dg-glass-dark {
+  position: relative;
+  background: color-mix(in oklab, #000 32%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid color-mix(in oklab, #fff 8%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 7%, transparent),
+    0 8px 28px color-mix(in oklab, #000 20%, transparent);
+  color: #fff;
+}
+
+
+.dg-surface-gradient {
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--dg-surface) 88%, var(--dg-accent-3) 12%),
+      color-mix(in oklab, var(--dg-surface) 92%, #fff 8%)
+    );
+  box-shadow:
+    0 10px 24px color-mix(in oklab, #000 6%, transparent),
+    inset 0 1px 0 color-mix(in oklab, #fff 34%, transparent);
+}
+
+.dg-surface-gradient-cool {
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--dg-accent) 24%, #fff 76%),
+      color-mix(in oklab, var(--dg-accent-violet) 14%, #fff 86%)
+    );
+  box-shadow:
+    0 12px 28px color-mix(in oklab, var(--dg-accent) 12%, transparent),
+    inset 0 1px 0 color-mix(in oklab, #fff 36%, transparent);
+}
+
+.dg-surface-gradient-warm {
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--dg-accent-warm) 20%, #fff 80%),
+      color-mix(in oklab, #f7eee4 88%, var(--dg-accent-warm) 12%)
+    );
+  box-shadow:
+    0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 12%, transparent),
+    inset 0 1px 0 color-mix(in oklab, #fff 34%, transparent);
+}
+
+.dg-surface-gradient-aurora {
+  background:
+    radial-gradient(circle at 18% 18%, color-mix(in oklab, var(--dg-accent-2) 50%, transparent) 0, transparent 28%),
+    radial-gradient(circle at 82% 8%, color-mix(in oklab, var(--dg-accent-violet) 44%, transparent) 0, transparent 30%),
+    radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--dg-accent-mint) 24%, transparent) 0, transparent 36%),
+    linear-gradient(145deg,
+      color-mix(in oklab, #fff 92%, var(--dg-accent-3) 8%),
+      color-mix(in oklab, #eef4ff 72%, #fff 28%)
+    );
+  box-shadow:
+    0 12px 30px color-mix(in oklab, var(--dg-accent-violet) 10%, transparent),
+    inset 0 1px 0 color-mix(in oklab, #fff 34%, transparent);
+}
+
+.dg-surface-mesh {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--dg-accent) 12%, transparent) 0, transparent 20%),
+    radial-gradient(circle at 84% 14%, color-mix(in oklab, var(--dg-accent-violet) 14%, transparent) 0, transparent 24%),
+    radial-gradient(circle at 70% 82%, color-mix(in oklab, var(--dg-accent-mint) 10%, transparent) 0, transparent 18%),
+    linear-gradient(180deg, color-mix(in oklab, var(--dg-surface) 98%, #fff 2%), color-mix(in oklab, var(--dg-surface-2) 94%, #fff 6%));
+}
+
+.dg-surface-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.dg-surface-shine::after {
+  content: "";
+  position: absolute;
+  inset: -32% auto -32% -8%;
+  width: 44%;
+  transform: rotate(16deg);
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, #fff 0%, transparent) 18%,
+    color-mix(in oklab, #fff 26%, transparent) 52%,
+    transparent 100%
+  );
+  opacity: .6;
+}
+
+.dg-surface-noise {
+  background-image:
+    radial-gradient(color-mix(in oklab, #fff 26%, transparent) .75px, transparent .75px),
+    linear-gradient(180deg, transparent, transparent);
+  background-size: 10px 10px, auto;
+  background-position: 0 0, 0 0;
+}
+
+.dg-glass-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.4em 0.9em;
+  border-radius: var(--dg-radius-pill);
+  font-size: var(--dg-text-xs);
+  font-weight: var(--dg-weight-medium);
+  line-height: 1;
+  background: color-mix(in oklab, var(--dg-surface) 44%, transparent);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid color-mix(in oklab, #fff 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 24%, transparent),
+    0 3px 10px color-mix(in oklab, #000 4%, transparent);
+}

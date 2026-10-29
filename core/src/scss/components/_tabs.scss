@@ -1,0 +1,32 @@
+/* ---- Tabs ------------------------------------------------- */
+.dg-tabs { display: flex; gap: var(--dg-space-1); border-bottom: 1px solid var(--dg-border); }
+.dg-tab {
+  position: relative; padding: 0.7em 1em; font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium);
+  color: var(--dg-text-muted); background: none; border: none; cursor: pointer;
+  transition: color var(--dg-dur) var(--dg-ease);
+}
+.dg-tab:hover { color: var(--dg-text); }
+.dg-tab.is-active { color: var(--dg-text); }
+.dg-tab.is-active::after { content: ""; position: absolute; left: 0.6em; right: 0.6em; bottom: -1px; height: 2px; background: var(--dg-text); border-radius: 2px; }
+
+/* Segmented (pill) control */
+.dg-segmented { display: inline-flex; padding: 4px; background: var(--dg-surface-3); border-radius: var(--dg-radius-pill); gap: 2px; }
+.dg-segmented button { padding: 0.45em 1em; font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium); border-radius: var(--dg-radius-pill); color: var(--dg-text-muted); transition: all var(--dg-dur) var(--dg-ease); }
+.dg-segmented button.is-active { background: var(--dg-surface); color: var(--dg-text); box-shadow: var(--dg-shadow-1); }
+
+/* ---- Tabs: pill & enclosed variants ----------------------- */
+.dg-tabs-pill { border-bottom: none; gap: var(--dg-space-1); }
+.dg-tabs-pill .dg-tab { border-radius: var(--dg-radius-pill); }
+.dg-tabs-pill .dg-tab.is-active { background: var(--dg-solid); color: var(--dg-on-solid); }
+.dg-tabs-pill .dg-tab.is-active::after { display: none; }
+
+/* Enclosed / card-style tabs */
+.dg-tabs-enclosed { border-bottom: 1px solid var(--dg-border); gap: 0; }
+.dg-tabs-enclosed .dg-tab {
+  border: 1px solid transparent; border-bottom: none;
+  border-radius: var(--dg-radius-sm) var(--dg-radius-sm) 0 0; margin-bottom: -1px;
+}
+.dg-tabs-enclosed .dg-tab.is-active {
+  background: var(--dg-surface); border-color: var(--dg-border); color: var(--dg-text);
+}
+.dg-tabs-enclosed .dg-tab.is-active::after { display: none; }

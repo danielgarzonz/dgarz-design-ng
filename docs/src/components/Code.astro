@@ -1,0 +1,12 @@
+---
+interface Props {
+  lang?: string;   // 'html' | 'css' | 'js' | 'bash' — default: 'html'
+  file?: string;   // optional filename shown in the chrome bar
+}
+const { lang = 'html', file } = Astro.props;
+const label = file || lang;
+---
+<div class="doc-code" data-lang={label}>
+  <button class="cp">Copiar</button>
+  <pre><slot /></pre>
+</div>

@@ -1,0 +1,66 @@
+{
+  "name": "dgarz-design",
+  "version": "1.2.0",
+  "description": "A minimal, monochrome, performance-first CSS framework. Elegant serif headings, pill shapes, full light/dark theming. Zero dependencies, one file.",
+  "main": "dist/dgarz.js",
+  "module": "dist/dgarz.esm.js",
+  "style": "dist/dgarz.css",
+  "jsdelivr": "dist/dgarz.full.min.css",
+  "unpkg": "dist/dgarz.full.min.css",
+  "exports": {
+    ".": {
+      "import": "./dist/dgarz.esm.js",
+      "require": "./dist/dgarz.js",
+      "default": "./dist/dgarz.js"
+    },
+    "./css": "./dist/dgarz.css",
+    "./css/min": "./dist/dgarz.min.css",
+    "./full": "./dist/dgarz.full.css",
+    "./full/min": "./dist/dgarz.full.min.css",
+    "./app": "./dist/dgarz-app.css",
+    "./app/min": "./dist/dgarz-app.min.css",
+    "./icons": "./dist/dgarz-icons.svg"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build:css": "sass src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
+    "build:css:min": "npx clean-css-cli -o dist/dgarz.min.css dist/dgarz.css && npx clean-css-cli -o dist/dgarz.full.min.css dist/dgarz.full.css && npx clean-css-cli -o dist/dgarz-app.min.css dist/dgarz-app.css",
+    "build:js": "vite build && npx terser dist/dgarz.js --compress --mangle -o dist/dgarz.min.js",
+    "build:icons": "cp src/icons/dgarz-icons.svg dist/dgarz-icons.svg",
+    "build": "npm run build:css && npm run build:css:min && npm run build:js && npm run build:icons",
+    "dev": "sass --watch src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "design-system",
+    "ui",
+    "monochrome",
+    "minimal",
+    "dark-mode",
+    "components",
+    "dgarz"
+  ],
+  "author": "dgarz design",
+  "license": "MIT",
+  "homepage": "https://github.com/dgarzonz/dgarz-design#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgarzonz/dgarz-design.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dgarzonz/dgarz-design/issues"
+  },
+  "devDependencies": {
+    "sass": "^1.86.0",
+    "vite": "^6.0.0"
+  }
+}

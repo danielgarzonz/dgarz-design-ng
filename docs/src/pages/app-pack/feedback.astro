@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Skeleton loaders</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-2">
+          <div class="dg-card"><div class="dg-card-body">
+            <div class="dg-cluster dg-mb-4">
+              <div class="dg-skeleton dg-skeleton-circle dg-size-40 dg-no-shrink"></div>
+              <div class="dg-grow">
+                <div class="dg-skeleton dg-skeleton-text dg-w-60p"></div>
+                <div class="dg-skeleton dg-skeleton-text dg-w-40p"></div>
+              </div>
+            </div>
+            <div class="dg-skeleton dg-skeleton-text"></div>
+            <div class="dg-skeleton dg-skeleton-text dg-w-85p"></div>
+            <div class="dg-skeleton dg-skeleton-text dg-w-50p"></div>
+          </div></div>
+          <div class="dg-card">
+            <div class="dg-skeleton dg-h-140 dg-rounded-0"></div>
+            <div class="dg-card-body">
+              <div class="dg-skeleton dg-skeleton-text dg-w-70p"></div>
+              <div class="dg-skeleton dg-skeleton-text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Línea de texto --&gt;
+&lt;div class="dg-skeleton dg-skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="dg-skeleton dg-skeleton-text dg-w-60p"&gt;&lt;/div&gt;
+
+&lt;!-- Círculo (avatar) --&gt;
+&lt;div class="dg-skeleton dg-skeleton-circle dg-size-40"&gt;&lt;/div&gt;
+
+&lt;!-- Imagen rectangular --&gt;
+&lt;div class="dg-skeleton dg-h-160"&gt;&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Empty state</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-card dg-max-w-sm dg-mx-auto">
+          <div class="dg-empty">
+            <span class="dg-empty-icon"><svg class="dg-icon dg-icon-lg"><use href="#dg-inbox"/></svg></span>
+            <div class="dg-empty-title">Sin resultados</div>
+            <p>No encontramos nada con esos filtros. Prueba a ampliar la búsqueda.</p>
+            <button class="dg-btn dg-btn-primary dg-btn-sm">Acción principal</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-empty"&gt;
+  &lt;div class="dg-empty-icon"&gt;
+    &lt;svg class="dg-icon dg-icon-lg"&gt;&lt;use href="dgarz-icons.svg#dg-inbox"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-empty-title"&gt;Sin resultados&lt;/div&gt;
+  &lt;p&gt;Descripción breve del estado vacío.&lt;/p&gt;
+  &lt;button class="dg-btn dg-btn-primary dg-btn-sm"&gt;Acción principal&lt;/button&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Skeleton & Empty" lead="Estados de carga y pantallas vacías." currentHref="/app-pack/feedback">
+  <Fragment set:html={pageContent} />
+</Layout>

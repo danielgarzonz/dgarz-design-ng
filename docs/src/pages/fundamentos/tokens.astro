@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Radios de borde</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        El sistema prioriza la forma pill. Los radios más pequeños se usan en elementos internos (badges, code);
+        los grandes en tarjetas y modales; pill en botones y controles principales.
+      </p>
+      <div class="dg-cluster dg-gap-5 dg-wrap">
+        <div class="token-box"><div class="demo-sq dg-w-72 dg-h-56 dg-rounded-sm"></div><span class="lbl">sm · 8px</span></div>
+        <div class="token-box"><div class="demo-sq dg-w-72 dg-h-56 dg-rounded"></div><span class="lbl">base · 14px</span></div>
+        <div class="token-box"><div class="demo-sq dg-w-72 dg-h-56 dg-rounded-lg"></div><span class="lbl">lg · 22px</span></div>
+        <div class="token-box"><div class="demo-sq dg-w-72 dg-h-56 dg-rounded-xl"></div><span class="lbl">xl · 30px</span></div>
+        <div class="token-box"><div class="demo-sq dg-w-72 dg-h-56 dg-rounded-pill"></div><span class="lbl">pill · 999px</span></div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Radios disponibles */
+border-radius: var(--dg-radius-sm);    /* 8px  — code, kbd, badges */
+border-radius: var(--dg-radius);       /* 14px — inputs, alertas */
+border-radius: var(--dg-radius-lg);    /* 22px — cards, accordions */
+border-radius: var(--dg-radius-xl);    /* 30px — modales */
+border-radius: var(--dg-radius-pill);  /* 999px — botones, tags */
+
+/* Clases utilitarias equivalentes */
+&lt;div class="dg-rounded"&gt;…&lt;/div&gt;        /* --dg-radius */
+&lt;div class="dg-rounded-lg"&gt;…&lt;/div&gt;     /* --dg-radius-lg */
+&lt;div class="dg-rounded-pill"&gt;…&lt;/div&gt;   /* --dg-radius-pill */</pre></div>
+
+      <div class="doc-sub">Motion (transiciones)</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Duración y easing estándar del sistema */
+transition: background var(--dg-dur) var(--dg-ease);
+/* --dg-dur  = 0.18s */
+/* --dg-ease = cubic-bezier(.2, .6, .2, 1) */
+
+/* Clase utilitaria */
+&lt;div class="dg-transition"&gt;…&lt;/div&gt;   /* aplica transition:all --dg-dur --dg-ease */
+
+/* Respetar preferencias de movimiento reducido (ya incluido en el framework) */
+@media (prefers-reduced-motion: reduce) {
+  /* El framework desactiva animaciones automáticamente */
+}</pre></div>`;
+---
+
+<Layout title="Tokens" lead="Espaciado, radio, sombras y motion tokens del sistema." currentHref="/fundamentos/tokens">
+  <Fragment set:html={pageContent} />
+</Layout>

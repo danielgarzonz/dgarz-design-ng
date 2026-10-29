@@ -1,0 +1,348 @@
+/* ---- Modal ------------------------------------------------ */
+.dg-modal-backdrop {
+  position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+  padding: var(--dg-space-5); background: color-mix(in oklab, var(--dg-950) 22%, transparent);
+  animation: dg-fade var(--dg-dur) var(--dg-ease) both;
+}
+.dg-modal-backdrop[hidden] {
+  display: flex !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  animation: none !important;
+}
+@keyframes dg-fade { from { opacity: 0; } to { opacity: 1; } }
+.dg-modal {
+  width: 100%; max-width: 460px;
+  background: color-mix(in oklab, var(--dg-surface) 80%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in oklab, var(--dg-text) 16%, transparent);
+  border-radius: var(--dg-radius-xl);
+  /* Exposed as a custom property (not just a shadow value) so .dg-modal-glow
+     can layer its animated halo on top of whichever shadow is active —
+     the glass default here or .is-solid below — instead of replacing it. */
+  --dg-modal-shadow:
+    inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
+    0 6px 28px color-mix(in oklab, #000 7%, transparent);
+  box-shadow: var(--dg-modal-shadow);
+  overflow: hidden; isolation: isolate; animation: dg-modal-in var(--dg-dur) var(--dg-ease) both;
+}
+@keyframes dg-modal-in { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
+
+/* ---- Modal surface variants ------------------------------- */
+.dg-modal.is-solid {
+  background: var(--dg-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--dg-border);
+  --dg-modal-shadow: var(--dg-shadow-2);
+  box-shadow: var(--dg-modal-shadow);
+}
+.dg-modal.is-solid .dg-modal-header { border-bottom-color: var(--dg-border); }
+.dg-modal.is-solid .dg-modal-footer { border-top-color: var(--dg-border); background: var(--dg-surface-2); }
+
+
+.dg-modal-header {
+  padding: var(--dg-space-5) var(--dg-space-5) var(--dg-space-4);
+  border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
+}
+.dg-modal-title { font-family: var(--dg-font-heading); font-size: var(--dg-modal-title-size); font-weight: var(--dg-modal-title-weight); color: var(--dg-text); }
+.dg-modal-body { padding: var(--dg-space-5); color: var(--dg-text-muted); }
+.dg-modal-footer {
+  padding: var(--dg-space-4) var(--dg-space-5);
+  border-top: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
+  display: flex; align-items: center; justify-content: center; gap: var(--dg-space-3);
+  background: color-mix(in oklab, var(--dg-surface-2) 14%, transparent);
+}
+.dg-modal-footer .dg-btn { min-width: 110px; }
+
+/* ---- Modal: sizes, close, icon/confirm, scrollable -------- */
+.dg-modal-sm   { max-width: 360px; }
+.dg-modal-lg   { max-width: 640px; }
+.dg-modal-xl   { max-width: 840px; }
+.dg-modal-full { max-width: min(1100px, 94vw); }
+.dg-modal-close {
+  position: absolute; top: var(--dg-space-4); right: var(--dg-space-4);
+  width: 34px; height: 34px; border-radius: var(--dg-radius-pill);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--dg-text-muted); transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-modal-close:hover { background: var(--dg-surface-2); color: var(--dg-text); }
+.dg-modal { position: relative; display: flex; flex-direction: column; max-height: calc(100vh - var(--dg-space-7)); }
+.dg-modal-body { overflow-y: auto; }
+.dg-modal-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--dg-space-4); }
+
+/* Centered confirmation with icon */
+.dg-modal-confirm { text-align: center; }
+.dg-modal-confirm .dg-modal-icon { width: 56px; height: 56px; margin: var(--dg-space-5) auto var(--dg-space-2); animation: dg-icon-pop .5s cubic-bezier(.34,1.56,.64,1) both; }
+.dg-modal-confirm .dg-modal-footer { justify-content: center; border-top: none; }
+@keyframes dg-icon-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+
+/* dgConfirm/dgAlert/dgPrompt (src/js/confirm.js) — inline error shown when preConfirm rejects */
+.dg-confirm-error {
+  margin-top: var(--dg-space-3);
+  padding: var(--dg-space-3) var(--dg-space-4);
+  border-radius: var(--dg-radius);
+  background: var(--dg-danger-bg);
+  color: var(--dg-danger);
+  font-size: var(--dg-text-xs);
+  text-align: left;
+}
+
+/* Base icon — usable standalone or inside header-row */
+.dg-modal-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
+  background: var(--dg-surface-3); color: var(--dg-text);
+}
+.dg-modal-icon.is-success { background: var(--dg-success-bg); color: var(--dg-success); }
+.dg-modal-icon.is-warning { background: var(--dg-warning-bg); color: var(--dg-warning); }
+.dg-modal-icon.is-danger  { background: var(--dg-danger-bg);  color: var(--dg-danger); }
+.dg-modal-icon.is-info    { background: var(--dg-info-bg);    color: var(--dg-info); }
+
+/* ---- Modal positions -------------------------------------- */
+/* The backdrop fills the viewport; these align the dialog to an edge. */
+.dg-modal-backdrop.dg-pos-top    { align-items: flex-start; }
+.dg-modal-backdrop.dg-pos-bottom { align-items: flex-end; }
+.dg-modal-backdrop.dg-pos-left   { justify-content: flex-start; }
+.dg-modal-backdrop.dg-pos-right  { justify-content: flex-end; }
+
+/* Direction-aware entrance */
+.dg-pos-top    .dg-modal { animation: dg-modal-down var(--dg-dur) var(--dg-ease); }
+.dg-pos-bottom .dg-modal { animation: dg-modal-up   var(--dg-dur) var(--dg-ease); }
+.dg-pos-left   .dg-modal { animation: dg-modal-inleft  var(--dg-dur) var(--dg-ease); }
+.dg-pos-right  .dg-modal { animation: dg-modal-inright var(--dg-dur) var(--dg-ease); }
+@keyframes dg-modal-down    { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-up      { from { opacity: 0; transform: translateY(24px); }  to { opacity: 1; transform: none; } }
+@keyframes dg-modal-inleft  { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-inright { from { opacity: 0; transform: translateX(28px); }  to { opacity: 1; transform: none; } }
+
+/* ---- Exit animations (via JS .is-closing class) ----------- */
+/* ease-in cubic + duración 0.26s — más perceptible que la entrada */
+@keyframes dg-modal-out       { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(18px) scale(.94); } }
+@keyframes dg-fade-out        { from { opacity: 1; }                    to { opacity: 0; } }
+@keyframes dg-drawer-out      { from { transform: none; }               to { transform: translateX(110%); } }
+@keyframes dg-drawer-out-left { from { transform: none; }               to { transform: translateX(-110%); } }
+@keyframes dg-menu-out        { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(-6px) scale(.97); } }
+
+.dg-modal.is-closing            { animation: dg-modal-out       .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-modal-backdrop.is-closing   { animation: dg-fade-out        .26s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
+.dg-drawer.is-closing           { animation: dg-drawer-out      .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-drawer.dg-drawer-left.is-closing { animation: dg-drawer-out-left .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-drawer-backdrop.is-closing  { animation: dg-fade-out        .26s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
+.dg-menu.is-closing             { animation: dg-menu-out        .18s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
+
+/* Exit animations for position-aware modals */
+.dg-pos-top    .dg-modal.is-closing { animation: dg-modal-pos-up-out    .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-pos-bottom .dg-modal.is-closing { animation: dg-modal-pos-down-out  .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-pos-left   .dg-modal.is-closing { animation: dg-modal-pos-left-out  .26s cubic-bezier(.4,0,1,1) forwards; }
+.dg-pos-right  .dg-modal.is-closing { animation: dg-modal-pos-right-out .26s cubic-bezier(.4,0,1,1) forwards; }
+@keyframes dg-modal-pos-up-out    { to { opacity: 0; transform: translateY(-22px); } }
+@keyframes dg-modal-pos-down-out  { to { opacity: 0; transform: translateY(22px); } }
+@keyframes dg-modal-pos-left-out  { to { opacity: 0; transform: translateX(-28px); } }
+@keyframes dg-modal-pos-right-out { to { opacity: 0; transform: translateX(28px); } }
+
+/* Toast/snackbar-style compact modal (great for top/bottom positions) */
+.dg-modal-bar { max-width: 520px; }
+
+/* ---- Modal status (accent + icon hero) --------------------
+   No border — status color comes through the icon, the tinted background
+   and (when paired with .dg-modal-glow) the inner glow instead. Same glass
+   treatment as the base modal (20% opacity cut, 10px blur), just lightly
+   tinted with the status color instead of plain surface. */
+.dg-modal-accent {
+  background: color-mix(in oklab, var(--dg-surface) 80%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+/* Doubled selector: matches .dg-modal.is-solid's specificity (two classes)
+   so this wins even if .is-solid is combined on the same element — a plain
+   .dg-modal-accent { border: none } would otherwise lose that fight. */
+.dg-modal.dg-modal-accent { border: none; }
+.dg-modal-accent.is-success { background: color-mix(in oklab, color-mix(in oklab, var(--dg-success) 7%, var(--dg-surface) 93%) 80%, transparent); }
+.dg-modal-accent.is-warning { background: color-mix(in oklab, color-mix(in oklab, var(--dg-warning) 7%, var(--dg-surface) 93%) 80%, transparent); }
+.dg-modal-accent.is-danger  { background: color-mix(in oklab, color-mix(in oklab, var(--dg-danger)  7%, var(--dg-surface) 93%) 80%, transparent); }
+.dg-modal-accent.is-info    { background: color-mix(in oklab, color-mix(in oklab, var(--dg-info)    7%, var(--dg-surface) 93%) 80%, transparent); }
+
+/* ---- Modal glow (opt-in) -----------------------------------
+   Add alongside .dg-modal for a slow-breathing color glow that washes the
+   INSIDE edges of the modal — call attention to a result modal (success/
+   error) while it's on screen without drawing an outer halo on the page
+   behind it. Reads the same .is-success/.is-warning/.is-danger/.is-info
+   status classes as .dg-modal-accent, so both can share one class on the
+   same element. Layers on top of --dg-modal-shadow (see .dg-modal) instead
+   of replacing it, so the modal doesn't lose its edge definition while the
+   glow pulses.
+
+   <div class="dg-modal is-solid dg-modal-glow is-success"> */
+.dg-modal-glow {
+  --dg-modal-glow-color: var(--dg-accent);
+  animation: dg-modal-glow-pulse 2.8s ease-in-out infinite;
+}
+.dg-modal-glow.is-success { --dg-modal-glow-color: var(--dg-success); }
+.dg-modal-glow.is-warning { --dg-modal-glow-color: var(--dg-warning); }
+.dg-modal-glow.is-danger  { --dg-modal-glow-color: var(--dg-danger); }
+.dg-modal-glow.is-info    { --dg-modal-glow-color: var(--dg-info); }
+
+@keyframes dg-modal-glow-pulse {
+  0%, 100% {
+    box-shadow: var(--dg-modal-shadow), inset 0 0 16px 1px color-mix(in oklab, var(--dg-modal-glow-color) 14%, transparent);
+  }
+  50% {
+    box-shadow: var(--dg-modal-shadow), inset 0 0 26px 2px color-mix(in oklab, var(--dg-modal-glow-color) 34%, transparent);
+  }
+}
+
+/* Duotone variant — a second stacked tone for a richer inner glow
+   (mint alongside the status color by default; warm on danger). */
+.dg-modal-glow.is-duotone {
+  --dg-modal-glow-color-2: var(--dg-accent-mint);
+  animation-name: dg-modal-glow-pulse-duotone;
+}
+.dg-modal-glow.is-duotone.is-danger { --dg-modal-glow-color-2: var(--dg-accent-warm); }
+
+@keyframes dg-modal-glow-pulse-duotone {
+  0%, 100% {
+    box-shadow: var(--dg-modal-shadow),
+      inset 0 0 10px 1px color-mix(in oklab, var(--dg-modal-glow-color) 12%, transparent),
+      inset 0 0 22px 6px color-mix(in oklab, var(--dg-modal-glow-color-2) 8%, transparent);
+  }
+  50% {
+    box-shadow: var(--dg-modal-shadow),
+      inset 0 0 16px 2px color-mix(in oklab, var(--dg-modal-glow-color) 32%, transparent),
+      inset 0 0 30px 8px color-mix(in oklab, var(--dg-modal-glow-color-2) 20%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* !important: once the animation stops, this competes as a normal static
+     rule — .dg-modal.is-solid (two classes) otherwise outranks the single
+     .dg-modal-glow class and the halo would silently disappear here. */
+  .dg-modal-glow {
+    animation: none !important;
+    box-shadow: var(--dg-modal-shadow), inset 0 0 20px 2px color-mix(in oklab, var(--dg-modal-glow-color) 22%, transparent) !important;
+  }
+}
+
+/* Registered so the browser can smoothly interpolate it in @keyframes below —
+   a plain custom property can't be animated, only typed/registered ones can. */
+@property --dg-modal-glow-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ---- Modal glow — spinning variant --------------------------
+   A thin gradient ring that travels around the modal's edge, instead of
+   .dg-modal-glow's uniform pulse. Same .is-success/.is-warning/.is-danger/
+   .is-info status classes — pick whichever effect fits, they're independent.
+
+   Masked to a thin ring via the padding + mask-composite:exclude trick, so
+   it only ever paints a couple of pixels at the very edge — nothing to
+   bleed into .dg-modal-header/.dg-modal-body's transparent backgrounds,
+   and no z-index tricks needed (a ::before naturally paints behind real
+   DOM children anyway).
+
+   The ring animates by rotating the gradient's angle (--dg-modal-glow-angle),
+   NOT by `transform: rotate()` on the element — animating transform on an
+   element that also uses mask-composite:exclude breaks the mask mid-animation
+   in Chromium (confirmed empirically: the ring degrades into a single
+   diagonal line instead of staying clipped). Rotating the gradient itself
+   keeps the masked element static and sidesteps that bug entirely.
+
+   <div class="dg-modal is-solid dg-modal-glow-spin is-success"> */
+.dg-modal-glow-spin {
+  --dg-modal-glow-color: var(--dg-accent);
+  position: relative;
+}
+.dg-modal-glow-spin.is-success { --dg-modal-glow-color: var(--dg-success); }
+.dg-modal-glow-spin.is-warning { --dg-modal-glow-color: var(--dg-warning); }
+.dg-modal-glow-spin.is-danger  { --dg-modal-glow-color: var(--dg-danger); }
+.dg-modal-glow-spin.is-info    { --dg-modal-glow-color: var(--dg-info); }
+
+.dg-modal-glow-spin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--dg-modal-glow-angle),
+    transparent 0deg,
+    color-mix(in oklab, var(--dg-modal-glow-color) 85%, transparent) 25deg,
+    transparent 75deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: dg-modal-glow-spin 3.2s linear infinite;
+}
+
+@keyframes dg-modal-glow-spin { to { --dg-modal-glow-angle: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-modal-glow-spin::before { animation: none !important; }
+}
+
+/* Hero area: icon + tag stacked and centered above the title */
+.dg-modal-status-hero {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--dg-space-2);
+  padding: var(--dg-space-6) var(--dg-space-5) 0;
+}
+/* Bigger badge, but the circle stays a subtle tint — the status color
+   lives in the icon glyph itself, same pairing as .dg-modal-confirm's
+   icon, just scaled up. */
+.dg-modal-status-hero .dg-modal-icon {
+  width: 76px; height: 76px;
+  animation: dg-icon-pop .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+.dg-modal-status-hero .dg-modal-icon svg,
+.dg-modal-status-hero .dg-modal-icon .dg-icon { width: 34px; height: 34px; }
+.dg-modal-status-hero .dg-modal-icon.is-success { background: var(--dg-success-bg); color: var(--dg-success); }
+.dg-modal-status-hero .dg-modal-icon.is-warning { background: var(--dg-warning-bg); color: var(--dg-warning); }
+.dg-modal-status-hero .dg-modal-icon.is-danger  { background: var(--dg-danger-bg);  color: var(--dg-danger); }
+.dg-modal-status-hero .dg-modal-icon.is-info    { background: var(--dg-info-bg);    color: var(--dg-info); }
+
+/* Title + message live together inside .dg-modal-body (no separate header).
+   Full-strength text color, not the usual muted body tone — a status
+   message needs to read clearly, not as secondary/supporting text. */
+.dg-modal-status-hero + .dg-modal-body {
+  text-align: center;
+  padding-top: var(--dg-space-3);
+  color: var(--dg-text);
+}
+.dg-modal-status-hero + .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-2); }
+.dg-modal-status-hero ~ .dg-modal-footer { justify-content: center; }
+
+/* Status tag — a pill in the modal header */
+.dg-status-tag {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi); line-height: 1;
+  padding: 0.4em 0.7em; border-radius: var(--dg-radius-pill);
+  background: var(--dg-surface-3); color: var(--dg-text-muted);
+}
+.dg-status-tag::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: currentColor; }
+.dg-status-tag.is-success { background: var(--dg-success-bg); color: var(--dg-success); }
+.dg-status-tag.is-warning { background: var(--dg-warning-bg); color: var(--dg-warning); }
+.dg-status-tag.is-danger  { background: var(--dg-danger-bg);  color: var(--dg-danger); }
+.dg-status-tag.is-info    { background: var(--dg-info-bg);    color: var(--dg-info); }
+
+/* ---- Onboarding modal ------------------------------------- */
+.dg-modal-onboard { max-width: 460px; text-align: center; }
+.dg-modal-onboard .dg-onboard-media {
+  height: 168px; display: flex; align-items: center; justify-content: center;
+  background: var(--dg-surface-3); color: var(--dg-text-muted);
+}
+.dg-modal-onboard .dg-onboard-step {
+  display: inline-block; font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--dg-text-faint);
+  margin: var(--dg-space-5) 0 var(--dg-space-2);
+}
+.dg-modal-onboard .dg-modal-body { color: var(--dg-text-muted); }
+.dg-modal-onboard .dg-onboard-dots { display: flex; gap: 6px; justify-content: center; }
+.dg-modal-onboard .dg-onboard-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--dg-border-strong); transition: background var(--dg-dur) var(--dg-ease), width var(--dg-dur) var(--dg-ease); }
+.dg-modal-onboard .dg-onboard-dots i.is-active { background: var(--dg-solid); width: 20px; border-radius: var(--dg-radius-pill); }
+.dg-modal-onboard .dg-modal-footer { justify-content: space-between; align-items: center; }

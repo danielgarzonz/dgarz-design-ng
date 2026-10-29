@@ -1,0 +1,135 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster dg-gap-5 dg-items-end">
+          <div class="dg-cluster dg-gap-3 dg-items-center">
+            <span class="dg-avatar dg-avatar-sm">XS</span>
+            <span class="dg-avatar">MD</span>
+            <span class="dg-avatar dg-avatar-lg">LG</span>
+            <span class="dg-avatar dg-avatar-xl">XL</span>
+          </div>
+          <div class="dg-avatar-group">
+            <span class="dg-avatar">DG</span>
+            <span class="dg-avatar">AR</span>
+            <span class="dg-avatar">SC</span>
+            <span class="dg-avatar">+5</span>
+          </div>
+          <div class="dg-avatar-wrap">
+            <span class="dg-avatar">LM</span>
+            <span class="dg-avatar-status is-online"></span>
+          </div>
+          <div class="dg-avatar-wrap">
+            <span class="dg-avatar">AC</span>
+            <span class="dg-avatar-status is-away"></span>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Tamaños --&gt;
+&lt;span class="dg-avatar dg-avatar-sm"&gt;AB&lt;/span&gt;  &lt;!-- pequeño --&gt;
+&lt;span class="dg-avatar"&gt;AB&lt;/span&gt;              &lt;!-- estándar --&gt;
+&lt;span class="dg-avatar dg-avatar-lg"&gt;AB&lt;/span&gt;  &lt;!-- grande --&gt;
+&lt;span class="dg-avatar dg-avatar-xl"&gt;AB&lt;/span&gt;  &lt;!-- extra grande --&gt;
+
+&lt;!-- Grupo con overlap --&gt;
+&lt;div class="dg-avatar-group"&gt;
+  &lt;img class="dg-avatar" src="a.jpg" alt="…" /&gt;
+  &lt;img class="dg-avatar" src="b.jpg" alt="…" /&gt;
+  &lt;span class="dg-avatar"&gt;+5&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Con indicador de estado --&gt;
+&lt;div class="dg-avatar-wrap"&gt;
+  &lt;span class="dg-avatar"&gt;LM&lt;/span&gt;
+  &lt;span class="dg-avatar-status is-online"&gt;&lt;/span&gt;   &lt;!-- is-online · is-away · is-offline --&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Barra de progreso — variantes y tamaños</div>
+      <div class="doc-demo is-plain dg-stack dg-max-w-500">
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-2">Default (solid) · 64%</p>
+          <div class="dg-progress"><div class="dg-progress-bar dg-w-64p"></div></div>
+        </div>
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-2">Success · 80%</p>
+          <div class="dg-progress"><div class="dg-progress-bar is-success dg-w-80p"></div></div>
+        </div>
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-2">Warning · 45%</p>
+          <div class="dg-progress"><div class="dg-progress-bar is-warning dg-w-45p"></div></div>
+        </div>
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-2">Danger · 20%</p>
+          <div class="dg-progress dg-progress-lg"><div class="dg-progress-bar is-danger dg-w-20p"></div></div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Barra estándar --&gt;
+&lt;div class="dg-progress"&gt;
+&lt;div class="dg-progress-bar dg-w-64p"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes de color (añade la clase a .dg-progress-bar) --&gt;
+&lt;div class="dg-progress-bar is-success"&gt;&lt;/div&gt;
+&lt;div class="dg-progress-bar is-warning"&gt;&lt;/div&gt;
+&lt;div class="dg-progress-bar is-danger"&gt;&lt;/div&gt;
+&lt;div class="dg-progress-bar is-info"&gt;&lt;/div&gt;
+
+&lt;!-- Tamaños (añade la clase a .dg-progress) --&gt;
+&lt;div class="dg-progress dg-progress-sm"&gt;…&lt;/div&gt;  &lt;!-- 4px --&gt;
+&lt;div class="dg-progress"&gt;…&lt;/div&gt;                 &lt;!-- 8px (default) --&gt;
+&lt;div class="dg-progress dg-progress-lg"&gt;…&lt;/div&gt;  &lt;!-- 12px --&gt;</pre></div>
+
+      <div class="doc-sub">Spinner</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster dg-gap-5 dg-items-center">
+          <div class="dg-spinner dg-spinner-sm"></div>
+          <div class="dg-spinner"></div>
+          <div class="dg-spinner dg-spinner-lg"></div>
+          <button class="dg-btn dg-btn-primary dg-btn-sm">
+            <div class="dg-spinner dg-spinner-sm doc-spinner-on-solid"></div>
+            Cargando…
+          </button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-spinner dg-spinner-sm"&gt;&lt;/div&gt;  &lt;!-- pequeño --&gt;
+&lt;div class="dg-spinner"&gt;&lt;/div&gt;               &lt;!-- estándar --&gt;
+&lt;div class="dg-spinner dg-spinner-lg"&gt;&lt;/div&gt;  &lt;!-- grande --&gt;
+
+&lt;!-- Dentro de un botón --&gt;
+&lt;button class="dg-btn dg-btn-primary is-loading"&gt;Guardar&lt;/button&gt;
+&lt;!-- is-loading oculta el texto y muestra el spinner automáticamente --&gt;</pre></div>
+
+      <div class="doc-sub">Tooltip</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster dg-gap-6 dg-py-6">
+          <span class="dg-tooltip" data-tip="Aparece arriba (por defecto)">
+            <button class="dg-btn dg-btn-outline dg-btn-sm">Arriba</button>
+          </span>
+          <span class="dg-tooltip dg-tooltip-bottom" data-tip="Aparece abajo">
+            <button class="dg-btn dg-btn-outline dg-btn-sm">Abajo</button>
+          </span>
+          <span class="dg-tooltip dg-tooltip-right" data-tip="Aparece a la derecha">
+            <button class="dg-btn dg-btn-outline dg-btn-sm">Derecha</button>
+          </span>
+        </div>
+      </div>
+      <style>
+        .doc-spinner-on-solid {
+          border-color: rgba(255, 255, 255, 0.3);
+          border-top-color: #fff;
+        }
+      </style>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Tooltip puro CSS — usa el atributo data-tip como contenido --&gt;
+&lt;span class="dg-tooltip" data-tip="Texto del tooltip"&gt;
+  &lt;button class="dg-btn"&gt;Hover&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- Posiciones --&gt;
+&lt;span class="dg-tooltip"              data-tip="Arriba"&gt;…&lt;/span&gt;
+&lt;span class="dg-tooltip dg-tooltip-bottom" data-tip="Abajo"&gt;…&lt;/span&gt;
+&lt;span class="dg-tooltip dg-tooltip-right"  data-tip="Derecha"&gt;…&lt;/span&gt;</pre></div>`;
+---
+
+<Layout title="Avatar · Progress" lead="Avatares, grupos, barras de progreso, spinner y tooltip." currentHref="/componentes/misc">
+  <Fragment set:html={pageContent} />
+</Layout>

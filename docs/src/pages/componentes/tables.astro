@@ -1,0 +1,128 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acciones</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-table-card">
+          <table class="dg-table dg-table-hover" data-dg-sortable id="ordersTable">
+            <thead><tr>
+              <th class="dg-cell-check"><label class="dg-check"><input type="checkbox" id="checkAll" /><span class="dg-check-box"></span></label></th>
+              <th class="dg-sortable">Cliente</th>
+              <th class="dg-sortable">Estado</th>
+              <th class="dg-sortable dg-cell-num">Total</th>
+              <th class="dg-text-right">Acciones</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td><div class="dg-cell-user"><span class="dg-avatar">AR</span>Ana Rivas</div></td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></td>
+                <td class="dg-cell-num" data-sort="128">$128.00</td>
+                <td class="dg-text-right"><div class="dg-cell-actions"><button class="dg-icon-btn" aria-label="Editar"><svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg></button></div></td>
+              </tr>
+              <tr>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td><div class="dg-cell-user"><span class="dg-avatar">LM</span>Luis Mora</div></td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-warning">Pendiente</span></td>
+                <td class="dg-cell-num" data-sort="54.5">$54.50</td>
+                <td class="dg-text-right"><div class="dg-cell-actions"><button class="dg-icon-btn" aria-label="Editar"><svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg></button></div></td>
+              </tr>
+              <tr>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td><div class="dg-cell-user"><span class="dg-avatar">SC</span>Sofía Cano</div></td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></td>
+                <td class="dg-cell-num" data-sort="312.2">$312.20</td>
+                <td class="dg-text-right"><div class="dg-cell-actions"><button class="dg-icon-btn" aria-label="Editar"><svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg></button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="dg-text-xs dg-faint dg-mt-3">Pulsa una cabecera con flecha para ordenar. El checkbox de la cabecera selecciona todas las filas.</p>
+      </div>
+
+      <div class="doc-sub">Compacta · striped · cabecera fija</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-table-card dg-table-sticky dg-scroll dg-h-200">
+          <table class="dg-table dg-table-sm dg-table-striped">
+            <thead><tr><th>Componente</th><th>Clase</th><th>Estado</th></tr></thead>
+            <tbody>
+              <tr><td>Botón</td><td><code class="dg-code">.dg-btn</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+              <tr><td>Formulario</td><td><code class="dg-code">.dg-input</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+              <tr><td>Tabla</td><td><code class="dg-code">.dg-table</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+              <tr><td>Modal</td><td><code class="dg-code">.dg-modal</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+              <tr><td>Drawer</td><td><code class="dg-code">.dg-drawer</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+              <tr><td>Accordion</td><td><code class="dg-code">.dg-accordion</code></td><td><span class="dg-badge dg-badge-dot dg-badge-success">Listo</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;table class="dg-table dg-table-hover" data-dg-sortable&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th class="dg-sortable"&gt;Cliente&lt;/th&gt;
+    &lt;th class="dg-sortable dg-cell-num"&gt;Total&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Ana&lt;/td&gt;&lt;td data-sort="128"&gt;$128.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre></div>
+
+      <div class="doc-sub">Tabla → cards en móvil</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        No confundir con <code class="dg-code">.dg-table-card</code> (la tabla completa envuelta en una tarjeta,
+        arriba en esta página) — <code class="dg-code">.dg-table-rowcard</code> es lo opuesto: cada
+        <strong>fila</strong> se convierte en su propia tarjeta. Útil cuando una tabla ancha no cabe en pantallas
+        chicas y prefieres cards apiladas a scroll horizontal. Redimensiona la ventana por debajo de 768px para
+        ver el cambio (o abre esta página en el inspector con el emulador de móvil).
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-table-desktop">
+          <div class="dg-table-card">
+            <table class="dg-table">
+              <thead><tr><th>Cliente</th><th>Estado</th><th class="dg-cell-num">Total</th></tr></thead>
+              <tbody>
+                <tr><td>Ana Rivas</td><td><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></td><td class="dg-cell-num">$128.00</td></tr>
+                <tr><td>Luis Mora</td><td><span class="dg-badge dg-badge-dot dg-badge-warning">Pendiente</span></td><td class="dg-cell-num">$54.50</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dg-table-cards">
+          <div class="dg-table-rowcard">
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Cliente</span><span class="dg-table-rowcard-value">Ana Rivas</span></div>
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Estado</span><span class="dg-table-rowcard-value"><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></span></div>
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Total</span><span class="dg-table-rowcard-value">$128.00</span></div>
+          </div>
+          <div class="dg-table-rowcard dg-mt-4">
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Cliente</span><span class="dg-table-rowcard-value">Luis Mora</span></div>
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Estado</span><span class="dg-table-rowcard-value"><span class="dg-badge dg-badge-dot dg-badge-warning">Pendiente</span></span></div>
+            <div class="dg-table-rowcard-row"><span class="dg-table-rowcard-label">Total</span><span class="dg-table-rowcard-value">$54.50</span></div>
+            <div class="dg-table-rowcard-actions"><button class="dg-btn dg-btn-sm dg-btn-ghost">Ver</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Desktop: se oculta bajo 768px --&gt;
+&lt;div class="dg-table-desktop"&gt;
+  &lt;table class="dg-table"&gt;…&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Móvil: se muestra bajo 768px, mismos datos --&gt;
+&lt;div class="dg-table-cards"&gt;
+  &lt;div class="dg-table-rowcard"&gt;
+    &lt;div class="dg-table-rowcard-row"&gt;
+      &lt;span class="dg-table-rowcard-label"&gt;Cliente&lt;/span&gt;
+      &lt;span class="dg-table-rowcard-value"&gt;Ana Rivas&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-table-rowcard-row"&gt;
+      &lt;span class="dg-table-rowcard-label"&gt;Total&lt;/span&gt;
+      &lt;span class="dg-table-rowcard-value"&gt;$128.00&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-table-rowcard-actions"&gt;
+      &lt;button class="dg-btn dg-btn-sm dg-btn-ghost"&gt;Ver&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Ambos bloques leen del mismo array de datos del lado del componente —
+     solo cambia el markup de presentación, no la lógica. --&gt;</pre></div>`;
+---
+
+<Layout title="Tablas" lead="Tablas con variantes, ordenamiento y selección de filas." currentHref="/componentes/tables">
+  <Fragment set:html={pageContent} />
+</Layout>

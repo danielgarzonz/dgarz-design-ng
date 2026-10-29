@@ -1,0 +1,118 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Cómo funciona</div>
+      <div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
+        <p class="dg-callout-title">Estructura</p>
+        <strong>1.</strong> <code class="dg-code">.dg-carousel</code> + <code class="dg-code">data-dg-carousel</code> — el contenedor.<br>
+        <strong>2.</strong> <code class="dg-code">.dg-carousel-inner</code> — el track que se desliza.<br>
+        <strong>3.</strong> <code class="dg-code">.dg-carousel-item</code> — cada diapositiva.<br>
+        <strong>4.</strong> Botones <code class="dg-code">.dg-carousel-prev/next</code> y puntos <code class="dg-code">[data-dg-carousel-go="N"]</code> son opcionales.
+      </div>
+
+      <div class="doc-sub">Demo con imágenes y caption</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-carousel dg-max-w-720 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="4000">
+          <div class="dg-carousel-inner">
+            <div class="dg-carousel-item">
+              <img src="https://images.pexels.com/photos/34426766/pexels-photo-34426766.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Sesión editorial de moda en interior" class="dg-carousel-slide" />
+              <div class="dg-carousel-caption">
+                <span class="dg-eyebrow">Editorial</span>
+                <h3>Designing premium interfaces with restraint</h3>
+                <p>Una serie visual sobre ritmo, composición y superficies que se sienten elegidas, no generadas.</p>
+              </div>
+            </div>
+            <div class="dg-carousel-item">
+              <img src="https://images.pexels.com/photos/34147402/pexels-photo-34147402.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Workspace minimal con laptop y libreta" class="dg-carousel-slide" />
+              <div class="dg-carousel-caption">
+                <span class="dg-eyebrow">Product</span>
+                <h3>Data with atmosphere</h3>
+                <p>Cómo dar más presencia a dashboards y vistas de trabajo sin convertirlos en interfaces ruidosas.</p>
+              </div>
+            </div>
+            <div class="dg-carousel-item">
+              <img src="https://images.pexels.com/photos/6615804/pexels-photo-6615804.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Interior minimalista con tonos suaves" class="dg-carousel-slide" />
+              <div class="dg-carousel-caption">
+                <span class="dg-eyebrow">Systems</span>
+                <h3>Interfaces with memory</h3>
+                <p>La tercera entrega explora cómo un sistema visual consistente genera reconocimiento y confianza.</p>
+              </div>
+            </div>
+          </div>
+          <button class="dg-carousel-prev" aria-label="Anterior">‹</button>
+          <button class="dg-carousel-next" aria-label="Siguiente">›</button>
+          <div class="dg-carousel-indicators">
+            <button data-dg-carousel-go="0" aria-label="Diapositiva 1"></button>
+            <button data-dg-carousel-go="1" aria-label="Diapositiva 2"></button>
+            <button data-dg-carousel-go="2" aria-label="Diapositiva 3"></button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-carousel" data-dg-carousel&gt;
+
+  &lt;div class="dg-carousel-inner"&gt;
+
+    &lt;!-- Cada diapositiva: .dg-carousel-item --&gt;
+    &lt;div class="dg-carousel-item"&gt;
+      &lt;img src="slide1.jpg" alt="…" class="dg-carousel-slide" /&gt;
+      &lt;!-- Caption opcional sobre la imagen --&gt;
+      &lt;div class="dg-carousel-caption"&gt;
+        &lt;h3&gt;Título&lt;/h3&gt;
+        &lt;p&gt;Descripción.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="dg-carousel-item"&gt;
+      &lt;img src="slide2.jpg" alt="…" class="dg-carousel-slide" /&gt;
+    &lt;/div&gt;
+
+    &lt;div class="dg-carousel-item"&gt;
+      &lt;img src="slide3.jpg" alt="…" class="dg-carousel-slide" /&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;!-- Botones prev/next (opcionales) --&gt;
+  &lt;button class="dg-carousel-prev" aria-label="Anterior"&gt;‹&lt;/button&gt;
+  &lt;button class="dg-carousel-next" aria-label="Siguiente"&gt;›&lt;/button&gt;
+
+  &lt;!-- Indicadores de punto (opcionales) --&gt;
+  &lt;div class="dg-carousel-indicators"&gt;
+    &lt;button data-dg-carousel-go="0" aria-label="Slide 1"&gt;&lt;/button&gt;
+    &lt;button data-dg-carousel-go="1" aria-label="Slide 2"&gt;&lt;/button&gt;
+    &lt;button data-dg-carousel-go="2" aria-label="Slide 3"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- Autoplay: data-dg-carousel-autoplay="3000" (milisegundos) --&gt;
+&lt;!-- Se pausa al hacer hover o focus --&gt;
+
+&lt;!-- Teclado: ← → para navegar cuando el carousel tiene foco --&gt;
+&lt;!-- Touch: swipe izquierda/derecha en móvil --&gt;</pre></div>
+
+      <div class="doc-sub">Carousel mínimo (sin controles)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-carousel dg-max-w-500 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="2500">
+          <div class="dg-carousel-inner">
+            <div class="dg-carousel-item">
+              <div class="dg-carousel-slide doc-carousel-slide-text">Solo texto — slide 1</div>
+            </div>
+            <div class="dg-carousel-item">
+              <div class="dg-carousel-slide doc-carousel-slide-text">Solo texto — slide 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+        .doc-carousel-slide-text {
+          background: var(--dg-surface-3);
+          aspect-ratio: 3 / 1;
+          font-size: var(--dg-text-lg);
+          min-height: 0;
+        }
+      </style>`;
+---
+
+<Layout title="Carousel" lead="Slider de diapositivas táctil con indicadores." currentHref="/componentes/carousel">
+  <Fragment set:html={pageContent} />
+</Layout>

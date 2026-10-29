@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+---
+
+<Layout
+  title="Drawer"
+  lead="Panel deslizable desde el lateral con backdrop. Comparte el mismo sistema de apertura que los modales."
+  currentHref="/componentes/drawer"
+>
+  <Fragment set:html={`<div class="doc-sub">Drawer desde la derecha</div>
+      <div class="doc-demo is-plain">
+        <button class="dg-btn" data-dg-open="#demoDrawerRight">Drawer derecha</button>
+      </div>
+
+      <div class="doc-sub">Drawer desde la izquierda</div>
+      <div class="doc-demo is-plain">
+        <button class="dg-btn dg-btn-ghost" data-dg-open="#demoDrawerLeft">Drawer izquierda</button>
+      </div>
+
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Trigger --&gt;
+&lt;button data-dg-open="#mi-drawer"&gt;Abrir panel&lt;/button&gt;
+
+&lt;!-- Backdrop --&gt;
+&lt;div class="dg-drawer-backdrop" id="mi-drawer-bd" data-dg-backdrop="" hidden&gt;&lt;/div&gt;
+
+&lt;!-- Drawer derecho --&gt;
+&lt;div class="dg-drawer" id="mi-drawer" hidden data-dg-backdrop="#mi-drawer-bd"&gt;
+  &lt;div class="dg-drawer-header"&gt;
+    &lt;h4&gt;Título&lt;/h4&gt;
+    &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-drawer-body"&gt;Contenido&lt;/div&gt;
+  &lt;div class="dg-drawer-footer"&gt;
+    &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+    &lt;button class="dg-btn" data-dg-close&gt;Aplicar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Drawer izquierdo: añade .dg-drawer-left --&gt;
+&lt;div class="dg-drawer dg-drawer-left" …&gt;…&lt;/div&gt;</pre></div>`} />
+</Layout>
+
+<!-- Drawer backdrops -->
+<div class="dg-drawer-backdrop" id="demoDrawerRightBd" data-dg-backdrop="" hidden></div>
+<div class="dg-drawer" id="demoDrawerRight" hidden data-dg-backdrop="#demoDrawerRightBd"
+     role="dialog" aria-modal="true" aria-labelledby="drawerRightTitle">
+  <div class="dg-drawer-header">
+    <h4 id="drawerRightTitle">Panel de filtros</h4>
+    <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar">
+      <svg class="dg-icon"><use href="#dg-x"/></svg>
+    </button>
+  </div>
+  <div class="dg-drawer-body dg-stack">
+    <div class="dg-field">
+      <label class="dg-label">Estado</label>
+      <select class="dg-select"><option>Todos</option><option>Activo</option><option>Pendiente</option></select>
+    </div>
+    <div class="dg-field">
+      <label class="dg-label">Precio máximo</label>
+      <input class="dg-input" type="number" placeholder="500" />
+    </div>
+  </div>
+  <div class="dg-drawer-footer">
+    <button class="dg-btn dg-btn-ghost" data-dg-close>Restablecer</button>
+    <button class="dg-btn" data-dg-close>Aplicar filtros</button>
+  </div>
+</div>
+
+<div class="dg-drawer-backdrop" id="demoDrawerLeftBd" data-dg-backdrop="" hidden></div>
+<div class="dg-drawer dg-drawer-left" id="demoDrawerLeft" hidden data-dg-backdrop="#demoDrawerLeftBd"
+     role="dialog" aria-modal="true" aria-labelledby="drawerLeftTitle">
+  <div class="dg-drawer-header">
+    <h4 id="drawerLeftTitle">Menú lateral</h4>
+    <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar">
+      <svg class="dg-icon"><use href="#dg-x"/></svg>
+    </button>
+  </div>
+  <div class="dg-drawer-body">
+    <nav class="dg-nav-vertical">
+      <a class="dg-nav-item is-active"><svg class="dg-icon"><use href="#dg-menu"/></svg><span>Inicio</span></a>
+      <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-search"/></svg><span>Buscar</span></a>
+      <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-bell"/></svg><span>Notificaciones</span></a>
+    </nav>
+  </div>
+</div>

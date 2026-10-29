@@ -1,0 +1,191 @@
+/* ---- Date Picker ------------------------------------------ */
+.dg-cal {
+  position: absolute;
+  z-index: 55;
+  width: 288px;
+  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid color-mix(in oklab, var(--dg-border-strong) 45%, transparent);
+  border-radius: var(--dg-radius-lg);
+  box-shadow: var(--dg-shadow-3), inset 0 1px 0 color-mix(in oklab, #fff 10%, transparent);
+  padding: var(--dg-space-4);
+  animation: dg-menu-in var(--dg-dur) var(--dg-ease);
+  user-select: none;
+}
+.dg-cal[hidden] { display: none; }
+
+/* Header */
+.dg-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--dg-space-3);
+}
+.dg-cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border-radius: var(--dg-radius-sm);
+  color: var(--dg-text-muted);
+  cursor: pointer;
+  font-size: var(--dg-text-base);
+  line-height: 1;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-cal-nav:hover { background: var(--dg-surface-2); color: var(--dg-text); }
+
+.dg-cal-title {
+  font-size: var(--dg-text-sm);
+  font-weight: var(--dg-weight-semi);
+  color: var(--dg-text);
+  cursor: pointer;
+  padding: 0.25em 0.6em;
+  border-radius: var(--dg-radius-sm);
+  transition: background var(--dg-dur) var(--dg-ease);
+}
+.dg-cal-title:hover { background: var(--dg-surface-2); }
+
+/* Day grid */
+.dg-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.dg-cal-weekday {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: var(--dg-weight-semi);
+  color: var(--dg-text-faint);
+  padding: var(--dg-space-1) 0 var(--dg-space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.dg-cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  border-radius: var(--dg-radius-sm);
+  font-size: var(--dg-text-sm);
+  color: var(--dg-text);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-cal-day:hover:not(.is-disabled):not(.is-selected):not(.is-empty) {
+  background: var(--dg-surface-2);
+}
+.dg-cal-day.is-other-month { color: var(--dg-text-faint); }
+.dg-cal-day.is-empty       { pointer-events: none; }
+.dg-cal-day.is-today       { font-weight: var(--dg-weight-semi); }
+.dg-cal-day.is-today::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--dg-solid);
+}
+.dg-cal-day.is-selected {
+  background: var(--dg-solid);
+  color: var(--dg-on-solid);
+  font-weight: var(--dg-weight-medium);
+}
+.dg-cal-day.is-selected::after { background: var(--dg-on-solid); }
+.dg-cal-day.is-disabled {
+  color: var(--dg-text-faint);
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Month / Year selector grid */
+.dg-cal-select-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--dg-space-2);
+  padding: var(--dg-space-1) 0;
+}
+.dg-cal-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55em;
+  border-radius: var(--dg-radius-sm);
+  font-size: var(--dg-text-sm);
+  cursor: pointer;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-cal-select-item:hover     { background: var(--dg-surface-2); }
+.dg-cal-select-item.is-selected { background: var(--dg-solid); color: var(--dg-on-solid); }
+.dg-cal-select-item.is-current  { font-weight: var(--dg-weight-semi); }
+
+/* Time picker */
+.dg-cal-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dg-space-3);
+  margin-top: var(--dg-space-4);
+  padding-top: var(--dg-space-3);
+  border-top: 1px solid var(--dg-border);
+}
+.dg-cal-time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dg-space-1);
+}
+.dg-cal-time-label {
+  font-size: var(--dg-text-xs);
+  color: var(--dg-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.dg-cal-time-val {
+  font-size: var(--dg-text-xl);
+  font-weight: var(--dg-weight-semi);
+  font-variant-numeric: tabular-nums;
+  min-width: 2ch;
+  text-align: center;
+  color: var(--dg-text);
+}
+.dg-cal-time-sep {
+  font-size: var(--dg-text-xl);
+  font-weight: var(--dg-weight-semi);
+  color: var(--dg-text-muted);
+  padding-bottom: 0.2em;
+  align-self: center;
+}
+.dg-cal-time-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: var(--dg-radius-sm);
+  color: var(--dg-text-muted);
+  cursor: pointer;
+  font-size: 0.65rem;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-cal-time-btn:hover { background: var(--dg-surface-2); color: var(--dg-text); }
+
+/* Footer (used for datetime confirm) */
+.dg-cal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--dg-space-2);
+  margin-top: var(--dg-space-3);
+  padding-top: var(--dg-space-3);
+  border-top: 1px solid var(--dg-border);
+}
+
+/* Trigger input visual cue */
+.dg-datepicker { cursor: pointer; }

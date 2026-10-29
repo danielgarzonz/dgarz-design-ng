@@ -1,0 +1,27 @@
+/* ---- Reset ----------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; tab-size: 4; }
+
+body {
+  font-family: var(--dg-font-sans);
+  font-size: var(--dg-text-base);
+  line-height: var(--dg-leading-normal);
+  color: var(--dg-text);
+  background: var(--dg-paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+
+img, picture, svg, video, canvas { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; color: inherit; background: transparent; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+:where(p, li) { text-wrap: pretty; }
+
+:focus-visible { outline: none; box-shadow: var(--dg-ring); border-radius: var(--dg-radius-sm); }
+
+::selection { background: var(--dg-text); color: var(--dg-paper); }

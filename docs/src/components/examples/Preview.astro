@@ -1,0 +1,31 @@
+---
+import type { ExampleItem } from "../../data/examples";
+const { example } = Astro.props as { example: ExampleItem };
+const kind = example.slug.replace(/^(desktop|mobile)-/, "");
+const has = (...names: string[]) => names.includes(kind);
+---
+<div class:list={["preview-stage", example.tag === "Mobile" && "is-mobile", `preview-${kind}`]} aria-hidden="true">
+  <div class="preview-window">
+    <div class="preview-bar"><span class="preview-logo">d.</span><span>Tu espacio, conectado.</span><i></i></div>
+    <div class="preview-content">
+      {has("social-profile", "menu") ? <>
+        <div class="preview-cover"></div><div class="preview-avatar">AR</div>
+        <h4>Andrea Ruiz <span>↗</span></h4><p>Diseño que conecta ideas.</p>
+        <div class="preview-stats"><b>24.8k<small>Comunidad</small></b><b>312<small>Proyectos</small></b><b>4.9<small>Valoración</small></b></div>
+        <div class="preview-tiles"><i></i><i></i><i></i></div>
+      </> : has("calendar", "calendar-booking") ? <>
+        <p>TU AGENDA</p><h4>Un día con enfoque.</h4><div class="preview-week"><b>L</b><b>M</b><b>M</b><b>J</b><b>V</b><b>S</b><b>D</b>{Array.from({length:21}, (_, i) => <span class:list={[i === 11 && "selected"]}>{i + 1}</span>)}</div><div class="preview-row"><b>10:30</b><span>Sesión de diseño<small>Andrea · 45 min</small></span></div>
+      </> : has("chat", "chat-view") ? <>
+        <h4>Hablemos de tu idea.</h4><p>Andrea · En línea</p><div class="preview-message">¡Hola! Ya está lista la propuesta.</div><div class="preview-message outgoing">Me encanta. ¿La revisamos?</div><div class="preview-message">Claro, nos vemos a las 10:30.</div><div class="preview-compose">Escribe un mensaje <b>↑</b></div>
+      </> : has("pricing", "login") ? <>
+        <p>{kind === "login" ? "QUÉ BUENO VERTE" : "CRECE A TU RITMO"}</p><h4>{kind === "login" ? "Tu próximo paso empieza aquí." : "Más espacio para tus ideas."}</h4><div class="preview-price">{kind === "login" ? "Bienvenido." : "$249"}<small>{kind === "login" ? "Accede a tu cuenta" : " / mes"}</small></div><div class="preview-row">{kind === "login" ? "tu@correo.com" : "✓ Todo lo que necesitas"}</div><div class="preview-row">{kind === "login" ? "••••••••••" : "✓ Sin límites para crear"}</div><div class="preview-cta">{kind === "login" ? "Entrar a mi espacio ↗" : "Elegir mi plan ↗"}</div>
+      </> : has("calculator", "wallet") ? <>
+        <p>{kind === "wallet" ? "BALANCE DISPONIBLE" : "TU PROYECCIÓN"}</p><div class="preview-balance">$18,480<span>+12.8% este mes ↗</span></div>{kind === "calculator" ? <div class="preview-keypad">{["7","8","9","÷","4","5","6","×","1","2","3","+"].map(n => <b>{n}</b>)}</div> : <><div class="preview-cta">Enviar ↗　　Recibir ↓</div><div class="preview-row"><b>↗</b><span>Estudio Norte<small>Hoy · Transferencia</small></span><b>+$850</b></div><div class="preview-row"><b>↓</b><span>Suscripción<small>Ayer · Servicio</small></span><b>−$249</b></div></>}
+      </> : has("checkout", "order-confirmation", "notification") ? <>
+        <div class="preview-check">✓</div><p>{kind === "checkout" ? "ÚLTIMO PASO" : "TODO EN ORDEN"}</p><h4>{kind === "checkout" ? "Hazlo tuyo." : "Tu pedido va en camino."}</h4><div class="preview-row"><span>Studio Essentials<small>Pedido #1284 · 2 artículos</small></span><b>$890</b></div><div class="preview-track"><i></i><i></i><i></i></div><div class="preview-cta">{kind === "checkout" ? "Confirmar compra ↗" : "Ver mi pedido ↗"}</div>
+      </> : <>
+        <div class="preview-editorial"><p>{has("event", "event-modal") ? "ENCUENTROS QUE INSPIRAN" : has("gallery") ? "SELECCIÓN DEL ESTUDIO" : "IDEAS QUE TOMAN FORMA"}</p><h4>{has("event", "event-modal") ? "Conecta. Comparte. Crea." : has("gallery") ? "Otra forma de mirar." : "Haz espacio para lo que sigue."}</h4><div class="preview-art"><span>d.</span></div><div class="preview-cta">{has("event", "event-modal") ? "Reservar mi lugar ↗" : "Explorar colección ↗"}</div></div>
+      </>}
+    </div>
+  </div>
+</div>

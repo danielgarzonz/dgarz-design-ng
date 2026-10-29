@@ -1,0 +1,692 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+---
+
+<!--
+  NOTE FOR MAINTAINERS:
+  The modal backdrop HTML lives at the bottom of this file (below <Layout>),
+  outside the content slot. Add new modals there, not inside pageContent.
+-->
+
+<Layout
+  title="Modales"
+  lead="Diálogos accesibles con header, body y footer. Variantes, posiciones y estados."
+  currentHref="/componentes/modales"
+>
+  <Fragment set:html={`
+      <div class="dg-flex dg-items-center dg-gap-4 dg-mb-6">
+        <span class="dg-text-sm dg-fw-medium">Estilo de superficie</span>
+        <div class="dg-segmented" id="surfaceSwitcher" data-dg-segmented>
+          <button class="is-active" data-surface="glass">Glass</button>
+          <button data-surface="solid">Sólido</button>
+        </div>
+      </div>
+
+      <div class="dg-callout dg-callout-info dg-measure-md dg-mb-5">
+        <p class="dg-callout-title">Cómo funciona</p>
+        El modal tiene dos partes HTML necesarias:<br><br>
+        <strong>1. <code class="dg-code">.dg-modal-backdrop</code></strong> — el overlay oscuro que cubre la pantalla (lleva el <code class="dg-code">id</code>).<br>
+        <strong>2. <code class="dg-code">.dg-modal</code></strong> — el diálogo en sí, hijo del backdrop.<br><br>
+        Para abrir el modal, cualquier elemento con <code class="dg-code">data-dg-open="#id"</code> lo hace funcionar sin escribir JavaScript.
+        Para cerrarlo, usa <code class="dg-code">data-dg-close</code> en el botón cancelar o la X.
+      </div>
+
+      <div class="doc-sub">1. Modal básico</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn" data-dg-open="#jsModal">Abrir modal</button>
+          <button class="dg-btn dg-btn-ghost" data-dg-open="#mdForm">Con formulario</button>
+        </div>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-modal"&gt;Abrir modal&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost" data-dg-open="#mi-form"&gt;Con formulario&lt;/button&gt;
+
+&lt;!-- Modal básico --&gt;
+&lt;div class="dg-modal-backdrop" id="mi-modal" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Título&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Contenido aquí.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Confirmar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal con formulario --&gt;
+&lt;div class="dg-modal-backdrop" id="mi-form" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true"&gt;
+    &lt;div class="dg-modal-header dg-modal-header-row"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Nuevo cliente&lt;/h3&gt;
+      &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;div class="dg-row"&gt;
+        &lt;div class="dg-col-12 dg-col-md-6"&gt;
+          &lt;div class="dg-field dg-mb-4"&gt;
+            &lt;label class="dg-label" for="nombre"&gt;Nombre&lt;/label&gt;
+            &lt;input id="nombre" class="dg-input" placeholder="Ana Rivas" /&gt;
+          &lt;/div&gt;
+          &lt;div class="dg-field dg-mb-4"&gt;
+            &lt;label class="dg-label" for="correo"&gt;Correo&lt;/label&gt;
+            &lt;input id="correo" class="dg-input" type="email" placeholder="ana@correo.com" /&gt;
+          &lt;/div&gt;
+          &lt;div class="dg-field"&gt;
+            &lt;label class="dg-label" for="plan"&gt;Plan&lt;/label&gt;
+            &lt;select id="plan" class="dg-select"&gt;
+              &lt;option&gt;Free&lt;/option&gt;
+              &lt;option&gt;Pro&lt;/option&gt;
+              &lt;option&gt;Studio&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-col-12 dg-col-md-6"&gt;
+          &lt;div class="dg-field dg-mb-4"&gt;
+            &lt;label class="dg-label" for="tel"&gt;Teléfono&lt;/label&gt;
+            &lt;input id="tel" class="dg-input" placeholder="+52 55 1234 5678" /&gt;
+          &lt;/div&gt;
+          &lt;div class="dg-field"&gt;
+            &lt;label class="dg-label" for="notas"&gt;Notas&lt;/label&gt;
+            &lt;textarea id="notas" class="dg-textarea" placeholder="Observaciones…"&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Crear cliente&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">2. Tamaños</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdSm">Pequeño (360px)</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#jsModal">Estándar (460px)</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdLg">Grande (640px)</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdForm">Extra (840px)</button>
+        </div>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-sm"&gt;Pequeño (360px)&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-md"&gt;Estándar (460px)&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-lg"&gt;Grande (640px)&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-xl"&gt;Extra (840px)&lt;/button&gt;
+
+&lt;!-- Pequeño: 360px --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-sm" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal pequeño&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Ideal para mensajes breves.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn" data-dg-close&gt;Entendido&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Estándar: 460px (default, sin clase extra) --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-md" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal estándar&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Tamaño por defecto.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Grande: 640px --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-lg" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-lg" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal grande&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Más espacio para contenido extenso.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Guardar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Extra: 840px --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-xl" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal extra&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Ideal para formularios o tablas amplias.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Guardar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">3. Confirmación con icono</div>
+      <div class="doc-demo is-plain">
+        <button class="dg-btn dg-btn-danger" data-dg-open="#mdConfirm">Eliminar proyecto</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-danger" data-dg-open="#mi-confirm"&gt;Eliminar proyecto&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="mi-confirm" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;…&lt;/button&gt;
+    &lt;span class="dg-modal-icon is-danger"&gt;…&lt;/span&gt;
+    &lt;div class="dg-modal-header"&gt;
+      &lt;h3 class="dg-modal-title"&gt;¿Eliminar proyecto?&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Esta acción es permanente y no se puede deshacer.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn dg-btn-danger" data-dg-close&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">4. Modal posicionado</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="center">Centro</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="top">Superior</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="bottom">Inferior</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="left">Izquierda</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="right">Derecha</button>
+        </div>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-center"&gt;Centro&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-top"&gt;Superior&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-bottom"&gt;Inferior&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-left"&gt;Izquierda&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-right"&gt;Derecha&lt;/button&gt;
+
+&lt;!-- Centro (por defecto) --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-center" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal centrado&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Aparece en el centro de la pantalla.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Superior --&gt;
+&lt;div class="dg-modal-backdrop dg-pos-top" id="modal-top" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal superior&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Aparece en la parte superior.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Inferior --&gt;
+&lt;div class="dg-modal-backdrop dg-pos-bottom" id="modal-bottom" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal inferior&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Aparece en la parte inferior.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Izquierda --&gt;
+&lt;div class="dg-modal-backdrop dg-pos-left" id="modal-left" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal izquierda&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Aparece en el lateral izquierdo.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Derecha --&gt;
+&lt;div class="dg-modal-backdrop dg-pos-right" id="modal-right" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal derecha&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;Aparece en el lateral derecho.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">5. Modal de estado (accent)</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Dos efectos opcionales para que un resultado (éxito/error) llame la atención mientras está en pantalla
+        — independientes, usa el que prefieras:<br /><br />
+        <code class="dg-code">.dg-modal-glow</code> — un halo que respira lentamente hacia adentro del modal
+        (sube y baja de intensidad todo el borde a la vez). Suma <code class="dg-code">.is-duotone</code> para
+        un segundo tono apilado.<br />
+        <code class="dg-code">.dg-modal-glow-spin</code> — un trazo fino que recorre el borde girando, en vez
+        de pulsar.<br /><br />
+        Ambas leen el mismo <code class="dg-code">.is-success/.is-warning/.is-danger/.is-info</code> que
+        <code class="dg-code">.dg-modal-accent</code>, y respetan <code class="dg-code">prefers-reduced-motion</code>
+        (quedan fijas, sin animar).
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
+          <span class="dg-text-sm dg-fw-medium">Efecto</span>
+          <div class="dg-segmented" id="glowEffectSeg" data-dg-segmented>
+            <button class="is-active" data-effect="dg-modal-glow">Pulso</button>
+            <button data-effect="dg-modal-glow-spin">Giro</button>
+          </div>
+        </div>
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="success">✓ Éxito</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="warning">⚠ Aviso</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="danger">✕ Error</button>
+          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="info">ℹ Info</button>
+        </div>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-success"&gt;✓ Éxito&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-warning"&gt;⚠ Aviso&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-danger"&gt;✕ Error&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-info"&gt;ℹ Info&lt;/button&gt;
+
+&lt;!-- data-dg-static: sin X, sin Escape, sin clic fuera — solo se cierra con el botón --&gt;
+
+&lt;!-- Éxito --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-success" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-success" role="dialog" aria-modal="true"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-success"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;!-- Título y mensaje van juntos dentro de .dg-modal-body, sin header aparte --&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Operación exitosa&lt;/h3&gt;
+      &lt;p&gt;Todo salió bien. Puedes continuar.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-success" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Aviso --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-warning" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-warning" role="dialog" aria-modal="true"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-warning"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Atención requerida&lt;/h3&gt;
+      &lt;p&gt;Revisa los datos antes de continuar.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-warning" data-dg-close&gt;Continuar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Error --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-danger" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-duotone is-danger" role="dialog" aria-modal="true"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-danger"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Error inesperado&lt;/h3&gt;
+      &lt;p&gt;Algo salió mal. Intenta de nuevo.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-danger" data-dg-close&gt;Reintentar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Info --&gt;
+&lt;div class="dg-modal-backdrop" id="modal-info" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-info" role="dialog" aria-modal="true"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-info"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title"&gt;Información&lt;/h3&gt;
+      &lt;p&gt;Ten en cuenta este detalle antes de seguir.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-info" data-dg-close&gt;Entendido&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">6. Onboarding</div>
+      <div class="doc-demo is-plain">
+        <button class="dg-btn" data-dg-open="#mdOnboard">Ver onboarding</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-onboard"&gt;Ver onboarding&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="mi-onboard" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-onboard" role="dialog" aria-modal="true"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;…&lt;/button&gt;
+    &lt;div class="dg-onboard-media"&gt;…&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;span class="dg-onboard-step"&gt;Paso 1 de 3&lt;/span&gt;
+      &lt;h3 class="dg-modal-title"&gt;Te damos la bienvenida&lt;/h3&gt;
+      &lt;p&gt;Descripción del paso.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Saltar&lt;/button&gt;
+      &lt;div class="dg-onboard-dots"&gt;&lt;i class="is-active"&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+      &lt;button class="dg-btn"&gt;Siguiente&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">7. Confirm, Alert y Prompt (JS)</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Diálogos generados por JavaScript — no escribes el HTML del modal a mano. Cada función retorna una
+        <code class="dg-code">Promise</code> y reutiliza el mismo motor de overlay (foco atrapado, Escape,
+        clic fuera) y la variante <code class="dg-code">.dg-modal-confirm</code>.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-danger" id="jsConfirmBtn">dgConfirm()</button>
+          <button class="dg-btn" id="jsAlertBtn">dgAlert()</button>
+          <button class="dg-btn dg-btn-ghost" id="jsPromptBtn">dgPrompt()</button>
+          <button class="dg-btn dg-btn-outline" id="jsPreConfirmBtn">Con preConfirm</button>
+        </div>
+        <p class="dg-text-xs dg-faint dg-mt-3" id="jsConfirmOut">Resultado: —</p>
+      </div>
+      <div class="doc-code" data-code-source="manual" data-lang="js"><button class="cp">Copiar</button><pre>const ok = await dgarz.dgConfirm({
+  title: '¿Eliminar proyecto?',
+  text: 'Esta acción es permanente y no se puede deshacer.',
+  icon: 'danger',
+  confirmText: 'Eliminar',
+});
+// ok === true si confirmó; false si canceló, con Escape o clic fuera
+
+await dgarz.dgAlert({
+  title: 'Guardado',
+  text: 'Los cambios se guardaron correctamente.',
+  icon: 'success',
+});
+
+const nombre = await dgarz.dgPrompt({
+  title: 'Renombrar',
+  inputValue: 'Proyecto actual',
+  inputPlaceholder: 'Nuevo nombre',
+});
+// nombre === null si canceló; si no, el string escrito
+
+await dgarz.dgConfirm({
+  title: 'Guardar cambios',
+  confirmText: 'Guardar',
+  // mientras se resuelve, el botón de confirmar muestra .is-loading y se
+  // deshabilita Cancelar; si la promesa rechaza, el modal NO cierra y
+  // muestra el error inline
+  preConfirm: () => fetch('/api/guardar', { method: 'POST' }),
+});</pre></div>
+
+      <div class="dg-table-card dg-mt-5">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Función</th><th>Resuelve con</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td><code class="dg-code">dgConfirm(opts)</code></td><td><code class="dg-code">boolean</code></td><td>Confirmar una acción, potencialmente destructiva</td></tr>
+            <tr><td><code class="dg-code">dgAlert(opts)</code></td><td><code class="dg-code">undefined</code> al cerrarse</td><td>Un solo botón, informativo</td></tr>
+            <tr><td><code class="dg-code">dgPrompt(opts)</code></td><td><code class="dg-code">string | null</code></td><td>Pide un valor de texto</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dg-callout dg-callout-info dg-mt-5 dg-measure-md">
+        <p class="dg-callout-title">Opciones comunes</p>
+        <code class="dg-code">title</code>, <code class="dg-code">text</code>,
+        <code class="dg-code">icon</code> (<code class="dg-code">success | warning | danger | info</code>),
+        <code class="dg-code">confirmText</code>, <code class="dg-code">cancelText</code>
+        (pasa <code class="dg-code">null</code> para quitar el botón de cancelar),
+        <code class="dg-code">focusCancel</code> (por defecto en <code class="dg-code">true</code> solo si
+        <code class="dg-code">icon: 'danger'</code>, para no dejar el foco en una acción destructiva) y
+        <code class="dg-code">preConfirm</code> — una función que puede devolver una
+        <code class="dg-code">Promise</code>; si rechaza, el modal se queda abierto y muestra el error.
+      </div>`} />
+</Layout>
+
+<!-- ============================================================
+  MODAL BACKDROPS — deben estar en el DOM para que data-dg-open funcione
+  ============================================================ -->
+
+<div class="dg-modal-backdrop" id="jsModal" data-dg-backdrop="" hidden>
+  <div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="jsModalTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="jsModalTitle">Modal accesible</h3></div>
+    <div class="dg-modal-body">Abierto con <code>data-dg-open</code>. Atrapa el foco, cierra con Esc o clic fuera, y devuelve el foco al botón que lo abrió.</div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdSm" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title">Modal pequeño</h3></div>
+    <div class="dg-modal-body">Ideal para mensajes breves. Clase <code>.dg-modal-sm</code>.</div>
+    <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Entendido</button></div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdLg" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-lg" role="dialog" aria-modal="true">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title">Modal grande</h3></div>
+    <div class="dg-modal-body">Con <code>.dg-modal-lg</code>. El cuerpo hace scroll si el contenido excede la altura disponible.</div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdForm" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true" aria-labelledby="mdFormTitle">
+    <div class="dg-modal-header dg-modal-header-row">
+      <h3 class="dg-modal-title" id="mdFormTitle">Nuevo cliente</h3>
+      <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    </div>
+    <div class="dg-modal-body">
+      <div class="dg-row">
+        <div class="dg-col-12 dg-col-md-6">
+          <div class="dg-field dg-mb-4"><label class="dg-label" for="fNombre">Nombre</label><input id="fNombre" class="dg-input" placeholder="Ana Rivas" /></div>
+          <div class="dg-field dg-mb-4"><label class="dg-label" for="fCorreo">Correo</label><input id="fCorreo" class="dg-input" type="email" placeholder="ana@correo.com" /></div>
+          <div class="dg-field"><label class="dg-label" for="fPlan">Plan</label><select id="fPlan" class="dg-select"><option>Free</option><option>Pro</option><option>Studio</option></select></div>
+        </div>
+        <div class="dg-col-12 dg-col-md-6">
+          <div class="dg-field dg-mb-4"><label class="dg-label" for="fTel">Teléfono</label><input id="fTel" class="dg-input" placeholder="+52 55 1234 5678" /></div>
+          <div class="dg-field"><label class="dg-label" for="fNotas">Notas</label><textarea id="fNotas" class="dg-textarea dg-min-h-7em" placeholder="Observaciones del cliente…"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Crear cliente</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdConfirm" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <span class="dg-modal-icon is-danger"><svg class="dg-icon dg-icon-lg"><use href="#dg-x"/></svg></span>
+    <div class="dg-modal-header"><h3 class="dg-modal-title">¿Eliminar proyecto?</h3></div>
+    <div class="dg-modal-body">Esta acción es permanente y no se puede deshacer.</div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost" data-dg-close>Cancelar</button>
+      <button class="dg-btn dg-btn-danger" data-dg-close>Eliminar</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdPos" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdPosTitle">Modal posicionado</h3></div>
+    <div class="dg-modal-body" id="mdPosBody">Este diálogo se ancla al borde elegido y entra deslizándose desde ahí.</div>
+    <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Entendido</button></div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdStatus" data-dg-backdrop="" data-dg-static hidden>
+  <div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow" id="mdStatusCard" role="dialog" aria-modal="true">
+    <div class="dg-modal-status-hero">
+      <span class="dg-modal-icon" id="mdStatusIcon"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span>
+    </div>
+    <div class="dg-modal-body">
+      <h3 class="dg-modal-title" id="mdStatusTitle">Estatus</h3>
+      <p id="mdStatusBody">Mensaje de estatus.</p>
+    </div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn" data-dg-close id="mdStatusAccept">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdOnboard" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-onboard" role="dialog" aria-modal="true">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <div class="dg-onboard-media"><svg class="dg-icon dg-size-48" id="onboardIcon"><use href="#dg-star"/></svg></div>
+    <div class="dg-modal-body">
+      <span class="dg-onboard-step" id="onboardStep">Paso 1 de 3</span>
+      <h3 class="dg-modal-title dg-fs-2xl" id="onboardTitle">Te damos la bienvenida</h3>
+      <p class="dg-mt-2" id="onboardText">dgarz design te ayuda a construir interfaces sobrias y consistentes en minutos.</p>
+    </div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost" data-dg-close>Saltar</button>
+      <div class="dg-onboard-dots" id="onboardDots"><i class="is-active"></i><i></i><i></i></div>
+      <button class="dg-btn" id="onboardNext">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Surface switcher
+  const switcher = document.getElementById('surfaceSwitcher');
+  if (switcher) {
+    switcher.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-surface]');
+      if (!btn) return;
+      const surface = btn.dataset.surface;
+      document.querySelectorAll('.dg-modal').forEach(modal => {
+        modal.classList.remove('is-solid');
+        if (surface === 'solid') modal.classList.add('is-solid');
+      });
+    });
+  }
+
+  // Positioned modal
+  const mdPos = document.getElementById('mdPos');
+  if (mdPos && window.dgarz) {
+    document.querySelectorAll('[data-pos]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pos = btn.getAttribute('data-pos');
+        mdPos.className = 'dg-modal-backdrop' + (pos !== 'center' ? ' dg-pos-' + pos : '');
+        document.getElementById('mdPosTitle').textContent =
+          'Modal ' + ({center:'centrado',top:'superior',bottom:'inferior',left:'a la izquierda',right:'a la derecha'}[pos]);
+        window.dgarz.openOverlay(mdPos);
+      });
+    });
+  }
+
+  // Status modal
+  const statusMap = {
+    success: { title: 'Operación exitosa', body: 'Todo salió bien. Puedes continuar.',          use: '#dg-check' },
+    warning: { title: 'Revisa esto',       body: 'Hay algo que requiere tu atención.',           use: '#dg-alert-tri' },
+    danger:  { title: 'Algo falló',        body: 'No pudimos completar la acción.',              use: '#dg-x' },
+    info:    { title: 'Buenas noticias',   body: 'Una actualización con mejoras está disponible.',use: '#dg-info' }
+  };
+  const mdStatus = document.getElementById('mdStatus');
+  const glowEffectSeg = document.getElementById('glowEffectSeg');
+  let glowEffect = 'dg-modal-glow';
+  if (glowEffectSeg) {
+    glowEffectSeg.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-effect]');
+      if (!btn) return;
+      glowEffectSeg.querySelectorAll('button').forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      glowEffect = btn.getAttribute('data-effect');
+    });
+  }
+  if (mdStatus && window.dgarz) {
+    document.querySelectorAll('[data-status]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = btn.getAttribute('data-status'), c = statusMap[s];
+        document.getElementById('mdStatusCard').className = 'dg-modal dg-modal-sm dg-modal-accent ' + glowEffect + ' is-' + s;
+        document.getElementById('mdStatusAccept').className = 'dg-btn dg-btn-' + s;
+        const ic = document.getElementById('mdStatusIcon');
+        ic.className = 'dg-modal-icon is-' + s;
+        ic.querySelector('use').setAttribute('href', c.use);
+        document.getElementById('mdStatusTitle').textContent = c.title;
+        document.getElementById('mdStatusBody').textContent = c.body;
+        window.dgarz.openOverlay(mdStatus);
+      });
+    });
+  }
+
+  // Onboarding stepper
+  const steps = [
+    { icon: '#dg-star',   step: 'Paso 1 de 3', title: 'Te damos la bienvenida',  text: 'dgarz design te ayuda a construir interfaces sobrias y consistentes en minutos.' },
+    { icon: '#dg-folder', step: 'Paso 2 de 3', title: 'Organiza tu trabajo',     text: 'Agrupa componentes y reutiliza tus tokens en cualquier proyecto.' },
+    { icon: '#dg-check',  step: 'Paso 3 de 3', title: 'Todo listo',              text: 'Ya puedes empezar a crear. Encuentra todo en la documentación.' }
+  ];
+  let idx = 0;
+  const obNext = document.getElementById('onboardNext');
+  function renderOnboard() {
+    const s = steps[idx];
+    document.querySelector('#onboardIcon use').setAttribute('href', s.icon);
+    document.getElementById('onboardStep').textContent = s.step;
+    document.getElementById('onboardTitle').textContent = s.title;
+    document.getElementById('onboardText').textContent = s.text;
+    document.querySelectorAll('#onboardDots i').forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    obNext.textContent = idx === steps.length - 1 ? 'Finalizar' : 'Siguiente';
+  }
+  if (obNext && window.dgarz) {
+    document.querySelector('[data-dg-open="#mdOnboard"]')
+      ?.addEventListener('click', () => { idx = 0; renderOnboard(); });
+    obNext.addEventListener('click', () => {
+      if (idx < steps.length - 1) { idx++; renderOnboard(); }
+      else window.dgarz.closeOverlay(document.getElementById('mdOnboard'));
+    });
+  }
+
+  // dgConfirm / dgAlert / dgPrompt
+  const jsOut = document.getElementById('jsConfirmOut');
+  if (jsOut && window.dgarz) {
+    document.getElementById('jsConfirmBtn')?.addEventListener('click', async () => {
+      const ok = await window.dgarz.dgConfirm({
+        title: '¿Eliminar proyecto?',
+        text: 'Esta acción es permanente y no se puede deshacer.',
+        icon: 'danger',
+        confirmText: 'Eliminar',
+      });
+      jsOut.textContent = 'Resultado: ' + ok;
+    });
+    document.getElementById('jsAlertBtn')?.addEventListener('click', async () => {
+      await window.dgarz.dgAlert({ title: 'Guardado', text: 'Los cambios se guardaron correctamente.', icon: 'success' });
+      jsOut.textContent = 'Resultado: cerrado';
+    });
+    document.getElementById('jsPromptBtn')?.addEventListener('click', async () => {
+      const nombre = await window.dgarz.dgPrompt({ title: 'Renombrar', inputValue: 'Proyecto actual', inputPlaceholder: 'Nuevo nombre' });
+      jsOut.textContent = 'Resultado: ' + JSON.stringify(nombre);
+    });
+    document.getElementById('jsPreConfirmBtn')?.addEventListener('click', async () => {
+      const ok = await window.dgarz.dgConfirm({
+        title: 'Guardar cambios',
+        text: 'Simula una llamada al servidor (900ms).',
+        confirmText: 'Guardar',
+        preConfirm: () => new Promise((resolve) => setTimeout(resolve, 900)),
+      });
+      jsOut.textContent = 'Resultado: ' + ok;
+    });
+  }
+</script>

@@ -1,0 +1,120 @@
+---
+import { readFileSync } from "node:fs";
+import Layout from "../../layouts/DocsLayout.astro";
+
+const pkg = JSON.parse(readFileSync(new URL("../../../../core/package.json", import.meta.url), "utf-8"));
+
+const pageContent = `
+      <div data-dg-tabs class="dg-mb-6">
+        <div class="dg-tabs dg-mb-5">
+          <button class="dg-tab is-active" data-dg-panel="#inst-cdn">CDN</button>
+          <button class="dg-tab" data-dg-panel="#inst-npm">npm / bundler</button>
+          <button class="dg-tab" data-dg-panel="#inst-dl">Descarga directa</button>
+        </div>
+
+        <!-- Panel: CDN -->
+        <div id="inst-cdn">
+          <p class="dg-muted dg-text-sm dg-mb-4">Copia estos tags en tu <code class="dg-code">&lt;head&gt;</code>. No requiere ningún paso de build.</p>
+          <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- 1. Fuentes (Geist + Newsreader) --&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono&amp;family=Newsreader:ital@0;1&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;!-- 2. dgarz design — todo en un archivo, minificado --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css"&gt;
+
+&lt;!-- 3. Capa de comportamiento — antes de &lt;/body&gt; --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer&gt;&lt;/script&gt;</pre></div>
+
+          <p class="dg-muted dg-text-sm dg-mt-4 dg-mb-3">¿Solo quieres componentes básicos (sin app shell, sin sidebar)?</p>
+          <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Core + Componentes (sin app pack) --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.css"&gt;
+
+&lt;!-- App pack encima (sidebar, drawer, steps, skeleton…) --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz-app.min.css"&gt;</pre></div>
+        </div>
+
+        <!-- Panel: npm -->
+        <div id="inst-npm" hidden>
+          <div class="doc-code"><button class="cp">Copiar</button><pre>npm install dgarz-design</pre></div>
+          <p class="dg-muted dg-text-sm dg-my-3">Luego impórtalo en tu entry file:</p>
+          <div class="doc-code"><button class="cp">Copiar</button><pre>// Core + Componentes
+import "dgarz-design";
+
+// App pack (sidebar, drawer, accordion, steps…)
+import "dgarz-design/app";
+
+// O todo en uno
+import "dgarz-design/full";
+
+// Solo el JavaScript (comportamiento)
+import dgarz from "dgarz-design/esm";
+dgarz.toast("¡Hola!");
+
+// Solo el CSS, sin JavaScript
+import "dgarz-design/css";   // core + componentes
+import "dgarz-design/full";  // todo el CSS</pre></div>
+        </div>
+
+        <!-- Panel: Descarga directa -->
+        <div id="inst-dl" hidden>
+          <p class="dg-muted dg-text-sm dg-mb-3">Descarga los archivos de la carpeta <code class="dg-code">dist/</code> y referencialos localmente:</p>
+          <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;link rel="stylesheet" href="/tu-proyecto/dgarz.full.css"&gt;
+&lt;script src="/tu-proyecto/dgarz.js" defer&gt;&lt;/script&gt;</pre></div>
+        </div>
+      </div>
+
+      <div class="doc-sub">Configuración inicial del HTML</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es" data-theme="light"&gt;    &lt;!-- "light" o "dark" --&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+
+  &lt;!-- Fuentes --&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono&amp;family=Newsreader:ital@0;1&amp;display=swap" rel="stylesheet"&gt;
+
+  &lt;!-- dgarz design --&gt;
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;button class="dg-btn dg-btn-primary"&gt;Hola, dgarz design&lt;/button&gt;
+
+  &lt;!-- JS al final del body --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+      <div class="doc-sub">Archivos disponibles</div>
+      <div class="dg-table-card dg-mt-3">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Archivo</th><th>Contenido</th><th>Cuándo usarlo</th></tr></thead>
+          <tbody>
+            <tr><td><code class="dg-code">dgarz.css</code></td><td>Core + Componentes</td><td>Proyectos sin app shell</td></tr>
+            <tr><td><code class="dg-code">dgarz-app.css</code></td><td>App pack (sidebar, drawer…)</td><td>Aplicaciones con layout</td></tr>
+            <tr><td><code class="dg-code">dgarz.full.css</code></td><td>Todo en uno</td><td>La forma más sencilla</td></tr>
+            <tr><td><code class="dg-code">dgarz.js</code> / <code class="dg-code">.min.js</code></td><td>Comportamiento (UMD)</td><td>Via <code class="dg-code">&lt;script&gt;</code></td></tr>
+            <tr><td><code class="dg-code">dgarz.esm.js</code></td><td>Módulo ES</td><td>Bundler / <code class="dg-code">import</code></td></tr>
+            <tr><td><code class="dg-code">dgarz-icons.svg</code></td><td>Sprite SVG (33 iconos)</td><td>Siempre que uses iconos</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dg-callout dg-callout-info dg-mt-5 dg-measure">
+        <p class="dg-callout-title">Compatibilidad</p>
+        Chrome/Edge 111+ · Firefox 113+ · Safari 16.4+. Utiliza <code class="dg-code">color-mix()</code>, <code class="dg-code">:has()</code> y <code class="dg-code">backdrop-filter</code>. Sin soporte para IE.
+      </div>
+
+      <div class="dg-callout dg-mt-4 dg-measure">
+        <p class="dg-callout-title">Personalización</p>
+        Sobrescribe cualquier token en tu propio <code class="dg-code">:root</code> después de cargar el framework:<br><br>
+        <code class="dg-code">--dg-solid: #4f46e5; --dg-radius-pill: 6px;</code>
+      </div>
+
+      <p class="dg-muted dg-text-sm dg-mt-6">dgarz design · v${pkg.version} — MIT License · monocromo, minimal, performance-first. <a href="/comenzar/changelog">Ver changelog →</a></p>`;
+---
+
+<Layout title="Instalación" lead="Elige cómo integrar dgarz design en tu proyecto." currentHref="/comenzar/install">
+  <Fragment set:html={pageContent} />
+</Layout>

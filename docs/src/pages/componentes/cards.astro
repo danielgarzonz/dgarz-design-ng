@@ -1,0 +1,173 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Estructura básica</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Tarjeta mínima — solo body --&gt;
+&lt;div class="dg-card"&gt;
+  &lt;div class="dg-card-body"&gt;
+    &lt;h4 class="dg-card-title"&gt;Título&lt;/h4&gt;
+    &lt;p class="dg-muted"&gt;Descripción del contenido.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tarjeta completa: imagen + cabecera + cuerpo + pie --&gt;
+&lt;div class="dg-card"&gt;
+  &lt;img class="dg-card-img" src="foto.jpg" alt="…" /&gt;
+
+  &lt;div class="dg-card-header"&gt;
+    &lt;h4 class="dg-card-title"&gt;Título de la tarjeta&lt;/h4&gt;
+  &lt;/div&gt;
+
+  &lt;div class="dg-card-body"&gt;
+    &lt;p class="dg-muted"&gt;Contenido principal aquí.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="dg-card-footer"&gt;
+    &lt;button class="dg-btn dg-btn-primary dg-btn-sm"&gt;Acción&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Efecto hover (eleva con sombra y sube 2px) --&gt;
+&lt;div class="dg-card dg-card-hover"&gt;…&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Ejemplos de tarjetas</div>
+      <div class="doc-demo">
+        <div class="dg-grid dg-grid-3">
+          <article class="dg-card dg-card-hover">
+            <div class="dg-card-img doc-stage-cool"></div>
+            <div class="dg-card-body">
+              <span class="dg-eyebrow">Artículo</span>
+              <h3 class="dg-card-title dg-mt-2">El peso del blanco</h3>
+              <p class="dg-muted dg-mt-2 dg-text-sm">El espacio negativo como herramienta principal de composición.</p>
+            </div>
+            <div class="dg-card-footer dg-flex dg-items-center dg-justify-between">
+              <span class="dg-text-sm dg-muted">5 min</span>
+              <a class="dg-link dg-text-sm" href="#cards">Leer</a>
+            </div>
+          </article>
+          <article class="dg-card dg-card-hover">
+            <div class="dg-card-body">
+              <h3 class="dg-card-title">Plan Pro</h3>
+              <p class="dg-display dg-mt-3 dg-text-3xl">$12<span class="dg-text-sm dg-muted dg-serif">/mes</span></p>
+              <div class="dg-stack dg-mt-4 dg-text-sm dg-muted dg-gap-2">
+                <span>Componentes ilimitados</span><span>Modo oscuro</span><span>Soporte prioritario</span>
+              </div>
+              <button class="dg-btn dg-btn-primary dg-btn-block dg-mt-5">Elegir Pro</button>
+            </div>
+          </article>
+          <article class="dg-card dg-card-hover">
+            <div class="dg-card-body">
+              <div class="dg-cluster dg-mb-4">
+                <span class="dg-avatar">DG</span>
+                <div><div class="dg-fw-semi dg-text-sm">dgarz</div><div class="dg-text-xs dg-muted">@dgarzdesign</div></div>
+              </div>
+              <p class="dg-serif dg-italic dg-text-lg">"Menos, pero mejor." Un sistema que respira.</p>
+              <div class="dg-cluster dg-mt-4"><span class="dg-badge">monocromo</span><span class="dg-badge">minimal</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="doc-sub">Cabecera con acciones (header-row)</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card"&gt;
+  &lt;!-- .dg-card-header-row pone título y acciones en la misma línea --&gt;
+  &lt;div class="dg-card-header dg-card-header-row"&gt;
+    &lt;h4 class="dg-card-title"&gt;Pedidos recientes&lt;/h4&gt;
+    &lt;button class="dg-btn dg-btn-ghost dg-btn-sm"&gt;Ver todos&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-card-body"&gt;…&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Variantes</div>
+      <div class="doc-demo">
+        <div class="dg-grid dg-grid-2 dg-mb-5">
+          <!-- Horizontal -->
+          <article class="dg-card dg-card-row dg-card-hover">
+            <div class="dg-card-img doc-stage-neutral"></div>
+            <div class="dg-card-body">
+              <span class="dg-eyebrow">Horizontal</span>
+              <h3 class="dg-card-title dg-mt-2">Media al lado</h3>
+              <p class="dg-muted dg-text-sm dg-mt-2"><code class="dg-code">.dg-card-row</code> coloca la imagen junto al contenido.</p>
+            </div>
+          </article>
+          <!-- Media overlay -->
+          <article class="dg-card dg-card-media dg-card-hover">
+            <div class="dg-card-img doc-stage-dark"></div>
+            <div class="dg-card-overlay">
+              <span class="dg-eyebrow dg-text-on-dark">Reportaje</span>
+              <h3 class="dg-card-title dg-mt-2">Texto sobre imagen</h3>
+            </div>
+          </article>
+        </div>
+        <div class="dg-grid dg-grid-3">
+          <!-- Header with actions -->
+          <article class="dg-card">
+            <div class="dg-card-header dg-card-header-row">
+              <div class="dg-card-title dg-text-lg">Con acciones</div>
+              <div class="dg-dropdown" data-dg-dropdown>
+                <button class="dg-icon-btn" data-dg-dropdown-trigger aria-label="Más"><svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg></button>
+                <div class="dg-menu"><button class="dg-menu-item">Editar</button><button class="dg-menu-item">Archivar</button></div>
+              </div>
+            </div>
+            <div class="dg-card-body dg-text-sm dg-muted">Encabezado con menú de acciones a la derecha.</div>
+          </article>
+          <!-- Profile -->
+          <article class="dg-card dg-card-profile">
+            <div class="dg-card-body">
+              <span class="dg-avatar">SC</span>
+              <div class="dg-fw-semi">Sofía Cano</div>
+              <div class="dg-text-xs dg-muted">Product Designer</div>
+              <button class="dg-btn dg-btn-outline dg-btn-sm dg-mt-4">Seguir</button>
+            </div>
+          </article>
+          <!-- Selectable -->
+          <article class="dg-card dg-card-select" id="selectCard" onclick="this.classList.toggle('is-selected')">
+            <div class="dg-card-body">
+              <div class="dg-flex dg-items-center dg-justify-between dg-mb-2">
+                <div class="dg-fw-semi dg-text-sm">Seleccionable</div>
+                <span class="dg-badge dg-badge-outline">Click</span>
+              </div>
+              <p class="dg-text-sm dg-muted">Pulsa la tarjeta: <code class="dg-code">.is-selected</code> marca el borde.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Horizontal: imagen al lado del contenido --&gt;
+&lt;div class="dg-card dg-card-row"&gt;
+  &lt;img class="dg-card-img" src="thumb.jpg" alt="…" /&gt;   &lt;!-- 38% de ancho --&gt;
+  &lt;div class="dg-card-body"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Media overlay: texto sobre la imagen con degradado --&gt;
+&lt;div class="dg-card dg-card-media"&gt;
+  &lt;img class="dg-card-img" src="cover.jpg" alt="…" /&gt;
+  &lt;div class="dg-card-overlay"&gt;
+    &lt;span class="dg-eyebrow"&gt;Categoría&lt;/span&gt;
+    &lt;h3 class="dg-card-title"&gt;Título sobre la imagen&lt;/h3&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Profile card: centrado con avatar grande --&gt;
+&lt;div class="dg-card dg-card-profile"&gt;
+  &lt;div class="dg-card-body"&gt;
+    &lt;img class="dg-avatar" src="user.jpg" alt="…" /&gt;
+    &lt;h5&gt;Ana Rivas&lt;/h5&gt;
+    &lt;p class="dg-muted dg-text-sm"&gt;Product Designer&lt;/p&gt;
+    &lt;button class="dg-btn dg-btn-outline dg-btn-sm dg-mt-4"&gt;Seguir&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Seleccionable: borde resaltado al estar activo --&gt;
+&lt;div class="dg-card dg-card-select" onclick="this.classList.toggle('is-selected')"&gt;
+  &lt;div class="dg-card-body"&gt;
+    &lt;h5&gt;Opción A&lt;/h5&gt;
+    &lt;p class="dg-muted dg-text-sm"&gt;Descripción de la opción.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- .is-selected agrega borde de color --&gt;
+&lt;!-- Para manejo automático usa JS:
+     card.classList.toggle('is-selected') --&gt;</pre></div>`;
+---
+
+<Layout title="Cards" lead="Contenedores versátiles con header, body, footer e imagen." currentHref="/componentes/cards">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -1,0 +1,207 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+
+const pageContent = `<div class="doc-sub">Dropdown básico</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Usa <code class="dg-code">data-dg-dropdown</code> en el wrapper, <code class="dg-code">data-dg-dropdown-trigger</code> en el botón
+        y un <code class="dg-code">.dg-menu</code> con items. El JS ya resuelve apertura, cierre, click fuera y <code class="dg-code">Escape</code>.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <div class="dg-dropdown" data-dg-dropdown>
+            <button class="dg-btn dg-btn-outline" data-dg-dropdown-trigger>
+              Opciones
+              <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+            </button>
+            <div class="dg-menu" hidden>
+              <button class="dg-menu-item">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg>
+                Editar proyecto
+              </button>
+              <button class="dg-menu-item">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-star"/></svg>
+                Duplicar
+              </button>
+              <div class="dg-menu-sep"></div>
+              <button class="dg-menu-item dg-menu-item-danger">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg>
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-dropdown" data-dg-dropdown&gt;
+  &lt;button class="dg-btn dg-btn-outline" data-dg-dropdown-trigger&gt;
+    Opciones
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+
+  &lt;div class="dg-menu" hidden&gt;
+    &lt;button class="dg-menu-item"&gt;
+      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-mail"&gt;&lt;/use&gt;&lt;/svg&gt;
+      Editar proyecto
+    &lt;/button&gt;
+    &lt;button class="dg-menu-item"&gt;
+      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-star"&gt;&lt;/use&gt;&lt;/svg&gt;
+      Duplicar
+    &lt;/button&gt;
+    &lt;div class="dg-menu-sep"&gt;&lt;/div&gt;
+    &lt;button class="dg-menu-item dg-menu-item-danger"&gt;Eliminar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Menú de acciones alineado al borde derecho</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-card dg-max-w-xl">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-justify-between dg-items-center">
+              <div>
+                <div class="dg-fw-semi">Landing de campaña</div>
+                <div class="dg-muted dg-text-sm">Última edición hace 12 min</div>
+              </div>
+              <div class="dg-dropdown" data-dg-dropdown>
+                <button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Más acciones">
+                  <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+                </button>
+                <div class="dg-menu dg-menu-end" hidden>
+                  <button class="dg-menu-item">Compartir</button>
+                  <button class="dg-menu-item">Mover a borradores</button>
+                  <div class="dg-menu-sep"></div>
+                  <button class="dg-menu-item dg-menu-item-danger">Archivar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-dropdown" data-dg-dropdown&gt;
+  &lt;button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Más acciones"&gt;
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+
+  &lt;div class="dg-menu dg-menu-end" hidden&gt;
+    &lt;button class="dg-menu-item"&gt;Compartir&lt;/button&gt;
+    &lt;button class="dg-menu-item"&gt;Mover a borradores&lt;/button&gt;
+    &lt;div class="dg-menu-sep"&gt;&lt;/div&gt;
+    &lt;button class="dg-menu-item dg-menu-item-danger"&gt;Archivar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Uso en tablas y listados</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-table-card">
+          <table class="dg-table">
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Estado</th>
+                <th class="dg-text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dg-fw-medium">Portal clientes</td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-success">Activo</span></td>
+                <td class="dg-text-right">
+                  <div class="dg-dropdown" data-dg-dropdown>
+                    <button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Acciones de Portal clientes">
+                      <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+                    </button>
+                    <div class="dg-menu dg-menu-end" hidden>
+                      <button class="dg-menu-item">Editar</button>
+                      <button class="dg-menu-item">Duplicar</button>
+                      <div class="dg-menu-sep"></div>
+                      <button class="dg-menu-item dg-menu-item-danger">Eliminar</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="dg-fw-medium">App de reservas</td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-warning">Borrador</span></td>
+                <td class="dg-text-right">
+                  <div class="dg-dropdown" data-dg-dropdown>
+                    <button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Acciones de App de reservas">
+                      <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+                    </button>
+                    <div class="dg-menu dg-menu-end" hidden>
+                      <button class="dg-menu-item">Editar</button>
+                      <button class="dg-menu-item">Publicar</button>
+                      <div class="dg-menu-sep"></div>
+                      <button class="dg-menu-item dg-menu-item-danger">Eliminar</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;td class="dg-text-right"&gt;
+  &lt;div class="dg-dropdown" data-dg-dropdown&gt;
+    &lt;button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Acciones"&gt;
+      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+
+    &lt;div class="dg-menu dg-menu-end" hidden&gt;
+      &lt;button class="dg-menu-item"&gt;Editar&lt;/button&gt;
+      &lt;button class="dg-menu-item"&gt;Duplicar&lt;/button&gt;
+      &lt;div class="dg-menu-sep"&gt;&lt;/div&gt;
+      &lt;button class="dg-menu-item dg-menu-item-danger"&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/td&gt;</pre></div>
+
+      <div class="doc-sub">Clases disponibles</div>
+      <div class="doc-demo">
+        <div class="dg-grid dg-grid-auto">
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Wrapper</div>
+              <code class="dg-code">.dg-dropdown</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Contenedor relativo del trigger y el menú.</p>
+            </div>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Menú</div>
+              <code class="dg-code">.dg-menu</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Superficie flotante del dropdown.</p>
+            </div>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Alineación derecha</div>
+              <code class="dg-code">.dg-menu-end</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Pega el menú al borde derecho del trigger.</p>
+            </div>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Ítem</div>
+              <code class="dg-code">.dg-menu-item</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Acción clicable con hover y focus base.</p>
+            </div>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Ítem destructivo</div>
+              <code class="dg-code">.dg-menu-item-danger</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Variante semántica para borrar, archivar o revocar.</p>
+            </div>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body">
+              <div class="dg-fw-semi">Separador</div>
+              <code class="dg-code">.dg-menu-sep</code>
+              <p class="dg-muted dg-text-sm dg-mt-2">Divide grupos de acciones dentro del menú.</p>
+            </div>
+          </div>
+        </div>
+      </div>`;
+---
+
+<Layout title="Dropdown" lead="Menús contextuales para acciones rápidas, toolbars y tablas." currentHref="/componentes/dropdown">
+  <Fragment set:html={pageContent} />
+</Layout>

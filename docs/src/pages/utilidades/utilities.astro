@@ -1,0 +1,183 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Display</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-flex         → display: flex
+.dg-inline-flex  → display: inline-flex
+.dg-grid-d       → display: grid
+.dg-block        → display: block
+.dg-hidden       → display: none
+.dg-sr-only      → visually hidden (solo accesible por lectores)</pre></div>
+
+      <div class="doc-sub">Flexbox</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Alineación */
+.dg-items-center   → align-items: center
+.dg-items-start    → align-items: flex-start
+.dg-items-end      → align-items: flex-end
+.dg-self-center    → align-self: center
+.dg-self-start     → align-self: flex-start
+.dg-self-end       → align-self: flex-end
+.dg-self-stretch   → align-self: stretch
+
+/* Justificación */
+.dg-justify-start   → justify-content: flex-start
+.dg-justify-center  → justify-content: center
+.dg-justify-between → justify-content: space-between
+.dg-justify-end     → justify-content: flex-end
+
+/* Dirección y wrap */
+.dg-col-flex  → flex-direction: column
+.dg-wrap      → flex-wrap: wrap
+
+/* Flex grow / shrink */
+.dg-grow      → flex: 1 1 auto
+.dg-shrink-0  → flex-shrink: 0
+
+/* Gap */
+.dg-gap-1 → gap: 4px     .dg-gap-2 → gap: 8px
+.dg-gap-3 → gap: 12px    .dg-gap-4 → gap: 16px
+.dg-gap-5 → gap: 24px    .dg-gap-6 → gap: 32px</pre></div>
+
+      <div class="doc-sub">Espaciado (margin y padding)</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Margin */
+.dg-mt-{0-8}   → margin-top
+.dg-mb-{0-8}   → margin-bottom
+.dg-mx-auto    → margin-inline: auto
+.dg-ml-auto    → margin-left: auto
+.dg-mr-auto    → margin-right: auto
+.dg-my-{4-6}   → margin-block
+
+/* Padding */
+.dg-p-{0-6}    → padding (todos lados)
+.dg-px-{2-6}   → padding-inline (izquierda + derecha)
+.dg-py-{1-6}   → padding-block (arriba + abajo)
+.dg-pt-{4-6}   → padding-top
+.dg-pb-{4-6}   → padding-bottom
+
+/* Escala: 1=4px · 2=8px · 3=12px · 4=16px · 5=24px · 6=32px · 7=48px · 8=64px */</pre></div>
+
+      <div class="doc-sub">Tipografía</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Tamaños */
+.dg-text-xs    → 12px    .dg-text-sm   → 14px
+.dg-text-base  → 16px    .dg-text-lg   → 18px
+.dg-text-xl    → 22px    .dg-text-2xl  → 28px
+.dg-text-3xl   → 36px    .dg-text-4xl  → 48px
+.dg-text-5xl   → 64px
+
+/* Peso */
+.dg-fw-medium → 500   .dg-fw-semi → 600   .dg-fw-bold → 700
+
+/* Estilo y decoración */
+.dg-italic        .dg-uppercase      .dg-underline
+.dg-line-through  .dg-no-underline   .dg-text-decoration-none
+.dg-truncate      .dg-no-wrap        .dg-break-word
+.dg-balance
+
+/* Alineación */
+.dg-text-left   .dg-text-center   .dg-text-right
+
+/* Familias */
+.dg-serif   → Newsreader
+.dg-font-mono → Geist Mono
+.dg-font-sans → Geist
+
+/* Colores */
+.dg-muted         → color: --dg-text-muted
+.dg-faint         → color: --dg-text-faint
+.dg-text-success  .dg-text-warning  .dg-text-danger  .dg-text-info</pre></div>
+
+      <div class="doc-sub">Colores de fondo</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-surface     → background: --dg-surface
+.dg-surface-2   → background: --dg-surface-2
+.dg-bg-paper    → background: --dg-paper
+.dg-bg-surface-3 → background: --dg-surface-3
+.dg-bg-success  .dg-bg-warning  .dg-bg-danger  .dg-bg-info</pre></div>
+
+      <div class="doc-sub">Bordes y radios</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-border        → 1px solid --dg-border
+.dg-border-0      → sin borde
+.dg-border-top    .dg-border-bottom  .dg-border-start  .dg-border-end
+.dg-rounded       → --dg-radius (14px)
+.dg-rounded-lg    → --dg-radius-lg (22px)
+.dg-rounded-pill  → 999px</pre></div>
+
+      <div class="doc-sub">Sombras</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-shadow-1   → sutil     (cards en reposo)
+.dg-shadow-2   → media     (cards flotantes)
+.dg-shadow-3   → fuerte    (modales, popovers)</pre></div>
+
+      <div class="doc-sub">Posición y z-index</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-relative   .dg-absolute  .dg-fixed  .dg-sticky
+.dg-inset-0   → inset: 0 (cubre el padre)
+.dg-z-10  .dg-z-20  .dg-z-30  .dg-z-40  .dg-z-50</pre></div>
+
+      <div class="doc-sub">Tamaño</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-w-full      → width: 100%
+.dg-h-full      → height: 100%
+.dg-h-screen    → height: 100vh
+.dg-min-w-0     → min-width: 0
+.dg-max-w-full  → max-width: 100%
+
+/* Aspect ratio */
+.dg-aspect-video  → 16/9
+.dg-aspect-square → 1/1
+.dg-aspect-4-3    → 4/3
+
+/* Object fit */
+.dg-object-cover    .dg-object-contain</pre></div>
+
+      <div class="doc-sub">Overflow y visibilidad</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-overflow-hidden   .dg-overflow-auto   .dg-overflow-scroll
+.dg-overflow-x-auto   .dg-overflow-y-auto
+.dg-hidden            → display: none
+.dg-visible           → visibility: visible
+.dg-invisible         → visibility: hidden
+.dg-hidden-mobile     → oculto en &lt; 992px
+.dg-hidden-desktop    → oculto en ≥ 992px</pre></div>
+
+      <div class="doc-sub">Float y alineación vertical</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Float (usar con .dg-clearfix en el padre) */
+.dg-float-start   → float: left
+.dg-float-end     → float: right
+.dg-float-none    → float: none
+.dg-clearfix::after { content:""; display:table; clear:both }
+
+/* Vertical align (para elementos inline/table-cell) */
+.dg-align-baseline  .dg-align-top     .dg-align-middle
+.dg-align-bottom    .dg-align-text-top .dg-align-text-bottom</pre></div>
+
+      <div class="doc-sub">Interacción y cursor</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-cursor-pointer      → cursor: pointer
+.dg-cursor-default      → cursor: default
+.dg-cursor-not-allowed  → cursor: not-allowed
+.dg-cursor-grab         → cursor: grab
+.dg-pointer-events-none → pointer-events: none
+.dg-pointer-events-auto → pointer-events: auto
+.dg-select-none         → user-select: none
+.dg-select-all          → user-select: all
+.dg-opacity-0   .dg-opacity-50  .dg-opacity-75  .dg-opacity-100
+.dg-transition  → transition: all 0.18s ease
+.dg-transition-none</pre></div>
+
+      <div class="doc-sub">Helpers especiales</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Regla vertical entre elementos flex */
+&lt;div class="dg-vr"&gt;&lt;/div&gt;
+
+/* Stretched link: hace clickeable toda la card padre */
+&lt;div class="dg-card dg-relative"&gt;
+  &lt;div class="dg-card-body"&gt;
+    &lt;h4&gt;Título&lt;/h4&gt;
+    &lt;a href="#" class="dg-stretched-link"&gt;Ver más&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+/* Links de color semántico */
+&lt;a class="dg-link-success"&gt;Confirmado&lt;/a&gt;
+&lt;a class="dg-link-danger"&gt;Eliminar&lt;/a&gt;
+&lt;a class="dg-link-warning"&gt;Revisar&lt;/a&gt;
+&lt;a class="dg-link-info"&gt;Información&lt;/a&gt;
+&lt;a class="dg-link-muted"&gt;Secundario&lt;/a&gt;</pre></div>`;
+---
+
+<Layout title="Utilidades" lead="Clases de espaciado, display, flexbox, tipografía y visibilidad." currentHref="/utilidades/utilities">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Breadcrumbs</div>
+      <div class="doc-demo is-plain">
+        <nav aria-label="Ubicación" class="dg-breadcrumb">
+          <a href="#">Inicio</a><svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="#dg-chevron-right"/></svg>
+          <a href="#">Productos</a><svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="#dg-chevron-right"/></svg>
+          <span aria-current="page">Detalle</span>
+        </nav>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;nav aria-label="Ubicación" class="dg-breadcrumb"&gt;
+  &lt;a href="/"&gt;Inicio&lt;/a&gt;
+  &lt;svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-right"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;a href="/productos"&gt;Productos&lt;/a&gt;
+  &lt;svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-right"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;span aria-current="page"&gt;Detalle&lt;/span&gt;
+&lt;/nav&gt;
+&lt;!-- aria-current="page" resalta el ítem activo --&gt;</pre></div>
+
+      <div class="doc-sub">Paginación</div>
+      <div class="doc-demo is-plain">
+        <nav class="dg-pagination" aria-label="Páginas">
+          <button class="dg-page" disabled aria-label="Anterior">‹</button>
+          <button class="dg-page">1</button>
+          <button class="dg-page is-active" aria-current="page">2</button>
+          <button class="dg-page">3</button>
+          <button class="dg-page">…</button>
+          <button class="dg-page">10</button>
+          <button class="dg-page" aria-label="Siguiente">›</button>
+        </nav>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;nav class="dg-pagination" aria-label="Páginas"&gt;
+  &lt;button class="dg-page" disabled&gt;‹&lt;/button&gt;
+  &lt;button class="dg-page"&gt;1&lt;/button&gt;
+  &lt;button class="dg-page is-active" aria-current="page"&gt;2&lt;/button&gt;
+  &lt;button class="dg-page"&gt;3&lt;/button&gt;
+  &lt;button class="dg-page"&gt;›&lt;/button&gt;
+&lt;/nav&gt;
+&lt;!-- .is-active → página actual  :disabled → botón deshabilitado --&gt;</pre></div>`;
+---
+
+<Layout title="Breadcrumbs" lead="Migas de pan y paginación." currentHref="/app-pack/breadcrumbs">
+  <Fragment set:html={pageContent} />
+</Layout>

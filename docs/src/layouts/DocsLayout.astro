@@ -1,0 +1,558 @@
+---
+import { NAV, TOP_NAV, getPrevNext, type NavItem } from "../data/nav";
+import "../styles/doc-patterns.css";
+
+interface Props {
+  title: string;
+  lead?: string;
+  currentHref: string;
+}
+
+const { title, lead, currentHref } = Astro.props;
+const { prev, next } = getPrevNext(currentHref);
+
+const activeGroup = NAV.find((g) => g.items.some((i) => i.href === currentHref));
+
+// Cambiar a CDN después de publicar a npm:
+// const CDN = `https://cdn.jsdelivr.net/npm/dgarz-design@1.0.0/dist`;
+// const cssHref = `${CDN}/dgarz.full.min.css`;
+// const jsHref  = `${CDN}/dgarz.min.js`;
+const cssHref = import.meta.env.DEV ? "/dist/dgarz.full.css" : "/dist/dgarz.full.min.css";
+const jsHref  = "/dist/dgarz.js";
+---
+
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — dgarz design</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={cssHref} />
+  <style is:global>
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    :root        { --doc-page-bg: var(--dg-0); }
+    [data-theme="dark"] { --doc-page-bg: var(--dg-paper); }
+    body { overflow-x: hidden; background: var(--doc-page-bg); }
+
+    /* ---- topbar ---- */
+    .doc-topbar {
+      position: sticky; top: 0; z-index: 30;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--dg-space-5); min-height: 57px;
+      background: color-mix(in oklab, var(--doc-page-bg) 72%, transparent);
+      backdrop-filter: blur(22px) saturate(200%);
+      -webkit-backdrop-filter: blur(22px) saturate(200%);
+      border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+    }
+    .doc-brand {
+      font-family: var(--dg-font-serif); font-size: var(--dg-text-lg);
+      font-weight: var(--dg-weight-medium); flex-shrink: 0;
+      text-decoration: none; color: var(--dg-text);
+    }
+    .doc-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--dg-space-5);
+      min-width: 0;
+    }
+    .doc-focus-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--dg-space-1);
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .doc-focus-nav::-webkit-scrollbar { display: none; }
+    .doc-focus-nav a {
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--dg-text-muted);
+      font-size: var(--dg-text-sm);
+      padding: 0.45em 0.8em;
+      border-radius: var(--dg-radius-pill);
+      transition: color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+    }
+    .doc-focus-nav a:hover { color: var(--dg-text); background: var(--dg-surface-2); }
+    .doc-focus-nav a.is-active {
+      color: var(--dg-text);
+      background: var(--dg-surface-3);
+      font-weight: var(--dg-weight-medium);
+    }
+    .doc-topbar-right { display: flex; align-items: center; gap: var(--dg-space-3); }
+
+    /* ---- shell ---- */
+    .doc-shell {
+      display: grid;
+      grid-template-columns: 248px 1fr;
+      max-width: 1320px;
+      margin-inline: auto;
+    }
+    @media (max-width: 860px) {
+      .doc-shell { grid-template-columns: 1fr; }
+      .doc-sidebar { display: none; }
+      .doc-focus-nav { display: none; }
+    }
+
+    /* ---- sidebar ---- */
+    .doc-sidebar {
+      position: sticky; top: 57px; align-self: start;
+      height: calc(100vh - 57px); overflow-y: auto;
+      padding: var(--dg-space-6) var(--dg-space-4) var(--dg-space-8) var(--dg-space-5);
+      border-right: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+    }
+    .doc-nav-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: var(--dg-text-xs); text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--dg-text-faint);
+      margin: var(--dg-space-5) 0 var(--dg-space-2);
+      font-family: var(--dg-font-sans); font-weight: var(--dg-weight-semi);
+    }
+    .doc-nav-label:first-child { margin-top: 0; }
+    .doc-nav-label .dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .doc-nav-dot-comenzar { background: #6366f1; }
+    .doc-nav-dot-fundamentos { background: #ec4899; }
+    .doc-nav-dot-formularios { background: #3b82f6; }
+    .doc-nav-dot-componentes { background: #06b6d4; }
+    .doc-nav-dot-utilidades { background: #f59e0b; }
+    .doc-nav-dot-app-pack { background: #22c55e; }
+    .doc-nav-dot-ejemplos { background: #a855f7; }
+    .doc-nav-dot-studio { background: #ef4444; }
+    .doc-nav a {
+      display: block; padding: 0.4em 0.7em;
+      border-radius: var(--dg-radius-sm); font-size: var(--dg-text-sm);
+      color: var(--dg-text-muted);
+      transition: color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+      text-decoration: none;
+    }
+    .doc-nav a:hover { color: var(--dg-text); background: var(--dg-surface-2); }
+    .doc-nav a.is-active {
+      color: var(--dg-text); background: var(--dg-surface-3);
+      font-weight: var(--dg-weight-medium);
+    }
+
+    /* ---- main ---- */
+    .doc-main { padding: 0 var(--dg-space-7) var(--dg-space-9); min-width: 0; }
+
+    /* ---- breadcrumb ---- */
+    .doc-breadcrumb {
+      position: sticky;
+      top: 57px;
+      z-index: 20;
+      display: flex; align-items: center; gap: var(--dg-space-2);
+      height: 40px;
+      margin-inline: calc(-1 * var(--dg-space-7));
+      padding-inline: var(--dg-space-7);
+      font-size: var(--dg-text-xs); color: var(--dg-text-faint);
+      background: color-mix(in oklab, var(--doc-page-bg) 82%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 50%, transparent);
+    }
+    .doc-breadcrumb span { color: var(--dg-text-faint); }
+
+    /* ---- hero ---- */
+    .doc-hero {
+      padding-top: var(--dg-space-6); padding-bottom: var(--dg-space-6);
+      border-bottom: 1px solid var(--dg-border); margin-bottom: var(--dg-space-7);
+    }
+    .doc-hero-title {
+      font-family: var(--dg-font-serif);
+      font-size: var(--dg-text-4xl);
+      font-weight: var(--dg-weight-normal);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--dg-text);
+      text-wrap: balance;
+      margin-bottom: var(--dg-space-3);
+    }
+    .doc-hero p { color: var(--dg-text-muted); max-width: 60ch; line-height: var(--dg-leading-normal); }
+
+    /* ---- section labels ---- */
+    .doc-sub {
+      font-size: 1.5rem; font-weight: var(--dg-weight-bold);
+      letter-spacing: -0.01em;
+      color: var(--dg-text); margin: var(--dg-space-6) 0 var(--dg-space-3);
+    }
+
+    /* ---- demo block ---- */
+    .doc-demo {
+      border-radius: var(--dg-radius-lg);
+      padding: var(--dg-space-6); background:
+        radial-gradient(var(--dg-border) 1px, transparent 1px);
+      background-size: 22px 22px; background-color: var(--dg-surface-2);
+    }
+    .doc-demo.is-plain { background-image: none; }
+    .doc-demo:has(+ .doc-code) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .doc-demo + .doc-code { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+    /* ---- code block — terminal style ---- */
+    .doc-code {
+      position: relative;
+      background: #0d1117;
+      color: #e4e4e7;
+      border-radius: var(--dg-radius-lg);
+      margin: var(--dg-space-5) 0;
+      font-size: var(--dg-text-xs);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    }
+    /* macOS chrome bar */
+    .doc-code::before {
+      content: '';
+      display: block;
+      height: 40px;
+      background-color: #161b22;
+      background-image:
+        radial-gradient(circle, #ff5f57 5.5px, transparent 5.5px),
+        radial-gradient(circle, #febc2e 5.5px, transparent 5.5px),
+        radial-gradient(circle, #28c840 5.5px, transparent 5.5px);
+      background-size: 11px 11px, 11px 11px, 11px 11px;
+      background-position: 14px center, 30px center, 46px center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+    }
+    /* language label centered in bar */
+    .doc-code[data-lang]::after {
+      content: attr(data-lang);
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--dg-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,.22);
+      pointer-events: none;
+    }
+    .doc-code pre {
+      padding: var(--dg-space-5);
+      margin: 0;
+      white-space: pre;
+      overflow-x: auto;
+      line-height: 1.7;
+      font-family: var(--dg-font-mono);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.1) transparent;
+    }
+    .doc-code pre::-webkit-scrollbar { height: 5px; }
+    .doc-code pre::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 4px; }
+    /* copy button — inside chrome bar */
+    .doc-code .cp {
+      position: absolute;
+      top: 8px; right: 12px;
+      height: 24px;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.35);
+      border-radius: var(--dg-radius-sm);
+      padding: 0 0.65em;
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .doc-code .cp:hover {
+      background: rgba(255,255,255,.13);
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.75);
+    }
+    .doc-code .cp.is-copied {
+      background: rgba(40,200,64,.12);
+      border-color: rgba(40,200,64,.25);
+      color: #28c840;
+    }
+    /* ---- Prism token colors (custom theme) ---- */
+    .token.comment, .token.prolog, .token.doctype, .token.cdata { color: #6e7681; font-style: italic; }
+    .token.tag, .token.punctuation { color: #7dd3fc; }
+    .token.tag .token.tag { color: #79c0ff; }
+    .token.attr-name { color: #7ee787; }
+    .token.attr-value, .token.string { color: #a5d6ff; }
+    .token.keyword, .token.boolean, .token.important { color: #ff7b72; }
+    .token.selector, .token.class, .token.builtin { color: #ffa657; }
+    .token.property { color: #79c0ff; }
+    .token.number { color: #f2cc60; }
+    .token.function { color: #d2a8ff; }
+    .token.operator { color: #ff7b72; }
+    .token.unit, .token.pseudo-class, .token.pseudo-element { color: #ffa657; }
+    .token.atrule { color: #ffa657; }
+    .token.url { color: #a5d6ff; text-decoration: underline; }
+
+    /* ---- prev/next ---- */
+    .doc-prevnext {
+      display: flex; justify-content: space-between; gap: var(--dg-space-4);
+      padding-top: var(--dg-space-8); border-top: 1px solid var(--dg-border);
+      margin-top: var(--dg-space-8);
+    }
+    .doc-prevnext a {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: var(--dg-space-4) var(--dg-space-5);
+      border: 1px solid var(--dg-border); border-radius: var(--dg-radius-lg);
+      text-decoration: none; color: var(--dg-text);
+      transition: border-color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+      max-width: 240px; flex: 1;
+    }
+    .doc-prevnext a:hover { border-color: var(--dg-text); background: var(--dg-surface-2); }
+    .doc-prevnext .label { font-size: var(--dg-text-xs); color: var(--dg-text-faint); }
+    .doc-prevnext .name  { font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium); }
+    .doc-prevnext a.next { text-align: right; margin-left: auto; }
+
+    /* ---- theme toggle ---- */
+    .doc-theme-btn {
+      width: 36px; height: 36px; border-radius: var(--dg-radius-pill);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--dg-text-muted); background: none; border: none; cursor: pointer;
+      transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+    }
+    .doc-theme-btn:hover { background: var(--dg-surface-2); color: var(--dg-text); }
+    .doc-icon-xs { width: 12px; height: 12px; }
+    .doc-icon-hidden { display: none; }
+
+    /* ---- color page: neutral chips ---- */
+    .doc-color-0   { background: var(--dg-0); }
+    .doc-color-50  { background: var(--dg-50); }
+    .doc-color-100 { background: var(--dg-100); }
+    .doc-color-200 { background: var(--dg-200); }
+    .doc-color-300 { background: var(--dg-300); }
+    .doc-color-400 { background: var(--dg-400); }
+    .doc-color-500 { background: var(--dg-500); }
+    .doc-color-600 { background: var(--dg-600); }
+    .doc-color-700 { background: var(--dg-700); }
+    .doc-color-800 { background: var(--dg-800); }
+    .doc-color-900 { background: var(--dg-900); }
+    .doc-color-950 { background: var(--dg-950); }
+
+  </style>
+</head>
+<body>
+
+<!-- SVG sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" class="doc-icon-hidden" aria-hidden="true">
+  <symbol id="dg-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+  <symbol id="dg-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5Z"/></symbol>
+  <symbol id="dg-x"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="dg-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 12h12"/></symbol>
+  <symbol id="dg-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+  <symbol id="dg-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="dg-chevron-down"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="dg-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="dg-alert-tri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2.5 20h19L12 4Z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="dg-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="dg-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+  <symbol id="dg-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="dg-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="dg-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6 .7-4.4 4.2 1.2 6L12 16.9 6.6 19.5l1.2-6L3.4 9.3l6-.7Z"/></symbol>
+  <symbol id="dg-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="dg-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="dg-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></symbol>
+</svg>
+
+<!-- Topbar -->
+<header class="doc-topbar">
+  <div class="doc-topbar-left">
+    <a href="/comenzar/intro" class="doc-brand"><em>d</em>garz<span class="dg-muted">design</span></a>
+    <nav class="doc-focus-nav" aria-label="Temas importantes">
+      {TOP_NAV.map((item) => (
+        <a href={item.href} class={currentHref === item.href ? "is-active" : ""}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+  <div class="doc-topbar-right">
+    <a href="/examples/dashboard.html" target="_blank" rel="noopener" class="dg-nav-link dg-hidden-mobile dg-text-sm">Dashboard ↗</a>
+    <button class="doc-theme-btn" id="themeToggle" aria-label="Cambiar tema" data-dg-theme-toggle>
+      <svg class="dg-icon" id="iconSun"><use href="#dg-sun"/></svg>
+      <svg class="dg-icon doc-icon-hidden" id="iconMoon"><use href="#dg-moon"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="doc-shell">
+  <!-- Sidebar -->
+  <aside class="doc-sidebar dg-scroll">
+    {NAV.map((group) => (
+      <div>
+        <div class="doc-nav-label">
+          <span class={`dot doc-nav-dot-${group.title.toLowerCase().replace(/\s+/g, "-")}`}></span>
+          {group.title}
+        </div>
+        <nav class="doc-nav">
+          {group.items.map((item) => (
+            <a
+              href={item.href}
+              class={item.href === currentHref ? "is-active" : ""}
+              target={item.href.endsWith('.html') ? "_blank" : undefined}
+              rel={item.href.endsWith('.html') ? "noopener" : undefined}
+            >
+              {item.label}{item.href.endsWith('.html') ? ' ↗' : ''}
+            </a>
+          ))}
+        </nav>
+      </div>
+    ))}
+  </aside>
+
+  <!-- Main -->
+  <main class="doc-main">
+    <!-- Breadcrumb -->
+    <div class="doc-breadcrumb">
+      <span>dgarz design</span>
+      <svg class="dg-icon doc-icon-xs"><use href="#dg-chevron-right"/></svg>
+      <span>{activeGroup?.title}</span>
+      <svg class="dg-icon doc-icon-xs"><use href="#dg-chevron-right"/></svg>
+      <span class="dg-text-muted">{title}</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="doc-hero">
+      <div class="doc-hero-title">{title}</div>
+      {lead && <p>{lead}</p>}
+    </div>
+
+    <!-- Page content -->
+    <slot />
+
+    <!-- Prev / Next -->
+    <div class="doc-prevnext">
+      {prev
+        ? <a href={prev.href}><span class="label">← Anterior</span><span class="name">{prev.label}</span></a>
+        : <span />
+      }
+      {next &&
+        <a href={next.href} class="next"><span class="label">Siguiente →</span><span class="name">{next.label}</span></a>
+      }
+    </div>
+  </main>
+</div>
+
+<script src={jsHref} is:inline></script>
+<script>
+  const VOID_TAGS = new Set([
+    'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+    'link', 'meta', 'param', 'source', 'track', 'wbr'
+  ]);
+
+  function serializeDemoNode(node, depth = 0) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent?.replace(/\s+/g, ' ').trim();
+      return text ? `${'  '.repeat(depth)}${text}` : '';
+    }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return '';
+    }
+
+    const el = node as HTMLElement;
+    if (el.hasAttribute('hidden')) {
+      return '';
+    }
+
+    const indent = '  '.repeat(depth);
+    const tag = el.tagName.toLowerCase();
+    const attrs = el
+      .getAttributeNames()
+      .map((name) => {
+        const value = el.getAttribute(name);
+        return value === '' ? name : `${name}="${value}"`;
+      })
+      .join(' ');
+    const openTag = attrs ? `<${tag} ${attrs}>` : `<${tag}>`;
+
+    if (VOID_TAGS.has(tag)) {
+      return `${indent}${openTag.slice(0, -1)} />`;
+    }
+
+    const children = Array.from(el.childNodes)
+      .map((child) => serializeDemoNode(child, depth + 1))
+      .filter(Boolean);
+
+    if (!children.length) {
+      return `${indent}${openTag}</${tag}>`;
+    }
+
+    if (children.length === 1 && !children[0].includes('\n')) {
+      const child = children[0].trim();
+      return `${indent}${openTag}${child}</${tag}>`;
+    }
+
+    return `${indent}${openTag}\n${children.join('\n')}\n${indent}</${tag}>`;
+  }
+
+  function syncExampleCodeBlocks() {
+    document.querySelectorAll<HTMLElement>('.doc-demo + .doc-code').forEach((codeBlock) => {
+      if (codeBlock.dataset.codeSource === 'manual') return;
+
+      const demo = codeBlock.previousElementSibling as HTMLElement | null;
+      const pre = codeBlock.querySelector('pre');
+      if (!demo || !pre) return;
+
+      const markup = Array.from(demo.childNodes)
+        .map((node) => serializeDemoNode(node, 0))
+        .filter(Boolean)
+        .join('\n\n');
+
+      if (markup && !pre.textContent.trim()) {
+        pre.textContent = markup;
+      }
+    });
+  }
+
+  syncExampleCodeBlocks();
+
+  // Theme toggle sync
+  const html = document.documentElement;
+  const sun  = document.getElementById('iconSun')!;
+  const moon = document.getElementById('iconMoon')!;
+  function syncIcons() {
+    const dark = html.dataset.theme === 'dark';
+    sun.style.display  = dark ? 'none' : '';
+    moon.style.display = dark ? ''     : 'none';
+  }
+  syncIcons();
+  document.getElementById('themeToggle')!.addEventListener('click', syncIcons);
+
+  // Copy buttons
+  document.querySelectorAll<HTMLButtonElement>('.cp').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const pre = btn.closest('.doc-code')?.querySelector('pre') as HTMLPreElement;
+      navigator.clipboard.writeText(pre?.textContent ?? '');
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('is-copied');
+      setTimeout(() => {
+        btn.textContent = 'Copiar';
+        btn.classList.remove('is-copied');
+      }, 1800);
+    });
+  });
+</script>
+
+<script>
+  import Prism from 'prismjs';
+  import 'prismjs/components/prism-markup';
+  import 'prismjs/components/prism-css';
+  import 'prismjs/components/prism-javascript';
+  import 'prismjs/components/prism-bash';
+
+  document.querySelectorAll<HTMLPreElement>('.doc-code pre').forEach((pre) => {
+    if (pre.querySelector('code')) return;
+    const lang = pre.closest('.doc-code')?.getAttribute('data-lang') ?? 'html';
+    const code = document.createElement('code');
+    code.className = `language-${lang}`;
+    code.innerHTML = pre.innerHTML;
+    pre.innerHTML = '';
+    pre.appendChild(code);
+  });
+
+  Prism.highlightAll();
+</script>
+</body>
+</html>

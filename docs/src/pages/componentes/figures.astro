@@ -1,0 +1,40 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-2 dg-max-w-2xl">
+          <figure class="dg-figure">
+            <div class="dg-figure-img doc-figure-gradient-a"></div>
+            <figcaption class="dg-figure-caption">Figura 1 — Ejemplo de imagen con caption centrado.</figcaption>
+          </figure>
+          <figure class="dg-figure">
+            <div class="dg-figure-img doc-figure-gradient-b"></div>
+            <figcaption class="dg-figure-caption">Figura 2 — El caption usa color muted y tamaño xs.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <style>
+        .doc-figure-gradient-a,
+        .doc-figure-gradient-b {
+          aspect-ratio: 4 / 3;
+          border-radius: var(--dg-radius);
+        }
+
+        .doc-figure-gradient-a {
+          background: linear-gradient(135deg, var(--dg-300), var(--dg-600));
+        }
+
+        .doc-figure-gradient-b {
+          background: linear-gradient(135deg, var(--dg-600), var(--dg-950));
+        }
+      </style>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;figure class="dg-figure"&gt;
+  &lt;img class="dg-figure-img" src="foto.jpg" alt="Descripción de la imagen" /&gt;
+  &lt;figcaption class="dg-figure-caption"&gt;
+    Figura 1 — Texto descriptivo de la imagen.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</pre></div>`;
+---
+
+<Layout title="Figures" lead="Imágenes con caption y variantes de aspecto." currentHref="/componentes/figures">
+  <Fragment set:html={pageContent} />
+</Layout>

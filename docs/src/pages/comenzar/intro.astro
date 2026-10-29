@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Características clave</div>
+      <div class="dg-grid dg-grid-2 dg-gap-4">
+        <div class="dg-card"><div class="dg-card-body">
+          <h5>Monocromo por diseño</h5>
+          <p class="dg-muted dg-text-sm">Una escala de grises de 12 pasos. Sin paletas complejas. Todo el sistema de color deriva de ella y funciona en claro y oscuro.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <h5>Zero dependencias</h5>
+          <p class="dg-muted dg-text-sm">Un archivo CSS, un archivo JS opcional. Sin jQuery, sin PostCSS, sin Sass requerido. Cópialo y listo.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <h5>Dark mode nativo</h5>
+          <p class="dg-muted dg-text-sm">Cambia entre temas con un solo atributo: <code class="dg-code">data-theme="dark"</code>. Todo el sistema se adapta automáticamente.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <h5>Tokens sobreescribibles</h5>
+          <p class="dg-muted dg-text-sm">Todos los valores son CSS custom properties (<code class="dg-code">--dg-*</code>). Re-skinea el framework completo con 5 líneas de CSS.</p>
+        </div></div>
+      </div>
+
+      <div class="doc-sub">Inicio rápido</div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;!DOCTYPE html&gt;
+&lt;html data-theme="light"&gt;
+&lt;head&gt;
+  &lt;!-- Fuentes --&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono&amp;family=Newsreader:ital@0;1&amp;display=swap" rel="stylesheet"&gt;
+
+  &lt;!-- dgarz design --&gt;
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;button class="dg-btn dg-btn-primary"&gt;Hola, dgarz design&lt;/button&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+      <div class="doc-sub">¿Qué incluye?</div>
+      <div class="dg-grid dg-grid-2 dg-gap-3">
+        <div class="dg-card"><div class="dg-card-body">
+          <code class="dg-code">dgarz-core.css</code>
+          <p class="dg-text-sm dg-muted dg-mt-2">Tokens, reset, tipografía, grid de 12 columnas y utilidades base.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <code class="dg-code">dgarz-components.css</code>
+          <p class="dg-text-sm dg-muted dg-mt-2">Botones, forms, cards, badges, alerts, modal, nav y más de 20 componentes.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <code class="dg-code">dgarz-app.css</code>
+          <p class="dg-text-sm dg-muted dg-mt-2">App shell, sidebar, accordion, steps, skeleton y stat cards.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <code class="dg-code">dgarz.js</code>
+          <p class="dg-text-sm dg-muted dg-mt-2">Behavior layer via atributos HTML. Sin dependencias, completamente opcional.</p>
+        </div></div>
+      </div>
+
+      <div class="doc-sub">Explorar la documentación</div>
+      <div class="dg-grid dg-grid-3 dg-gap-3">
+        <a href="/comenzar/install" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">Comenzar</div>
+            <h5 class="dg-text-base">Instalación</h5>
+            <p class="dg-text-sm dg-muted">CDN, npm y bundlers</p>
+          </div>
+        </a>
+        <a href="/fundamentos/color" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">Fundamentos</div>
+            <h5 class="dg-text-base">Color & tokens</h5>
+            <p class="dg-text-sm dg-muted">Sistema de diseño monocromo</p>
+          </div>
+        </a>
+        <a href="/fundamentos/grid" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">Fundamentos</div>
+            <h5 class="dg-text-base">Grid & Layout</h5>
+            <p class="dg-text-sm dg-muted">12 columnas, breakpoints sm–xl</p>
+          </div>
+        </a>
+        <a href="/componentes/buttons" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">Componentes</div>
+            <h5 class="dg-text-base">Botones</h5>
+            <p class="dg-text-sm dg-muted">Variantes, estados, grupos</p>
+          </div>
+        </a>
+        <a href="/utilidades/utilities" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">Utilidades</div>
+            <h5 class="dg-text-base">Utilidades</h5>
+            <p class="dg-text-sm dg-muted">Spacing, display, flex, text</p>
+          </div>
+        </a>
+        <a href="/app-pack/shell" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">App Pack</div>
+            <h5 class="dg-text-base">App Shell</h5>
+            <p class="dg-text-sm dg-muted">Sidebar, drawer, layout completo</p>
+          </div>
+        </a>
+      </div>`;
+---
+
+<Layout title="Introducción" lead="Un framework CSS moderno, monocromo y performance-first. Sin dependencias, un solo archivo, y dark mode nativo." currentHref="/comenzar/intro">
+  <Fragment set:html={pageContent} />
+</Layout>

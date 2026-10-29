@@ -1,0 +1,81 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
+        <p class="dg-callout-title">Cómo funciona</p>
+        Usa <code class="dg-code">.dg-float-field</code> como wrapper.
+        El input debe tener <code class="dg-code">placeholder=" "</code> (un espacio en blanco) para que
+        <code class="dg-code">:not(:placeholder-shown)</code> funcione.
+        El label va <strong>después</strong> del input en el HTML para que el selector CSS <code class="dg-code">input + label</code> funcione.
+        No requiere JavaScript.
+      </div>
+
+      <div class="doc-sub">Input y Textarea</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-4 dg-max-w-sm">
+          <div class="dg-float-field">
+            <input class="dg-input" id="fl-name" type="text" placeholder=" " />
+            <label for="fl-name">Nombre completo</label>
+          </div>
+          <div class="dg-float-field">
+            <input class="dg-input" id="fl-email" type="email" placeholder=" " />
+            <label for="fl-email">Correo electrónico</label>
+          </div>
+          <div class="dg-float-field">
+            <textarea class="dg-textarea" id="fl-msg" placeholder=" "></textarea>
+            <label for="fl-msg">Mensaje</label>
+          </div>
+          <div class="dg-float-field">
+            <select class="dg-select" id="fl-plan">
+              <option value="">Selecciona un plan</option>
+              <option>Free</option><option>Pro</option><option>Studio</option>
+            </select>
+            <label for="fl-plan">Plan</label>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Input con floating label --&gt;
+&lt;div class="dg-float-field"&gt;
+  &lt;!-- IMPORTANTE: placeholder=" " (espacio) es obligatorio --&gt;
+  &lt;input class="dg-input" id="nombre" type="text" placeholder=" " /&gt;
+  &lt;!-- El label SIEMPRE va después del input --&gt;
+  &lt;label for="nombre"&gt;Nombre completo&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- Textarea con floating label --&gt;
+&lt;div class="dg-float-field"&gt;
+  &lt;textarea class="dg-textarea" id="msg" placeholder=" "&gt;&lt;/textarea&gt;
+  &lt;label for="msg"&gt;Mensaje&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- Select con floating label (el label siempre aparece flotado) --&gt;
+&lt;div class="dg-float-field"&gt;
+  &lt;select class="dg-select" id="plan"&gt;
+    &lt;option value=""&gt;Selecciona&lt;/option&gt;
+    &lt;option&gt;Pro&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label for="plan"&gt;Plan&lt;/label&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Formulario de login con floating labels</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-card dg-max-w-xs dg-mx-auto">
+          <div class="dg-card-body dg-stack dg-gap-4">
+            <h4>Iniciar sesión</h4>
+            <div class="dg-float-field">
+              <input class="dg-input" id="login-email" type="email" placeholder=" " />
+              <label for="login-email">Correo electrónico</label>
+            </div>
+            <div class="dg-float-field">
+              <input class="dg-input" id="login-pw" type="password" placeholder=" " />
+              <label for="login-pw">Contraseña</label>
+            </div>
+            <button class="dg-btn dg-btn-primary dg-btn-block">Entrar</button>
+            <p class="dg-text-center dg-text-sm dg-muted"><a href="#" class="dg-link">¿Olvidaste tu contraseña?</a></p>
+          </div>
+        </div>
+      </div>`;
+---
+
+<Layout title="Floating labels" lead="Labels que flotan automáticamente al hacer foco o tener valor." currentHref="/formularios/floating-labels">
+  <Fragment set:html={pageContent} />
+</Layout>

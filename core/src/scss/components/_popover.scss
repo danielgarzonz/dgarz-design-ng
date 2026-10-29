@@ -1,0 +1,31 @@
+/* ============================================================
+   POPOVER — tooltip enriquecido con contenido HTML
+   ============================================================ */
+.dg-popover-wrap { position: relative; display: inline-flex; }
+.dg-popover {
+  position: absolute;
+  z-index: 42;
+  min-width: 220px; max-width: 320px;
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  box-shadow: var(--dg-shadow-3);
+  font-size: var(--dg-text-sm);
+  animation: dg-menu-in var(--dg-dur) var(--dg-ease);
+}
+.dg-popover[hidden] { display: none; }
+.dg-popover-header {
+  padding: var(--dg-space-3) var(--dg-space-4) 0;
+  font-weight: var(--dg-weight-semi);
+  color: var(--dg-text);
+}
+.dg-popover-body {
+  padding: var(--dg-space-3) var(--dg-space-4) var(--dg-space-4);
+  color: var(--dg-text-muted);
+  line-height: var(--dg-leading-normal);
+}
+/* Position variants */
+.dg-popover-top    { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+.dg-popover-bottom { top: calc(100% + 8px);    left: 50%; transform: translateX(-50%); }
+.dg-popover-left   { right: calc(100% + 8px);  top: 50%;  transform: translateY(-50%); }
+.dg-popover-right  { left: calc(100% + 8px);   top: 50%;  transform: translateY(-50%); }

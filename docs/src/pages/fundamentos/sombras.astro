@@ -1,0 +1,156 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+  <div class="doc-sub">Niveles de elevación</div>
+  <p class="dg-muted dg-text-sm dg-mb-5">
+    Cada nivel usa dos capas de sombra para un resultado más natural.
+    Úsalos de menor a mayor elevación según el contexto del elemento.
+  </p>
+
+  <div class="doc-demo is-plain dg-p-0">
+    <div class="shadow-demo-scroll">
+
+      <div class="shadow-demo-card dg-shadow-inset-xs"><span class="shadow-demo-level">inset-xs</span><span class="shadow-demo-ctx">Interna</span></div>
+      <div class="shadow-demo-card dg-shadow-inset-sm"><span class="shadow-demo-level">inset-sm</span><span class="shadow-demo-ctx">Interna</span></div>
+      <div class="shadow-demo-card dg-shadow-inset-md"><span class="shadow-demo-level">inset-md</span><span class="shadow-demo-ctx">Interna</span></div>
+      <div class="shadow-demo-card dg-shadow-inset-lg"><span class="shadow-demo-level">inset-lg</span><span class="shadow-demo-ctx">Interna</span></div>
+      <div class="shadow-demo-card dg-shadow-inset-xl"><span class="shadow-demo-level">inset-xl</span><span class="shadow-demo-ctx">Interna</span></div>
+
+      <div class="shadow-demo-sep"></div>
+
+      <div class="shadow-demo-card dg-shadow-xs"><span class="shadow-demo-level">shadow-xs</span><span class="shadow-demo-ctx">Externa</span></div>
+      <div class="shadow-demo-card dg-shadow-sm"><span class="shadow-demo-level">shadow-sm</span><span class="shadow-demo-ctx">Externa</span></div>
+      <div class="shadow-demo-card dg-shadow-md"><span class="shadow-demo-level">shadow-md</span><span class="shadow-demo-ctx">Externa</span></div>
+      <div class="shadow-demo-card dg-shadow-lg"><span class="shadow-demo-level">shadow-lg</span><span class="shadow-demo-ctx">Externa</span></div>
+      <div class="shadow-demo-card dg-shadow-xl"><span class="shadow-demo-level">shadow-xl</span><span class="shadow-demo-ctx">Externa</span></div>
+
+      <div class="shadow-demo-sep"></div>
+
+      <div class="shadow-demo-card dg-shadow-blue"><span class="shadow-demo-level">shadow-blue</span><span class="shadow-demo-ctx">Color</span></div>
+      <div class="shadow-demo-card dg-shadow-violet"><span class="shadow-demo-level">shadow-violet</span><span class="shadow-demo-ctx">Color</span></div>
+      <div class="shadow-demo-card dg-shadow-green"><span class="shadow-demo-level">shadow-green</span><span class="shadow-demo-ctx">Color</span></div>
+      <div class="shadow-demo-card dg-shadow-warm"><span class="shadow-demo-level">shadow-warm</span><span class="shadow-demo-ctx">Color</span></div>
+      <div class="shadow-demo-card dg-shadow-red"><span class="shadow-demo-level">shadow-red</span><span class="shadow-demo-ctx">Color</span></div>
+
+      <div class="shadow-demo-sep"></div>
+
+      <div class="shadow-demo-card dg-shadow-glow"><span class="shadow-demo-level">shadow-glow</span><span class="shadow-demo-ctx">Sorpresa</span></div>
+      <div class="shadow-demo-card dg-shadow-long"><span class="shadow-demo-level">shadow-long</span><span class="shadow-demo-ctx">Sorpresa</span></div>
+      <div class="shadow-demo-card dg-shadow-ring-box"><span class="shadow-demo-level">shadow-ring</span><span class="shadow-demo-ctx">Sorpresa</span></div>
+      <div class="shadow-demo-card dg-shadow-bevel"><span class="shadow-demo-level">shadow-bevel</span><span class="shadow-demo-ctx">Sorpresa</span></div>
+      <div class="shadow-demo-card dg-shadow-float"><span class="shadow-demo-level">shadow-float</span><span class="shadow-demo-ctx">Sorpresa</span></div>
+
+    </div>
+  </div>
+
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;!-- Interna --&gt;
+&lt;div class="dg-shadow-inset-xs"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-inset-sm"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-inset-md"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-inset-lg"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-inset-xl"&gt;...&lt;/div&gt;
+
+&lt;!-- Externa --&gt;
+&lt;div class="dg-shadow-xs"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-sm"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-md"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-lg"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-xl"&gt;...&lt;/div&gt;
+
+&lt;!-- Color --&gt;
+&lt;div class="dg-shadow-blue"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-violet"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-green"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-warm"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-red"&gt;...&lt;/div&gt;
+
+&lt;!-- Sorpresa --&gt;
+&lt;div class="dg-shadow-glow"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-long"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-ring-box"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-bevel"&gt;...&lt;/div&gt;
+&lt;div class="dg-shadow-float"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">Uso en tu CSS</div>
+  <div class="doc-code" data-lang="css"><button class="cp">Copiar</button><pre>.mi-card   { box-shadow: var(--dg-shadow-1); }
+.flotante  { box-shadow: var(--dg-shadow-2); }
+.overlay   { box-shadow: var(--dg-shadow-3); }
+
+.mi-control:focus-visible {
+  box-shadow: var(--dg-ring);
+  outline: none;
+}</pre></div>
+
+  <style>
+    /* Interna */
+    .dg-shadow-inset-xs { box-shadow: inset 0 1px 3px rgba(0,0,0,.10); }
+    .dg-shadow-inset-sm { box-shadow: inset 0 2px 6px rgba(0,0,0,.14); }
+    .dg-shadow-inset-md { box-shadow: inset 0 4px 12px rgba(0,0,0,.16); }
+    .dg-shadow-inset-lg { box-shadow: inset 0 6px 18px rgba(0,0,0,.18); }
+    .dg-shadow-inset-xl { box-shadow: inset 0 10px 28px rgba(0,0,0,.22); }
+    /* Externa */
+    .dg-shadow-xs { box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05); }
+    .dg-shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,.09), 0 4px 16px rgba(0,0,0,.07); }
+    .dg-shadow-md { box-shadow: 0 6px 20px rgba(0,0,0,.10), 0 12px 32px rgba(0,0,0,.09); }
+    .dg-shadow-lg { box-shadow: 0 12px 36px rgba(0,0,0,.12), 0 24px 56px rgba(0,0,0,.10); }
+    .dg-shadow-xl { box-shadow: 0 24px 64px rgba(0,0,0,.16), 0 40px 80px rgba(0,0,0,.10); }
+    /* Color */
+    .dg-shadow-blue   { box-shadow: 0 4px 20px rgba(36,124,255,.32); }
+    .dg-shadow-violet { box-shadow: 0 4px 20px rgba(142,125,255,.32); }
+    .dg-shadow-green  { box-shadow: 0 4px 20px rgba(47,107,79,.32); }
+    .dg-shadow-warm   { box-shadow: 0 4px 20px rgba(255,122,26,.32); }
+    .dg-shadow-red    { box-shadow: 0 4px 20px rgba(155,53,53,.32); }
+    /* Sorpresa */
+    .dg-shadow-glow     { box-shadow: 0 0 0 3px rgba(36,124,255,.22), 0 0 28px rgba(36,124,255,.18); }
+    .dg-shadow-long     { box-shadow: 4px 4px 0 rgba(0,0,0,.07), 8px 8px 0 rgba(0,0,0,.05), 12px 12px 0 rgba(0,0,0,.03); }
+    .dg-shadow-ring-box { box-shadow: 0 0 0 4px var(--dg-border), 0 8px 24px rgba(0,0,0,.10); }
+    .dg-shadow-bevel    { box-shadow: inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(0,0,0,.08), 0 3px 10px rgba(0,0,0,.08); }
+    .dg-shadow-float    { box-shadow: 0 32px 64px rgba(0,0,0,.18), 0 8px 16px rgba(0,0,0,.06); }
+    /* Layout del demo */
+    .shadow-demo-scroll {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--dg-space-5);
+      overflow-x: auto;
+      padding: var(--dg-space-6);
+      scrollbar-width: thin;
+      scrollbar-color: var(--dg-border) transparent;
+    }
+    .shadow-demo-scroll::-webkit-scrollbar { height: 4px; }
+    .shadow-demo-scroll::-webkit-scrollbar-thumb { background: var(--dg-border); border-radius: 4px; }
+    .shadow-demo-card {
+      flex-shrink: 0;
+      width: 120px;
+      height: 100px;
+      background: var(--dg-surface);
+      border-radius: var(--dg-radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--dg-space-2);
+    }
+    .shadow-demo-level {
+      font-family: var(--dg-font-mono);
+      font-size: var(--dg-text-xs);
+      font-weight: var(--dg-weight-semi);
+      color: var(--dg-text);
+    }
+    .shadow-demo-ctx {
+      font-size: var(--dg-text-xs);
+      color: var(--dg-text-muted);
+    }
+    .shadow-demo-sep {
+      flex-shrink: 0;
+      width: 1px;
+      align-self: stretch;
+      background: var(--dg-border);
+      margin-block: var(--dg-space-4);
+    }
+  </style>
+`;
+---
+
+<Layout title="Sombras" lead="Tres niveles de elevación en capas dobles, más un ring de foco. Se adaptan automáticamente en dark mode." currentHref="/fundamentos/sombras">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -1,0 +1,58 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Variantes semánticas</div>
+      <div class="doc-demo is-plain dg-stack">
+        <div class="dg-alert">
+          <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
+          <div class="dg-alert-body"><div class="dg-alert-title">Información</div>Nota general sin urgencia.</div>
+        </div>
+        <div class="dg-alert dg-bg-success dg-text-success dg-border-transparent">
+          <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-check"/></svg>
+          <div class="dg-alert-body"><div class="dg-alert-title">Guardado</div>Tus cambios se han guardado correctamente.</div>
+        </div>
+        <div class="dg-alert dg-bg-warning dg-text-warning dg-border-transparent">
+          <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-alert-tri"/></svg>
+          <div class="dg-alert-body"><div class="dg-alert-title">Atención</div>Tu plan caduca en 3 días.</div>
+        </div>
+        <div class="dg-alert dg-bg-danger dg-text-danger dg-border-transparent">
+          <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-x"/></svg>
+          <div class="dg-alert-body"><div class="dg-alert-title">Error</div>No se pudo conectar con el servidor.</div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Neutral (default) --&gt;
+&lt;div class="dg-alert"&gt;
+  &lt;svg class="dg-icon dg-icon-sm dg-alert-icon"&gt;&lt;use href="dgarz-icons.svg#dg-info"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;div class="dg-alert-body"&gt;
+    &lt;div class="dg-alert-title"&gt;Título&lt;/div&gt;
+    Descripción del mensaje.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes: reutiliza utilidades del core --&gt;
+&lt;div class="dg-alert dg-bg-success dg-text-success dg-border-transparent"&gt;…&lt;/div&gt;
+&lt;div class="dg-alert dg-bg-warning dg-text-warning dg-border-transparent"&gt;…&lt;/div&gt;
+&lt;div class="dg-alert dg-bg-danger dg-text-danger dg-border-transparent"&gt;…&lt;/div&gt;
+&lt;div class="dg-alert dg-bg-info dg-text-info dg-border-transparent"&gt;…&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Descartable (con botón de cierre)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-alert dg-bg-info dg-text-info dg-border-transparent" id="dismissAlert">
+          <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
+          <div class="dg-alert-body"><div class="dg-alert-title">Nueva versión disponible</div>Actualiza para acceder a las mejoras más recientes.</div>
+          <button class="dg-alert-close" onclick="this.closest('.dg-alert').remove()" aria-label="Cerrar">
+            <svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-alert dg-bg-info dg-text-info dg-border-transparent"&gt;
+  &lt;div class="dg-alert-body"&gt;…&lt;/div&gt;
+  &lt;!-- .dg-alert-close empuja el botón a la derecha --&gt;
+  &lt;button class="dg-alert-close" onclick="this.closest('.dg-alert').remove()"&gt;
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Alerts" lead="Mensajes de contexto con variantes de color." currentHref="/componentes/alerts">
+  <Fragment set:html={pageContent} />
+</Layout>

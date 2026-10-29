@@ -1,0 +1,888 @@
+---
+import "../../styles/example-collection.css";
+import Layout from "../../layouts/DocsLayout.astro";
+import { allExamples } from "../../data/examples";
+
+export function getStaticPaths() {
+  return allExamples.map((example) => ({
+    params: { slug: example.slug },
+    props: { example },
+  }));
+}
+
+const { example } = Astro.props;
+const slug = example.slug as string;
+
+const pexels = {
+  portrait: "https://images.pexels.com/photos/16245933/pexels-photo-16245933.jpeg?cs=srgb&dl=pexels-millerdenis-16245933.jpg&fm=jpg",
+  surreal: "https://images.pexels.com/photos/20212633/pexels-photo-20212633.jpeg?cs=srgb&dl=pexels-fotios-photos-20212633.jpg&fm=jpg",
+  workspace: "https://images.pexels.com/photos/34147402/pexels-photo-34147402.jpeg?cs=srgb&dl=pexels-jakubzerdzicki-34147402.jpg&fm=jpg",
+  interior: "https://images.pexels.com/photos/6615804/pexels-photo-6615804.jpeg?cs=srgb&dl=pexels-kseniachernaya-6615804.jpg&fm=jpg",
+  phone: "https://images.pexels.com/photos/5053841/pexels-photo-5053841.jpeg?cs=srgb&dl=pexels-cottonbro-5053841.jpg&fm=jpg",
+  fashion: "https://images.pexels.com/photos/34426766/pexels-photo-34426766.jpeg?cs=srgb&dl=pexels-felixyoung-34426766.jpg&fm=jpg",
+};
+
+const pexelsUrls = {
+  portrait: `url('${pexels.portrait}')`,
+  surreal: `url('${pexels.surreal}')`,
+  workspace: `url('${pexels.workspace}')`,
+  interior: `url('${pexels.interior}')`,
+  phone: `url('${pexels.phone}')`,
+  fashion: `url('${pexels.fashion}')`,
+};
+
+function is(name: string) {
+  return slug.includes(name);
+}
+---
+
+<Layout title={example.title} lead={example.desc} currentHref="/examples">
+  <div class="collection-toolbar"><a href="/examples">← Volver a la colección</a><span>{example.tag} / {example.components.slice(0, 2).join(" · ")}</span></div>
+  <div data-theme={example.skin === "dark" ? "dark" : undefined} class:list={["example-stage", `is-${example.skin}`, example.tag === "Mobile" && "is-mobile-stage"]}>
+    {example.tag === "Desktop" && (
+      <div class="doc-showcase-desktop">
+        {is("social-profile") && (
+          <div class="doc-panel-stack">
+            <div class="doc-cover-panel dg-surface-shine example-bg-social-cover"></div>
+            <div class="doc-profile-overlap">
+              <div class="dg-flex dg-items-end dg-justify-between dg-gap-4 dg-wrap">
+                <div class="dg-flex dg-items-center dg-gap-4">
+                  <div class="doc-profile-avatar example-bg-portrait"></div>
+                  <div>
+                    <h2 class="dg-card-title dg-text-2xl example-title-reset">Andrea Ruiz</h2>
+                    <p class="dg-muted dg-text-sm example-copy-tight">Designer, educator and creative systems builder.</p>
+                  </div>
+                </div>
+                <div class="dg-cluster dg-gap-2">
+                  <button class="dg-btn dg-btn-glass dg-btn-sm">Message</button>
+                  <button class="dg-btn dg-btn-gradient dg-btn-sm">Follow</button>
+                </div>
+              </div>
+              <div class="doc-stat-grid">
+                <div class="dg-card dg-surface-glass"><div class="dg-card-body"><strong>24.8K</strong><div class="dg-text-sm dg-muted">Followers</div></div></div>
+                <div class="dg-card dg-surface-glass"><div class="dg-card-body"><strong>312</strong><div class="dg-text-sm dg-muted">Projects</div></div></div>
+                <div class="dg-card dg-surface-glass"><div class="dg-card-body"><strong>4.9</strong><div class="dg-text-sm dg-muted">Rating</div></div></div>
+              </div>
+              <div class="doc-card-grid-split">
+                <article class="dg-card"><div class="dg-card-body"><div class="dg-text-sm dg-muted">Pinned post</div><h3 class="dg-card-title dg-mt-2 dg-text-xl">Building interfaces that feel selected, not generated.</h3></div></article>
+                <article class="dg-card dg-surface-glass"><div class="dg-card-body"><div class="dg-text-sm dg-muted">Collection</div><h3 class="dg-card-title dg-mt-2 dg-text-xl">Glass surfaces for dashboards</h3></div></article>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {is("calendar-booking") && (
+          <div class="doc-showcase-grid">
+            <section class="dg-card dg-surface-glass-strong">
+              <div class="dg-card-header dg-card-header-row">
+                <div>
+                  <div class="dg-text-sm dg-muted">June 2026</div>
+                  <h2 class="dg-card-title dg-text-2xl">Appointments</h2>
+                </div>
+                <button class="dg-btn dg-btn-gradient dg-btn-sm">New booking</button>
+              </div>
+              <div class="dg-card-body">
+                <div class="doc-calendar-grid">
+                  {Array.from({ length: 35 }).map((_, i) => <span class:list={["doc-calendar-cell", i === 11 && "is-active"]}>{i < 30 ? i + 1 : ""}</span>)}
+                </div>
+              </div>
+            </section>
+            <section class="dg-card">
+              <div class="dg-card-header"><h3 class="dg-card-title dg-text-xl">Today</h3></div>
+              <div class="dg-card-body dg-stack dg-gap-3">
+                <div class="doc-list-row"><strong>09:00</strong><span>Consultation call</span></div>
+                <div class="doc-list-row"><strong>11:30</strong><span>Studio review</span></div>
+                <div class="doc-list-row"><strong>16:00</strong><span>Project kickoff</span></div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {is("calculator") && (
+          <div class="doc-showcase-grid">
+            <section class="dg-card dg-bg-dark dg-text-on-dark example-bg-dark-panel">
+              <div class="dg-card-body">
+                <div class="dg-text-sm example-text-on-dark-muted">Revenue forecast</div>
+                <div class="example-metric-hero">$18,480</div>
+                <div class="dg-glass-pill example-dark-pill">Saved calculation</div>
+              </div>
+            </section>
+            <section class="dg-card dg-surface-glass-strong">
+              <div class="dg-card-body">
+                <div class="doc-calc-screen">1,284 × 12 + 96 = <strong>15,504</strong></div>
+                <div class="doc-calc-pad">
+                  {["7","8","9","÷","4","5","6","×","1","2","3","-","0",".","=","+"].map((key) => <button class:list={["doc-calc-key", key === "=" && "is-accent"]}>{key}</button>)}
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {is("hero-landing") && (
+          <div class="doc-showcase-shell">
+            <section>
+              <span class="dg-glass-pill">New collection</span>
+              <h1 class="doc-hero-title">A product system with minimal structure and expressive surfaces.</h1>
+              <p class="dg-muted dg-text-sm">Build faster with coherent cards, forms, CTAs and visual presets that still feel intentional.</p>
+              <div class="dg-cluster dg-gap-3 dg-mt-4">
+                <button class="dg-btn dg-btn-gradient">Start free</button>
+                <button class="dg-btn dg-btn-glass">See demo</button>
+              </div>
+            </section>
+            <section class="doc-hero-panel dg-surface-glass-strong">
+              <div class="doc-mockup-screen example-bg-workspace"></div>
+              <div class="doc-metric-grid">
+                <div class="dg-card dg-surface-glass"><div class="dg-card-body"><strong>+73.6%</strong><div class="dg-text-sm dg-muted">Growth</div></div></div>
+                <div class="dg-card dg-surface-glass"><div class="dg-card-body"><strong>12K</strong><div class="dg-text-sm dg-muted">Teams</div></div></div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {is("slider-editorial") && (
+          <div class="doc-panel-stack">
+            <article class="doc-feature-banner dg-surface-gradient-aurora dg-surface-shine">
+              <div class="doc-feature-banner-copy">
+                <span class="dg-glass-pill">Featured</span>
+                <h2 class="dg-card-title dg-mt-3 dg-text-3xl">Designing premium interfaces with restraint</h2>
+                <p class="dg-muted dg-text-sm dg-mt-2">A three-part editorial series about structure, rhythm and visual taste.</p>
+                <div class="dg-cluster dg-gap-2 dg-mt-4">
+                  <span class="dg-glass-pill">Editorial</span>
+                  <span class="dg-glass-pill">Visual systems</span>
+                  <span class="dg-glass-pill">Issue 01</span>
+                </div>
+              </div>
+              <div class="doc-panel-stack">
+                <div class="doc-feature-banner-media example-bg-editorial-hero"></div>
+                <div class="dg-cluster dg-gap-3">
+                  <button class="dg-btn dg-btn-glass">Previous</button>
+                  <button class="dg-btn dg-btn-gradient">Read now</button>
+                </div>
+              </div>
+            </article>
+            <div class="doc-feature-row">
+              <article class="dg-card dg-surface-glass">
+                <div class="dg-card-body">
+                  <div class="doc-feature-card-media example-bg-editorial-soft"></div>
+                  <div class="dg-text-sm dg-muted">Issue 01</div>
+                  <h3 class="dg-card-title dg-mt-2 dg-text-xl">The new softness</h3>
+                </div>
+              </article>
+              <article class="dg-card dg-surface-glass">
+                <div class="dg-card-body">
+                  <div class="doc-feature-card-media example-bg-editorial-data"></div>
+                  <div class="dg-text-sm dg-muted">Issue 02</div>
+                  <h3 class="dg-card-title dg-mt-2 dg-text-xl">Data with atmosphere</h3>
+                </div>
+              </article>
+              <article class="dg-card dg-surface-glass">
+                <div class="dg-card-body">
+                  <div class="doc-feature-card-media example-bg-editorial-memory"></div>
+                  <div class="dg-text-sm dg-muted">Issue 03</div>
+                  <h3 class="dg-card-title dg-mt-2 dg-text-xl">Interfaces with memory</h3>
+                </div>
+              </article>
+            </div>
+          </div>
+        )}
+
+        {is("order-confirmation") && (
+          <div class="doc-showcase-grid">
+            <section class="dg-card dg-surface-glass-strong">
+              <div class="dg-card-header dg-card-header-row">
+                <div>
+                  <div class="dg-text-sm dg-muted">Order confirmed</div>
+                  <h2 class="dg-card-title dg-text-2xl">#1298907</h2>
+                </div>
+                <span class="dg-badge dg-badge-success">Paid</span>
+              </div>
+              <div class="dg-card-body dg-stack dg-gap-3">
+                <div class="doc-list-row"><span>Delivery address</span><strong>Mexico City, MX</strong></div>
+                <div class="doc-list-row"><span>Estimated arrival</span><strong>June 12</strong></div>
+                <div class="doc-list-row"><span>Payment method</span><strong>Visa ending 9012</strong></div>
+              </div>
+            </section>
+            <section class="dg-card dg-surface-gradient-cool">
+              <div class="dg-card-header"><h3 class="dg-card-title dg-text-xl">Tracking</h3></div>
+              <div class="dg-card-body dg-stack dg-gap-3">
+                <div class="doc-track-step is-done">Order placed</div>
+                <div class="doc-track-step is-done">Payment approved</div>
+                <div class="doc-track-step">Shipped</div>
+                <div class="doc-track-step">Delivered</div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {is("chat-view") && (
+          <div class="doc-chat-shell">
+            <aside class="dg-card dg-surface-glass">
+              <div class="dg-card-header dg-card-header-row">
+                <h3 class="dg-card-title dg-text-xl">Inbox</h3>
+                <span class="dg-glass-pill">8 chats</span>
+              </div>
+              <div class="dg-card-body">
+                <div class="doc-chat-list">
+                  <div class="doc-chat-item is-active">
+                    <div class="doc-profile-avatar doc-profile-avatar-sm example-bg-portrait"></div>
+                    <div class="doc-chat-item-body">
+                      <div class="doc-chat-item-name">Acme team</div>
+                      <div class="doc-chat-item-snippet">Need the final deck and updated CTA states before Friday.</div>
+                    </div>
+                    <div class="doc-chat-item-meta">
+                      <span class="doc-chat-item-time">2m</span>
+                      <span class="doc-chat-unread">3</span>
+                    </div>
+                  </div>
+                  <div class="doc-chat-item">
+                    <div class="doc-profile-avatar doc-profile-avatar-sm example-bg-surreal"></div>
+                    <div class="doc-chat-item-body">
+                      <div class="doc-chat-item-name">Maria Soto</div>
+                      <div class="doc-chat-item-snippet">See you at 4pm. I already uploaded the revised copy.</div>
+                    </div>
+                    <div class="doc-chat-item-meta">
+                      <span class="doc-chat-item-time">18m</span>
+                    </div>
+                  </div>
+                  <div class="doc-chat-item">
+                    <div class="doc-profile-avatar doc-profile-avatar-sm">SP</div>
+                    <div class="doc-chat-item-body">
+                      <div class="doc-chat-item-name">Support</div>
+                      <div class="doc-chat-item-snippet">Ticket updated. Customer is asking for a refund flow preview.</div>
+                    </div>
+                    <div class="doc-chat-item-meta">
+                      <span class="doc-chat-item-time">1h</span>
+                    </div>
+                  </div>
+                  <div class="doc-chat-item">
+                    <div class="doc-profile-avatar doc-profile-avatar-sm">JL</div>
+                    <div class="doc-chat-item-body">
+                      <div class="doc-chat-item-name">Javier Luna</div>
+                      <div class="doc-chat-item-snippet">Can you share the staging link once the pricing table is live?</div>
+                    </div>
+                    <div class="doc-chat-item-meta">
+                      <span class="doc-chat-item-time">3h</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <section class="chat-main dg-card">
+              <div class="dg-card-header dg-card-header-row">
+                <div class="dg-flex dg-items-center dg-gap-3">
+                  <div class="doc-profile-avatar doc-profile-avatar-sm example-bg-portrait"></div>
+                  <div>
+                    <h3 class="dg-card-title dg-text-xl example-title-reset">Acme team</h3>
+                    <div class="dg-text-sm dg-muted">4 people online</div>
+                  </div>
+                </div>
+                <button class="dg-btn dg-btn-glass dg-btn-sm">Archive</button>
+              </div>
+              <div class="dg-card-body dg-stack doc-chat-body dg-gap-3">
+                <div class="doc-chat-day">Today · 11:42 AM</div>
+                <div class="doc-chat-bubble">
+                  <div class="doc-chat-bubble-head">
+                    <strong>Camila</strong>
+                    <span>11:43</span>
+                  </div>
+                  Can we ship the updated UI by Friday? The stakeholders want chat, pricing and order flows in one pass.
+                </div>
+                <div class="doc-chat-bubble is-outgoing">
+                  <div class="doc-chat-bubble-head">
+                    <strong>You</strong>
+                    <span>11:46</span>
+                  </div>
+                  Yes, I am polishing the cards and modal states now. I also moved the example patterns into the core so the docs stay honest.
+                </div>
+                <div class="doc-chat-bubble">
+                  <div class="doc-chat-bubble-head">
+                    <strong>Diego</strong>
+                    <span>11:49</span>
+                  </div>
+                  Perfect. Share the staging link once the sidebar list and conversation panel are both ready.
+                </div>
+                <div class="doc-chat-compose">
+                  <input class="dg-input" placeholder="Write a message" />
+                  <button class="dg-btn dg-btn-gradient">Send</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {is("gallery") && (
+          <div class="doc-gallery-shell">
+            <div class="dg-flex dg-items-center dg-justify-between dg-gap-4 dg-wrap">
+              <div>
+                <h2 class="dg-card-title dg-text-2xl example-title-reset">Gallery explorer</h2>
+                <p class="dg-muted dg-text-sm">Visual work, organized by mood and palette.</p>
+              </div>
+              <div class="dg-cluster dg-gap-2">
+                <span class="dg-glass-pill">All</span>
+                <span class="dg-glass-pill">Editorial</span>
+                <span class="dg-glass-pill">Motion</span>
+              </div>
+            </div>
+            <div class="doc-gallery-grid">
+              <div class="doc-photo-tile is-tall example-bg-gallery-portrait"></div>
+              <div class="doc-photo-tile example-bg-gallery-workspace"></div>
+              <div class="doc-photo-tile example-bg-gallery-interior"></div>
+              <div class="doc-photo-tile is-wide example-bg-gallery-fashion"></div>
+            </div>
+          </div>
+        )}
+
+        {is("event-modal") && (
+          <div class="doc-modal-center">
+            <div class="doc-modal-preview dg-surface-glass-strong">
+              <div class="dg-flex dg-items-start dg-justify-between">
+                <div>
+                  <span class="dg-glass-pill">Live event</span>
+                  <h2 class="dg-card-title dg-mt-3 dg-text-2xl">Design systems beyond utility</h2>
+                </div>
+                <button class="dg-btn dg-btn-glass dg-btn-icon">×</button>
+              </div>
+              <div class="dg-grid dg-grid-2 dg-mt-4">
+                <div class="doc-info-chip">June 26 · 18:00</div>
+                <div class="doc-info-chip">CDMX · 120 seats</div>
+                <div class="doc-info-chip">Speakers: 4</div>
+                <div class="doc-info-chip">Afterparty included</div>
+              </div>
+              <div class="dg-flex dg-gap-2 dg-mt-4">
+                <button class="dg-btn dg-btn-glass dg-btn-block">Maybe later</button>
+                <button class="dg-btn dg-btn-gradient dg-btn-block">Reserve seat</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {is("pricing") && (
+          <div class="doc-panel-stack">
+            <div class="doc-pricing-header">
+              <div>
+                <h2 class="dg-card-title dg-text-2xl example-title-reset">Pricing that scales with your system</h2>
+                <p class="dg-muted dg-text-sm">Choose a plan based on velocity, team size and how much brand expression you want built in.</p>
+              </div>
+              <div class="doc-billing-toggle">
+                <span class="is-active">Monthly</span>
+                <span>Yearly</span>
+                <span class="dg-badge dg-badge-success">Save 18%</span>
+              </div>
+            </div>
+            <div class="doc-pricing-grid">
+              <article class="dg-card">
+                <div class="dg-card-body">
+                  <div class="dg-text-sm dg-muted">Starter</div>
+                  <div class="doc-price">$12<span>/mo</span></div>
+                  <p class="doc-price-note">For solo creators and small projects validating a first UI language.</p>
+                  <div class="doc-feature-list">
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Core components</strong>
+                        <span>Buttons, forms, cards and layout essentials.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>1 visual preset</strong>
+                        <span>Choose one clean brand direction to start fast.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Email support</strong>
+                        <span>Best for solo shipping with lightweight guidance.</span>
+                      </div>
+                      <span class="doc-feature-check is-muted">48h</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>1 team member</strong>
+                        <span>Built for personal products and early validation.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                  </div>
+                  <div class="doc-plan-inline">
+                    <strong>Good for landing pages</strong>
+                    <span class="dg-text-sm dg-muted">12 projects</span>
+                  </div>
+                  <button class="dg-btn dg-btn-outline dg-btn-block dg-mt-4">Choose starter</button>
+                </div>
+              </article>
+              <article class="dg-card dg-surface-gradient-cool dg-surface-shine">
+                <div class="dg-card-body">
+                  <span class="dg-glass-pill">Recommended</span>
+                  <div class="doc-price dg-mt-3">$29<span>/mo</span></div>
+                  <p class="doc-price-note example-price-note-strong">Best balance for growing product teams shipping docs, dashboards and flows together.</p>
+                  <div class="doc-feature-list">
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Core + app patterns</strong>
+                        <span>Includes richer examples like chat, pricing and product surfaces.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Glass and gradient presets</strong>
+                        <span>Give the user multiple visual directions without custom CSS.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Priority support</strong>
+                        <span>Faster answers when the team is actively shipping.</span>
+                      </div>
+                      <span class="doc-feature-check">24h</span>
+                    </div>
+                    <div class="doc-feature-item">
+                      <div class="doc-feature-copy">
+                        <strong>Up to 5 team members</strong>
+                        <span>Great for product, design and marketing working together.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                  </div>
+                  <div class="doc-plan-inline">
+                    <strong>Best for product teams</strong>
+                    <span class="dg-text-sm">+3 brand themes</span>
+                  </div>
+                  <button class="dg-btn dg-btn-gradient dg-btn-block dg-mt-4">Choose growth</button>
+                </div>
+              </article>
+              <article class="dg-card dg-bg-dark dg-text-on-dark example-bg-dark-panel">
+                <div class="dg-card-body">
+                  <div class="dg-text-sm example-text-on-dark-muted">Scale</div>
+                  <div class="doc-price example-text-on-dark">$79<span>/mo</span></div>
+                  <p class="doc-price-note example-price-note-dark">Advanced analytics, design reviews and a richer component roadmap for large teams.</p>
+                  <div class="doc-feature-list">
+                    <div class="doc-feature-item example-feature-item-dark">
+                      <div class="doc-feature-copy">
+                        <strong class="example-text-on-dark">Unlimited product surfaces</strong>
+                        <span class="example-text-on-dark-soft">Scale the system across products, campaigns and internal tools.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item example-feature-item-dark">
+                      <div class="doc-feature-copy">
+                        <strong class="example-text-on-dark">Dedicated onboarding</strong>
+                        <span class="example-text-on-dark-soft">Hands-on rollout help for mature teams and migrations.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                    <div class="doc-feature-item example-feature-item-dark">
+                      <div class="doc-feature-copy">
+                        <strong class="example-text-on-dark">SLA support</strong>
+                        <span class="example-text-on-dark-soft">Predictable response windows for critical launches.</span>
+                      </div>
+                      <span class="doc-feature-check">4h</span>
+                    </div>
+                    <div class="doc-feature-item example-feature-item-dark">
+                      <div class="doc-feature-copy">
+                        <strong class="example-text-on-dark">Unlimited team members</strong>
+                        <span class="example-text-on-dark-soft">Built for multi-squad orgs with broader governance needs.</span>
+                      </div>
+                      <span class="doc-feature-check">✓</span>
+                    </div>
+                  </div>
+                  <div class="doc-plan-inline example-plan-inline-dark">
+                    <strong class="example-text-on-dark">For mature systems</strong>
+                    <span class="dg-text-sm example-text-on-dark-soft">Quarterly reviews</span>
+                  </div>
+                  <button class="dg-btn dg-btn-glass dg-btn-block dg-mt-4 example-btn-glass-on-dark">Talk to sales</button>
+                </div>
+              </article>
+            </div>
+            <div class="doc-pricing-compare">
+              <div class="doc-compare-row">
+                <strong>Feature</strong>
+                <span>Starter</span>
+                <span>Growth</span>
+                <span>Scale</span>
+              </div>
+              <div class="doc-compare-row">
+                <strong>Theme variants</strong>
+                <span>1 preset</span>
+                <span class="is-yes">3 presets</span>
+                <span class="is-yes">Custom</span>
+              </div>
+              <div class="doc-compare-row">
+                <strong>App example library</strong>
+                <span>Basic</span>
+                <span class="is-yes">Included</span>
+                <span class="is-yes">Extended</span>
+              </div>
+              <div class="doc-compare-row">
+                <strong>Support speed</strong>
+                <span>48h</span>
+                <span>24h</span>
+                <span class="is-yes">SLA</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+    {example.tag === "Mobile" && (
+      <div class="doc-showcase-mobile">
+        <div class="doc-phone-shell">
+          {is("login") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-shine example-bg-mobile-workspace">
+                <span class="dg-glass-pill">Welcome back</span>
+                <h2 class="doc-mobile-title">Access your workspace</h2>
+                <p class="dg-text-sm dg-muted">Continue with your email or social provider.</p>
+              </div>
+              <div class="dg-stack dg-gap-3">
+                <input class="dg-input" placeholder="Email address" />
+                <input class="dg-input" placeholder="Password" type="password" />
+                <button class="dg-btn dg-btn-gradient dg-btn-block">Log in</button>
+                <button class="dg-btn dg-btn-glass dg-btn-block">Continue with Google</button>
+              </div>
+            </>
+          )}
+
+          {is("menu") && (
+            <>
+              <div class="dg-flex dg-items-center dg-gap-3">
+                <div class="doc-profile-avatar doc-profile-avatar-sm">DG</div>
+                <div>
+                  <strong>Daniel Garzon</strong>
+                  <div class="dg-text-sm dg-muted">@dgarzdesign</div>
+                </div>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row">Dashboard <span>›</span></div>
+                <div class="doc-mobile-row">Bookmarks <span>›</span></div>
+                <div class="doc-mobile-row">Notifications <span>12</span></div>
+                <div class="doc-mobile-row">Appearance <span>›</span></div>
+              </div>
+            </>
+          )}
+
+          {is("wallet") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-glass-strong">
+                <div class="dg-text-sm dg-muted">Total balance</div>
+                <h2 class="doc-mobile-title">$73,558.00</h2>
+                <div class="dg-grid dg-grid-3 dg-mt-3">
+                  <div class="doc-mobile-orb">Visa</div>
+                  <div class="doc-mobile-orb is-focus">MC</div>
+                  <div class="doc-mobile-orb">Save</div>
+                </div>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>Stripe pricing</span><strong>$1,200</strong></div>
+                <div class="doc-mobile-row"><span>Figma membership</span><strong>$155</strong></div>
+                <div class="doc-mobile-row"><span>Loom subscription</span><strong>$100</strong></div>
+              </div>
+            </>
+          )}
+
+          {is("notification") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-gradient-warm">
+                <span class="dg-badge">Delivery update</span>
+                <h2 class="doc-mobile-title">Your order is arriving in 12 minutes</h2>
+                <p class="dg-text-sm dg-muted">Rider: Alberto · Track live from the app.</p>
+                <div class="dg-flex dg-gap-2 dg-mt-4">
+                  <button class="dg-btn dg-btn-glass dg-btn-block">Dismiss</button>
+                  <button class="dg-btn dg-btn-gradient-warm dg-btn-block">Track</button>
+                </div>
+              </div>
+            </>
+          )}
+
+          {is("checkout") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-glass-strong">
+                <div class="dg-text-sm dg-muted">Checkout</div>
+                <h2 class="doc-mobile-title">Review your order</h2>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>Travel bag</span><strong>$120</strong></div>
+                <div class="doc-mobile-row"><span>Shipping</span><strong>$12</strong></div>
+                <div class="doc-mobile-row"><span>Total</span><strong>$132</strong></div>
+              </div>
+              <button class="dg-btn dg-btn-gradient dg-btn-block">Pay now</button>
+            </>
+          )}
+
+          {is("social-profile") && (
+            <>
+              <div class="doc-mobile-cover example-bg-mobile-social"></div>
+              <div class="dg-flex dg-items-center dg-gap-3">
+                <div class="doc-profile-avatar doc-profile-avatar-sm example-bg-portrait"></div>
+                <div>
+                  <h2 class="doc-mobile-title example-title-reset">Andrea Ruiz</h2>
+                  <div class="dg-text-sm dg-muted">24.8K followers</div>
+                </div>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>Posts</span><strong>312</strong></div>
+                <div class="doc-mobile-row"><span>Collections</span><strong>28</strong></div>
+              </div>
+            </>
+          )}
+
+          {is("calendar") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-glass-strong">
+                <div class="dg-text-sm dg-muted">Today</div>
+                <h2 class="doc-mobile-title">June 6</h2>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>09:00 · Consultation</span><span>→</span></div>
+                <div class="doc-mobile-row"><span>11:30 · Review call</span><span>→</span></div>
+                <div class="doc-mobile-row"><span>16:00 · Follow-up</span><span>→</span></div>
+              </div>
+            </>
+          )}
+
+          {is("chat") && (
+            <>
+              <div class="doc-mobile-panel dg-bg-dark dg-text-on-dark example-bg-mobile-phone">
+                <div class="dg-text-sm example-text-on-dark-muted">Acme team</div>
+                <h2 class="doc-mobile-title example-text-on-dark">Friday delivery?</h2>
+              </div>
+              <div class="doc-mobile-chat">
+                <div class="doc-chat-bubble">Can we share the staging link today?</div>
+                <div class="doc-chat-bubble is-outgoing">Yes, I’m finalizing cards and motion.</div>
+                <div class="doc-chat-bubble">Great. Drop it in this thread.</div>
+              </div>
+              <div class="doc-chat-compose">
+                <input class="dg-input" placeholder="Write a message" />
+              </div>
+            </>
+          )}
+
+          {is("event") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-gradient-warm">
+                <span class="dg-badge">June 26</span>
+                <h2 class="doc-mobile-title">Systems beyond utility</h2>
+                <p class="dg-text-sm dg-muted">Live talk · CDMX · 18:00</p>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>Speakers</span><strong>4</strong></div>
+                <div class="doc-mobile-row"><span>Seats left</span><strong>38</strong></div>
+              </div>
+              <button class="dg-btn dg-btn-gradient-warm dg-btn-block">Reserve seat</button>
+            </>
+          )}
+
+          {is("pricing") && (
+            <>
+              <div class="doc-mobile-panel dg-surface-gradient-aurora">
+                <span class="dg-glass-pill">Recommended</span>
+                <h2 class="doc-mobile-title">Growth plan</h2>
+                <p class="dg-text-sm dg-muted">$29 / month · best for growing teams</p>
+              </div>
+              <div class="doc-mobile-list">
+                <div class="doc-mobile-row"><span>Unlimited components</span><strong>✓</strong></div>
+                <div class="doc-mobile-row"><span>Theme presets</span><strong>✓</strong></div>
+                <div class="doc-mobile-row"><span>Priority support</span><strong>✓</strong></div>
+              </div>
+              <button class="dg-btn dg-btn-gradient dg-btn-block">Upgrade now</button>
+            </>
+          )}
+        </div>
+      </div>
+    )}
+  </div>
+
+  <div class="doc-sub">En qué pensar</div>
+  <div class="dg-grid dg-grid-2">
+    <article class="dg-card dg-surface-glass">
+      <div class="dg-card-body">
+        <div class="dg-text-sm dg-muted">Caso de uso</div>
+        <h3 class="dg-card-title dg-mt-2 dg-text-xl">{example.focus}</h3>
+      </div>
+    </article>
+    <article class="dg-card">
+      <div class="dg-card-body">
+        <div class="dg-text-sm dg-muted">Componentes clave</div>
+        <div class="dg-cluster dg-mt-3 dg-gap-2 dg-wrap">
+          {example.components.map((component) => (
+            <span class="dg-glass-pill">{component}</span>
+          ))}
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <p class="dg-text-sm dg-muted dg-mt-4">
+    Fotos demo de apoyo visual vía
+    <a href="https://www.pexels.com/license/" target="_blank" rel="noreferrer">Pexels</a>.
+  </p>
+
+  <style define:vars={{
+    portraitUrl: pexelsUrls.portrait,
+    surrealUrl: pexelsUrls.surreal,
+    workspaceUrl: pexelsUrls.workspace,
+    interiorUrl: pexelsUrls.interior,
+    phoneUrl: pexelsUrls.phone,
+    fashionUrl: pexelsUrls.fashion,
+  }}>
+    .example-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--dg-radius-xl);
+      min-height: 420px;
+      padding: var(--dg-space-6);
+      border: 1px solid color-mix(in oklab, var(--dg-border) 70%, transparent);
+    }
+    .example-stage.is-cool {
+      background:
+        radial-gradient(circle at 84% 18%, rgba(93,138,255,.32) 0, rgba(93,138,255,0) 24%),
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.92) 0, rgba(255,255,255,0) 18%),
+        linear-gradient(145deg, #eef3fb, #e7ecf4 42%, #e2e7f0);
+    }
+    .example-stage.is-neutral {
+      background:
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.9) 0, rgba(255,255,255,0) 18%),
+        linear-gradient(145deg, #f3f4f6, #eaecf0 44%, #e3e6ec);
+    }
+    .example-stage.is-warm {
+      background:
+        radial-gradient(circle at 82% 18%, rgba(255,171,111,.26) 0, rgba(255,171,111,0) 22%),
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.92) 0, rgba(255,255,255,0) 18%),
+        linear-gradient(150deg, #f7f2eb, #f0e9e0 45%, #e9e1d8);
+    }
+    .example-stage.is-aurora {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(140,214,255,.26) 0, rgba(140,214,255,0) 20%),
+        radial-gradient(circle at 82% 18%, rgba(159,139,255,.28) 0, rgba(159,139,255,0) 24%),
+        linear-gradient(145deg, #edf4ff, #e7ecfb 45%, #e8eef8);
+    }
+    .example-stage.is-dark {
+      background:
+        radial-gradient(circle at 82% 18%, rgba(76,100,168,.28) 0, rgba(76,100,168,0) 20%),
+        linear-gradient(145deg, #181b20, #20242b 44%, #242932);
+    }
+    .example-title-reset {
+      margin: 0;
+    }
+    .example-copy-tight {
+      margin: 6px 0 0;
+    }
+    .example-metric-hero {
+      margin-top: 14px;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .example-dark-pill {
+      margin-top: 18px;
+      color: #fff;
+      border-color: rgba(255,255,255,.16);
+    }
+    .example-text-on-dark {
+      color: #fff;
+    }
+    .example-text-on-dark-muted {
+      color: rgba(255,255,255,.68);
+    }
+    .example-text-on-dark-soft {
+      color: rgba(255,255,255,.72);
+    }
+    .example-price-note-strong {
+      color: rgba(17,19,23,.72);
+    }
+    .example-price-note-dark {
+      color: rgba(255,255,255,.72);
+    }
+    .example-feature-item-dark,
+    .example-plan-inline-dark {
+      border-top-color: rgba(255,255,255,.14);
+    }
+    .example-btn-glass-on-dark {
+      color: #fff;
+      border-color: rgba(255,255,255,.16);
+    }
+    .example-bg-portrait {
+      background-image: var(--portraitUrl);
+    }
+    .example-bg-surreal {
+      background-image: var(--surrealUrl);
+    }
+    .example-bg-social-cover {
+      background-image:
+        linear-gradient(180deg, rgba(15,20,30,.08), rgba(15,20,30,.35)),
+        var(--surrealUrl);
+    }
+    .example-bg-workspace {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06)),
+        var(--workspaceUrl);
+    }
+    .example-bg-gallery-portrait {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.18)),
+        var(--portraitUrl);
+    }
+    .example-bg-gallery-workspace {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(17,19,23,.08)),
+        var(--workspaceUrl);
+    }
+    .example-bg-gallery-interior {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(17,19,23,.12)),
+        var(--interiorUrl);
+    }
+    .example-bg-gallery-fashion {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.24)),
+        var(--fashionUrl);
+    }
+    .example-bg-editorial-hero {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.22)),
+        var(--fashionUrl);
+    }
+    .example-bg-editorial-soft {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.18)),
+        var(--portraitUrl);
+    }
+    .example-bg-editorial-data {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.18)),
+        var(--workspaceUrl);
+    }
+    .example-bg-editorial-memory {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(17,19,23,.2)),
+        var(--interiorUrl);
+    }
+    .example-bg-mobile-workspace {
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.18)),
+        var(--workspaceUrl);
+    }
+    .example-bg-mobile-social {
+      background-image:
+        linear-gradient(180deg, rgba(18,25,40,.1), rgba(18,25,40,.34)),
+        var(--surrealUrl);
+    }
+    .example-bg-mobile-phone {
+      background-image:
+        linear-gradient(180deg, rgba(10,12,18,.48), rgba(10,12,18,.78)),
+        var(--phoneUrl);
+    }
+    .example-bg-dark-panel {
+      background-image:
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.12) 0, rgba(255,255,255,0) 22%),
+        linear-gradient(145deg, rgba(32,36,44,.96), rgba(42,48,57,.96));
+    }
+    @media (max-width: 991px) {
+      .example-stage { padding: var(--dg-space-5); }
+    }
+  </style>
+</Layout>

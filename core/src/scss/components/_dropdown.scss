@@ -1,0 +1,25 @@
+/* ---- Dropdown --------------------------------------------- */
+.dg-dropdown { position: relative; display: inline-block; }
+.dg-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; z-index: 40;
+  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: var(--dg-radius);
+  box-shadow:
+    var(--dg-shadow-3),
+    inset 0 1px 0 color-mix(in oklab, #fff 14%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--dg-border-strong) 20%, transparent);
+  padding: var(--dg-space-2); display: flex; flex-direction: column; gap: 2px;
+  transform-origin: top left; animation: dg-menu-in var(--dg-dur) var(--dg-ease);
+}
+.dg-menu-end { left: auto; right: 0; transform-origin: top right; }
+.dg-menu[hidden] { display: none; }
+@keyframes dg-menu-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+.dg-menu-item { display: flex; align-items: center; gap: var(--dg-space-3); padding: 0.55em 0.8em; border-radius: var(--dg-radius-sm); font-size: var(--dg-text-sm); color: var(--dg-text); cursor: pointer; transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease), transform var(--dg-dur-fast, 160ms) var(--dg-ease); text-align: left; }
+.dg-menu-item:hover { background: var(--dg-surface-2); transform: translateY(-1px); }
+.dg-menu-item:focus-visible { outline: none; background: var(--dg-surface-2); box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--dg-primary) 30%, transparent); }
+.dg-menu-item-danger { color: var(--dg-danger); }
+.dg-menu-item-danger:hover,
+.dg-menu-item-danger:focus-visible { color: var(--dg-danger); background: color-mix(in oklab, var(--dg-danger-bg) 88%, transparent); }
+.dg-menu-sep { height: 1px; background: var(--dg-border); margin: var(--dg-space-2) 0; }

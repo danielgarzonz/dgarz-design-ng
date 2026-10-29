@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain">
+        <div class="dg-list dg-max-w-xl">
+          <div class="dg-list-item">
+            <span class="dg-avatar">AR</span>
+            <div class="dg-grow">
+              <div class="dg-list-title">Ana Rivas</div>
+              <div class="dg-list-meta">Cliente desde 2024</div>
+            </div>
+            <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
+            <svg class="dg-icon dg-icon-sm dg-list-end"><use href="#dg-chevron-right"/></svg>
+          </div>
+          <div class="dg-list-item">
+            <span class="dg-avatar">LM</span>
+            <div class="dg-grow">
+              <div class="dg-list-title">Luis Mora</div>
+              <div class="dg-list-meta">Plan Pro · 12 pedidos</div>
+            </div>
+            <svg class="dg-icon dg-icon-sm dg-list-end"><use href="#dg-chevron-right"/></svg>
+          </div>
+          <div class="dg-list-item">
+            <span class="dg-avatar">SC</span>
+            <div class="dg-grow">
+              <div class="dg-list-title">Sofía Cano</div>
+              <div class="dg-list-meta">3 pedidos</div>
+            </div>
+            <span class="dg-badge dg-badge-dot dg-badge-warning">Pendiente</span>
+            <svg class="dg-icon dg-icon-sm dg-list-end"><use href="#dg-chevron-right"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;ul class="dg-list"&gt;
+  &lt;li class="dg-list-item"&gt;
+    &lt;img class="dg-avatar" src="user.jpg" alt="…" /&gt;
+    &lt;div class="dg-grow"&gt;
+      &lt;div class="dg-list-title"&gt;Ana Rivas&lt;/div&gt;
+      &lt;div class="dg-list-meta"&gt;Cliente desde 2024&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- .dg-list-end empuja el elemento al extremo derecho --&gt;
+    &lt;svg class="dg-icon dg-icon-sm dg-list-end"&gt;…&lt;/svg&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre></div>`;
+---
+
+<Layout title="List Group" lead="Listas con icono, título, meta y acción al final." currentHref="/app-pack/listgroup">
+  <Fragment set:html={pageContent} />
+</Layout>

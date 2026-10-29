@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain">
+        <div class="dg-steps dg-max-w-xl">
+          <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><span class="dg-step-label">Cuenta</span></div>
+          <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><span class="dg-step-label">Perfil</span></div>
+          <div class="dg-step is-active"><span class="dg-step-dot">3</span><span class="dg-step-label">Pago</span></div>
+          <div class="dg-step"><span class="dg-step-dot">4</span><span class="dg-step-label">Listo</span></div>
+        </div>
+      </div>
+
+      <div class="doc-sub">Vertical con descripción</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-steps dg-steps-vertical dg-max-w-sm">
+          <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><div class="dg-step-body"><div class="dg-step-label">Crear cuenta</div><div class="dg-step-desc">Email verificado correctamente.</div></div></div>
+          <div class="dg-step is-active"><span class="dg-step-dot">2</span><div class="dg-step-body"><div class="dg-step-label">Datos de pago</div><div class="dg-step-desc">Añade un método de pago para continuar.</div></div></div>
+          <div class="dg-step"><span class="dg-step-dot">3</span><div class="dg-step-body"><div class="dg-step-label">Confirmación</div><div class="dg-step-desc">Revisa y finaliza tu registro.</div></div></div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Stepper horizontal --&gt;
+&lt;div class="dg-steps"&gt;
+  &lt;div class="dg-step is-done"&gt;
+    &lt;span class="dg-step-dot"&gt;✓&lt;/span&gt;
+    &lt;span class="dg-step-label"&gt;Cuenta&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-step is-active"&gt;
+    &lt;span class="dg-step-dot"&gt;2&lt;/span&gt;
+    &lt;span class="dg-step-label"&gt;Pago&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-step"&gt;
+    &lt;span class="dg-step-dot"&gt;3&lt;/span&gt;
+    &lt;span class="dg-step-label"&gt;Listo&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Vertical (añade .dg-steps-vertical) --&gt;
+&lt;div class="dg-steps dg-steps-vertical"&gt;
+  &lt;div class="dg-step is-done"&gt;
+    &lt;span class="dg-step-dot"&gt;✓&lt;/span&gt;
+    &lt;div class="dg-step-body"&gt;
+      &lt;div class="dg-step-label"&gt;Crear cuenta&lt;/div&gt;
+      &lt;div class="dg-step-desc"&gt;Email verificado.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  …
+&lt;/div&gt;
+
+&lt;!-- Estados: .is-done · .is-active · (sin clase = pendiente) --&gt;</pre></div>`;
+---
+
+<Layout title="Steps" lead="Indicador de pasos para flujos multi-etapa." currentHref="/app-pack/steps">
+  <Fragment set:html={pageContent} />
+</Layout>

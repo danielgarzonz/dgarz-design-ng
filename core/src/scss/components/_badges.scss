@@ -1,0 +1,16 @@
+/* ---- Badges ----------------------------------------------- */
+.dg-badge {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  font-size: var(--dg-text-xs); font-weight: var(--dg-weight-medium); line-height: 1;
+  padding: 0.45em 0.8em; border-radius: var(--dg-radius-pill);
+  background: var(--dg-surface-3); color: var(--dg-text); border: 1px solid var(--dg-border);
+}
+.dg-badge-solid { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; }
+.dg-badge-outline { background: transparent; border-color: var(--dg-border-strong); }
+.dg-badge-success { background: var(--dg-success-bg); color: var(--dg-success); border-color: transparent; }
+.dg-badge-warning { background: var(--dg-warning-bg); color: var(--dg-warning); border-color: transparent; }
+.dg-badge-danger { background: var(--dg-danger-bg); color: var(--dg-danger); border-color: transparent; }
+.dg-badge-dot::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: currentColor; }
+
+/* ---- Badge: info variant ---------------------------------- */
+.dg-badge-info { background: var(--dg-info-bg); color: var(--dg-info); border-color: transparent; }

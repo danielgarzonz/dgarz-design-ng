@@ -1,0 +1,73 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const steps = [1,2,3,4,5,6,7,8,9];
+const pxs = ["4px","8px","12px","16px","24px","32px","48px","64px","96px"];
+const scaleRows = steps.map((n, i) =>
+  `<div class="space-row"><span class="space-token">--dg-space-${n}</span><div class="space-bar-wrap"><div class="space-bar" style="width:var(--dg-space-${n})"></div></div><span class="space-px">${pxs[i]}</span></div>`
+).join('');
+const pageContent = `
+  <div class="doc-sub">Escala de espaciado</div>
+  <p class="dg-muted dg-text-sm dg-mb-5">
+    Base de 4px con 9 pasos. Úsala siempre a través de los tokens
+    <code class="dg-code">--dg-space-*</code> o las clases utilitarias — nunca valores fijos.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="space-scale">${scaleRows}</div>
+  </div>
+
+  <div class="doc-sub">Margin</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-mt-1"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 4px --&gt;
+&lt;div class="dg-mt-2"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 8px --&gt;
+&lt;div class="dg-mt-3"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 12px --&gt;
+&lt;div class="dg-mt-4"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 16px --&gt;
+&lt;div class="dg-mt-5"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 24px --&gt;
+&lt;div class="dg-mt-6"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 32px --&gt;
+&lt;div class="dg-mt-7"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 48px --&gt;
+&lt;div class="dg-mt-8"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 64px --&gt;
+
+&lt;div class="dg-mb-4"&gt;...&lt;/div&gt;   &lt;!-- margin-bottom --&gt;
+&lt;div class="dg-my-4"&gt;...&lt;/div&gt;   &lt;!-- margin-block --&gt;
+&lt;div class="dg-mx-auto"&gt;...&lt;/div&gt; &lt;!-- margin-inline: auto --&gt;
+&lt;div class="dg-ml-auto"&gt;...&lt;/div&gt; &lt;!-- margin-left: auto --&gt;
+&lt;div class="dg-mr-auto"&gt;...&lt;/div&gt; &lt;!-- margin-right: auto --&gt;</pre></div>
+
+  <div class="doc-sub">Padding</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-p-4"&gt;...&lt;/div&gt;    &lt;!-- padding: 16px --&gt;
+&lt;div class="dg-px-4"&gt;...&lt;/div&gt;   &lt;!-- padding-inline: 16px --&gt;
+&lt;div class="dg-py-4"&gt;...&lt;/div&gt;   &lt;!-- padding-block: 16px --&gt;
+&lt;div class="dg-pt-4"&gt;...&lt;/div&gt;   &lt;!-- padding-top: 16px --&gt;
+&lt;div class="dg-pb-4"&gt;...&lt;/div&gt;   &lt;!-- padding-bottom: 16px --&gt;
+&lt;div class="dg-p-0"&gt;...&lt;/div&gt;    &lt;!-- padding: 0 --&gt;</pre></div>
+
+  <div class="doc-sub">Gap</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-gap-1"&gt;...&lt;/div&gt;  &lt;!-- gap: 4px --&gt;
+&lt;div class="dg-flex dg-gap-2"&gt;...&lt;/div&gt;  &lt;!-- gap: 8px --&gt;
+&lt;div class="dg-flex dg-gap-3"&gt;...&lt;/div&gt;  &lt;!-- gap: 12px --&gt;
+&lt;div class="dg-flex dg-gap-4"&gt;...&lt;/div&gt;  &lt;!-- gap: 16px --&gt;
+&lt;div class="dg-flex dg-gap-5"&gt;...&lt;/div&gt;  &lt;!-- gap: 24px --&gt;
+&lt;div class="dg-flex dg-gap-6"&gt;...&lt;/div&gt;  &lt;!-- gap: 32px --&gt;</pre></div>
+
+  <style>
+    .space-scale { display: grid; gap: var(--dg-space-3); padding: var(--dg-space-5); }
+    .space-row { display: flex; align-items: center; gap: var(--dg-space-4); }
+    .space-token {
+      font-family: var(--dg-font-mono); font-size: var(--dg-text-xs);
+      color: var(--dg-text-muted); width: 120px; flex-shrink: 0;
+    }
+    .space-bar-wrap { flex: 1; }
+    .space-bar {
+      height: 20px; background: var(--dg-solid);
+      border-radius: var(--dg-radius-sm); min-width: 4px;
+    }
+    .space-px {
+      font-family: var(--dg-font-mono); font-size: var(--dg-text-xs);
+      color: var(--dg-text-faint); width: 36px; text-align: right; flex-shrink: 0;
+    }
+  </style>
+`;
+---
+
+<Layout title="Espaciado" lead="Escala de 9 pasos con base de 4px. Tokens y clases de margin, padding y gap." currentHref="/fundamentos/espaciado">
+  <Fragment set:html={pageContent} />
+</Layout>

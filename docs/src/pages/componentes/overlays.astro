@@ -1,0 +1,126 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Dropdown básico</div>
+      <div class="doc-demo is-plain dg-min-h-180">
+        <div class="dg-cluster">
+          <div class="dg-dropdown" data-dg-dropdown>
+            <button class="dg-btn dg-btn-outline" data-dg-dropdown-trigger>
+              Opciones
+              <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+            </button>
+            <div class="dg-menu" hidden>
+              <button class="dg-menu-item">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg>
+                Enviar correo
+              </button>
+              <button class="dg-menu-item">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-star"/></svg>
+                Marcar como favorito
+              </button>
+              <div class="dg-menu-sep"></div>
+              <button class="dg-menu-item dg-text-danger">
+                <svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg>
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- 1. Wrapper con data-dg-dropdown --&gt;
+&lt;div class="dg-dropdown" data-dg-dropdown&gt;
+
+  &lt;!-- 2. Trigger — puede ser cualquier botón --&gt;
+  &lt;button class="dg-btn" data-dg-dropdown-trigger&gt;
+    Opciones
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+
+  &lt;!-- 3. Menú — comienza oculto con hidden --&gt;
+  &lt;div class="dg-menu" hidden&gt;
+    &lt;button class="dg-menu-item"&gt;Editar&lt;/button&gt;
+    &lt;button class="dg-menu-item"&gt;Duplicar&lt;/button&gt;
+    &lt;div class="dg-menu-sep"&gt;&lt;/div&gt;   &lt;!-- Separador --&gt;
+    &lt;button class="dg-menu-item"&gt;Eliminar&lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- El JS cierra el menú al:
+     - Click en cualquier .dg-menu-item
+     - Click fuera del dropdown
+     - Pulsar Escape --&gt;</pre></div>
+
+      <div class="doc-sub">Ítems con icono y estado peligro</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Ítem con icono a la izquierda --&gt;
+&lt;button class="dg-menu-item"&gt;
+  &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-mail"&gt;&lt;/use&gt;&lt;/svg&gt;
+  Enviar correo
+&lt;/button&gt;
+
+&lt;!-- Ítem destructivo (color danger) --&gt;
+&lt;button class="dg-menu-item dg-text-danger"&gt;
+  &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
+  Eliminar
+&lt;/button&gt;
+
+&lt;!-- Separador entre grupos de ítems --&gt;
+&lt;div class="dg-menu-sep"&gt;&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Dropdown en tabla (menú de acciones por fila)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-table-card dg-max-w-500">
+          <table class="dg-table">
+            <thead><tr><th>Proyecto</th><th>Estado</th><th class="dg-text-right">Acciones</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="dg-fw-medium">Landing v2</td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-success">Activo</span></td>
+                <td class="dg-text-right">
+                  <div class="dg-dropdown" data-dg-dropdown>
+                    <button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Acciones">
+                      <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+                    </button>
+                    <div class="dg-menu dg-menu-end" hidden>
+                      <button class="dg-menu-item">Editar</button>
+                      <button class="dg-menu-item">Duplicar</button>
+                      <div class="dg-menu-sep"></div>
+                      <button class="dg-menu-item dg-text-danger">Eliminar</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="dg-fw-medium">Dashboard admin</td>
+                <td><span class="dg-badge dg-badge-dot dg-badge-warning">Borrador</span></td>
+                <td class="dg-text-right">
+                  <div class="dg-dropdown" data-dg-dropdown>
+                    <button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger aria-label="Acciones">
+                      <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg>
+                    </button>
+                    <div class="dg-menu dg-menu-end" hidden>
+                      <button class="dg-menu-item">Editar</button>
+                      <button class="dg-menu-item">Publicar</button>
+                      <div class="dg-menu-sep"></div>
+                      <button class="dg-menu-item dg-text-danger">Eliminar</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Alinear menú a la derecha con .dg-menu-end --&gt;
+&lt;div class="dg-dropdown" data-dg-dropdown&gt;
+  &lt;button class="dg-btn dg-btn-ghost dg-btn-icon dg-btn-sm" data-dg-dropdown-trigger&gt;
+    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="dg-menu dg-menu-end" hidden&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Overlays" lead="Dropdown menus con animación de entrada y salida." currentHref="/componentes/overlays">
+  <Fragment set:html={pageContent} />
+</Layout>

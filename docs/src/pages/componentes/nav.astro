@@ -1,0 +1,151 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<!-- NAVBAR -->
+      <div class="doc-sub">Navbar</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        La barra de navegación superior. Usa <code class="dg-code">glass morphism</code> (backdrop-filter) automáticamente.
+        Marca el enlace activo con <code class="dg-code">.is-active</code>.
+      </p>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-hidden dg-rounded-lg">
+        <nav class="dg-navbar dg-static dg-rounded-0">
+          <a href="#" class="dg-navbar-brand">MiApp</a>
+          <div class="dg-navbar-nav">
+            <a href="#" class="dg-nav-link is-active">Inicio</a>
+            <a href="#" class="dg-nav-link">Proyectos</a>
+            <a href="#" class="dg-nav-link">Ajustes</a>
+          </div>
+          <div class="dg-flex dg-gap-2 dg-ml-auto">
+            <button class="dg-btn dg-btn-ghost dg-btn-sm">Entrar</button>
+            <button class="dg-btn dg-btn-primary dg-btn-sm">Registro</button>
+          </div>
+        </nav>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;nav class="dg-navbar"&gt;
+  &lt;!-- Marca / logo --&gt;
+  &lt;a href="/" class="dg-navbar-brand"&gt;MiApp&lt;/a&gt;
+
+  &lt;!-- Links de navegación --&gt;
+  &lt;div class="dg-navbar-nav"&gt;
+    &lt;a href="/" class="dg-nav-link is-active"&gt;Inicio&lt;/a&gt;
+    &lt;a href="/proyectos" class="dg-nav-link"&gt;Proyectos&lt;/a&gt;
+    &lt;a href="/ajustes" class="dg-nav-link"&gt;Ajustes&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Acciones a la derecha — dg-ml-auto las empuja --&gt;
+  &lt;div class="dg-flex dg-gap-2 dg-ml-auto"&gt;
+    &lt;button class="dg-btn dg-btn-ghost dg-btn-sm"&gt;Entrar&lt;/button&gt;
+    &lt;button class="dg-btn dg-btn-primary dg-btn-sm"&gt;Registro&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- Para hacerla sticky, añádele position:sticky;top:0;z-index:30 --&gt;
+&lt;!-- o usa la clase .doc-topbar como hace esta misma página --&gt;</pre></div>
+
+      <!-- TABS -->
+      <div class="doc-sub dg-mt-7">Tabs</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Para cambiar de panel, conecta cada <code class="dg-code">.dg-tab</code> con su panel usando <code class="dg-code">data-dg-panel="#id"</code>
+        y añade <code class="dg-code">data-dg-tabs</code> al contenedor. El JS maneja la visibilidad y la navegación con teclado (← →).
+        Si no usas JS, maneja tú mismo <code class="dg-code">.is-active</code> y el atributo <code class="dg-code">hidden</code>.
+      </p>
+
+      <div class="doc-demo is-plain">
+        <div data-dg-tabs>
+          <div class="dg-tabs">
+            <button class="dg-tab is-active" data-dg-panel="#tp1">Resumen</button>
+            <button class="dg-tab" data-dg-panel="#tp2">Actividad</button>
+            <button class="dg-tab" data-dg-panel="#tp3">Ajustes</button>
+          </div>
+          <div id="tp1" class="dg-mt-4 dg-text-sm dg-muted">Contenido del tab <strong>Resumen</strong>: estadísticas generales del proyecto.</div>
+          <div id="tp2" class="dg-mt-4 dg-text-sm dg-muted" hidden>Contenido del tab <strong>Actividad</strong>: historial de cambios recientes.</div>
+          <div id="tp3" class="dg-mt-4 dg-text-sm dg-muted" hidden>Contenido del tab <strong>Ajustes</strong>: configuración del proyecto.</div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Envuelve todo con data-dg-tabs --&gt;
+&lt;div data-dg-tabs&gt;
+
+  &lt;!-- Barra de pestañas --&gt;
+  &lt;div class="dg-tabs"&gt;
+    &lt;button class="dg-tab is-active" data-dg-panel="#panel-1"&gt;Resumen&lt;/button&gt;
+    &lt;button class="dg-tab"           data-dg-panel="#panel-2"&gt;Actividad&lt;/button&gt;
+    &lt;button class="dg-tab"           data-dg-panel="#panel-3"&gt;Ajustes&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Paneles — el primero visible, los demás con hidden --&gt;
+  &lt;div id="panel-1"&gt;Contenido del resumen…&lt;/div&gt;
+  &lt;div id="panel-2" hidden&gt;Contenido de actividad…&lt;/div&gt;
+  &lt;div id="panel-3" hidden&gt;Contenido de ajustes…&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- Navegación con teclado: ← → para cambiar de tab, Enter/Space para activar --&gt;</pre></div>
+
+      <div class="doc-sub">Variantes de tabs</div>
+      <div class="doc-demo is-plain dg-stack dg-gap-5">
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-3">Underline (por defecto)</p>
+          <div class="dg-tabs">
+            <button class="dg-tab is-active">Tab 1</button>
+            <button class="dg-tab">Tab 2</button>
+            <button class="dg-tab">Tab 3</button>
+          </div>
+        </div>
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-3">Pill (<code class="dg-code">.dg-tabs-pill</code>)</p>
+          <div class="dg-tabs dg-tabs-pill">
+            <button class="dg-tab is-active">Tab 1</button>
+            <button class="dg-tab">Tab 2</button>
+            <button class="dg-tab">Tab 3</button>
+          </div>
+        </div>
+        <div>
+          <p class="dg-text-xs dg-muted dg-mb-3">Enclosed (<code class="dg-code">.dg-tabs-enclosed</code>)</p>
+          <div class="dg-tabs dg-tabs-enclosed">
+            <button class="dg-tab is-active">Tab 1</button>
+            <button class="dg-tab">Tab 2</button>
+            <button class="dg-tab">Tab 3</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Underline (por defecto) —sin clase extra--&gt;
+&lt;div class="dg-tabs"&gt;…&lt;/div&gt;
+
+&lt;!-- Pill: fondo sólido en el activo --&gt;
+&lt;div class="dg-tabs dg-tabs-pill"&gt;…&lt;/div&gt;
+
+&lt;!-- Enclosed: borde tipo card conectado al contenido --&gt;
+&lt;div class="dg-tabs dg-tabs-enclosed"&gt;…&lt;/div&gt;</pre></div>
+
+      <!-- SEGMENTED -->
+      <div class="doc-sub dg-mt-7">Control segmentado</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Selector de opción única (radio visual). Ideal para cambiar entre vistas o modos.
+        Con <code class="dg-code">data-dg-segmented</code> el JS gestiona la selección automáticamente.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-4">
+          <div class="dg-segmented" id="demoSeg">
+            <button class="is-active">Día</button>
+            <button>Semana</button>
+            <button>Mes</button>
+            <button>Año</button>
+          </div>
+          <div class="dg-segmented" data-dg-segmented>
+            <button class="is-active">Lista</button>
+            <button>Cuadrícula</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-segmented" data-dg-segmented&gt;
+  &lt;button class="is-active"&gt;Lista&lt;/button&gt;
+  &lt;button&gt;Cuadrícula&lt;/button&gt;
+  &lt;button&gt;Mapa&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- data-dg-segmented activa la lógica de selección única.
+     Sin JS: maneja tú mismo la clase .is-active en los botones. --&gt;</pre></div>`;
+---
+
+<Layout title="Navegación" lead="Navbar horizontal, nav vertical, tabs y segmented control." currentHref="/componentes/nav">
+  <Fragment set:html={pageContent} />
+</Layout>

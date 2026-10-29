@@ -1,0 +1,227 @@
+/* ---- Forms ------------------------------------------------ */
+/* Semantic auto-styling (.dg-auto contract, see _grid.scss bottom-of-file note):
+   a plain, classless input/select/textarea/label inside a .dg-auto scope
+   gets these exact declarations via :where() — zero added specificity,
+   so a real .dg-input/.dg-select class (or any consumer override) always
+   wins without needing !important. Text-like input types only; checkbox,
+   radio, file, range, color, hidden, submit/button/reset are excluded —
+   those need their own treatment, not a text-field look. */
+$dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [type="number"], [type="tel"], [type="url"], [type="search"], [type="date"], [type="datetime-local"], [type="month"], [type="week"], [type="time"], :not([type]))';
+
+.dg-label,
+:where(.dg-auto) label:not([class]) { display: inline-block; font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium); margin-bottom: var(--dg-space-2); color: var(--dg-text); }
+.dg-field { display: flex; flex-direction: column; position: relative; }
+.dg-help { font-size: var(--dg-text-xs); color: var(--dg-text-muted); margin-top: var(--dg-space-2); }
+
+
+.dg-input, .dg-textarea, .dg-select,
+:where(.dg-auto) input:not([class])#{$dg-auto-text-input},
+:where(.dg-auto) textarea:not([class]),
+:where(.dg-auto) select:not([class]) {
+  width: 100%;
+  font-size: var(--dg-text-sm);
+  color: var(--dg-text);
+  background: var(--dg-field-bg);
+  border: 1px solid var(--dg-field-border);
+  border-radius: var(--dg-radius);
+  padding: 0.7em 1em;
+  transition: border-color var(--dg-dur) var(--dg-ease), box-shadow var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+}
+.dg-input::placeholder, .dg-textarea::placeholder,
+:where(.dg-auto) input:not([class])#{$dg-auto-text-input}::placeholder,
+:where(.dg-auto) textarea:not([class])::placeholder { color: var(--dg-text-faint); }
+.dg-input:focus, .dg-textarea:focus, .dg-select:focus,
+:where(.dg-auto) input:not([class])#{$dg-auto-text-input}:focus,
+:where(.dg-auto) textarea:not([class]):focus,
+:where(.dg-auto) select:not([class]):focus {
+  outline: none;
+  border-color: var(--dg-text);
+  background: var(--dg-field-bg-focus);
+  box-shadow: var(--dg-ring);
+}
+.dg-input:disabled, .dg-textarea:disabled, .dg-select:disabled,
+:where(.dg-auto) input:not([class])#{$dg-auto-text-input}:disabled,
+:where(.dg-auto) textarea:not([class]):disabled,
+:where(.dg-auto) select:not([class]):disabled { background: var(--dg-surface-2); opacity: .6; cursor: not-allowed; }
+.dg-textarea,
+:where(.dg-auto) textarea:not([class]) { resize: vertical; min-height: 6em; line-height: var(--dg-leading-normal); }
+.dg-input-pill { border-radius: var(--dg-radius-pill); }
+
+/* Kill the browser's blue/yellow autofill background, themed instead of hardcoded. */
+.dg-input:-webkit-autofill,
+.dg-input:-webkit-autofill:hover,
+.dg-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--dg-surface-2) inset;
+  box-shadow: 0 0 0 1000px var(--dg-surface-2) inset;
+  -webkit-text-fill-color: var(--dg-text);
+  border-color: var(--dg-field-border);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.dg-select,
+:where(.dg-auto) select:not([class]) {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+  padding-right: 2.6em;
+}
+
+.dg-input-group {
+  display: flex; align-items: stretch;
+  border-radius: var(--dg-radius);
+  transition: box-shadow var(--dg-dur) var(--dg-ease);
+}
+.dg-input-group:focus-within { box-shadow: var(--dg-ring); }
+.dg-input-group .dg-input {
+  border-radius: var(--dg-radius) 0 0 var(--dg-radius);
+  border-right: none;
+}
+.dg-input-group .dg-input:focus {
+  box-shadow: none;
+  border-color: var(--dg-field-border);
+}
+.dg-input-group .dg-btn { border-left: none; }
+.dg-input-group .dg-input-addon {
+  display: inline-flex; align-items: center; padding: 0 1em;
+  background: var(--dg-surface-3);
+  border: 1px solid var(--dg-field-border); border-left: none;
+  border-radius: 0 var(--dg-radius) var(--dg-radius) 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm);
+}
+
+/* Checkbox & radio */
+.dg-check { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; font-size: var(--dg-text-sm); user-select: none; }
+.dg-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dg-check .dg-check-box {
+  width: 1.2em; height: 1.2em; flex: none;
+  border: 1.5px solid var(--dg-border-strong);
+  border-radius: 6px;
+  background: var(--dg-surface-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--dg-dur) var(--dg-ease), border-color var(--dg-dur) var(--dg-ease);
+}
+.dg-check .dg-check-box.dg-radio { border-radius: 50%; }
+.dg-check .dg-check-box::after { content: ""; opacity: 0; transition: opacity var(--dg-dur) var(--dg-ease); }
+.dg-check .dg-check-box:not(.dg-radio)::after {
+  width: 0.34em; height: 0.62em; border: solid var(--dg-on-solid); border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translateY(-1px);
+}
+.dg-check .dg-check-box.dg-radio::after { width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--dg-on-solid); }
+.dg-check input:checked + .dg-check-box { background: var(--dg-solid); border-color: var(--dg-solid); }
+.dg-check input:checked + .dg-check-box::after { opacity: 1; }
+.dg-check input:focus-visible + .dg-check-box { box-shadow: var(--dg-ring); }
+
+/* Switch */
+.dg-switch { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; user-select: none; font-size: var(--dg-text-sm); }
+.dg-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dg-switch .dg-switch-track {
+  width: 2.6em; height: 1.5em; border-radius: var(--dg-radius-pill);
+  background: var(--dg-border-strong); position: relative; transition: background var(--dg-dur) var(--dg-ease);
+}
+.dg-switch .dg-switch-track::after {
+  content: ""; position: absolute; top: 0.18em; left: 0.18em;
+  width: 1.14em; height: 1.14em; border-radius: 50%; background: var(--dg-0);
+  box-shadow: var(--dg-shadow-1); transition: transform var(--dg-dur) var(--dg-ease);
+}
+.dg-switch input:checked + .dg-switch-track { background: var(--dg-solid); }
+.dg-switch input:checked + .dg-switch-track::after { transform: translateX(1.1em); background: var(--dg-on-solid); }
+.dg-switch input:focus-visible + .dg-switch-track { box-shadow: var(--dg-ring); }
+
+/* ---- Input / textarea size variants ----------------------- */
+.dg-input-sm, .dg-textarea-sm { font-size: var(--dg-text-xs); padding: 0.48em 0.75em; }
+.dg-input-lg, .dg-textarea-lg { font-size: var(--dg-text-base); padding: 0.9em 1.2em; }
+
+/* ---- Input: with icon inside ------------------------------ */
+.dg-input-icon { position: relative; }
+.dg-input-icon .dg-input { padding-left: 2.5em; }
+.dg-input-icon .dg-input-icon-el {
+  position: absolute; left: 0.85em; top: 50%; transform: translateY(-50%);
+  color: var(--dg-text-muted); pointer-events: none;
+}
+.dg-input-icon-right .dg-input { padding-left: 1em; padding-right: 2.5em; }
+.dg-input-icon-right .dg-input-icon-el { left: auto; right: 0.85em; }
+
+/* ---- Password field: show/hide toggle ---------------------- */
+.dg-password-wrap { position: relative; display: flex; }
+.dg-password-wrap .dg-input { flex: 1; padding-right: 2.6em; }
+.dg-password-toggle {
+  position: absolute; top: 50%; right: 0.7em; transform: translateY(-50%);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: none; padding: 0; margin: 0;
+  color: var(--dg-text-muted); cursor: pointer; font-size: 1.25em; line-height: 1;
+  transition: color var(--dg-dur) var(--dg-ease);
+}
+.dg-password-toggle:hover, .dg-password-toggle:focus-visible { color: var(--dg-text); }
+
+/* ---- Range input ------------------------------------------ */
+.dg-range {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px; border-radius: var(--dg-radius-pill);
+  background: var(--dg-border); outline: none; cursor: pointer;
+  transition: background var(--dg-dur) var(--dg-ease);
+}
+.dg-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--dg-solid); cursor: pointer;
+  box-shadow: var(--dg-shadow-1);
+  transition: transform var(--dg-dur) var(--dg-ease), box-shadow var(--dg-dur) var(--dg-ease);
+}
+.dg-range::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: var(--dg-shadow-2); }
+.dg-range:focus-visible { box-shadow: none; }
+.dg-range:focus-visible::-webkit-slider-thumb { box-shadow: var(--dg-ring); }
+
+/* ============================================================
+   FLOATING LABELS — label animado dentro del input
+   ============================================================ */
+.dg-float-field { position: relative; }
+
+.dg-float-field .dg-input,
+.dg-float-field .dg-textarea,
+.dg-float-field .dg-select {
+  padding-top: 1.55em;
+  padding-bottom: 0.38em;
+}
+.dg-float-field .dg-textarea { padding-top: 1.7em; }
+
+.dg-float-field label {
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--dg-text-sm);
+  color: var(--dg-text-faint);
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    top var(--dg-dur) var(--dg-ease),
+    transform var(--dg-dur) var(--dg-ease),
+    font-size var(--dg-dur) var(--dg-ease),
+    color var(--dg-dur) var(--dg-ease);
+}
+/* textarea: label starts at top-left */
+.dg-float-field:has(.dg-textarea) label { top: 0.9em; transform: none; }
+
+/* Floated state: focused OR has value */
+.dg-float-field .dg-input:focus + label,
+.dg-float-field .dg-input:not(:placeholder-shown) + label,
+.dg-float-field .dg-textarea:focus + label,
+.dg-float-field .dg-textarea:not(:placeholder-shown) + label,
+.dg-float-field .dg-select + label,
+.dg-float-field label.is-floated {
+  top: 0.42em;
+  transform: translateY(-50%);
+  font-size: var(--dg-text-xs);
+  color: var(--dg-text-muted);
+  background: var(--dg-float-label-bg);
+  backdrop-filter: blur(50px) saturate(140%);
+  -webkit-backdrop-filter: blur(50px) saturate(140%);
+  border: 1px solid var(--dg-float-label-border);
+  box-shadow: var(--dg-float-label-shadow);
+  padding: 0 var(--dg-space-1);
+  border-radius: 6px;
+}
+.dg-float-field .dg-input:focus + label,
+.dg-float-field .dg-textarea:focus + label,
+.dg-float-field:focus-within label.is-floated { color: var(--dg-text); }

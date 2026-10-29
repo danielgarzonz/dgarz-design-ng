@@ -1,0 +1,135 @@
+/* ---- File Upload ------------------------------------------ */
+.dg-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dg-space-3);
+  padding: var(--dg-space-7) var(--dg-space-5);
+  border: 1.5px dashed var(--dg-border-strong);
+  border-radius: var(--dg-radius-lg);
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--dg-dur) var(--dg-ease),
+    background   var(--dg-dur) var(--dg-ease);
+}
+.dg-dropzone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.dg-dropzone:hover,
+.dg-dropzone.is-over {
+  border-color: var(--dg-text);
+  background: var(--dg-surface-2);
+}
+.dg-dropzone.is-over { border-style: solid; }
+.dg-dropzone.is-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.dg-dropzone-icon {
+  width: 2.4em;
+  height: 2.4em;
+  color: var(--dg-text-muted);
+}
+.dg-dropzone-title {
+  font-size: var(--dg-text-sm);
+  font-weight: var(--dg-weight-medium);
+  color: var(--dg-text);
+}
+.dg-dropzone-sub {
+  font-size: var(--dg-text-xs);
+  color: var(--dg-text-muted);
+  margin-top: calc(-1 * var(--dg-space-2));
+}
+
+/* File list */
+.dg-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dg-space-2);
+  margin-top: var(--dg-space-3);
+}
+.dg-file-item {
+  display: flex;
+  align-items: center;
+  gap: var(--dg-space-3);
+  padding: var(--dg-space-2) var(--dg-space-3);
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface);
+}
+.dg-file-icon {
+  width: 2em;
+  height: 2em;
+  flex: none;
+  border-radius: var(--dg-radius-sm);
+  background: var(--dg-surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dg-text-xs);
+  font-weight: var(--dg-weight-semi);
+  color: var(--dg-text-muted);
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.dg-file-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--dg-radius-sm);
+}
+.dg-file-info { flex: 1; min-width: 0; }
+.dg-file-name {
+  font-size: var(--dg-text-sm);
+  font-weight: var(--dg-weight-medium);
+  color: var(--dg-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dg-file-size {
+  font-size: var(--dg-text-xs);
+  color: var(--dg-text-muted);
+  margin-top: 2px;
+}
+.dg-file-remove {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  color: var(--dg-text-muted);
+  cursor: pointer;
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+.dg-file-remove:hover { background: var(--dg-surface-3); color: var(--dg-text); }
+
+/* Progress bar within file item */
+.dg-file-progress {
+  height: 3px;
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-border);
+  margin-top: var(--dg-space-1);
+  overflow: hidden;
+}
+.dg-file-progress-bar {
+  height: 100%;
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-solid);
+  transition: width .3s var(--dg-ease);
+}
+.dg-file-item.is-done .dg-file-progress-bar   { background: var(--dg-success); }
+.dg-file-item.is-error .dg-file-progress-bar  { background: var(--dg-danger); }
+.dg-file-item.is-error .dg-file-name          { color: var(--dg-danger); }

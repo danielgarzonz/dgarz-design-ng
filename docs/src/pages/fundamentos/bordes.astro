@@ -1,0 +1,96 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+  <div class="doc-sub">Border</div>
+  <div class="doc-demo is-plain">
+    <div class="dg-cluster dg-gap-4 dg-wrap dg-p-5">
+      <div class="border-box dg-border">dg-border</div>
+      <div class="border-box dg-border-top">dg-border-top</div>
+      <div class="border-box dg-border-bottom">dg-border-bottom</div>
+      <div class="border-box dg-border-start">dg-border-start</div>
+      <div class="border-box dg-border-end">dg-border-end</div>
+      <div class="border-box dg-border dg-border-0">dg-border-0</div>
+    </div>
+  </div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-border"&gt;...&lt;/div&gt;          &lt;!-- 1px solid --dg-border --&gt;
+&lt;div class="dg-border-top"&gt;...&lt;/div&gt;
+&lt;div class="dg-border-bottom"&gt;...&lt;/div&gt;
+&lt;div class="dg-border-start"&gt;...&lt;/div&gt;
+&lt;div class="dg-border-end"&gt;...&lt;/div&gt;
+&lt;div class="dg-border-0"&gt;...&lt;/div&gt;        &lt;!-- sin borde --&gt;</pre></div>
+
+  <div class="doc-sub">Color de borde</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-border dg-border-success"&gt;...&lt;/div&gt;
+&lt;div class="dg-border dg-border-warning"&gt;...&lt;/div&gt;
+&lt;div class="dg-border dg-border-danger"&gt;...&lt;/div&gt;
+&lt;div class="dg-border dg-border-info"&gt;...&lt;/div&gt;
+&lt;div class="dg-border dg-border-primary"&gt;...&lt;/div&gt;
+&lt;div class="dg-border dg-border-transparent"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">Radios</div>
+  <div class="doc-demo is-plain">
+    <div class="dg-cluster dg-gap-5 dg-wrap dg-p-5">
+      <div class="radius-box dg-rounded-sm">sm</div>
+      <div class="radius-box dg-rounded">base</div>
+      <div class="radius-box dg-rounded-lg">lg</div>
+      <div class="radius-box dg-rounded-xl">xl</div>
+      <div class="radius-box dg-rounded-pill">pill</div>
+      <div class="radius-box dg-rounded-0">0</div>
+    </div>
+  </div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-rounded-sm"&gt;...&lt;/div&gt;     &lt;!-- 8px --&gt;
+&lt;div class="dg-rounded"&gt;...&lt;/div&gt;        &lt;!-- 14px --&gt;
+&lt;div class="dg-rounded-lg"&gt;...&lt;/div&gt;     &lt;!-- 22px --&gt;
+&lt;div class="dg-rounded-xl"&gt;...&lt;/div&gt;     &lt;!-- 30px --&gt;
+&lt;div class="dg-rounded-pill"&gt;...&lt;/div&gt;   &lt;!-- 999px --&gt;
+&lt;div class="dg-rounded-0"&gt;...&lt;/div&gt;      &lt;!-- 0 --&gt;</pre></div>
+
+  <div class="doc-sub">Ancho y alto</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-w-full"&gt;...&lt;/div&gt;       &lt;!-- width: 100% --&gt;
+&lt;div class="dg-h-full"&gt;...&lt;/div&gt;       &lt;!-- height: 100% --&gt;
+&lt;div class="dg-h-screen"&gt;...&lt;/div&gt;     &lt;!-- height: 100vh --&gt;
+&lt;div class="dg-min-w-0"&gt;...&lt;/div&gt;      &lt;!-- min-width: 0 --&gt;
+&lt;div class="dg-max-w-full"&gt;...&lt;/div&gt;   &lt;!-- max-width: 100% --&gt;
+
+&lt;!-- Anchos máximos semánticos --&gt;
+&lt;div class="dg-max-w-xs"&gt;...&lt;/div&gt;     &lt;!-- 380px --&gt;
+&lt;div class="dg-max-w-sm"&gt;...&lt;/div&gt;     &lt;!-- 420px --&gt;
+&lt;div class="dg-max-w-md"&gt;...&lt;/div&gt;     &lt;!-- 460px --&gt;
+&lt;div class="dg-max-w-lg"&gt;...&lt;/div&gt;     &lt;!-- 500px --&gt;
+&lt;div class="dg-max-w-xl"&gt;...&lt;/div&gt;     &lt;!-- 560px --&gt;
+&lt;div class="dg-max-w-2xl"&gt;...&lt;/div&gt;    &lt;!-- 600px --&gt;
+&lt;div class="dg-measure"&gt;...&lt;/div&gt;      &lt;!-- 60ch --&gt;</pre></div>
+
+  <div class="doc-sub">Aspect ratio y object-fit</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-aspect-video"&gt;...&lt;/div&gt;    &lt;!-- 16/9 --&gt;
+&lt;div class="dg-aspect-square"&gt;...&lt;/div&gt;   &lt;!-- 1/1 --&gt;
+&lt;div class="dg-aspect-4-3"&gt;...&lt;/div&gt;      &lt;!-- 4/3 --&gt;
+
+&lt;img class="dg-object-cover" /&gt;
+&lt;img class="dg-object-contain" /&gt;</pre></div>
+
+  <style>
+    .border-box {
+      padding: var(--dg-space-3) var(--dg-space-4);
+      border-radius: var(--dg-radius-sm);
+      font-size: var(--dg-text-xs);
+      font-family: var(--dg-font-mono);
+      color: var(--dg-text-muted);
+      background: var(--dg-surface-2);
+    }
+    .radius-box {
+      width: 72px; height: 72px;
+      background: var(--dg-surface-3);
+      border: 1px solid var(--dg-border);
+      display: grid; place-items: center;
+      font-size: var(--dg-text-xs);
+      font-family: var(--dg-font-mono);
+      color: var(--dg-text-muted);
+    }
+  </style>
+`;
+---
+
+<Layout title="Bordes & Tamaño" lead="Utilidades de border, color de borde, radios, dimensiones y aspect ratio." currentHref="/fundamentos/bordes">
+  <Fragment set:html={pageContent} />
+</Layout>

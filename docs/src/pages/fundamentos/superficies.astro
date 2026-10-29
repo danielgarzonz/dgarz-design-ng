@@ -1,0 +1,164 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import Demo from "../../components/Demo.astro";
+import Code from "../../components/Code.astro";
+---
+
+<Layout
+  title="Superficies"
+  lead="Capa visual opt-in para glassmorphism y gradientes suaves sin romper la base minimal del sistema."
+  currentHref="/fundamentos/superficies"
+>
+  <div class="doc-sub">Idea del sistema</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Estas variantes no cambian el look base de <code class="dg-code">dgarz</code>. Se aplican por clase,
+    así el usuario decide si quiere una interfaz plana, con glass, con gradientes o con una mezcla.
+    La recomendación es usarlas en shells, cards destacadas, dashboards y CTAs, no en toda la UI.
+  </p>
+
+  <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1a1040">
+    <div class="dg-cluster dg-gap-3 dg-wrap">
+      <span class="dg-badge">Base minimal</span>
+      <span class="dg-glass-pill">Glass</span>
+      <span class="dg-glass-pill dg-surface-gradient-cool">Gradient</span>
+      <span class="dg-glass-pill dg-surface-gradient-warm">Warm</span>
+    </div>
+    <div class="dg-grid dg-grid-3">
+      <div class="dg-card">
+        <div class="dg-card-body">
+          <div class="dg-text-sm dg-muted">Base</div>
+          <div class="dg-card-title dg-text-lg">Neutral</div>
+        </div>
+      </div>
+      <div class="dg-card dg-surface-glass">
+        <div class="dg-card-body">
+          <div class="dg-text-sm dg-muted">Opt-in</div>
+          <div class="dg-card-title dg-text-lg">Glass</div>
+        </div>
+      </div>
+      <div class="dg-card dg-surface-gradient">
+        <div class="dg-card-body">
+          <div class="dg-text-sm dg-muted">Opt-in</div>
+          <div class="dg-card-title dg-text-lg">Gradient</div>
+        </div>
+      </div>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Variantes disponibles</div>
+  <Demo plain class="doc-stage dg-stack dg-gap-5" style="background-image:url('https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#0d1f1a">
+    <div class="dg-grid dg-grid-2">
+      <article class="dg-card dg-surface-glass">
+        <div class="dg-card-body">
+          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
+            <span class="dg-glass-pill">.dg-surface-glass</span>
+            <button class="dg-btn dg-btn-glass dg-btn-sm">Preview</button>
+          </div>
+          <h3 class="dg-card-title dg-text-xl">Glassmorphism</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">Blur moderado, borde translúcido y highlight suave. Ideal para cards flotantes y topbars.</p>
+        </div>
+      </article>
+
+      <article class="dg-card dg-surface-glass-strong">
+        <div class="dg-card-body">
+          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
+            <span class="dg-glass-pill">.dg-surface-glass-strong</span>
+            <button class="dg-btn dg-btn-glass dg-btn-sm">Modal</button>
+          </div>
+          <h3 class="dg-card-title dg-text-xl">Glass fuerte</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">Más blur y más opacidad. Funciona mejor para overlays, drawers y panels hero.</p>
+        </div>
+      </article>
+
+      <article class="dg-card dg-surface-gradient-aurora dg-surface-noise">
+        <div class="dg-card-body">
+          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
+            <span class="dg-glass-pill">.dg-surface-gradient-aurora</span>
+            <button class="dg-btn dg-btn-gradient-warm dg-btn-sm">Launch</button>
+          </div>
+          <h3 class="dg-card-title dg-text-xl">Aurora / mesh</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">Gradiente más expresivo, pero aún suave. Bueno para dashboards editoriales y marketing UI.</p>
+        </div>
+      </article>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Botones y CTAs</div>
+  <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#12102a">
+    <div class="dg-cluster dg-gap-3 dg-wrap">
+      <button class="dg-btn">Base</button>
+      <button class="dg-btn dg-btn-glass">Glass</button>
+      <button class="dg-btn dg-btn-gradient">Gradient</button>
+      <button class="dg-btn dg-btn-gradient-warm">Warm gradient</button>
+    </div>
+    <div class="dg-card dg-surface-gradient-cool dg-surface-shine">
+      <div class="dg-card-body dg-flex dg-items-center dg-justify-between dg-gap-4 dg-wrap">
+        <div>
+          <div class="dg-text-sm dg-muted">Call to action</div>
+          <div class="dg-card-title dg-text-2xl">Financial health +85%</div>
+          <p class="dg-muted dg-text-sm dg-mt-2">Puedes combinar gradiente + shine para piezas destacadas sin teñir toda la interfaz.</p>
+        </div>
+        <div class="dg-cluster dg-gap-3">
+          <button class="dg-btn dg-btn-glass">Ver detalle</button>
+          <button class="dg-btn dg-btn-gradient">View all</button>
+        </div>
+      </div>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Override de color por contenedor</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-lg">
+    Si un proyecto quiere otro acento, no necesitas rehacer clases. Puedes cambiar las variables en un wrapper
+    y todas las superficies visuales usarán ese nuevo tono.
+  </p>
+  <Demo plain class="doc-stage" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1f0a00">
+    <section class="dg-grid dg-grid-2 doc-surface-brand-cool">
+      <article class="dg-card dg-surface-gradient-cool">
+        <div class="dg-card-body">
+          <div class="dg-text-sm dg-muted">Brand A</div>
+          <div class="dg-card-title dg-text-xl">Cool / fintech</div>
+        </div>
+      </article>
+      <article class="dg-card dg-surface-gradient-warm doc-surface-brand-warm">
+        <div class="dg-card-body">
+          <div class="dg-text-sm dg-muted">Brand B</div>
+          <div class="dg-card-title dg-text-xl">Warm / commerce</div>
+        </div>
+      </article>
+    </section>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Clases</div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-surface-glass
+.dg-surface-glass-strong
+.dg-surface-glass-dark
+.dg-surface-gradient
+.dg-surface-gradient-cool
+.dg-surface-gradient-warm
+.dg-surface-gradient-aurora
+.dg-surface-mesh
+.dg-surface-shine
+.dg-surface-noise
+
+.dg-btn-glass
+.dg-btn-gradient
+.dg-btn-gradient-warm</pre></div>
+
+  <style>
+    .doc-surface-brand-cool {
+      --dg-accent: #6f7dff;
+      --dg-accent-2: #b5c0ff;
+      --dg-accent-3: #e7ebff;
+      --dg-accent-violet: #8c74ff;
+      --dg-accent-mint: #88dbff;
+    }
+
+    .doc-surface-brand-warm {
+      --dg-accent-warm: #ff6a00;
+    }
+  </style>
+</Layout>

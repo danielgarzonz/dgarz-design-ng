@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+  <div class="doc-sub">Overflow</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-overflow-hidden"&gt;...&lt;/div&gt;
+&lt;div class="dg-overflow-auto"&gt;...&lt;/div&gt;
+&lt;div class="dg-overflow-scroll"&gt;...&lt;/div&gt;
+&lt;div class="dg-overflow-x-auto"&gt;...&lt;/div&gt;
+&lt;div class="dg-overflow-y-auto"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">Visibilidad</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-visible"&gt;...&lt;/div&gt;     &lt;!-- visibility: visible --&gt;
+&lt;div class="dg-invisible"&gt;...&lt;/div&gt;   &lt;!-- visibility: hidden (ocupa espacio) --&gt;
+&lt;div class="dg-hidden"&gt;...&lt;/div&gt;      &lt;!-- display: none --&gt;
+&lt;span class="dg-sr-only"&gt;...&lt;/span&gt;   &lt;!-- solo para lectores de pantalla --&gt;</pre></div>
+
+  <div class="doc-sub">Visibilidad responsive</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;...&lt;/div&gt;    &lt;!-- oculto en &lt; 992px --&gt;
+&lt;div class="dg-hidden-desktop"&gt;...&lt;/div&gt;   &lt;!-- oculto en &gt;= 992px --&gt;
+&lt;div class="dg-hidden-xs"&gt;...&lt;/div&gt;        &lt;!-- oculto en &lt; 576px --&gt;
+&lt;div class="dg-hidden-sm"&gt;...&lt;/div&gt;        &lt;!-- oculto entre 576–767px --&gt;
+&lt;div class="dg-hidden-md"&gt;...&lt;/div&gt;        &lt;!-- oculto entre 768–991px --&gt;</pre></div>
+
+  <div class="doc-sub">Posición</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-relative"&gt;...&lt;/div&gt;
+&lt;div class="dg-absolute"&gt;...&lt;/div&gt;
+&lt;div class="dg-fixed"&gt;...&lt;/div&gt;
+&lt;div class="dg-sticky"&gt;...&lt;/div&gt;    &lt;!-- sticky + top: 0 --&gt;
+&lt;div class="dg-static"&gt;...&lt;/div&gt;
+
+&lt;div class="dg-absolute dg-inset-0"&gt;...&lt;/div&gt;   &lt;!-- cubre el padre --&gt;
+&lt;div class="dg-absolute dg-right-0"&gt;...&lt;/div&gt;
+&lt;div class="dg-absolute dg-bottom-0"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">Z-index</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-z-10"&gt;...&lt;/div&gt;
+&lt;div class="dg-z-20"&gt;...&lt;/div&gt;
+&lt;div class="dg-z-30"&gt;...&lt;/div&gt;
+&lt;div class="dg-z-40"&gt;...&lt;/div&gt;
+&lt;div class="dg-z-50"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">Float</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-float-start"&gt;...&lt;/div&gt;   &lt;!-- float: left --&gt;
+&lt;div class="dg-float-end"&gt;...&lt;/div&gt;     &lt;!-- float: right --&gt;
+&lt;div class="dg-float-none"&gt;...&lt;/div&gt;
+&lt;!-- Usar .dg-clearfix en el padre para contener floats --&gt;
+&lt;div class="dg-clearfix"&gt;...&lt;/div&gt;</pre></div>
+`;
+---
+
+<Layout title="Visibilidad" lead="Overflow, visibilidad, responsive, posición, z-index y float." currentHref="/fundamentos/visibilidad">
+  <Fragment set:html={pageContent} />
+</Layout>

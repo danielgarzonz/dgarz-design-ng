@@ -1,0 +1,215 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import Demo from "../../components/Demo.astro";
+import Code from "../../components/Code.astro";
+---
+
+<Layout
+  title="Series visuales"
+  lead="Ejemplos de componentes coordinados dentro de una misma identidad: formularios, cards, modales y acciones con un lenguaje visual consistente."
+  currentHref="/examples/series"
+>
+  <div class="doc-sub">Cómo usar estas series</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-2xl">
+    La idea no es darte una app completa, sino grupos de componentes coherentes entre sí. Cada serie mezcla
+    <code class="dg-code">surfaces</code>, botones, formularios y jerarquía tipográfica para que el usuario
+    vea cómo se comporta una identidad visual completa dentro del core.
+  </p>
+
+  <div class="doc-sub">Serie 1 · Fintech glass</div>
+  <Demo plain class="doc-stage doc-stage-cool">
+    <div class="doc-showcase-grid-2">
+      <section class="doc-showcase-panel dg-surface-glass-strong">
+        <span class="dg-glass-pill">Form</span>
+        <h3 class="doc-showcase-title">Create savings pocket</h3>
+        <p class="dg-muted dg-text-sm">Onboarding corto para abrir una nueva meta financiera.</p>
+        <div class="dg-stack dg-mt-4 dg-gap-3">
+          <div class="dg-float-field">
+            <input class="dg-input" id="cool-pocket" type="text" placeholder=" " />
+            <label for="cool-pocket">Pocket name</label>
+          </div>
+          <div class="dg-float-field">
+            <input class="dg-input" id="cool-goal" type="number" placeholder=" " />
+            <label for="cool-goal">Goal amount</label>
+          </div>
+          <div class="dg-float-field">
+            <select class="dg-select" id="cool-plan">
+              <option value="">Monthly plan</option>
+              <option>$200 / month</option>
+              <option>$500 / month</option>
+              <option>$900 / month</option>
+            </select>
+            <label for="cool-plan">Contribution</label>
+          </div>
+        </div>
+        <div class="dg-flex dg-gap-2 dg-mt-4">
+          <button class="dg-btn dg-btn-glass">Later</button>
+          <button class="dg-btn dg-btn-gradient">Create pocket</button>
+        </div>
+      </section>
+
+      <section class="doc-showcase-stack">
+        <article class="doc-showcase-panel dg-surface-gradient-cool dg-surface-shine">
+          <div class="dg-flex dg-items-start dg-justify-between">
+            <div>
+              <span class="dg-glass-pill">Card</span>
+              <h3 class="doc-showcase-title dg-mt-3">$23,558 saved</h3>
+              <p class="dg-text-sm dg-max-w-24ch dg-text-muted">Mastercard pocket with auto-invest enabled and weekly transfers.</p>
+            </div>
+            <button class="dg-btn dg-btn-glass dg-btn-icon">↗</button>
+          </div>
+        </article>
+
+        <article class="doc-showcase-panel dg-surface-glass-strong">
+          <div class="dg-flex dg-items-center dg-justify-between">
+            <div>
+              <span class="dg-glass-pill">Modal preview</span>
+              <h3 class="doc-showcase-title dg-mt-3">Confirm transfer</h3>
+            </div>
+            <button class="dg-btn dg-btn-glass dg-btn-icon">×</button>
+          </div>
+          <div class="doc-showcase-modal dg-mt-4">
+            <div class="dg-text-sm dg-muted">Send from</div>
+            <div class="dg-fw-semi">Emergency fund</div>
+            <div class="dg-text-sm dg-muted dg-mt-3">To</div>
+            <div class="dg-fw-semi">Travel pocket</div>
+            <div class="dg-flex dg-gap-2 dg-mt-4">
+              <button class="dg-btn dg-btn-glass dg-btn-block">Cancel</button>
+              <button class="dg-btn dg-btn-gradient dg-btn-block">Transfer</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Serie 2 · Editorial warm</div>
+  <Demo plain class="doc-stage doc-stage-warm">
+    <div class="doc-showcase-grid-2">
+      <section class="doc-showcase-panel dg-surface-gradient-warm">
+        <span class="dg-badge">Newsletter</span>
+        <h3 class="doc-showcase-title">Subscribe to weekly dispatch</h3>
+        <p class="dg-muted dg-text-sm">Una versión más cálida y editorial, con superficies limpias y CTA marcado.</p>
+        <div class="dg-stack dg-mt-4 dg-gap-3">
+          <div class="dg-field">
+            <label class="dg-label" for="warm-name">Full name</label>
+            <input class="dg-input" id="warm-name" type="text" placeholder="Ana Rivas" />
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="warm-mail">Email</label>
+            <input class="dg-input" id="warm-mail" type="email" placeholder="ana@studio.com" />
+          </div>
+        </div>
+        <button class="dg-btn dg-btn-gradient-warm dg-btn-block dg-mt-4">Subscribe now</button>
+      </section>
+
+      <section class="doc-showcase-stack">
+        <article class="doc-showcase-panel dg-card">
+          <div class="dg-card-body">
+            <span class="dg-badge dg-badge-outline">Feature card</span>
+            <h3 class="doc-showcase-title dg-mt-3">Design systems should feel chosen, not generic.</h3>
+            <p class="dg-muted dg-text-sm dg-mt-3">
+              Esta serie funciona bien para productos editoriales, cursos o herramientas creativas donde el contraste
+              no tiene que sentirse tan “fintech”.
+            </p>
+          </div>
+        </article>
+
+        <article class="doc-showcase-panel dg-surface-glass">
+          <div class="dg-flex dg-items-center dg-justify-between">
+            <div>
+              <span class="dg-badge">Modal preview</span>
+              <h3 class="doc-showcase-title dg-mt-3">Save article</h3>
+            </div>
+            <button class="dg-btn dg-btn-glass dg-btn-icon">×</button>
+          </div>
+          <div class="doc-showcase-modal dg-mt-4">
+            <div class="dg-text-sm dg-muted">Collection</div>
+            <div class="dg-fw-semi">Minimal dashboards</div>
+            <div class="dg-text-sm dg-muted dg-mt-3">Visibility</div>
+            <div class="dg-fw-semi">Private</div>
+            <div class="dg-flex dg-gap-2 dg-mt-4">
+              <button class="dg-btn dg-btn-outline dg-btn-block">Later</button>
+              <button class="dg-btn dg-btn-gradient-warm dg-btn-block">Save</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Serie 3 · Neutral product UI</div>
+  <Demo plain class="doc-stage doc-stage-neutral">
+    <div class="doc-showcase-grid-2">
+      <section class="doc-showcase-panel dg-card">
+        <span class="dg-badge dg-badge-dot">Support</span>
+        <h3 class="doc-showcase-title">Open a request</h3>
+        <p class="dg-muted dg-text-sm">Una serie más sobria para productos B2B donde la prioridad es legibilidad y neutralidad.</p>
+        <div class="dg-stack dg-mt-4 dg-gap-3">
+          <div class="dg-field">
+            <label class="dg-label" for="neutral-subject">Subject</label>
+            <input class="dg-input" id="neutral-subject" type="text" placeholder="Billing issue" />
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="neutral-msg">Message</label>
+            <textarea class="dg-textarea" id="neutral-msg" placeholder="Describe the issue"></textarea>
+          </div>
+        </div>
+        <div class="dg-flex dg-gap-2 dg-mt-4">
+          <button class="dg-btn dg-btn-outline">Cancel</button>
+          <button class="dg-btn">Submit</button>
+        </div>
+      </section>
+
+      <section class="doc-showcase-stack">
+        <article class="doc-showcase-panel dg-card dg-card-hover">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-items-center dg-justify-between">
+              <div>
+                <div class="dg-text-sm dg-muted">Status card</div>
+                <h3 class="doc-showcase-title dg-mt-2">System healthy</h3>
+              </div>
+              <span class="dg-badge dg-badge-success">99.98%</span>
+            </div>
+            <p class="dg-muted dg-text-sm dg-mt-3">Perfecta para paneles internos o dashboards de operación.</p>
+          </div>
+        </article>
+
+        <article class="doc-showcase-panel dg-card">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-items-center dg-justify-between">
+              <div>
+                <div class="dg-text-sm dg-muted">Modal preview</div>
+                <h3 class="doc-showcase-title dg-mt-2">Archive project</h3>
+              </div>
+              <button class="dg-btn dg-btn-ghost dg-btn-icon">×</button>
+            </div>
+            <p class="dg-muted dg-text-sm dg-mt-3">This action keeps all records but hides the project from active views.</p>
+            <div class="dg-flex dg-gap-2 dg-mt-4">
+              <button class="dg-btn dg-btn-outline dg-btn-block">Keep active</button>
+              <button class="dg-btn dg-btn-danger dg-btn-block">Archive</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </Demo>
+  <Code />
+
+  <div class="doc-sub">Patrón recomendado</div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- 1. Elige una superficie dominante para la serie --&gt;
+&lt;section class="dg-surface-glass-strong"&gt;...&lt;/section&gt;
+
+&lt;!-- 2. Mezcla solo 1 CTA principal --&gt;
+&lt;button class="dg-btn dg-btn-gradient"&gt;Acción principal&lt;/button&gt;
+
+&lt;!-- 3. Usa 1 o 2 variantes secundarias consistentes --&gt;
+&lt;button class="dg-btn dg-btn-glass"&gt;Secundaria&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-outline"&gt;Terciaria&lt;/button&gt;
+
+&lt;!-- 4. Mantén formularios, cards y modales dentro del mismo lenguaje visual --&gt;
+&lt;div class="dg-card dg-surface-gradient-cool"&gt;...&lt;/div&gt;
+&lt;div class="dg-modal dg-surface-glass-strong"&gt;...&lt;/div&gt;</pre></div>
+</Layout>

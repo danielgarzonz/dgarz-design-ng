@@ -1,0 +1,96 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Cómo funciona</div>
+      <div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
+        <p class="dg-callout-title">Estructura</p>
+        El trigger tiene <code class="dg-code">data-dg-collapse="#id"</code> apuntando al panel.
+        El panel tiene la clase <code class="dg-code">.dg-collapse</code> y opcionalmente <code class="dg-code">.is-open</code> si comienza expandido.
+        El JS anima <code class="dg-code">max-height</code> con el <code class="dg-code">scrollHeight</code> real del elemento para una animación precisa.
+      </div>
+
+      <div class="doc-sub">Ejemplo básico</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-3 dg-max-w-480">
+          <button class="dg-btn dg-btn-outline" data-dg-collapse="#col-demo-1" class="dg-collapse-trigger" aria-expanded="false">
+            <span>¿Cuándo usar Collapse vs Accordion?</span>
+            <svg class="dg-icon dg-icon-sm dg-collapse-icon dg-ml-auto"><use href="#dg-chevron-down"/></svg>
+          </button>
+          <div class="dg-collapse" id="col-demo-1">
+            <div class="dg-card"><div class="dg-card-body dg-text-sm dg-muted">
+              <p><strong>Collapse</strong> — cuando necesitas expandir/colapsar un solo elemento de forma aislada, sin relación con otros paneles.</p>
+              <p class="dg-mt-3"><strong>Accordion</strong> — cuando tienes una lista de paneles y quieres que solo uno esté abierto a la vez.</p>
+            </div></div>
+          </div>
+
+          <button class="dg-btn dg-btn-outline" data-dg-collapse="#col-demo-2" aria-expanded="false">
+            Ver detalles técnicos
+            <svg class="dg-icon dg-icon-sm dg-collapse-icon dg-ml-auto"><use href="#dg-chevron-down"/></svg>
+          </button>
+          <div class="dg-collapse" id="col-demo-2">
+            <div class="dg-card"><div class="dg-card-body dg-text-sm dg-muted">
+              Usa <code class="dg-code">max-height</code> animado con el <code class="dg-code">scrollHeight</code> real.
+              Compatible con contenido dinámico: si el contenido cambia de altura después de abrirse,
+              llama <code class="dg-code">dgarz.init()</code> para reinicializar.
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- PASO 1: Trigger — data-dg-collapse apunta al panel por #id --&gt;
+&lt;button class="dg-btn dg-btn-outline" data-dg-collapse="#mi-panel"&gt;
+  Ver más
+  &lt;svg class="dg-icon dg-icon-sm dg-collapse-icon"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- PASO 2: Panel — .dg-collapse (oculto por defecto) --&gt;
+&lt;div class="dg-collapse" id="mi-panel"&gt;
+  Contenido que se expande y colapsa.
+&lt;/div&gt;
+
+&lt;!-- Para empezar expandido, añade .is-open al panel --&gt;
+&lt;div class="dg-collapse is-open" id="mi-panel-abierto"&gt;
+  Este panel comienza visible.
+&lt;/div&gt;
+
+&lt;!-- El ícono .dg-collapse-icon rota 180° automáticamente al abrirse --&gt;
+&lt;!-- Requisito: dgarz.js --&gt;</pre></div>
+
+      <div class="doc-sub">Collapse en cards (patrón "Ver más")</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-card dg-max-w-440">
+          <div class="dg-card-body">
+            <h4 class="dg-text-base dg-fw-semi">Descripción del proyecto</h4>
+            <p class="dg-text-sm dg-muted dg-mt-2">Un resumen breve del proyecto aparece aquí sin necesidad de expandir el panel.</p>
+            <div class="dg-collapse" id="col-card-demo">
+              <div class="dg-mt-3 dg-text-sm dg-muted">
+                <p>Contenido adicional que solo se muestra al expandir. Puede contener listas, imágenes, tablas o cualquier otro elemento HTML.</p>
+                <p class="dg-mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+              </div>
+            </div>
+          </div>
+          <div class="dg-card-footer">
+            <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-collapse="#col-card-demo">
+              <svg class="dg-icon dg-icon-sm dg-collapse-icon"><use href="#dg-chevron-down"/></svg>
+              Ver más
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card"&gt;
+  &lt;div class="dg-card-body"&gt;
+    &lt;p&gt;Contenido breve visible siempre.&lt;/p&gt;
+    &lt;div class="dg-collapse" id="mas-info"&gt;
+      &lt;p class="dg-mt-3"&gt;Contenido extendido colapsado.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-card-footer"&gt;
+    &lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-collapse="#mas-info"&gt;
+      &lt;svg class="dg-icon dg-icon-sm dg-collapse-icon"&gt;&lt;use href="dgarz-icons.svg#dg-chevron-down"&gt;&lt;/use&gt;&lt;/svg&gt;
+      Ver más
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Collapse" lead="Paneles colapsables con animación suave." currentHref="/componentes/collapse">
+  <Fragment set:html={pageContent} />
+</Layout>

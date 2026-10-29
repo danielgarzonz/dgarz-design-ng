@@ -1,0 +1,11 @@
+/* ============================================================
+   COLLAPSE — panel colapsable independiente
+   ============================================================ */
+.dg-collapse {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .32s var(--dg-ease);
+}
+/* JS sets max-height via scrollHeight for smooth animation */
+.dg-collapse-trigger[aria-expanded="true"] .dg-collapse-icon { transform: rotate(180deg); }
+.dg-collapse-icon { transition: transform var(--dg-dur) var(--dg-ease); display: inline-flex; }

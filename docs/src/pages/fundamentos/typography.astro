@@ -1,0 +1,184 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Encabezados — tags HTML</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Uso semántico. El estilo se aplica automáticamente a <code class="dg-code">h1</code>–<code class="dg-code">h3</code> (serif) y <code class="dg-code">h4</code>–<code class="dg-code">h6</code> (sans-serif).
+      </p>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-x-auto">
+        <table class="dg-table">
+          <thead>
+            <tr><th class="dg-w-120">Tag</th><th class="dg-w-80">Tamaño</th><th>Vista previa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code class="dg-code">&lt;h1&gt;</code></td><td class="dg-text-sm dg-muted">48px</td><td><h1>Título principal</h1></td></tr>
+            <tr><td><code class="dg-code">&lt;h2&gt;</code></td><td class="dg-text-sm dg-muted">36px</td><td><h2>Título secundario</h2></td></tr>
+            <tr><td><code class="dg-code">&lt;h3&gt;</code></td><td class="dg-text-sm dg-muted">28px</td><td><h3>Título terciario</h3></td></tr>
+            <tr><td><code class="dg-code">&lt;h4&gt;</code></td><td class="dg-text-sm dg-muted">22px</td><td><h4>Subtítulo</h4></td></tr>
+            <tr><td><code class="dg-code">&lt;h5&gt;</code></td><td class="dg-text-sm dg-muted">18px</td><td><h5>Sección pequeña</h5></td></tr>
+            <tr><td><code class="dg-code">&lt;h6&gt;</code></td><td class="dg-text-sm dg-muted">16px</td><td><h6>Micro-encabezado</h6></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;h1&gt;Título principal&lt;/h1&gt;
+&lt;h2&gt;Título secundario&lt;/h2&gt;
+&lt;h3&gt;Título terciario&lt;/h3&gt;
+&lt;h4&gt;Subtítulo&lt;/h4&gt;
+&lt;h5&gt;Sección pequeña&lt;/h5&gt;
+&lt;h6&gt;Micro-encabezado&lt;/h6&gt;</pre></div>
+
+      <div class="doc-sub">Encabezados — clases utilitarias</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        El mismo estilo visual en cualquier elemento. Útil cuando la semántica HTML no debe ser un <code class="dg-code">heading</code>.
+      </p>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-x-auto">
+        <table class="dg-table">
+          <thead>
+            <tr><th class="dg-w-140">Clase</th><th class="dg-w-80">Tamaño</th><th>Vista previa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code class="dg-code">.dg-display</code></td><td class="dg-text-sm dg-muted">64px</td><td><p class="dg-display doc-type-display">Título display</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h1</code></td><td class="dg-text-sm dg-muted">48px</td><td><p class="dg-h1 doc-type-h1">Título principal</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h2</code></td><td class="dg-text-sm dg-muted">36px</td><td><p class="dg-h2">Título secundario</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h3</code></td><td class="dg-text-sm dg-muted">28px</td><td><p class="dg-h3">Título terciario</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h4</code></td><td class="dg-text-sm dg-muted">22px</td><td><p class="dg-h4">Subtítulo</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h5</code></td><td class="dg-text-sm dg-muted">18px</td><td><p class="dg-h5">Sección pequeña</p></td></tr>
+            <tr><td><code class="dg-code">.dg-h6</code></td><td class="dg-text-sm dg-muted">16px</td><td><p class="dg-h6">Micro-encabezado</p></td></tr>
+            <tr><td><code class="dg-code">.dg-lead</code></td><td class="dg-text-sm dg-muted">22px</td><td><p class="dg-lead">Párrafo introductorio</p></td></tr>
+            <tr><td><code class="dg-code">.dg-eyebrow</code></td><td class="dg-text-sm dg-muted">12px</td><td><span class="dg-eyebrow">Categoría</span></td></tr>
+            <tr><td><code class="dg-code">.dg-muted</code></td><td class="dg-text-sm dg-muted">—</td><td><span class="dg-muted">Texto secundario</span></td></tr>
+            <tr><td><code class="dg-code">.dg-faint</code></td><td class="dg-text-sm dg-muted">—</td><td><span class="dg-faint">Texto terciario</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;p class="dg-display"&gt;Título display&lt;/p&gt;
+&lt;p class="dg-h1"&gt;Título principal&lt;/p&gt;
+&lt;p class="dg-h2"&gt;Título secundario&lt;/p&gt;
+&lt;p class="dg-h3"&gt;Título terciario&lt;/p&gt;
+&lt;p class="dg-h4"&gt;Subtítulo&lt;/p&gt;
+&lt;p class="dg-h5"&gt;Sección pequeña&lt;/p&gt;
+&lt;p class="dg-h6"&gt;Micro-encabezado&lt;/p&gt;
+&lt;p class="dg-lead"&gt;Párrafo introductorio&lt;/p&gt;
+&lt;span class="dg-eyebrow"&gt;Categoría&lt;/span&gt;
+&lt;p class="dg-muted"&gt;Texto secundario&lt;/p&gt;
+&lt;p class="dg-faint"&gt;Texto terciario&lt;/p&gt;</pre></div>
+
+      <div class="doc-sub">Escala de tamaños</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Aplica cualquier tamaño de la escala a cualquier elemento con <code class="dg-code">.dg-text-*</code>.</p>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-x-auto">
+        <table class="dg-table">
+          <thead>
+            <tr><th class="dg-w-160">Clase</th><th class="dg-w-80">Tamaño</th><th>Vista previa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code class="dg-code">.dg-text-xs</code></td><td class="dg-text-sm dg-muted">12px</td><td><span class="dg-text-xs">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-sm</code></td><td class="dg-text-sm dg-muted">14px</td><td><span class="dg-text-sm">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-base</code></td><td class="dg-text-sm dg-muted">16px</td><td><span class="dg-text-base">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-lg</code></td><td class="dg-text-sm dg-muted">18px</td><td><span class="dg-text-lg">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-xl</code></td><td class="dg-text-sm dg-muted">22px</td><td><span class="dg-text-xl">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-2xl</code></td><td class="dg-text-sm dg-muted">28px</td><td><span class="dg-text-2xl">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-3xl</code></td><td class="dg-text-sm dg-muted">36px</td><td><span class="dg-text-3xl">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-4xl</code></td><td class="dg-text-sm dg-muted">48px</td><td><span class="dg-text-4xl dg-leading-12">Texto de ejemplo</span></td></tr>
+            <tr><td><code class="dg-code">.dg-text-5xl</code></td><td class="dg-text-sm dg-muted">64px</td><td><span class="dg-text-5xl dg-leading-12">Texto de ejemplo</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;p class="dg-text-xs"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-sm"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-base"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-lg"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-xl"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-2xl"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-3xl"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-4xl"&gt;Texto de ejemplo&lt;/p&gt;
+&lt;p class="dg-text-5xl"&gt;Texto de ejemplo&lt;/p&gt;</pre></div>
+
+      <div class="doc-sub">Peso, estilo y decoración</div>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-x-auto">
+        <table class="dg-table">
+          <thead>
+            <tr><th class="dg-w-200">Clase</th><th>Vista previa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code class="dg-code">.dg-fw-medium</code></td><td><span class="dg-fw-medium">Peso medio</span></td></tr>
+            <tr><td><code class="dg-code">.dg-fw-semi</code></td><td><span class="dg-fw-semi">Peso semi-bold</span></td></tr>
+            <tr><td><code class="dg-code">.dg-fw-bold</code></td><td><span class="dg-fw-bold">Peso bold</span></td></tr>
+            <tr><td><code class="dg-code">.dg-uppercase</code></td><td><span class="dg-uppercase">Texto en mayúsculas</span></td></tr>
+            <tr><td><code class="dg-code">.dg-italic</code></td><td><span class="dg-italic">Texto en cursiva</span></td></tr>
+            <tr><td><code class="dg-code">.dg-serif</code></td><td><span class="dg-serif">Texto en serif</span></td></tr>
+            <tr><td><code class="dg-code">.dg-underline</code></td><td><span class="dg-underline">Texto subrayado</span></td></tr>
+            <tr><td><code class="dg-code">.dg-line-through</code></td><td><span class="dg-line-through">Texto tachado</span></td></tr>
+            <tr><td><code class="dg-code">.dg-truncate</code></td><td><span class="dg-truncate dg-block dg-max-w-260">Texto que se trunca con puntos suspensivos</span></td></tr>
+            <tr><td><code class="dg-code">.dg-balance</code></td><td><span class="dg-balance">Texto con líneas balanceadas</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;span class="dg-fw-medium"&gt;Peso medio&lt;/span&gt;
+&lt;span class="dg-fw-semi"&gt;Peso semi-bold&lt;/span&gt;
+&lt;span class="dg-fw-bold"&gt;Peso bold&lt;/span&gt;
+&lt;span class="dg-uppercase"&gt;Texto en mayúsculas&lt;/span&gt;
+&lt;span class="dg-italic"&gt;Texto en cursiva&lt;/span&gt;
+&lt;span class="dg-serif"&gt;Texto en serif&lt;/span&gt;
+&lt;span class="dg-underline"&gt;Texto subrayado&lt;/span&gt;
+&lt;span class="dg-line-through"&gt;Texto tachado&lt;/span&gt;
+&lt;span class="dg-truncate"&gt;Texto que se trunca con puntos suspensivos&lt;/span&gt;
+&lt;span class="dg-balance"&gt;Texto con líneas balanceadas&lt;/span&gt;</pre></div>
+
+      <div class="doc-sub">Familias</div>
+      <div class="doc-demo is-plain dg-p-0 dg-overflow-x-auto">
+        <table class="dg-table">
+          <thead><tr><th class="dg-w-200">Clase</th><th>Vista previa</th></tr></thead>
+          <tbody>
+            <tr><td><code class="dg-code">.dg-font-sans</code></td><td><span class="dg-font-sans dg-text-lg">Geist Sans — texto principal</span></td></tr>
+            <tr><td><code class="dg-code">.dg-font-serif</code></td><td><span class="dg-font-serif dg-text-lg">Newsreader — editorial</span></td></tr>
+            <tr><td><code class="dg-code">.dg-font-mono</code></td><td><span class="dg-font-mono dg-text-lg">Geist Mono — código</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;p class="dg-font-sans"&gt;Geist Sans&lt;/p&gt;
+&lt;p class="dg-font-serif"&gt;Newsreader&lt;/p&gt;
+&lt;p class="dg-font-mono"&gt;Geist Mono&lt;/p&gt;</pre></div>
+
+      <div class="doc-sub">Alineación</div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;p class="dg-text-left"&gt;...&lt;/p&gt;
+&lt;p class="dg-text-center"&gt;...&lt;/p&gt;
+&lt;p class="dg-text-right"&gt;...&lt;/p&gt;</pre></div>
+
+      <div class="doc-sub">Line-height y letter-spacing</div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;p class="dg-leading-tight"&gt;line-height: 1.12&lt;/p&gt;
+&lt;p class="dg-leading-snug"&gt;line-height: 1.3&lt;/p&gt;
+&lt;p class="dg-leading-normal"&gt;line-height: 1.6&lt;/p&gt;
+
+&lt;p class="dg-tracking-tight"&gt;letter-spacing: -0.02em&lt;/p&gt;
+&lt;p class="dg-tracking-normal"&gt;letter-spacing: 0&lt;/p&gt;
+&lt;p class="dg-tracking-wide"&gt;letter-spacing: 0.08em&lt;/p&gt;</pre></div>
+
+      <div class="doc-sub">Color de texto</div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;span class="dg-muted"&gt;Texto secundario&lt;/span&gt;
+&lt;span class="dg-faint"&gt;Texto terciario&lt;/span&gt;
+&lt;span class="dg-text-success"&gt;Success&lt;/span&gt;
+&lt;span class="dg-text-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="dg-text-danger"&gt;Danger&lt;/span&gt;
+&lt;span class="dg-text-info"&gt;Info&lt;/span&gt;</pre></div>
+
+      <div class="doc-sub">Elementos especiales</div>
+      <div class="doc-demo is-plain dg-stack dg-gap-4">
+        <a href="#type" class="dg-link">Enlace subrayado</a>
+        <p>Código inline: <code class="dg-code">.dg-btn-primary</code> · Atajo: <kbd>Ctrl</kbd>+<kbd>K</kbd></p>
+        <blockquote class="dg-quote">El diseño no es solo cómo se ve, sino cómo funciona.</blockquote>
+        <hr class="dg-hr">
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;a href="#" class="dg-link"&gt;Enlace subrayado&lt;/a&gt;
+&lt;code class="dg-code"&gt;.dg-btn-primary&lt;/code&gt;
+&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;K&lt;/kbd&gt;
+&lt;blockquote class="dg-quote"&gt;El diseño no es solo cómo se ve, sino cómo funciona.&lt;/blockquote&gt;
+&lt;hr class="dg-hr"&gt;</pre></div>
+      <style>
+        .doc-type-display { font-size: clamp(1.8rem, 4vw, var(--dg-text-4xl)); }
+        .doc-type-h1 { font-size: clamp(1.4rem, 3vw, var(--dg-text-4xl)); }
+      </style>`;
+---
+
+<Layout title="Tipografía" lead="Geist sans, Newsreader serif y Geist Mono. Escala de texto, pesos y utilidades." currentHref="/fundamentos/typography">
+  <Fragment set:html={pageContent} />
+</Layout>

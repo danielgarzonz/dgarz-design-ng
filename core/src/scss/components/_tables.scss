@@ -1,0 +1,73 @@
+/* ---- Tables ----------------------------------------------- */
+/* Semantic auto-styling (.dg-auto contract, see _grid.scss): a plain,
+   classless <table> inside a .dg-auto scope gets the same declarations
+   via :where() as .dg-table, at zero added specificity. */
+.dg-table,
+:where(.dg-auto) table:not([class]) { width: 100%; border-collapse: collapse; font-size: var(--dg-text-sm); }
+.dg-table th, .dg-table td,
+:where(.dg-auto) table:not([class]) th, :where(.dg-auto) table:not([class]) td { text-align: left; padding: var(--dg-space-3) var(--dg-space-4); border-bottom: 1px solid var(--dg-border); }
+.dg-table th,
+:where(.dg-auto) table:not([class]) th { font-weight: var(--dg-weight-semi); color: var(--dg-text-muted); font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.07em; }
+.dg-table tbody tr { transition: background var(--dg-dur) var(--dg-ease); }
+.dg-table-hover tbody tr:hover { background: var(--dg-surface-2); }
+.dg-table-striped tbody tr:nth-child(even) { background: var(--dg-surface-2); }
+.dg-table-card { border: 1px solid var(--dg-border); border-radius: var(--dg-radius-lg); overflow: hidden; }
+.dg-table-card .dg-table tr:last-child td { border-bottom: none; }
+
+/* ---- Table variants --------------------------------------- */
+.dg-table-sm th, .dg-table-sm td { padding: var(--dg-space-2) var(--dg-space-3); }
+.dg-table-lg th, .dg-table-lg td { padding: var(--dg-space-4) var(--dg-space-5); }
+
+/* Sortable header */
+.dg-table th.dg-sortable { cursor: pointer; user-select: none; white-space: nowrap; transition: color var(--dg-dur) var(--dg-ease); }
+.dg-table th.dg-sortable:hover { color: var(--dg-text); }
+.dg-table th.dg-sortable::after {
+  content: ""; display: inline-block; width: 0.6em; height: 0.6em; margin-left: 0.4em; opacity: .3;
+  border: 2px solid currentColor; border-top: 0; border-left: 0; transform: rotate(45deg) translateY(-2px);
+  vertical-align: middle; transition: opacity var(--dg-dur) var(--dg-ease), transform var(--dg-dur) var(--dg-ease);
+}
+.dg-table th.dg-sortable[aria-sort="ascending"]::after { opacity: 1; transform: rotate(-135deg) translateY(-2px); }
+.dg-table th.dg-sortable[aria-sort="descending"]::after { opacity: 1; transform: rotate(45deg) translateY(-2px); }
+
+/* Sticky header */
+.dg-table-sticky { max-height: 360px; overflow-y: auto; }
+.dg-table-sticky thead th { position: sticky; top: 0; background: var(--dg-surface); z-index: 1; box-shadow: 0 1px 0 var(--dg-border); }
+
+/* Selectable rows */
+.dg-table tr.is-selected { background: var(--dg-surface-3) !important; }
+.dg-table td.dg-cell-check, .dg-table th.dg-cell-check { width: 1px; white-space: nowrap; }
+
+/* Cell helpers */
+.dg-cell-actions { display: inline-flex; gap: var(--dg-space-1); }
+.dg-cell-num { font-variant-numeric: tabular-nums; text-align: right; }
+.dg-cell-user { display: flex; align-items: center; gap: var(--dg-space-3); }
+.dg-cell-user .dg-avatar { width: 2em; height: 2em; font-size: var(--dg-text-xs); }
+
+/* ---- Table → cards on mobile ------------------------------
+   Not `.dg-table-card` — that name is taken by the table-wrapped-
+   in-a-card variant above. This is the opposite: hide the table and
+   render one card per row. Pair `.dg-table-desktop`/`.dg-table-cards`
+   around a `<table class="dg-table">` and a `.dg-table-rowcard` list
+   that repeat the same data, and toggle with the same breakpoint. */
+.dg-table-cards { display: none; }
+@media (max-width: 768px) {
+  .dg-table-desktop { display: none; }
+  .dg-table-cards { display: block; }
+}
+
+.dg-table-rowcard {
+  background: var(--dg-surface-2);
+  border-radius: var(--dg-radius-lg);
+  padding: var(--dg-space-4);
+  box-shadow: var(--dg-shadow-1);
+}
+.dg-table-rowcard + .dg-table-rowcard { margin-top: var(--dg-space-4); }
+.dg-table-rowcard-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--dg-space-3); padding-block: 6px;
+  border-bottom: 1px solid var(--dg-border);
+}
+.dg-table-rowcard-row:last-of-type { border-bottom: none; }
+.dg-table-rowcard-label { color: var(--dg-text-muted); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi); flex-shrink: 0; }
+.dg-table-rowcard-value { font-size: var(--dg-text-sm); text-align: right; word-break: break-word; }
+.dg-table-rowcard-actions { display: flex; justify-content: flex-end; gap: var(--dg-space-3); margin-top: var(--dg-space-3); }

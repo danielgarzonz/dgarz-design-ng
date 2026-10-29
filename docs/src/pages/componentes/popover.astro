@@ -1,0 +1,58 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
+        <p class="dg-callout-title">Tooltip vs Popover</p>
+        <strong>Tooltip</strong> (<code class="dg-code">.dg-tooltip + data-tip</code>) — texto corto, solo hover, puro CSS.<br>
+        <strong>Popover</strong> (<code class="dg-code">.dg-popover + data-dg-popover</code>) — con título y contenido HTML, al click, requiere JS.
+      </div>
+
+      <div class="doc-sub">Posiciones disponibles</div>
+      <div class="doc-demo is-plain dg-min-h-200 dg-flex dg-items-center dg-justify-center dg-gap-4">
+        <!-- Top -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-top">Arriba ↑</button>
+          <div class="dg-popover dg-popover-top" id="pop-top" hidden>
+            <div class="dg-popover-header">Popover arriba</div>
+            <div class="dg-popover-body">Aparece encima del elemento que lo dispara.</div>
+          </div>
+        </div>
+        <!-- Bottom -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-bottom">Abajo ↓</button>
+          <div class="dg-popover dg-popover-bottom" id="pop-bottom" hidden>
+            <div class="dg-popover-header">Popover abajo</div>
+            <div class="dg-popover-body">Aparece debajo del elemento.</div>
+          </div>
+        </div>
+        <!-- Right -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-right">Derecha →</button>
+          <div class="dg-popover dg-popover-right" id="pop-right" hidden>
+            <div class="dg-popover-header">Popover derecha</div>
+            <div class="dg-popover-body">A la derecha del trigger.</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Wrapper con .dg-relative --&gt;
+&lt;div class="dg-relative"&gt;
+
+  &lt;!-- Trigger: data-dg-popover apunta al #id del popover --&gt;
+  &lt;button class="dg-btn" data-dg-popover="#mi-pop"&gt;Más info&lt;/button&gt;
+
+  &lt;!-- Popover + clase de posición --&gt;
+  &lt;div class="dg-popover dg-popover-bottom" id="mi-pop" hidden&gt;
+    &lt;div class="dg-popover-header"&gt;Título del popover&lt;/div&gt;
+    &lt;div class="dg-popover-body"&gt;
+      Contenido enriquecido: texto, links, botones…
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- Posiciones: dg-popover-top · dg-popover-bottom · dg-popover-left · dg-popover-right --&gt;
+&lt;!-- Se cierra al hacer click fuera — requiere dgarz.js --&gt;</pre></div>`;
+---
+
+<Layout title="Popover" lead="Tarjetas informativas ancladas a un trigger." currentHref="/componentes/popover">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain dg-stack">
+        <div class="dg-callout">
+          <p class="dg-callout-title">Nota</p>
+          Este es un callout neutral. Úsalo para información suplementaria que no interrumpe el flujo.
+        </div>
+        <div class="dg-callout dg-bg-info dg-text-info dg-border-info">
+          <p class="dg-callout-title">Tip</p>
+          Puedes sobrescribir cualquier token usando <code class="dg-code">--dg-*</code> en tu propio <code class="dg-code">:root</code>.
+        </div>
+        <div class="dg-callout dg-bg-warning dg-text-warning dg-border-warning">
+          <p class="dg-callout-title">Importante</p>
+          Esta API es experimental y puede cambiar en versiones futuras.
+        </div>
+        <div class="dg-callout dg-bg-danger dg-text-danger dg-border-danger">
+          <p class="dg-callout-title">Peligro</p>
+          Esta acción elimina todos los datos y no se puede deshacer.
+        </div>
+        <div class="dg-callout dg-bg-success dg-text-success dg-border-success">
+          <p class="dg-callout-title">Buenas noticias</p>
+          La integración funciona sin configuración adicional.
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Callout base --&gt;
+&lt;div class="dg-callout"&gt;
+  &lt;p class="dg-callout-title"&gt;Nota&lt;/p&gt;
+  Texto del callout.
+&lt;/div&gt;
+
+&lt;!-- Variantes con utilidades del core --&gt;
+&lt;div class="dg-callout dg-bg-info dg-text-info dg-border-info"&gt;…&lt;/div&gt;
+&lt;div class="dg-callout dg-bg-warning dg-text-warning dg-border-warning"&gt;…&lt;/div&gt;
+&lt;div class="dg-callout dg-bg-danger dg-text-danger dg-border-danger"&gt;…&lt;/div&gt;
+&lt;div class="dg-callout dg-bg-success dg-text-success dg-border-success"&gt;…&lt;/div&gt;</pre></div>
+
+      <p class="dg-muted dg-text-sm dg-mt-3">Diferencia clave: las <strong>alertas</strong> viven en la UI (formularios, dashboards). Los <strong>callouts</strong> viven dentro del contenido (docs, artículos).</p>`;
+---
+
+<Layout title="Callouts" lead="Bloques informativos destacados." currentHref="/componentes/callouts">
+  <Fragment set:html={pageContent} />
+</Layout>

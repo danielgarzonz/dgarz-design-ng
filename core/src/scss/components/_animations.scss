@@ -1,0 +1,36 @@
+/* ============================================================
+   MOTION — tab panel enter · progress animate · scroll reveal
+   ============================================================ */
+
+/* Tab panel fade-in when activated (JS adds .dg-is-entering) */
+@keyframes dg-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.dg-is-entering { animation: dg-panel-in .22s var(--dg-ease) both; }
+
+/* Progress bar — JS animates from 0 via IntersectionObserver */
+.dg-progress-bar { transition: width .65s cubic-bezier(.2,.6,.2,1); }
+
+/* Scroll-reveal: fade+rise (JS adds .dg-reveal, removes .dg-reveal-hidden) */
+.dg-reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s var(--dg-ease), transform .5s var(--dg-ease); }
+.dg-reveal.is-visible { opacity: 1; transform: none; }
+
+/* ============================================================
+   ENTRANCE ANIMATIONS — fade-in-{up,down,left,right}, pop-in
+   Play on mount (no JS/observer needed). Combine with
+   .dg-delay-1..16 to stagger a group of elements.
+   ============================================================ */
+@keyframes dg-fade-in-up   { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes dg-fade-in-down { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes dg-fade-in-left { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes dg-fade-in-right{ from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes dg-pop-in       { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+
+.dg-fade-in-up    { animation-name: dg-fade-in-up;    animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
+.dg-fade-in-down  { animation-name: dg-fade-in-down;  animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
+.dg-fade-in-left  { animation-name: dg-fade-in-left;  animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
+.dg-fade-in-right { animation-name: dg-fade-in-right; animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
+.dg-pop-in        { animation-name: dg-pop-in;        animation-duration: .7s; animation-timing-function: cubic-bezier(.34,1.56,.64,1); animation-fill-mode: backwards; }
+
+/* Stagger delays — 100ms increments, 16 steps */
+@for $i from 1 through 16 {
+  .dg-delay-#{$i} { animation-delay: #{$i * 100}ms; }
+}

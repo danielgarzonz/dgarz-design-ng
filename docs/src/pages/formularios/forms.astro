@@ -1,0 +1,342 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
+      <div class="doc-sub">Estilos de presentación de campos</div>
+
+      <!-- Selector -->
+      <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
+        <div class="dg-segmented" id="fieldStyleSeg">
+          <button class="is-active" data-style="static">Estático</button>
+          <button data-style="float">Flotante</button>
+          <button data-style="placeholder">Solo placeholder</button>
+        </div>
+        <span id="fieldStyleDesc" class="dg-text-sm dg-muted">
+          Label siempre visible encima del input — el estilo por defecto de <code class="dg-code">.dg-field</code>.
+        </span>
+      </div>
+
+      <!-- Demo único que cambia -->
+      <div class="doc-demo is-plain" id="fieldStyleDemo">
+
+        <!-- ESTÁTICO (visible por defecto — es lo que .dg-field hace sin nada extra) -->
+        <div id="demoStyleStatic">
+          <div class="dg-stack dg-gap-5 dg-max-w-md">
+            <div class="dg-field">
+              <label class="dg-label" for="fs2a">Nombre completo</label>
+              <input class="dg-input" id="fs2a" type="text" placeholder="Ana Rivas" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2b">Correo electrónico</label>
+              <input class="dg-input" id="fs2b" type="email" placeholder="ana@correo.com" />
+              <span class="dg-help">Nunca compartiremos tu correo.</span>
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2c">Mensaje</label>
+              <textarea class="dg-textarea" id="fs2c" placeholder="Escribe tu mensaje…"></textarea>
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2d">Plan</label>
+              <select class="dg-select" id="fs2d">
+                <option value="">Elige una opción</option>
+                <option>Free</option><option>Pro</option><option>Studio</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLOTANTE (oculto — opt-in con .dg-float-field) -->
+        <div id="demoStyleFloat" hidden>
+          <div class="dg-stack dg-gap-5 dg-max-w-md">
+            <div class="dg-float-field">
+              <input class="dg-input" id="fs1a" type="text" placeholder=" " />
+              <label for="fs1a">Nombre completo</label>
+            </div>
+            <div class="dg-float-field">
+              <input class="dg-input" id="fs1b" type="email" placeholder=" " />
+              <label for="fs1b">Correo electrónico</label>
+            </div>
+            <div class="dg-float-field">
+              <textarea class="dg-textarea" id="fs1c" placeholder=" "></textarea>
+              <label for="fs1c">Mensaje</label>
+            </div>
+            <div class="dg-float-field">
+              <select class="dg-select" id="fs1d">
+                <option value="">Selecciona</option>
+                <option>Free</option><option>Pro</option><option>Studio</option>
+              </select>
+              <label for="fs1d">Plan</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLO PLACEHOLDER (oculto) -->
+        <div id="demoStylePlaceholder" hidden>
+          <div class="dg-stack dg-gap-3 dg-max-w-md">
+            <input class="dg-input" type="text"  placeholder="Nombre completo"   aria-label="Nombre completo" />
+            <input class="dg-input" type="email" placeholder="Correo electrónico" aria-label="Correo electrónico" />
+            <textarea class="dg-textarea" placeholder="Escribe tu mensaje…" aria-label="Mensaje"></textarea>
+            <select class="dg-select" aria-label="Plan">
+              <option value="">Elige un plan</option>
+              <option>Free</option><option>Pro</option><option>Studio</option>
+            </select>
+          </div>
+        </div>
+
+      </div><!-- /doc-demo -->
+
+      <!-- Código que cambia -->
+      <div class="doc-code"><button class="cp">Copiar</button><pre id="fieldStyleCode">&lt;!-- Estático — el comportamiento por defecto de .dg-field, sin atributos extra --&gt;
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="nombre"&gt;Nombre completo&lt;/label&gt;
+  &lt;input class="dg-input" id="nombre" type="text" placeholder="Ana Rivas" /&gt;
+  &lt;span class="dg-help"&gt;Texto de ayuda opcional.&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="msg"&gt;Mensaje&lt;/label&gt;
+  &lt;textarea class="dg-textarea" id="msg" placeholder="Tu mensaje…"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="plan"&gt;Plan&lt;/label&gt;
+  &lt;select class="dg-select" id="plan"&gt;
+    &lt;option value=""&gt;Selecciona&lt;/option&gt;
+    &lt;option&gt;Pro&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</pre></div>
+
+      <!-- JS del selector -->
+      <script>
+      (function() {
+        var CODES = {
+          static: '&lt;!-- Estático — el comportamiento por defecto de .dg-field, sin atributos extra --&gt;\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="nombre"&gt;Nombre completo&lt;/label&gt;\\n  &lt;input class="dg-input" id="nombre" type="text" placeholder="Ana Rivas" /&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="msg"&gt;Mensaje&lt;/label&gt;\\n  &lt;textarea class="dg-textarea" id="msg" placeholder="Tu mensaje…"&gt;&lt;/textarea&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="plan"&gt;Plan&lt;/label&gt;\\n  &lt;select class="dg-select" id="plan"&gt;\\n    &lt;option value=""&gt;Elige una opción&lt;/option&gt;\\n    &lt;option&gt;Pro&lt;/option&gt;\\n  &lt;/select&gt;\\n&lt;/div&gt;',
+          float: '&lt;!-- Flotante — opt-in con .dg-float-field. El input necesita placeholder=" "\\n     y el label va DESPUÉS del input en el HTML. --&gt;\\n&lt;div class="dg-float-field"&gt;\\n  &lt;input class="dg-input" id="nombre" type="text" placeholder=" " /&gt;\\n  &lt;label for="nombre"&gt;Nombre completo&lt;/label&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-float-field"&gt;\\n  &lt;textarea class="dg-textarea" id="msg" placeholder=" "&gt;&lt;/textarea&gt;\\n  &lt;label for="msg"&gt;Mensaje&lt;/label&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-float-field"&gt;\\n  &lt;select class="dg-select" id="plan"&gt;\\n    &lt;option value=""&gt;Selecciona&lt;/option&gt;\\n    &lt;option&gt;Pro&lt;/option&gt;\\n  &lt;/select&gt;\\n  &lt;label for="plan"&gt;Plan&lt;/label&gt;\\n&lt;/div&gt;',
+          placeholder: '&lt;!-- Sin .dg-field — no hay label, usa aria-label para accesibilidad --&gt;\\n&lt;input class="dg-input" type="text"\\n       placeholder="Nombre completo"\\n       aria-label="Nombre completo" /&gt;\\n\\n&lt;input class="dg-input" type="email"\\n       placeholder="Correo electrónico"\\n       aria-label="Correo electrónico" /&gt;\\n\\n&lt;textarea class="dg-textarea"\\n          placeholder="Mensaje…"\\n          aria-label="Mensaje"&gt;&lt;/textarea&gt;\\n\\n&lt;select class="dg-select" aria-label="Plan"&gt;\\n  &lt;option value=""&gt;Elige un plan&lt;/option&gt;\\n  &lt;option&gt;Pro&lt;/option&gt;\\n&lt;/select&gt;'
+        };
+        var DESCS = {
+          static: 'Label siempre visible encima del input — el estilo por defecto de <code class="dg-code">.dg-field</code>.',
+          float: 'Opt-in: envuelve el campo en <code class="dg-code">.dg-float-field</code> y el label sube al borde al enfocar o escribir.',
+          placeholder: 'Sin label visible. Usa <code class="dg-code">aria-label</code> para accesibilidad.'
+        };
+        var DEMOS = { float: 'demoStyleFloat', static: 'demoStyleStatic', placeholder: 'demoStylePlaceholder' };
+
+        var seg  = document.getElementById('fieldStyleSeg');
+        var desc = document.getElementById('fieldStyleDesc');
+        var code = document.getElementById('fieldStyleCode');
+
+        if (!seg) return;
+
+        seg.addEventListener('click', function(e) {
+          var btn = e.target.closest('button[data-style]');
+          if (!btn) return;
+          var style = btn.getAttribute('data-style');
+
+          // Activar botón
+          seg.querySelectorAll('button').forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+
+          // Cambiar descripción
+          desc.innerHTML = DESCS[style];
+
+          // Cambiar demo visible
+          Object.keys(DEMOS).forEach(function(k) {
+            var el = document.getElementById(DEMOS[k]);
+            if (el) el.hidden = (k !== style);
+          });
+
+          // Cambiar código
+          if (code) code.innerHTML = CODES[style];
+
+          // .dg-float-field ya se wirea en el init() global al cargar la página;
+          // esto solo re-asegura el estado por si el usuario cambia de tab varias veces.
+          if (style === 'float' && window.dgarz) {
+            var floatDemo = document.getElementById('demoStyleFloat');
+            if (floatDemo) window.dgarz.init(floatDemo);
+          }
+        });
+      })();
+      </script>
+
+      <!-- ── RESUMEN DE VARIANTES ── -->
+      <div class="doc-sub dg-mt-6">Cuándo usar cada uno</div>
+      <div class="dg-table-card">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Estilo</th><th>HTML</th><th>Cuándo usarlo</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="dg-fw-medium">Label estático <span class="dg-badge">Por defecto</span></td>
+              <td><code class="dg-code">.dg-field</code></td>
+              <td class="dg-muted">La mayoría de formularios: admins, registro, login, checkout — máxima claridad</td>
+            </tr>
+            <tr>
+              <td class="dg-fw-medium">Floating label</td>
+              <td><code class="dg-code">.dg-float-field</code></td>
+              <td class="dg-muted">Opt-in para un aspecto más compacto/moderno cuando el espacio vertical importa</td>
+            </tr>
+            <tr>
+              <td class="dg-fw-medium">Solo placeholder</td>
+              <td>Sin <code class="dg-code">.dg-field</code></td>
+              <td class="dg-muted">Búsquedas, filtros inline, formularios muy compactos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-sub">Input group — input + addon o botón</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-input-group</code> une el input con un elemento adicional sin espacio.
+        Úsalo para prefijos de URL, dominios, botones de acción o unidades.
+      </p>
+      <div class="doc-demo is-plain dg-stack dg-max-w-480">
+        <div class="dg-field">
+          <label class="dg-label">Subdominio</label>
+          <div class="dg-input-group">
+            <input class="dg-input" placeholder="mi-empresa" />
+            <span class="dg-input-addon">.dgarz.design</span>
+          </div>
+        </div>
+        <div class="dg-field">
+          <label class="dg-label">Buscar usuario</label>
+          <div class="dg-input-group">
+            <input class="dg-input" placeholder="@usuario" />
+            <button class="dg-btn dg-btn-primary dg-rounded-end">Buscar</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Input + addon de texto --&gt;
+&lt;div class="dg-input-group"&gt;
+  &lt;input class="dg-input" placeholder="usuario" /&gt;
+  &lt;span class="dg-input-addon"&gt;@ejemplo.com&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Input + botón --&gt;
+&lt;div class="dg-input-group"&gt;
+  &lt;input class="dg-input" type="url" placeholder="https://…" /&gt;
+&lt;button class="dg-btn dg-btn-primary dg-rounded-end"&gt;
+    Copiar
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- El botón dentro de input-group necesita el border-radius
+     ajustado para unirse al input --&gt;</pre></div>
+
+      <div class="doc-sub">Checkbox y Radio</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Los checkboxes y radios personalizados usan un <code class="dg-code">&lt;input hidden&gt;</code>
+        dentro de un <code class="dg-code">.dg-check</code>. El elemento visual es <code class="dg-code">.dg-check-box</code>;
+        para el radio, añade <code class="dg-code">.dg-radio</code> al mismo elemento.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-6">
+            <p class="dg-text-sm dg-fw-medium dg-mb-3">Checkboxes</p>
+            <div class="dg-stack dg-gap-3">
+              <label class="dg-check"><input type="checkbox" checked /><span class="dg-check-box"></span> Acepto los términos</label>
+              <label class="dg-check"><input type="checkbox" /><span class="dg-check-box"></span> Suscribirse al newsletter</label>
+              <label class="dg-check"><input type="checkbox" disabled /><span class="dg-check-box"></span> <span class="dg-faint">No disponible</span></label>
+            </div>
+          </div>
+          <div class="dg-col-12 dg-col-md-6">
+            <p class="dg-text-sm dg-fw-medium dg-mb-3">Radios</p>
+            <div class="dg-stack dg-gap-3">
+              <label class="dg-check"><input type="radio" name="plan" checked /><span class="dg-check-box dg-radio"></span> Plan Free</label>
+              <label class="dg-check"><input type="radio" name="plan" /><span class="dg-check-box dg-radio"></span> Plan Pro — $12/mes</label>
+              <label class="dg-check"><input type="radio" name="plan" /><span class="dg-check-box dg-radio"></span> Plan Studio — $29/mes</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Checkbox --&gt;
+&lt;label class="dg-check"&gt;
+  &lt;input type="checkbox" /&gt;          &lt;!-- el input real (oculto visualmente) --&gt;
+  &lt;span class="dg-check-box"&gt;&lt;/span&gt;  &lt;!-- el indicador visual --&gt;
+  Texto de la opción
+&lt;/label&gt;
+
+&lt;!-- Radio — solo cambia .dg-radio en el span y el name --&gt;
+&lt;label class="dg-check"&gt;
+  &lt;input type="radio" name="grupo" value="a" /&gt;
+  &lt;span class="dg-check-box dg-radio"&gt;&lt;/span&gt;
+  Opción A
+&lt;/label&gt;
+&lt;label class="dg-check"&gt;
+  &lt;input type="radio" name="grupo" value="b" /&gt;
+  &lt;span class="dg-check-box dg-radio"&gt;&lt;/span&gt;
+  Opción B
+&lt;/label&gt;
+
+&lt;!-- Estado deshabilitado --&gt;
+&lt;label class="dg-check"&gt;
+  &lt;input type="checkbox" disabled /&gt;
+  &lt;span class="dg-check-box"&gt;&lt;/span&gt;
+  No disponible
+&lt;/label&gt;</pre></div>
+
+      <div class="doc-sub">Switch / Toggle</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Igual que el checkbox pero con aspecto de interruptor. Usa el mismo
+        patrón: <code class="dg-code">&lt;input&gt;</code> oculto dentro de <code class="dg-code">.dg-switch</code>,
+        y <code class="dg-code">.dg-switch-track</code> como indicador visual.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-3">
+          <label class="dg-switch"><input type="checkbox" checked /><span class="dg-switch-track"></span> Notificaciones por correo</label>
+          <label class="dg-switch"><input type="checkbox" /><span class="dg-switch-track"></span> Modo compacto</label>
+          <label class="dg-switch"><input type="checkbox" checked disabled /><span class="dg-switch-track"></span> <span class="dg-faint">Activado (bloqueado)</span></label>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;label class="dg-switch"&gt;
+  &lt;input type="checkbox" /&gt;              &lt;!-- el input real (oculto visualmente) --&gt;
+  &lt;span class="dg-switch-track"&gt;&lt;/span&gt;  &lt;!-- el toggle visual --&gt;
+  Texto de la opción
+&lt;/label&gt;
+
+&lt;!-- Pre-activado --&gt;
+&lt;label class="dg-switch"&gt;
+  &lt;input type="checkbox" checked /&gt;
+  &lt;span class="dg-switch-track"&gt;&lt;/span&gt;
+  Activo por defecto
+&lt;/label&gt;</pre></div>
+
+      <div class="doc-sub">Formulario completo de ejemplo</div>
+      <div class="doc-demo">
+        <form class="dg-stack dg-max-w-520 dg-gap-4">
+          <div class="dg-row">
+            <div class="dg-col-12 dg-col-md-6">
+              <div class="dg-field">
+                <label class="dg-label" for="fn">Nombre</label>
+                <input class="dg-input" id="fn" type="text" placeholder="Ana" />
+              </div>
+            </div>
+            <div class="dg-col-12 dg-col-md-6">
+              <div class="dg-field">
+                <label class="dg-label" for="ln">Apellido</label>
+                <input class="dg-input" id="ln" type="text" placeholder="Rivas" />
+              </div>
+            </div>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="em">Correo</label>
+            <input class="dg-input" id="em" type="email" placeholder="ana@correo.com" />
+            <span class="dg-help">Usaremos esto para enviarte el recibo.</span>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="pl">Plan</label>
+            <select class="dg-select" id="pl"><option>Free</option><option>Pro</option></select>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="msg">Mensaje</label>
+            <textarea class="dg-textarea" id="msg" placeholder="¿Cómo podemos ayudarte?"></textarea>
+          </div>
+          <label class="dg-check"><input type="checkbox" /><span class="dg-check-box"></span> Acepto los <a href="#" class="dg-link">términos de uso</a></label>
+          <div class="dg-flex dg-justify-end dg-gap-3">
+            <button type="button" class="dg-btn">Cancelar</button>
+            <button type="submit" class="dg-btn dg-btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>`;
+---
+
+<Layout title="Controles base" lead="Campos, inputs, selects y textareas con estilos coherentes." currentHref="/formularios/forms">
+  <Fragment set:html={pageContent} />
+</Layout>

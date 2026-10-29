@@ -1,0 +1,64 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+  <div class="doc-sub">Cursor</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-cursor-pointer"&gt;...&lt;/div&gt;    &lt;!-- cursor: pointer --&gt;
+&lt;div class="dg-cursor-default"&gt;...&lt;/div&gt;    &lt;!-- cursor: default --&gt;
+&lt;div class="dg-cursor-not-allowed"&gt;...&lt;/div&gt; &lt;!-- cursor: not-allowed --&gt;
+&lt;div class="dg-cursor-grab"&gt;...&lt;/div&gt;       &lt;!-- cursor: grab --&gt;
+&lt;div class="dg-cursor-text"&gt;...&lt;/div&gt;       &lt;!-- cursor: text --&gt;</pre></div>
+
+  <div class="doc-sub">Pointer events</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-pointer-none"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: none --&gt;
+&lt;div class="dg-pointer-auto"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: auto --&gt;</pre></div>
+
+  <div class="doc-sub">Opacidad</div>
+  <div class="doc-demo is-plain">
+    <div class="dg-cluster dg-gap-5 dg-wrap dg-p-5">
+      <div class="opacity-box" style="opacity:1">100%</div>
+      <div class="opacity-box" style="opacity:0.75">75%</div>
+      <div class="opacity-box" style="opacity:0.5">50%</div>
+      <div class="opacity-box" style="opacity:0.25">25%</div>
+      <div class="opacity-box" style="opacity:0">0%</div>
+    </div>
+  </div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-opacity-100"&gt;...&lt;/div&gt;
+&lt;div class="dg-opacity-75"&gt;...&lt;/div&gt;
+&lt;div class="dg-opacity-50"&gt;...&lt;/div&gt;
+&lt;div class="dg-opacity-25"&gt;...&lt;/div&gt;
+&lt;div class="dg-opacity-0"&gt;...&lt;/div&gt;</pre></div>
+
+  <div class="doc-sub">User select</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-select-none"&gt;...&lt;/div&gt;   &lt;!-- user-select: none --&gt;
+&lt;div class="dg-select-all"&gt;...&lt;/div&gt;    &lt;!-- user-select: all --&gt;
+&lt;div class="dg-select-text"&gt;...&lt;/div&gt;   &lt;!-- user-select: text --&gt;</pre></div>
+
+  <div class="doc-sub">Transición</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-transition"&gt;...&lt;/div&gt;         &lt;!-- transition: all --dg-dur --dg-ease --&gt;
+&lt;div class="dg-transition-colors"&gt;...&lt;/div&gt;  &lt;!-- transition: color, background, border --&gt;
+&lt;div class="dg-transition-transform"&gt;...&lt;/div&gt; &lt;!-- transition: transform --&gt;
+&lt;div class="dg-transition-opacity"&gt;...&lt;/div&gt; &lt;!-- transition: opacity --&gt;
+&lt;div class="dg-no-transition"&gt;...&lt;/div&gt;      &lt;!-- transition: none --&gt;</pre></div>
+
+  <div class="doc-sub">Scroll behavior</div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;html class="dg-scroll-smooth"&gt;...&lt;/html&gt;   &lt;!-- scroll-behavior: smooth --&gt;
+&lt;div class="dg-scroll-snap-x"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: x mandatory --&gt;
+&lt;div class="dg-snap-start"&gt;...&lt;/div&gt;         &lt;!-- scroll-snap-align: start --&gt;</pre></div>
+
+  <style>
+    .opacity-box {
+      width: 64px; height: 64px;
+      background: var(--dg-ink);
+      border-radius: var(--dg-radius-sm);
+      display: grid; place-items: center;
+      font-size: var(--dg-text-xs);
+      font-family: var(--dg-font-mono);
+      color: var(--dg-paper);
+    }
+  </style>
+`;
+---
+
+<Layout title="Interacción" lead="Cursor, pointer events, opacidad, user-select, transición y scroll." currentHref="/fundamentos/interaccion">
+  <Fragment set:html={pageContent} />
+</Layout>

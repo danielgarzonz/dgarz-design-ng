@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Estilos base</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <span class="dg-badge">Default</span>
+          <span class="dg-badge dg-badge-solid">Sólido</span>
+          <span class="dg-badge dg-badge-outline">Outline</span>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;span class="dg-badge"&gt;Default&lt;/span&gt;
+&lt;span class="dg-badge dg-badge-solid"&gt;Sólido&lt;/span&gt;
+&lt;span class="dg-badge dg-badge-outline"&gt;Outline&lt;/span&gt;</pre></div>
+
+      <div class="doc-sub">Variantes semánticas</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <span class="dg-badge dg-bg-success dg-text-success dg-border-transparent">Completado</span>
+          <span class="dg-badge dg-bg-warning dg-text-warning dg-border-transparent">Pendiente</span>
+          <span class="dg-badge dg-bg-danger dg-text-danger dg-border-transparent">Error</span>
+          <span class="dg-badge dg-bg-info dg-text-info dg-border-transparent">Info</span>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;span class="dg-badge dg-bg-success dg-text-success dg-border-transparent"&gt;Completado&lt;/span&gt;
+&lt;span class="dg-badge dg-bg-warning dg-text-warning dg-border-transparent"&gt;Pendiente&lt;/span&gt;
+&lt;span class="dg-badge dg-bg-danger dg-text-danger dg-border-transparent"&gt;Error&lt;/span&gt;
+&lt;span class="dg-badge dg-bg-info dg-text-info dg-border-transparent"&gt;Info&lt;/span&gt;</pre></div>
+
+      <div class="doc-sub">Con punto de estado (.dg-badge-dot)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <span class="dg-badge dg-badge-dot dg-bg-success dg-text-success dg-border-transparent">Activo</span>
+          <span class="dg-badge dg-badge-dot dg-bg-warning dg-text-warning dg-border-transparent">Revisión</span>
+          <span class="dg-badge dg-badge-dot dg-bg-danger dg-text-danger dg-border-transparent">Bloqueado</span>
+          <span class="dg-badge dg-badge-dot dg-bg-info dg-text-info dg-border-transparent">Procesando</span>
+          <span class="dg-badge dg-badge-dot">Sin estado</span>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Combina cualquier variante con .dg-badge-dot --&gt;
+&lt;span class="dg-badge dg-badge-dot dg-bg-success dg-text-success dg-border-transparent"&gt;Activo&lt;/span&gt;
+&lt;span class="dg-badge dg-badge-dot dg-bg-warning dg-text-warning dg-border-transparent"&gt;Revisión&lt;/span&gt;
+&lt;span class="dg-badge dg-badge-dot dg-bg-danger dg-text-danger dg-border-transparent"&gt;Bloqueado&lt;/span&gt;</pre></div>
+
+      <div class="doc-sub">Uso combinado con otros componentes</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-outline dg-btn-sm">
+            Notificaciones <span class="dg-badge dg-badge-solid dg-ml-1">3</span>
+          </button>
+          <div class="dg-flex dg-items-center dg-gap-3">
+            <span class="dg-avatar">AR</span>
+            <div>
+              <div class="dg-fw-medium dg-text-sm">Ana Rivas</div>
+              <span class="dg-badge dg-badge-dot dg-bg-success dg-text-success dg-border-transparent dg-mt-px-2">Activo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Badge dentro de un botón --&gt;
+&lt;button class="dg-btn dg-btn-outline dg-btn-sm"&gt;
+  Notificaciones &lt;span class="dg-badge dg-badge-solid"&gt;3&lt;/span&gt;
+&lt;/button&gt;</pre></div>`;
+---
+
+<Layout title="Badges" lead="Etiquetas de estado en variantes sólidas, outline y semánticas." currentHref="/componentes/badges">
+  <Fragment set:html={pageContent} />
+</Layout>

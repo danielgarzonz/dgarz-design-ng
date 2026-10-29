@@ -1,0 +1,62 @@
+/* ---- Typography ------------------------------------------ */
+.dg-display, .dg-h1, .dg-h2, .dg-h3,
+h1, h2, h3 {
+  font-family: var(--dg-font-serif);
+  font-weight: var(--dg-weight-medium);
+  line-height: var(--dg-leading-tight);
+  letter-spacing: -0.01em;
+  color: var(--dg-text);
+  text-wrap: balance;
+}
+
+.dg-display { font-size: var(--dg-text-5xl); font-weight: var(--dg-weight-normal); letter-spacing: -0.02em; }
+h1, .dg-h1 { font-size: var(--dg-text-4xl); }
+h2, .dg-h2 { font-size: var(--dg-text-3xl); }
+h3, .dg-h3 { font-size: var(--dg-text-2xl); }
+h4, .dg-h4 { font-family: var(--dg-font-sans); font-size: var(--dg-text-xl); font-weight: var(--dg-weight-semi); line-height: var(--dg-leading-snug); }
+h5, .dg-h5 { font-family: var(--dg-font-sans); font-size: var(--dg-text-lg); font-weight: var(--dg-weight-semi); }
+h6, .dg-h6 { font-family: var(--dg-font-sans); font-size: var(--dg-text-base); font-weight: var(--dg-weight-semi); }
+
+.dg-lead { font-size: var(--dg-text-xl); line-height: var(--dg-leading-snug); color: var(--dg-text-muted); font-weight: var(--dg-weight-normal); }
+.dg-muted { color: var(--dg-text-muted); }
+.dg-faint { color: var(--dg-text-faint); }
+.dg-serif { font-family: var(--dg-font-serif); }
+.dg-italic { font-style: italic; }
+
+.dg-eyebrow {
+  font-size: var(--dg-text-xs);
+  font-weight: var(--dg-weight-semi);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dg-text-muted);
+}
+
+/* Eyebrow immediately followed by a heading inside .dg-stack: pull them
+   closer than the stack's own gap (tuned for paragraphs/fields, not a
+   label+title pair). Doesn't touch .dg-stack itself — every other use
+   (forms, lists…) keeps the normal gap. */
+.dg-stack > .dg-eyebrow + :is(h1, h2, h3, h4, h5, h6, .dg-display, .dg-h1, .dg-h2, .dg-h3, .dg-h4, .dg-h5, .dg-h6) {
+  margin-top: calc(var(--dg-heading-gap) - var(--dg-space-4));
+}
+
+/* Color wrapped in :where() so utility/context classes (.dg-text-white, .dg-link-* …)
+   can override it without !important — a plain `a.dg-link` selector would outrank them. */
+a.dg-link { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; text-decoration-color: var(--dg-border-strong); transition: text-decoration-color var(--dg-dur) var(--dg-ease); }
+:where(a.dg-link) { color: var(--dg-text); }
+a.dg-link:hover { text-decoration-color: var(--dg-text); }
+
+code, kbd, samp, pre, .dg-code { font-family: var(--dg-font-mono); font-size: 0.9em; }
+.dg-code { background: var(--dg-surface-3); padding: 0.12em 0.4em; border-radius: var(--dg-radius-sm); }
+kbd { background: var(--dg-surface-3); border: 1px solid var(--dg-border-strong); border-bottom-width: 2px; border-radius: var(--dg-radius-sm); padding: 0.1em 0.45em; font-size: 0.8em; }
+
+blockquote.dg-quote {
+  font-family: var(--dg-font-serif);
+  font-size: var(--dg-text-xl);
+  font-style: italic;
+  line-height: var(--dg-leading-snug);
+  padding-left: var(--dg-space-5);
+  border-left: 2px solid var(--dg-text);
+  color: var(--dg-text);
+}
+
+hr.dg-hr, .dg-divider { border: none; border-top: 1px solid var(--dg-border); margin: var(--dg-space-6) 0; }

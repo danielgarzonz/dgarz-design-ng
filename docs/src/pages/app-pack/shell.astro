@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-demo is-plain">
+        <div class="dg-border dg-rounded-lg dg-overflow-hidden dg-grid-d dg-columns-200-1fr dg-h-240">
+          <div class="dg-stack dg-bg-surface dg-border-end dg-p-4">
+            <div class="dg-app-brand dg-pb-3"><span class="dg-italic">d</span>dgarz</div>
+            <nav class="dg-nav-vertical">
+              <a class="dg-nav-item is-active"><svg class="dg-icon"><use href="#dg-home"/></svg><span>Inicio</span></a>
+              <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-chart"/></svg><span>Analítica</span></a>
+              <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-users"/></svg><span>Clientes</span></a>
+            </nav>
+          </div>
+          <div class="dg-surface-2 dg-p-4"><div class="dg-skeleton dg-h-18 dg-w-50p"></div><div class="dg-skeleton dg-skeleton-text dg-w-90p"></div><div class="dg-skeleton dg-skeleton-text dg-w-80p"></div></div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-app"&gt;
+  &lt;aside class="dg-app-aside"&gt;…&lt;/aside&gt;
+  &lt;header class="dg-app-header"&gt;…&lt;/header&gt;
+  &lt;main class="dg-app-main"&gt;…&lt;/main&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="App Shell" lead="Layout de aplicación con sidebar colapsable y header sticky." currentHref="/app-pack/shell">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">En vivo — toast &amp; modal accesible</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-primary" data-dg-toast="Guardado correctamente" data-dg-variant="">Lanzar toast</button>
+          <button class="dg-btn dg-btn-outline" data-dg-open="#jsModal">Abrir modal</button>
+          <button class="dg-btn" data-dg-theme-toggle>Alternar tema</button>
+          <div class="dg-dropdown" data-dg-dropdown>
+            <button class="dg-btn dg-btn-ghost" data-dg-dropdown-trigger>Menú <svg class="dg-icon dg-icon-sm"><use href="#dg-chevron-down"/></svg></button>
+            <div class="dg-menu"><button class="dg-menu-item">Editar</button><button class="dg-menu-item">Duplicar</button><div class="dg-menu-sep"></div><button class="dg-menu-item">Eliminar</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- carga (al final del &lt;body&gt;) --&gt;
+&lt;script src="dgarz.js" defer&gt;&lt;/script&gt;
+
+&lt;!-- y luego, solo atributos: --&gt;
+&lt;button data-dg-toast="¡Hecho!" data-dg-variant="success"&gt;Toast&lt;/button&gt;
+&lt;button data-dg-open="#myModal"&gt;Abrir&lt;/button&gt;
+&lt;button data-dg-theme-toggle&gt;Tema&lt;/button&gt;
+
+&lt;!-- o por API --&gt;
+&lt;script&gt;dgarz.toast("Hola", { variant: "success" });&lt;/script&gt;</pre></div>
+      <p class="dg-muted dg-text-sm dg-mt-4">Incluye: <code class="dg-code">data-dg-open/close</code> (modal &amp; drawer con focus-trap y Esc), <code class="dg-code">data-dg-dropdown</code>, <code class="dg-code">data-dg-tabs</code>, <code class="dg-code">data-dg-accordion</code>, <code class="dg-code">data-dg-toast</code> y <code class="dg-code">data-dg-theme-toggle</code>. Builds: UMD, <code class="dg-code">.min.js</code> y módulo ES.</p>`;
+---
+
+<Layout title="JavaScript" lead="El behavior layer opcional, attribute-driven y sin dependencias." currentHref="/comenzar/js">
+  <Fragment set:html={pageContent} />
+</Layout>

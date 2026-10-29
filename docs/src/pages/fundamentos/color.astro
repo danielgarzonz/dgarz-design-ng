@@ -1,0 +1,318 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+
+const colorScale = [
+  { label: "Primary",   chips: [
+    { cls: "dg-bg-primary-subtle" },
+    { cls: "dg-bg-primary-light"  },
+    { cls: "dg-bg-primary",      full: true },
+    { cls: "dg-bg-primary-dark", full: true },
+  ]},
+  { label: "Secondary", chips: [
+    { cls: "dg-bg-secondary-subtle" },
+    { cls: "dg-bg-secondary-light"  },
+    { cls: "dg-bg-secondary",      full: true },
+    { cls: "dg-bg-secondary-dark", full: true },
+  ]},
+  { label: "Light",     chips: [{ cls: "dg-bg-light", full: true }] },
+  { label: "Dark",      chips: [{ cls: "dg-bg-dark",  full: true }] },
+  { label: "Success",   chips: [
+    { cls: "dg-bg-success-subtle" },
+    { cls: "dg-bg-success-light"  },
+    { cls: "dg-bg-success",      full: true },
+    { cls: "dg-bg-success-dark", full: true },
+  ]},
+  { label: "Warning",   chips: [
+    { cls: "dg-bg-warning-subtle" },
+    { cls: "dg-bg-warning-light"  },
+    { cls: "dg-bg-warning",      full: true },
+    { cls: "dg-bg-warning-dark", full: true },
+  ]},
+  { label: "Danger",    chips: [
+    { cls: "dg-bg-danger-subtle" },
+    { cls: "dg-bg-danger-light"  },
+    { cls: "dg-bg-danger",      full: true },
+    { cls: "dg-bg-danger-dark", full: true },
+  ]},
+  { label: "Info",      chips: [
+    { cls: "dg-bg-info-subtle" },
+    { cls: "dg-bg-info-light"  },
+    { cls: "dg-bg-info",      full: true },
+    { cls: "dg-bg-info-dark", full: true },
+  ]},
+];
+
+const gradientScale = [
+  { label: "Primary",   chips: [{ cls: "dg-gradient-primary",   full: true }] },
+  { label: "Secondary", chips: [{ cls: "dg-gradient-secondary", full: true }] },
+  { label: "Success",   chips: [{ cls: "dg-gradient-success",   full: true }] },
+  { label: "Warning",   chips: [{ cls: "dg-gradient-warning",   full: true }] },
+  { label: "Danger",    chips: [{ cls: "dg-gradient-danger",    full: true }] },
+  { label: "Info",      chips: [{ cls: "dg-gradient-info",      full: true }] },
+];
+
+const textColors = [
+  { label: "Neutros", chips: [
+    { cls: "dg-text-primary",   bg: "dg-bg-surface-2" },
+    { cls: "dg-text-secondary", bg: "dg-bg-surface-2" },
+  ]},
+  { label: "Primary", chips: [
+    { cls: "dg-text-primary-subtle",   bg: "dg-bg-surface-2", mark: "dg-bg-primary" },
+    { cls: "dg-text-primary-light",    bg: "dg-bg-surface-2" },
+    { cls: "dg-text-primary",          bg: "dg-bg-surface-2" },
+    { cls: "dg-text-primary-dark",     bg: "dg-bg-surface-2", full: true },
+  ]},
+  { label: "Secondary", chips: [
+    { cls: "dg-text-secondary-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-secondary" },
+    { cls: "dg-text-secondary-light",  bg: "dg-bg-surface-2" },
+    { cls: "dg-text-secondary",        bg: "dg-bg-surface-2" },
+    { cls: "dg-text-secondary-dark",   bg: "dg-bg-surface-2", full: true },
+  ]},
+  { label: "Success", chips: [
+    { cls: "dg-text-success-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-success" },
+    { cls: "dg-text-success-light",  bg: "dg-bg-surface-2" },
+    { cls: "dg-text-success",        bg: "dg-bg-surface-2" },
+    { cls: "dg-text-success-dark",   bg: "dg-bg-surface-2", full: true },
+  ]},
+  { label: "Warning", chips: [
+    { cls: "dg-text-warning-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-warning" },
+    { cls: "dg-text-warning-light",  bg: "dg-bg-surface-2" },
+    { cls: "dg-text-warning",        bg: "dg-bg-surface-2" },
+    { cls: "dg-text-warning-dark",   bg: "dg-bg-surface-2", full: true },
+  ]},
+  { label: "Danger", chips: [
+    { cls: "dg-text-danger-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-danger" },
+    { cls: "dg-text-danger-light",  bg: "dg-bg-surface-2" },
+    { cls: "dg-text-danger",        bg: "dg-bg-surface-2" },
+    { cls: "dg-text-danger-dark",   bg: "dg-bg-surface-2", full: true },
+  ]},
+  { label: "Info", chips: [
+    { cls: "dg-text-info-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-info" },
+    { cls: "dg-text-info-light",  bg: "dg-bg-surface-2" },
+    { cls: "dg-text-info",        bg: "dg-bg-surface-2" },
+    { cls: "dg-text-info-dark",   bg: "dg-bg-surface-2", full: true },
+  ]},
+];
+
+---
+
+<Layout title="Color" lead="Tokens semánticos y utilidades de color que se invierten en dark mode." currentHref="/fundamentos/color">
+
+  <!-- ── Fondos ────────────────────────────────────────────── -->
+  <div class="doc-sub">Fondos</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Clases <code class="dg-code">dg-bg-*</code> que aplican fondo <strong>y</strong> color de texto implícito —
+    no necesitas agregar una clase de texto adicional. Cada estado tiene tres variantes:
+    subtle para alertas suaves, base sólido, y dark para énfasis.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="doc-color-role-section">
+      {colorScale.map(({ label, chips }) => (
+        <div class="doc-color-role-group">
+          <div class="doc-color-role-title">{label}</div>
+          <div class="doc-color-role-chips">
+            {chips.map(({ cls, full }) => (
+              <div class:list={["doc-color-role-chip", cls, full && "full"]}>{cls.replace('dg-bg-', '')}</div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="doc-code">
+    <button class="cp">Copiar</button>
+    <pre>{`<!-- El color de texto es automático, no hace falta clase extra -->
+
+<!-- Brand -->
+<div class="dg-bg-primary-subtle">...</div>    <!-- #ececee + texto #0b0b0c -->
+<div class="dg-bg-primary-light">...</div>     <!-- #bcbcc3 + texto #0b0b0c -->
+<div class="dg-bg-primary">...</div>           <!-- #0b0b0c + texto #ffffff -->
+<div class="dg-bg-primary-dark">...</div>      <!-- #242428 + texto #ffffff -->
+<div class="dg-bg-secondary-subtle">...</div>  <!-- #f6f6f7 + texto #6f6f78 -->
+<div class="dg-bg-secondary-light">...</div>   <!-- #93939c + texto #0b0b0c -->
+<div class="dg-bg-secondary">...</div>         <!-- #6f6f78 + texto #ffffff -->
+<div class="dg-bg-secondary-dark">...</div>    <!-- #3b3b41 + texto #ffffff -->
+<div class="dg-bg-light">...</div>             <!-- #ececee + texto #0b0b0c -->
+<div class="dg-bg-dark">...</div>              <!-- #242428 + texto #ffffff -->
+
+<!-- Semánticos -->
+<div class="dg-bg-success-subtle">...</div>    <!-- #eef4f0 + texto #2f6b4f -->
+<div class="dg-bg-success">...</div>           <!-- #2f6b4f + texto #ffffff -->
+<div class="dg-bg-success-dark">...</div>      <!-- #1d4433 + texto #ffffff -->
+<div class="dg-bg-warning-subtle">...</div>    <!-- #f6f1e3 + texto #8a6d1f -->
+<div class="dg-bg-warning">...</div>           <!-- #8a6d1f + texto #ffffff -->
+<div class="dg-bg-warning-dark">...</div>      <!-- #5c4a15 + texto #ffffff -->
+<div class="dg-bg-danger-subtle">...</div>     <!-- #f6ecec + texto #9b3535 -->
+<div class="dg-bg-danger">...</div>            <!-- #9b3535 + texto #ffffff -->
+<div class="dg-bg-danger-dark">...</div>       <!-- #6b2424 + texto #ffffff -->
+<div class="dg-bg-info-subtle">...</div>       <!-- #eef1f5 + texto #3a5573 -->
+<div class="dg-bg-info">...</div>              <!-- #3a5573 + texto #ffffff -->
+<div class="dg-bg-info-dark">...</div>         <!-- #263849 + texto #ffffff -->`}</pre>
+  </div>
+
+  <!-- ── Color de texto ────────────────────────────────────── -->
+  <div class="doc-sub">Color de texto</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Clases <code class="dg-code">dg-text-*</code> para colorear solo el texto.
+    Las variantes subtle se muestran sobre fondo oscuro porque son tonos claros.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="doc-color-role-section">
+      {textColors.map(({ label, chips }) => (
+        <div class="doc-color-role-group">
+          <div class="doc-color-role-title">{label}</div>
+          <div class="doc-color-role-chips">
+            {chips.map(({ cls, bg, full, mark }) => (
+              <div class:list={["doc-color-role-chip", bg, cls, full && "full"]}>
+                {mark
+                  ? <span class:list={["doc-chip-mark", mark]}>{cls.replace('dg-text-', '')}</span>
+                  : cls.replace('dg-text-', '')}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="doc-code">
+    <button class="cp">Copiar</button>
+    <pre>{`<!-- Neutros -->
+<span class="dg-text-primary">...</span>            <!-- #0b0b0c -->
+<span class="dg-text-secondary">...</span>          <!-- #6f6f78 -->
+
+<!-- Brand -->
+<span class="dg-text-primary-subtle">...</span>    <!-- #ececee -->
+<span class="dg-text-primary-light">...</span>     <!-- #bcbcc3 -->
+<span class="dg-text-primary">...</span>           <!-- #0b0b0c -->
+<span class="dg-text-primary-dark">...</span>      <!-- #242428 -->
+<span class="dg-text-secondary-subtle">...</span>  <!-- #f6f6f7 -->
+<span class="dg-text-secondary-light">...</span>   <!-- #93939c -->
+<span class="dg-text-secondary">...</span>         <!-- #6f6f78 -->
+<span class="dg-text-secondary-dark">...</span>    <!-- #3b3b41 -->
+
+<!-- Semánticos -->
+<span class="dg-text-success-subtle">...</span>    <!-- #eef4f0 -->
+<span class="dg-text-success-light">...</span>    <!-- #7ab49a -->
+<span class="dg-text-success">...</span>          <!-- #2f6b4f -->
+<span class="dg-text-success-dark">...</span>     <!-- #1d4433 -->
+<span class="dg-text-warning-subtle">...</span>   <!-- #f6f1e3 -->
+<span class="dg-text-warning-light">...</span>    <!-- #c49a36 -->
+<span class="dg-text-warning">...</span>          <!-- #8a6d1f -->
+<span class="dg-text-warning-dark">...</span>     <!-- #5c4a15 -->
+<span class="dg-text-danger-subtle">...</span>    <!-- #f6ecec -->
+<span class="dg-text-danger-light">...</span>     <!-- #c47575 -->
+<span class="dg-text-danger">...</span>           <!-- #9b3535 -->
+<span class="dg-text-danger-dark">...</span>      <!-- #6b2424 -->
+<span class="dg-text-info-subtle">...</span>      <!-- #eef1f5 -->
+<span class="dg-text-info-light">...</span>       <!-- #7aa0bf -->
+<span class="dg-text-info">...</span>             <!-- #3a5573 -->
+<span class="dg-text-info-dark">...</span>        <!-- #263849 -->`}</pre>
+  </div>
+
+  <!-- ── Gradientes ───────────────────────────────────────────── -->
+  <div class="doc-sub">Gradientes</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Clases <code class="dg-code">dg-gradient-*</code> que recorren las 4 variantes de cada color —
+    de <code class="dg-code">subtle</code> hasta <code class="dg-code">dark</code> en un solo degradado diagonal.
+  </p>
+
+  <div class="doc-demo is-plain">
+    <div class="doc-color-role-section">
+      {gradientScale.map(({ label, chips }) => (
+        <div class="doc-color-role-group">
+          <div class="doc-color-role-title">{label}</div>
+          <div class="doc-color-role-chips">
+            {chips.map(({ cls, full }) => (
+              <div class:list={["doc-color-role-chip", cls, full && "full"]}>{cls.replace('dg-gradient-', '')}</div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="doc-code">
+    <button class="cp">Copiar</button>
+    <pre>{`<!-- Cada gradiente recorre las 4 variantes: subtle → light → base → dark -->
+<div class="dg-gradient-primary">...</div>
+<div class="dg-gradient-secondary">...</div>
+<div class="dg-gradient-success">...</div>
+<div class="dg-gradient-warning">...</div>
+<div class="dg-gradient-danger">...</div>
+<div class="dg-gradient-info">...</div>`}</pre>
+  </div>
+
+  <!-- ── Tokens semánticos ──────────────────────────────────── -->
+  <div class="doc-sub">Tokens semánticos</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Usa siempre estos tokens en tus componentes, no valores fijos.
+    Se invierten automáticamente en dark mode — si usas <code class="dg-code">var(--dg-border)</code>
+    en vez de <code class="dg-code">#dcdce0</code>, el componente funciona en ambos temas sin cambios.
+  </p>
+  <div class="dg-table-card dg-mb-4">
+    <table class="dg-table dg-table-sm">
+      <thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code class="dg-code">--dg-paper</code></td><td>#ffffff</td><td>#0b0b0c</td><td>Fondo de página (body)</td></tr>
+        <tr><td><code class="dg-code">--dg-surface</code></td><td>#ffffff</td><td>#0f0f11</td><td>Fondo de cards y paneles</td></tr>
+        <tr><td><code class="dg-code">--dg-surface-2</code></td><td>#f6f6f7</td><td>#161618</td><td>Filas alternadas, footers de card</td></tr>
+        <tr><td><code class="dg-code">--dg-surface-3</code></td><td>#ececee</td><td>#1e1e21</td><td>Inputs, badges, code</td></tr>
+        <tr><td><code class="dg-code">--dg-border</code></td><td>#dcdce0</td><td>#2a2a2e</td><td>Bordes estándar</td></tr>
+        <tr><td><code class="dg-code">--dg-border-strong</code></td><td>#bcbcc3</td><td>#3a3a40</td><td>Bordes enfatizados, inputs</td></tr>
+        <tr><td><code class="dg-code">--dg-text</code></td><td>#0b0b0c</td><td>#f4f4f5</td><td>Texto principal</td></tr>
+        <tr><td><code class="dg-code">--dg-solid</code></td><td>#0b0b0c</td><td>#ffffff</td><td>Color primario de controles</td></tr>
+        <tr><td><code class="dg-code">--dg-on-solid</code></td><td>#ffffff</td><td>#0b0b0c</td><td>Texto sobre --dg-solid</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="doc-code">
+    <button class="cp">Copiar</button>
+    <pre>{`/* ✓ Usa tokens — funciona en light y dark sin cambios */
+.mi-card {
+  background: var(--dg-surface);          /* #ffffff / #0f0f11 */
+  border:     1px solid var(--dg-border); /* #dcdce0 / #2a2a2e */
+  color:      var(--dg-text);             /* #0b0b0c / #f4f4f5 */
+}
+
+/* ✗ Nunca valores hardcoded */
+.mi-card {
+  background: #ffffff;       /* invisible en dark mode */
+  border: 1px solid #dcdce0;
+  color: #0b0b0c;
+}`}</pre>
+  </div>
+
+  <!-- ── Personalizar ──────────────────────────────────────── -->
+  <div class="doc-sub">Personalizar la paleta</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Sobrescribe cualquier token en tu propio archivo CSS <em>después</em> de cargar el framework.
+    Todos los componentes y utilidades los recogen automáticamente.
+  </p>
+  <div class="doc-code">
+    <button class="cp">Copiar</button>
+    <pre>{`/* mi-tema.css — cargado después de dgarz.css */
+:root {
+  --dg-solid:    #4f46e5;  /* primary de negro a índigo */
+  --dg-on-solid: #ffffff;
+
+  --dg-success:        #16a34a;  /* verde más vivo */
+  --dg-success-subtle: #f0fdf4;
+  --dg-on-success:     #ffffff;
+
+  --dg-danger:        #dc2626;   /* rojo más vivo */
+  --dg-danger-subtle: #fef2f2;
+  --dg-on-danger:     #ffffff;
+}
+
+[data-theme="dark"] {
+  --dg-solid:   #818cf8;   /* índigo claro para dark */
+  --dg-success: #4ade80;
+  --dg-danger:  #f87171;
+}`}</pre>
+  </div>
+
+</Layout>

@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Demo en vivo — variantes</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-primary dg-btn-sm" data-dg-toast="Cambios guardados correctamente." data-dg-variant="">Toast por defecto</button>
+          <button class="dg-btn dg-btn-sm dg-text-success dg-border-success" data-dg-toast="¡Operación completada!" data-dg-variant="success">Success</button>
+          <button class="dg-btn dg-btn-sm dg-text-warning dg-border-warning" data-dg-toast="Revisa tu conexión." data-dg-variant="warning">Warning</button>
+          <button class="dg-btn dg-btn-sm dg-text-danger dg-border-danger" data-dg-toast="No se pudo completar la acción." data-dg-variant="danger">Danger</button>
+          <button class="dg-btn dg-btn-sm dg-text-info dg-border-info" data-dg-toast="Actualización disponible." data-dg-variant="info">Info</button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Atributo HTML (requiere dgarz.js) --&gt;
+&lt;button data-dg-toast="¡Guardado!" data-dg-variant="success"&gt;Guardar&lt;/button&gt;
+&lt;button data-dg-toast="Eliminado." data-dg-variant="danger"&gt;Eliminar&lt;/button&gt;
+
+&lt;!-- Variantes disponibles: (vacío) · success · warning · danger · info --&gt;</pre></div>
+
+      <div class="doc-sub">API JavaScript</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>// Toast básico
+dgarz.toast("Cambios guardados.");
+
+// Con variante y duración personalizada (ms)
+dgarz.toast("¡Operación exitosa!", { variant: "success", duration: 4000 });
+dgarz.toast("Revisa la conexión.",  { variant: "warning", duration: 5000 });
+dgarz.toast("No se pudo completar.", { variant: "danger" });
+dgarz.toast("Actualización disponible.", { variant: "info" });</pre></div>
+
+      <div class="doc-sub">Estructura HTML manual (sin JS)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-relative dg-h-80">
+          <div class="dg-absolute dg-bottom-0 dg-right-0 dg-flex dg-col-flex dg-gap-2">
+            <div class="dg-toast dg-toast-success dg-anim-none">Guardado</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Contenedor fijo (ya incluido en el framework) --&gt;
+&lt;div class="dg-toast-stack"&gt;
+  &lt;div class="dg-toast"&gt;Mensaje por defecto&lt;/div&gt;
+  &lt;div class="dg-toast dg-toast-success"&gt;Guardado&lt;/div&gt;
+  &lt;div class="dg-toast dg-toast-warning"&gt;Aviso&lt;/div&gt;
+  &lt;div class="dg-toast dg-toast-danger"&gt;Error&lt;/div&gt;
+  &lt;div class="dg-toast dg-toast-info"&gt;Actualización&lt;/div&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Toasts" lead="Notificaciones flotantes temporales." currentHref="/componentes/toasts">
+  <Fragment set:html={pageContent} />
+</Layout>

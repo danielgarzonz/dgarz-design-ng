@@ -1,0 +1,80 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-5">
+        <p class="dg-callout-title">Dos familias distintas</p>
+        <strong>Entrada al montar</strong> (<code class="dg-code">.dg-fade-in-*</code>, <code class="dg-code">.dg-pop-in</code>) —
+        juegan apenas el elemento existe en el DOM, sin JavaScript ni observador.<br /><br />
+        <strong>Revelado al hacer scroll</strong> (<code class="dg-code">.dg-reveal</code>) — permanece invisible
+        hasta que el elemento entra al viewport, usando <code class="dg-code">IntersectionObserver</code> por debajo.
+      </div>
+
+      <div class="doc-sub">Entrada al montar</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Cuatro direcciones + un pop de escala. Combínalas con <code class="dg-code">.dg-delay-1</code> a
+        <code class="dg-code">.dg-delay-16</code> (100ms cada paso) para escalonar varios elementos.
+      </p>
+      <div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-3" id="animGrid">
+          <div class="dg-card dg-fade-in-up"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-up</div></div>
+          <div class="dg-card dg-fade-in-down dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-down</div></div>
+          <div class="dg-card dg-fade-in-left dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-left</div></div>
+          <div class="dg-card dg-fade-in-right dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-right</div></div>
+          <div class="dg-card dg-pop-in dg-delay-4"><div class="dg-card-body dg-text-sm dg-text-center">pop-in</div></div>
+          <div class="dg-card dg-fade-in-up dg-delay-5"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-up + delay-5</div></div>
+        </div>
+        <button class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" id="animReplay">↻ Repetir animación</button>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card dg-fade-in-up"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-fade-in-down"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-fade-in-left"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-fade-in-right"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-pop-in"&gt;…&lt;/div&gt;
+
+&lt;!-- Escalonar una lista: 100ms de diferencia por elemento --&gt;
+&lt;div class="dg-card dg-fade-in-up dg-delay-1"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-fade-in-up dg-delay-2"&gt;…&lt;/div&gt;
+&lt;div class="dg-card dg-fade-in-up dg-delay-3"&gt;…&lt;/div&gt;
+&lt;!-- … hasta .dg-delay-16 --&gt;</pre></div>
+      <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-4">
+        <p class="dg-callout-title">Respetan prefers-reduced-motion</p>
+        El framework fuerza <code class="dg-code">animation-duration: .001ms</code> globalmente bajo
+        <code class="dg-code">prefers-reduced-motion: reduce</code> — igual que el resto de animaciones
+        (modal, spinner, etc.), no es un caso especial de estas clases.
+      </div>
+
+      <div class="doc-sub">Revelado al hacer scroll</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-reveal</code> empieza invisible (<code class="dg-code">opacity: 0</code>,
+        desplazado 18px) y se revela una sola vez al entrar en pantalla. <code class="dg-code">dgarz.js</code>
+        lo inicializa en <code class="dg-code">DOMContentLoaded</code> — en una SPA, vuelve a llamar
+        <code class="dg-code">dgarz.init(contenedor)</code> después de montar contenido nuevo (por ejemplo en
+        cada cambio de ruta) para que los elementos añadidos después también se observen.
+      </p>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-reveal"&gt;Aparece al hacer scroll hasta aquí&lt;/div&gt;
+
+&lt;script&gt;
+  // SPA: tras montar contenido nuevo (cambio de ruta, etc.)
+  dgarz.init(nuevoContenedor);
+&lt;/script&gt;</pre></div>`;
+---
+
+<Layout title="Animaciones" lead="Entrada al montar y revelado al hacer scroll — dos utilidades de motion sin dependencias." currentHref="/fundamentos/animaciones">
+  <Fragment set:html={pageContent} />
+</Layout>
+
+<script>
+  const btn = document.getElementById('animReplay');
+  const grid = document.getElementById('animGrid');
+  if (btn && grid) {
+    btn.addEventListener('click', () => {
+      const cards = Array.from(grid.children);
+      cards.forEach((el) => {
+        const anim = Array.from(el.classList).find((c) => c.startsWith('dg-fade-in') || c === 'dg-pop-in');
+        el.classList.remove(anim);
+        // eslint-disable-next-line no-unused-expressions
+        void el.offsetWidth; // reflow para reiniciar la animación
+        el.classList.add(anim);
+      });
+    });
+  }
+</script>

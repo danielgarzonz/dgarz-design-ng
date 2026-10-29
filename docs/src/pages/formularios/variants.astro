@@ -1,0 +1,127 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Tamaños de input</div>
+      <div class="doc-demo is-plain dg-stack">
+        <input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" />
+        <input class="dg-input" type="text" placeholder="Estándar" />
+        <input class="dg-input dg-input-lg" type="text" placeholder="Grande" />
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" /&gt;
+&lt;input class="dg-input"            type="text" placeholder="Estándar" /&gt;
+&lt;input class="dg-input dg-input-lg" type="text" placeholder="Grande" /&gt;</pre></div>
+
+      <div class="doc-sub">Input pill (completamente redondeado)</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-input-group dg-max-w-sm">
+          <input class="dg-input dg-input-pill" type="search" placeholder="Buscar…" />
+          <button class="dg-btn dg-btn-primary dg-rounded-end-pill">
+            <svg class="dg-icon dg-icon-sm"><use href="#dg-search"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;input class="dg-input dg-input-pill" type="search" placeholder="Buscar…" /&gt;</pre></div>
+
+      <div class="doc-sub">Input con icono</div>
+      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+        <div class="dg-input-icon">
+          <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-search"/></svg>
+          <input class="dg-input" type="search" placeholder="Buscar…" />
+        </div>
+        <div class="dg-input-icon dg-input-icon-right">
+          <input class="dg-input" type="text" placeholder="usuario" />
+          <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-users"/></svg>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Icono a la izquierda --&gt;
+&lt;div class="dg-input-icon"&gt;
+  &lt;svg class="dg-icon dg-icon-sm dg-input-icon-el"&gt;&lt;use href="dgarz-icons.svg#dg-search"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;input class="dg-input" type="search" placeholder="Buscar…" /&gt;
+&lt;/div&gt;
+
+&lt;!-- Icono a la derecha --&gt;
+&lt;div class="dg-input-icon dg-input-icon-right"&gt;
+  &lt;input class="dg-input" type="text" placeholder="usuario" /&gt;
+  &lt;svg class="dg-icon dg-icon-sm dg-input-icon-el"&gt;&lt;use href="dgarz-icons.svg#dg-users"&gt;&lt;/use&gt;&lt;/svg&gt;
+&lt;/div&gt;</pre></div>
+
+      <div class="doc-sub">Contraseña con mostrar/ocultar</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-password-wrap</code> se wirea solo — no hace falta escribir el toggle a mano.
+      </p>
+      <div class="doc-demo is-plain dg-max-w-sm">
+        <div class="dg-field">
+          <label class="dg-label" for="pwDemo">Contraseña</label>
+          <div class="dg-password-wrap">
+            <input id="pwDemo" class="dg-input" type="password" value="contraseña-secreta" />
+            <button type="button" class="dg-password-toggle" aria-label="Mostrar contraseña">
+              <svg class="dg-icon dg-icon-sm"><use href="#dg-eye"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="pw"&gt;Contraseña&lt;/label&gt;
+  &lt;div class="dg-password-wrap"&gt;
+    &lt;input id="pw" class="dg-input" type="password" /&gt;
+    &lt;button type="button" class="dg-password-toggle" aria-label="Mostrar contraseña"&gt;
+      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-eye"&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- dgarz.js alterna type="password"/"text", el aria-label y el ícono
+     (#dg-eye ↔ #dg-eye-off) al hacer clic. No requiere configuración. --&gt;</pre></div>
+
+      <div class="doc-sub">Validación de campos</div>
+      <div class="doc-demo is-plain">
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-6">
+            <div class="dg-field">
+              <label class="dg-label">Correo válido</label>
+              <input class="dg-input is-valid" type="email" value="ana@dgarz.design" />
+              <span class="dg-field-success">¡Correo verificado!</span>
+            </div>
+          </div>
+          <div class="dg-col-12 dg-col-md-6">
+            <div class="dg-field">
+              <label class="dg-label">Contraseña inválida</label>
+              <input class="dg-input is-invalid" type="password" value="abc" />
+              <span class="dg-field-error">Mínimo 8 caracteres.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Campo válido --&gt;
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label"&gt;Correo&lt;/label&gt;
+  &lt;input class="dg-input is-valid" type="email" /&gt;
+  &lt;span class="dg-field-success"&gt;¡Verificado!&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Campo inválido --&gt;
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label"&gt;Contraseña&lt;/label&gt;
+  &lt;input class="dg-input is-invalid" type="password" /&gt;
+  &lt;span class="dg-field-error"&gt;Mínimo 8 caracteres.&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- También funciona en textarea y select --&gt;
+&lt;textarea class="dg-textarea is-invalid"&gt;&lt;/textarea&gt;
+&lt;select class="dg-select is-valid"&gt;…&lt;/select&gt;</pre></div>
+
+      <div class="doc-sub">Slider de rango</div>
+      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+        <div class="dg-field">
+          <label class="dg-label">Presupuesto: $600</label>
+          <input class="dg-range" type="range" min="0" max="1000" value="600" />
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label"&gt;Presupuesto&lt;/label&gt;
+  &lt;input class="dg-range" type="range" min="0" max="1000" value="500" /&gt;
+&lt;/div&gt;</pre></div>`;
+---
+
+<Layout title="Variantes" lead="Tamaños, estados de validación y variantes de campo." currentHref="/formularios/variants">
+  <Fragment set:html={pageContent} />
+</Layout>

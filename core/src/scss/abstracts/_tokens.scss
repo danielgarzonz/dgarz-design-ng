@@ -1,0 +1,283 @@
+/* ---- Design tokens --------------------------------------- */
+:root {
+  /* Monochrome scale */
+  --dg-0:   #ffffff;
+  --dg-50:  #f6f6f7;
+  --dg-100: #ececee;
+  --dg-200: #dcdce0;
+  --dg-300: #bcbcc3;
+  --dg-400: #93939c;
+  --dg-500: #6f6f78;
+  --dg-600: #53535b;
+  --dg-700: #3b3b41;
+  --dg-800: #242428;
+  --dg-900: #161618;
+  --dg-950: #0b0b0c;
+
+  /* Semantic surfaces (light) */
+  --dg-paper:       var(--dg-0);
+  --dg-surface:     var(--dg-0);
+  --dg-surface-2:   var(--dg-50);
+  --dg-surface-3:   var(--dg-100);
+  --dg-border:      var(--dg-200);
+  --dg-border-strong: var(--dg-300);
+  --dg-text:        var(--dg-950);
+  --dg-text-muted:  var(--dg-500);
+  --dg-text-faint:  var(--dg-400);
+
+  /* Inversion pair (solid / on-solid) used by primary controls */
+  --dg-solid:       var(--dg-950);
+  --dg-on-solid:    var(--dg-0);
+
+  /* Accent layer — optional visual styles (glass / gradients / liquid) */
+  --dg-accent:        #247cff;
+  --dg-accent-2:      #82b6ff;
+  --dg-accent-3:      #d9e8ff;
+  --dg-accent-violet: #8e7dff;
+  --dg-accent-warm:   #ff7a1a;
+  --dg-accent-mint:   #7ad9c3;
+
+  --dg-glass-blur:        12px;
+  --dg-glass-blur-strong: 20px;
+
+  /* Semantic colors */
+  --dg-success-subtle:     #eef4f0;
+  --dg-on-success-subtle:  #2f6b4f;
+  --dg-success-light:      #7ab49a;
+  --dg-on-success-light:   #1a3d2a;
+  --dg-success:            #2f6b4f;
+  --dg-on-success:         #ffffff;
+  --dg-success-dark:       #1d4433;
+  --dg-on-success-dark:    #ffffff;
+
+  --dg-warning-subtle:     #f6f1e3;
+  --dg-on-warning-subtle:  #8a6d1f;
+  --dg-warning-light:      #c49a36;
+  --dg-on-warning-light:   #3d2e0a;
+  --dg-warning:            #8a6d1f;
+  --dg-on-warning:         #ffffff;
+  --dg-warning-dark:       #5c4a15;
+  --dg-on-warning-dark:    #ffffff;
+
+  --dg-danger-subtle:      #f6ecec;
+  --dg-on-danger-subtle:   #9b3535;
+  --dg-danger-light:       #c47575;
+  --dg-on-danger-light:    #3d1010;
+  --dg-danger:             #9b3535;
+  --dg-on-danger:          #ffffff;
+  --dg-danger-dark:        #6b2424;
+  --dg-on-danger-dark:     #ffffff;
+
+  --dg-info-subtle:        #eef1f5;
+  --dg-on-info-subtle:     #3a5573;
+  --dg-info-light:         #7aa0bf;
+  --dg-on-info-light:      #1a2d3d;
+  --dg-info:               #3a5573;
+  --dg-on-info:            #ffffff;
+  --dg-info-dark:          #263849;
+  --dg-on-info-dark:       #ffffff;
+
+  /* Brand colors */
+  --dg-primary-subtle:     var(--dg-surface-3);
+  --dg-on-primary-subtle:  var(--dg-solid);
+  --dg-primary-light:      var(--dg-300);
+  --dg-on-primary-light:   var(--dg-950);
+  --dg-primary:            var(--dg-solid);
+  --dg-on-primary:         var(--dg-on-solid);
+  --dg-primary-dark:       var(--dg-800);
+  --dg-on-primary-dark:    var(--dg-0);
+
+  --dg-secondary-subtle:   var(--dg-surface-2);
+  --dg-on-secondary-subtle: var(--dg-500);
+  --dg-secondary-light:    var(--dg-400);
+  --dg-on-secondary-light: var(--dg-950);
+  --dg-secondary:          var(--dg-500);
+  --dg-on-secondary:       var(--dg-0);
+  --dg-secondary-dark:     var(--dg-700);
+  --dg-on-secondary-dark:  var(--dg-0);
+
+  --dg-light:              var(--dg-100);
+  --dg-on-light:           var(--dg-950);
+
+  --dg-dark:               var(--dg-800);
+  --dg-on-dark:            var(--dg-0);
+
+  /* Backward-compatible semantic aliases */
+  --dg-success-bg:         var(--dg-success-subtle);
+  --dg-warning-bg:         var(--dg-warning-subtle);
+  --dg-danger-bg:          var(--dg-danger-subtle);
+  --dg-info-bg:            var(--dg-info-subtle);
+
+  /* Typography */
+  --dg-font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --dg-font-sans:  "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --dg-font-mono:  "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Semantic heading family — defaults to the serif (dgarz's signature look).
+     Override to var(--dg-font-sans) for a sans-only identity without local CSS. */
+  --dg-font-heading: var(--dg-font-serif);
+
+  /* Modal title — its own tokens so consumers can retint/resize without
+     writing a local override rule. Defaults match the shipped look. */
+  --dg-modal-title-size:   var(--dg-text-2xl);
+  --dg-modal-title-weight: var(--dg-weight-medium);
+
+  /* Gap between an .dg-eyebrow and the heading right after it inside .dg-stack —
+     tighter than the stack's own gap, which is tuned for full paragraphs/fields. */
+  --dg-heading-gap: 0.5rem;
+
+  --dg-text-xs:   0.75rem;   /* 12 */
+  --dg-text-sm:   0.875rem;  /* 14 */
+  --dg-text-base: 1rem;      /* 16 */
+  --dg-text-lg:   1.125rem;  /* 18 */
+  --dg-text-xl:   1.375rem;  /* 22 */
+  --dg-text-2xl:  1.75rem;   /* 28 */
+  --dg-text-3xl:  2.25rem;   /* 36 */
+  --dg-text-4xl:  3rem;      /* 48 */
+  --dg-text-5xl:  4rem;      /* 64 */
+
+  --dg-leading-tight: 1.12;
+  --dg-leading-snug:  1.3;
+  --dg-leading-normal:1.6;
+
+  --dg-weight-normal: 400;
+  --dg-weight-medium: 500;
+  --dg-weight-semi:   600;
+  --dg-weight-bold:   700;
+
+  /* Spacing scale (4px base) */
+  --dg-space-1:  0.25rem;
+  --dg-space-2:  0.5rem;
+  --dg-space-3:  0.75rem;
+  --dg-space-4:  1rem;
+  --dg-space-5:  1.5rem;
+  --dg-space-6:  2rem;
+  --dg-space-7:  3rem;
+  --dg-space-8:  4rem;
+  --dg-space-9:  6rem;
+
+  /* Radius — pill-forward */
+  --dg-radius-sm:   8px;
+  --dg-radius:      14px;
+  --dg-radius-lg:   22px;
+  --dg-radius-xl:   30px;
+  --dg-radius-pill: 999px;
+
+  /* Borders */
+  --dg-border-width: 1px;
+
+  /* Field / form control defaults */
+  --dg-field-bg:            transparent;
+  --dg-field-bg-focus:      transparent;
+  --dg-field-border:        var(--dg-border-strong);
+  --dg-float-label-bg:      transparent;
+  --dg-float-label-border:  transparent;
+  --dg-float-label-shadow:  none;
+
+  /* Shadows — subtle, layered */
+  --dg-shadow-1: 0 1px 2px rgba(11,11,12,.06), 0 1px 1px rgba(11,11,12,.04);
+  --dg-shadow-2: 0 2px 6px rgba(11,11,12,.07), 0 4px 14px rgba(11,11,12,.06);
+  --dg-shadow-3: 0 8px 24px rgba(11,11,12,.10), 0 16px 40px rgba(11,11,12,.10);
+  --dg-ring:     0 0 0 3px rgba(11,11,12,.14);
+
+  /* Motion */
+  --dg-ease:     cubic-bezier(.2, .6, .2, 1);
+  --dg-dur:      .18s;
+  --dg-dur-fast: .1s;
+  --dg-dur-slow: .32s;
+
+  /* Layout */
+  --dg-container: 1140px;
+  --dg-gutter:    var(--dg-space-5);
+
+  /* Action bar (.dg-actions) */
+  --dg-actions-gap: var(--dg-space-4);
+  --dg-actions-search-basis: 16rem;
+}
+
+/* ---- Dark theme ------------------------------------------ */
+[data-theme="dark"] {
+  --dg-paper:       var(--dg-950);
+  --dg-surface:     #0f0f11;
+  --dg-surface-2:   #161618;
+  --dg-surface-3:   #1e1e21;
+  --dg-border:      #2a2a2e;
+  --dg-border-strong: #3a3a40;
+  --dg-text:        #f4f4f5;
+  --dg-text-muted:  #9a9aa2;
+  --dg-text-faint:  #6f6f78;
+
+  --dg-solid:       var(--dg-0);
+  --dg-on-solid:    var(--dg-950);
+
+  --dg-accent:        #64a4ff;
+  --dg-accent-2:      #9fc7ff;
+  --dg-accent-3:      #20334f;
+  --dg-accent-violet: #a89cff;
+  --dg-accent-warm:   #ff9d57;
+  --dg-accent-mint:   #8fe7d2;
+
+  --dg-success-subtle:     #14211b;
+  --dg-on-success-subtle:  #7fc6a3;
+  --dg-success-light:      #3d7a5e;
+  --dg-on-success-light:   #c8eada;
+  --dg-success:            #7fc6a3;
+  --dg-on-success:         #0f1713;
+  --dg-success-dark:       #0d2b1e;
+  --dg-on-success-dark:    #7fc6a3;
+
+  --dg-warning-subtle:     #221d10;
+  --dg-on-warning-subtle:  #d9bd72;
+  --dg-warning-light:      #7a5e1a;
+  --dg-on-warning-light:   #f0daa0;
+  --dg-warning:            #d9bd72;
+  --dg-on-warning:         #191406;
+  --dg-warning-dark:       #2a1e08;
+  --dg-on-warning-dark:    #d9bd72;
+
+  --dg-danger-subtle:      #241313;
+  --dg-on-danger-subtle:   #e09a9a;
+  --dg-danger-light:       #7a3535;
+  --dg-on-danger-light:    #f0c8c8;
+  --dg-danger:             #e09a9a;
+  --dg-on-danger:          #1c0b0b;
+  --dg-danger-dark:        #2d1010;
+  --dg-on-danger-dark:     #e09a9a;
+
+  --dg-info-subtle:        #131a22;
+  --dg-on-info-subtle:     #9bb6d4;
+  --dg-info-light:         #3a5a7a;
+  --dg-on-info-light:      #c0d4e8;
+  --dg-info:               #9bb6d4;
+  --dg-on-info:            #0d141c;
+  --dg-info-dark:          #0d1620;
+  --dg-on-info-dark:       #9bb6d4;
+
+  --dg-success-bg:         var(--dg-success-subtle);
+  --dg-warning-bg:         var(--dg-warning-subtle);
+  --dg-danger-bg:          var(--dg-danger-subtle);
+  --dg-info-bg:            var(--dg-info-subtle);
+
+  /* Brand colors — dark mode overrides */
+  --dg-primary-light:      var(--dg-700);
+  --dg-on-primary-light:   var(--dg-0);
+  --dg-primary-dark:       var(--dg-200);
+  --dg-on-primary-dark:    var(--dg-950);
+  --dg-secondary:          var(--dg-400);
+  --dg-on-secondary:       var(--dg-950);
+  --dg-secondary-light:    var(--dg-600);
+  --dg-on-secondary-light: var(--dg-0);
+  --dg-secondary-dark:     var(--dg-300);
+  --dg-on-secondary-dark:  var(--dg-950);
+
+  --dg-light:              var(--dg-800);
+  --dg-on-light:           var(--dg-0);
+
+  --dg-dark:               var(--dg-100);
+  --dg-on-dark:            var(--dg-950);
+
+  --dg-shadow-1: 0 1px 2px rgba(0,0,0,.4);
+  --dg-shadow-2: 0 2px 6px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.4);
+  --dg-shadow-3: 0 8px 24px rgba(0,0,0,.55), 0 16px 40px rgba(0,0,0,.5);
+  --dg-ring:     0 0 0 3px rgba(255,255,255,.18);
+}

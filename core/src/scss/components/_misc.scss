@@ -1,0 +1,115 @@
+/* ---- Misc: avatar, progress, spinner, tooltip ------------- */
+.dg-avatar { width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; background: var(--dg-surface-3); display: inline-flex; align-items: center; justify-content: center; font-size: var(--dg-text-sm); font-weight: var(--dg-weight-semi); border: 1px solid var(--dg-border); }
+.dg-avatar-group { display: inline-flex; }
+.dg-avatar-group .dg-avatar + .dg-avatar { margin-left: -0.7em; box-shadow: 0 0 0 2px var(--dg-paper); }
+
+.dg-progress { height: 8px; background: var(--dg-surface-3); border-radius: var(--dg-radius-pill); overflow: hidden; }
+.dg-progress-bar { height: 100%; background: var(--dg-solid); border-radius: inherit; transition: width .4s var(--dg-ease); }
+
+.dg-spinner { width: 1.2em; height: 1.2em; border: 2px solid var(--dg-border-strong); border-top-color: var(--dg-text); border-radius: 50%; animation: dg-spin .7s linear infinite; }
+@keyframes dg-spin { to { transform: rotate(360deg); } }
+
+.dg-tooltip { position: relative; display: inline-flex; }
+.dg-tooltip::after {
+  content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px);
+  background: var(--dg-solid); color: var(--dg-on-solid); font-size: var(--dg-text-xs); white-space: nowrap;
+  padding: 0.4em 0.7em; border-radius: var(--dg-radius-sm); opacity: 0; pointer-events: none;
+  transition: opacity var(--dg-dur) var(--dg-ease), transform var(--dg-dur) var(--dg-ease);
+}
+.dg-tooltip:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Tooltip positions */
+.dg-tooltip-bottom::after { bottom: auto; top: calc(100% + 8px); transform: translateX(-50%) translateY(-4px); }
+.dg-tooltip-bottom:hover::after { transform: translateX(-50%) translateY(0); }
+.dg-tooltip-right::after { bottom: auto; top: 50%; left: calc(100% + 8px); transform: translateY(-50%) translateX(-4px); }
+.dg-tooltip-right:hover::after { transform: translateY(-50%) translateX(0); }
+
+/* ---- Kbd group (shortcut display) ------------------------- */
+.dg-kbd-group { display: inline-flex; align-items: center; gap: 0.2em; }
+
+/* ---- Divider with label ----------------------------------- */
+.dg-divider-label {
+  display: flex; align-items: center; gap: var(--dg-space-3);
+  color: var(--dg-text-faint); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-medium);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.dg-divider-label::before,
+.dg-divider-label::after { content: ""; flex: 1; height: 1px; background: var(--dg-border); }
+
+/* ---- Inline code block ------------------------------------ */
+.dg-pre {
+  background: var(--dg-surface-3); border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius); padding: var(--dg-space-4) var(--dg-space-5);
+  font-family: var(--dg-font-mono); font-size: var(--dg-text-sm);
+  overflow-x: auto; line-height: var(--dg-leading-normal);
+}
+
+/* ---- Progress: color variants ----------------------------- */
+.dg-progress-bar.is-success { background: var(--dg-success); }
+.dg-progress-bar.is-warning { background: var(--dg-warning); }
+.dg-progress-bar.is-danger  { background: var(--dg-danger); }
+.dg-progress-bar.is-info    { background: var(--dg-info); }
+
+/* Progress size variants */
+.dg-progress-sm { height: 4px; }
+.dg-progress-lg { height: 12px; }
+
+/* ---- Spinner: size variants ------------------------------- */
+.dg-spinner-sm { width: 0.9em; height: 0.9em; border-width: 1.5px; }
+.dg-spinner-lg { width: 2em;   height: 2em;   border-width: 3px; }
+
+/* ---- Avatar: size variants -------------------------------- */
+.dg-avatar-sm { width: 1.8em; height: 1.8em; font-size: var(--dg-text-xs); }
+.dg-avatar-lg { width: 3.2em; height: 3.2em; font-size: var(--dg-text-lg); }
+.dg-avatar-xl { width: 4.8em; height: 4.8em; font-size: var(--dg-text-xl); }
+
+/* ---- Avatar: status indicator ----------------------------- */
+.dg-avatar-wrap { position: relative; display: inline-flex; }
+.dg-avatar-status {
+  position: absolute; bottom: 0; right: 0;
+  width: 0.72em; height: 0.72em; border-radius: 50%;
+  border: 2px solid var(--dg-paper); background: var(--dg-border-strong);
+}
+.dg-avatar-status.is-online  { background: var(--dg-success); }
+.dg-avatar-status.is-away    { background: var(--dg-warning); }
+.dg-avatar-status.is-offline { background: var(--dg-border-strong); }
+
+/* ============================================================
+   FIGURES
+   ============================================================ */
+.dg-figure { display: inline-block; max-width: 100%; }
+.dg-figure-img {
+  display: block; width: 100%;
+  border-radius: var(--dg-radius);
+}
+.dg-figure-caption {
+  margin-top: var(--dg-space-2);
+  font-size: var(--dg-text-xs);
+  color: var(--dg-text-muted);
+  text-align: center;
+}
+
+/* ============================================================
+   HELPERS — vertical rule, clearfix, stretched-link, colored links
+   ============================================================ */
+.dg-vr {
+  display: inline-block; align-self: stretch;
+  width: 1px; min-height: 1em;
+  background: var(--dg-border);
+  margin-inline: var(--dg-space-2);
+}
+
+.dg-clearfix::after { content: ""; display: table; clear: both; }
+
+/* Stretched link: hace clickeable toda la card padre (position:relative) */
+.dg-stretched-link::after {
+  position: absolute; inset: 0; z-index: 1; content: "";
+  border-radius: inherit;
+}
+
+/* Colored links */
+a.dg-link-success, .dg-link-success { color: var(--dg-success); text-decoration: underline; text-underline-offset: 3px; }
+a.dg-link-warning, .dg-link-warning { color: var(--dg-warning); text-decoration: underline; text-underline-offset: 3px; }
+a.dg-link-danger,  .dg-link-danger  { color: var(--dg-danger);  text-decoration: underline; text-underline-offset: 3px; }
+a.dg-link-info,    .dg-link-info    { color: var(--dg-info);    text-decoration: underline; text-underline-offset: 3px; }
+a.dg-link-muted,   .dg-link-muted   { color: var(--dg-text-muted); text-decoration: underline; text-underline-offset: 3px; }
