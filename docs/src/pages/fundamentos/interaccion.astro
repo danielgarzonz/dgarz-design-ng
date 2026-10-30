@@ -9,17 +9,17 @@ const pageContent = `
 &lt;div class="dg-cursor-text"&gt;...&lt;/div&gt;       &lt;!-- cursor: text --&gt;</pre></div>
 
   <div class="doc-sub">Pointer events</div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-pointer-none"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: none --&gt;
-&lt;div class="dg-pointer-auto"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: auto --&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-pointer-events-none"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: none --&gt;
+&lt;div class="dg-pointer-events-auto"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: auto --&gt;</pre></div>
 
   <div class="doc-sub">Opacidad</div>
   <div class="doc-demo is-plain">
     <div class="dg-cluster dg-gap-5 dg-wrap dg-p-5">
-      <div class="opacity-box" style="opacity:1">100%</div>
-      <div class="opacity-box" style="opacity:0.75">75%</div>
-      <div class="opacity-box" style="opacity:0.5">50%</div>
-      <div class="opacity-box" style="opacity:0.25">25%</div>
-      <div class="opacity-box" style="opacity:0">0%</div>
+      <div class="opacity-box dg-opacity-100">100%</div>
+      <div class="opacity-box dg-opacity-75">75%</div>
+      <div class="opacity-box dg-opacity-50">50%</div>
+      <div class="opacity-box dg-opacity-25">25%</div>
+      <div class="opacity-box dg-opacity-0">0%</div>
     </div>
   </div>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-opacity-100"&gt;...&lt;/div&gt;
@@ -38,12 +38,15 @@ const pageContent = `
 &lt;div class="dg-transition-colors"&gt;...&lt;/div&gt;  &lt;!-- transition: color, background, border --&gt;
 &lt;div class="dg-transition-transform"&gt;...&lt;/div&gt; &lt;!-- transition: transform --&gt;
 &lt;div class="dg-transition-opacity"&gt;...&lt;/div&gt; &lt;!-- transition: opacity --&gt;
-&lt;div class="dg-no-transition"&gt;...&lt;/div&gt;      &lt;!-- transition: none --&gt;</pre></div>
+&lt;div class="dg-transition-none"&gt;...&lt;/div&gt;    &lt;!-- transition: none --&gt;</pre></div>
 
   <div class="doc-sub">Scroll behavior</div>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;html class="dg-scroll-smooth"&gt;...&lt;/html&gt;   &lt;!-- scroll-behavior: smooth --&gt;
-&lt;div class="dg-scroll-snap-x"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: x mandatory --&gt;
-&lt;div class="dg-snap-start"&gt;...&lt;/div&gt;         &lt;!-- scroll-snap-align: start --&gt;</pre></div>
+&lt;div class="dg-scroll-snap-x"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: x mandatory (+ overflow-x: auto) --&gt;
+&lt;div class="dg-scroll-snap-y"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: y mandatory (+ overflow-y: auto) --&gt;
+&lt;div class="dg-snap-start"&gt;...&lt;/div&gt;         &lt;!-- scroll-snap-align: start --&gt;
+&lt;div class="dg-snap-center"&gt;...&lt;/div&gt;        &lt;!-- scroll-snap-align: center --&gt;
+&lt;div class="dg-snap-end"&gt;...&lt;/div&gt;           &lt;!-- scroll-snap-align: end --&gt;</pre></div>
 
   <style>
     .opacity-box {

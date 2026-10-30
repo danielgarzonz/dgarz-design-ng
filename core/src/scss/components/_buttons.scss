@@ -55,7 +55,7 @@
 
 /* Cancel actions keep a dark gray fill in both themes. */
 .dg-btn-cancel { background: #404040; color: #fff; border-color: transparent; }
-.dg-btn-cancel:hover { background: #303030; color: #fff; opacity: 1; box-shadow: none; }
+.dg-btn-cancel:hover { background: #525252; color: #fff; opacity: 1; box-shadow: none; }
 
 /* Outline — borde visible, fondo transparente */
 .dg-btn-outline { background: transparent; border: 1px solid var(--dg-border-strong); color: var(--dg-text); }
@@ -137,7 +137,7 @@
 
 .dg-btn-gradient {
   background: linear-gradient(135deg, var(--dg-accent), color-mix(in oklab, var(--dg-accent-violet) 38%, var(--dg-accent) 62%));
-  color: #fff;
+  color: #0b0b0c;
   border-color: transparent;
   box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent) 24%, transparent);
 }
@@ -145,7 +145,7 @@
 
 .dg-btn-gradient-warm {
   background: linear-gradient(135deg, var(--dg-accent-warm), color-mix(in oklab, #ffb47d 44%, var(--dg-accent-warm) 56%));
-  color: #fff;
+  color: #0b0b0c;
   border-color: transparent;
   box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 24%, transparent);
 }

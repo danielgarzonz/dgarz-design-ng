@@ -1,6 +1,7 @@
 export interface ChangelogRelease {
   version: string;
-  date: string; // YYYY-MM-DD
+  date: string; // YYYY-MM-DD — vacío mientras la versión no esté publicada
+  unreleased?: boolean;
   summary: string;
   highlights: string[];
 }
@@ -10,13 +11,15 @@ export interface ChangelogRelease {
 export const CHANGELOG: ChangelogRelease[] = [
   {
     version: "1.2.0",
-    date: "2026-09-20",
-    summary: "Más estilo en los modales, sobre todo en los de estado (alertas).",
+    date: "",
+    unreleased: true,
+    summary: "Nuevos componentes de formulario y bloques de contenido, utilidades completas y modales con glow.",
     highlights: [
-      "Modales con acento de estado (success / warning / danger / info) heredado del sistema de alerts",
-      "Efecto glow opcional: halo pulsante o anillo giratorio alrededor del modal según su estado",
-      "Hero de icono grande + status tag para modales de resultado (confirmación, error, éxito)",
-      "Modal de onboarding con pasos y dots de progreso",
+      "Formularios: datepicker, combobox con búsqueda y tags, dropzone de archivos, máscaras de input y toggle de contraseña",
+      "Bloques: pricing, features, testimonios, timeline, FAQ con búsqueda y galería con lightbox",
+      "Tablas: filas como cards en móvil, edición inline y selección de todas las filas",
+      "Utilidades completas: flexbox, escala de espaciado en todos los ejes, sombras, transiciones y scroll-snap",
+      "Modales con efecto glow (halo pulsante o anillo giratorio) y helpers dgConfirm / dgAlert / dgPrompt",
     ],
   },
   {

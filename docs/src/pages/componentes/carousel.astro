@@ -95,22 +95,25 @@ const pageContent = `<div class="doc-sub">Cómo funciona</div>
         <div class="dg-carousel dg-max-w-500 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="2500">
           <div class="dg-carousel-inner">
             <div class="dg-carousel-item">
-              <div class="dg-carousel-slide doc-carousel-slide-text">Solo texto — slide 1</div>
+              <div class="dg-carousel-slide dg-bg-surface-3 dg-aspect-3-1 dg-min-h-0 dg-text-lg">Solo texto — slide 1</div>
             </div>
             <div class="dg-carousel-item">
-              <div class="dg-carousel-slide doc-carousel-slide-text">Solo texto — slide 2</div>
+              <div class="dg-carousel-slide dg-bg-surface-3 dg-aspect-3-1 dg-min-h-0 dg-text-lg">Solo texto — slide 2</div>
             </div>
           </div>
         </div>
       </div>
-      <style>
-        .doc-carousel-slide-text {
-          background: var(--dg-surface-3);
-          aspect-ratio: 3 / 1;
-          font-size: var(--dg-text-lg);
-          min-height: 0;
-        }
-      </style>`;
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Sin controles ni indicadores: solo autoplay (ms) --&gt;
+&lt;div class="dg-carousel dg-max-w-500 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="2500"&gt;
+  &lt;div class="dg-carousel-inner"&gt;
+    &lt;div class="dg-carousel-item"&gt;
+      &lt;div class="dg-carousel-slide dg-bg-surface-3 dg-aspect-3-1 dg-min-h-0 dg-text-lg"&gt;Solo texto — slide 1&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;
+      &lt;div class="dg-carousel-slide dg-bg-surface-3 dg-aspect-3-1 dg-min-h-0 dg-text-lg"&gt;Solo texto — slide 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>`;
 ---
 
 <Layout title="Carousel" lead="Slider de diapositivas táctil con indicadores." currentHref="/componentes/carousel">

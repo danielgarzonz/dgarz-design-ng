@@ -1,7 +1,7 @@
 /*!
- * dgarz design v1.0.0 — dgarz.css
+ * dgarz design v1.2.0 — dgarz.css
  * Monochrome · Minimal · Performance-first
- * https://github.com/dgarz-design/dgarz-design
+ * https://github.com/dgarzonz/dgarz-design
  * MIT License
  */
 
@@ -38,3 +38,4 @@
 @use 'components/fileupload';
 @use 'components/combobox';
 @use 'components/extras';
+@use 'base/flat';

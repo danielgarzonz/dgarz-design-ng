@@ -15,14 +15,16 @@ function buildDialog(opts) {
 
   var iconHtml = opts.icon
     ? '<span class="dg-modal-icon is-' + opts.icon + '">' +
-        '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          '<use href="' + (ICON_SYMBOL[opts.icon] || ICON_SYMBOL.info) + '"></use>' +
-        '</svg>' +
+        (opts.icon === 'success'
+          ? '<svg class="dg-check-animated" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="dg-check-path" d="m5 12 4.5 4.5L19 7"/></svg>'
+          : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+              '<use href="' + (ICON_SYMBOL[opts.icon] || ICON_SYMBOL.info) + '"></use>' +
+            '</svg>') +
       '</span>'
     : '';
 
   var titleHtml = opts.title
-    ? '<div class="dg-modal-header"><h3 class="dg-modal-title" id="' + titleId + '">' + escHtml(opts.title) + '</h3></div>'
+    ? '<h3 class="dg-modal-title" id="' + titleId + '">' + escHtml(opts.title) + '</h3>'
     : '';
 
   var inputHtml = opts.input
@@ -33,6 +35,7 @@ function buildDialog(opts) {
 
   var bodyHtml =
     '<div class="dg-modal-body">' +
+      iconHtml + titleHtml +
       (opts.text ? '<p>' + escHtml(opts.text) + '</p>' : '') +
       inputHtml +
       '<div class="dg-confirm-error" data-dgc-error hidden aria-live="polite"></div>' +
@@ -53,7 +56,7 @@ function buildDialog(opts) {
   backdrop.innerHTML =
     '<div class="dg-modal dg-modal-sm dg-modal-confirm" role="alertdialog" aria-modal="true"' +
         (opts.title ? ' aria-labelledby="' + titleId + '"' : '') + '>' +
-      iconHtml + titleHtml + bodyHtml +
+      bodyHtml +
       '<div class="dg-modal-footer">' + cancelHtml + confirmHtml + '</div>' +
     '</div>';
   document.body.appendChild(backdrop);

@@ -38,6 +38,42 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
         </div>
         <p class="dg-text-xs dg-faint dg-mt-3">Pulsa una cabecera con flecha para ordenar. El checkbox de la cabecera selecciona todas las filas.</p>
       </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card"&gt;
+  &lt;table class="dg-table dg-table-hover" data-dg-sortable&gt;
+    &lt;thead&gt;&lt;tr&gt;
+      &lt;th class="dg-cell-check"&gt;
+        &lt;label class="dg-check"&gt;&lt;input type="checkbox" /&gt;&lt;span class="dg-check-box"&gt;&lt;/span&gt;&lt;/label&gt;
+      &lt;/th&gt;
+      &lt;th class="dg-sortable"&gt;Cliente&lt;/th&gt;
+      &lt;th class="dg-sortable"&gt;Estado&lt;/th&gt;
+      &lt;th class="dg-sortable dg-cell-num"&gt;Total&lt;/th&gt;
+      &lt;th class="dg-text-right"&gt;Acciones&lt;/th&gt;
+    &lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class="dg-cell-check"&gt;
+          &lt;label class="dg-check"&gt;&lt;input type="checkbox" /&gt;&lt;span class="dg-check-box"&gt;&lt;/span&gt;&lt;/label&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&lt;div class="dg-cell-user"&gt;&lt;span class="dg-avatar"&gt;AR&lt;/span&gt;Ana Rivas&lt;/div&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span class="dg-badge dg-badge-dot dg-badge-success"&gt;Pagado&lt;/span&gt;&lt;/td&gt;
+        &lt;!-- data-sort: valor numérico usado para ordenar --&gt;
+        &lt;td class="dg-cell-num" data-sort="128"&gt;$128.00&lt;/td&gt;
+        &lt;td class="dg-text-right"&gt;
+          &lt;div class="dg-cell-actions"&gt;
+            &lt;button class="dg-icon-btn" aria-label="Editar"&gt;
+              &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-edit"&gt;&lt;/use&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- data-dg-sortable + th.dg-sortable → ordena al hacer click (requiere dgarz.js).
+     Al ordenar se emite el evento "dg:sort" con { column, ascending }.
+     El checkbox de .dg-cell-check en thead selecciona todas las filas,
+     marca cada &lt;tr&gt; con .is-selected y emite "dg:select" con { selected, total }. --&gt;</pre></div>
 
       <div class="doc-sub">Compacta · striped · cabecera fija</div>
       <div class="doc-demo is-plain">
@@ -55,13 +91,24 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
           </table>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;table class="dg-table dg-table-hover" data-dg-sortable&gt;
-  &lt;thead&gt;&lt;tr&gt;&lt;th class="dg-sortable"&gt;Cliente&lt;/th&gt;
-    &lt;th class="dg-sortable dg-cell-num"&gt;Total&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;&lt;td&gt;Ana&lt;/td&gt;&lt;td data-sort="128"&gt;$128.00&lt;/td&gt;&lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- .dg-table-sticky: cabecera fija con scroll vertical (alto máx. 360px) --&gt;
+&lt;div class="dg-table-card dg-table-sticky"&gt;
+  &lt;table class="dg-table dg-table-sm dg-table-striped"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Componente&lt;/th&gt;&lt;th&gt;Clase&lt;/th&gt;&lt;th&gt;Estado&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Botón&lt;/td&gt;
+        &lt;td&gt;&lt;code class="dg-code"&gt;.dg-btn&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span class="dg-badge dg-badge-dot dg-badge-success"&gt;Listo&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Tamaños: dg-table-sm · (default) · dg-table-lg
+     Para otra altura, añade p. ej. dg-h-200 al contenedor
+     (+ dg-scroll del app pack para una scrollbar fina) --&gt;</pre></div>
 
       <div class="doc-sub">Tabla → cards en móvil</div>
       <p class="dg-muted dg-text-sm dg-mb-4">

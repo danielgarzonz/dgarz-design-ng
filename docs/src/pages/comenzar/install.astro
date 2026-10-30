@@ -37,22 +37,19 @@ const pageContent = `
         <div id="inst-npm" hidden>
           <div class="doc-code"><button class="cp">Copiar</button><pre>npm install dgarz-design</pre></div>
           <p class="dg-muted dg-text-sm dg-my-3">Luego impórtalo en tu entry file:</p>
-          <div class="doc-code"><button class="cp">Copiar</button><pre>// Core + Componentes
-import "dgarz-design";
+          <div class="doc-code"><button class="cp">Copiar</button><pre>// 1. CSS — elige una opción
+import "dgarz-design/full";   // todo en uno (core + componentes + app pack)
 
-// App pack (sidebar, drawer, accordion, steps…)
-import "dgarz-design/app";
+// …o por partes
+import "dgarz-design/css";    // core + componentes
+import "dgarz-design/app";    // app pack (sidebar, drawer, accordion, steps…)
 
-// O todo en uno
-import "dgarz-design/full";
-
-// Solo el JavaScript (comportamiento)
-import dgarz from "dgarz-design/esm";
+// 2. JavaScript (comportamiento) — opcional
+import dgarz from "dgarz-design";   // módulo ES; se inicializa solo
 dgarz.toast("¡Hola!");
 
-// Solo el CSS, sin JavaScript
-import "dgarz-design/css";   // core + componentes
-import "dgarz-design/full";  // todo el CSS</pre></div>
+// O solo las funciones que necesitas
+import { toast, dgConfirm } from "dgarz-design";</pre></div>
         </div>
 
         <!-- Panel: Descarga directa -->
@@ -96,7 +93,7 @@ import "dgarz-design/full";  // todo el CSS</pre></div>
             <tr><td><code class="dg-code">dgarz.full.css</code></td><td>Todo en uno</td><td>La forma más sencilla</td></tr>
             <tr><td><code class="dg-code">dgarz.js</code> / <code class="dg-code">.min.js</code></td><td>Comportamiento (UMD)</td><td>Via <code class="dg-code">&lt;script&gt;</code></td></tr>
             <tr><td><code class="dg-code">dgarz.esm.js</code></td><td>Módulo ES</td><td>Bundler / <code class="dg-code">import</code></td></tr>
-            <tr><td><code class="dg-code">dgarz-icons.svg</code></td><td>Sprite SVG (33 iconos)</td><td>Siempre que uses iconos</td></tr>
+            <tr><td><code class="dg-code">dgarz-icons.svg</code></td><td>Sprite SVG (36 iconos)</td><td>Siempre que uses iconos</td></tr>
           </tbody>
         </table>
       </div>

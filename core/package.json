@@ -13,6 +13,9 @@
       "require": "./dist/dgarz.js",
       "default": "./dist/dgarz.js"
     },
+    "./esm": "./dist/dgarz.esm.js",
+    "./js": "./dist/dgarz.js",
+    "./js/min": "./dist/dgarz.min.js",
     "./css": "./dist/dgarz.css",
     "./css/min": "./dist/dgarz.min.css",
     "./full": "./dist/dgarz.full.css",

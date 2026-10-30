@@ -33,7 +33,7 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
       <div class="doc-demo">
         <div class="dg-grid dg-grid-3">
           <article class="dg-card dg-card-hover">
-            <div class="dg-card-img doc-stage-cool"></div>
+            <div class="dg-card-img dg-surface-gradient-cool"></div>
             <div class="dg-card-body">
               <span class="dg-eyebrow">Artículo</span>
               <h3 class="dg-card-title dg-mt-2">El peso del blanco</h3>
@@ -67,6 +67,46 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
         </div>
       </div>
 
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-grid dg-grid-3"&gt;
+  &lt;!-- Artículo con imagen y footer --&gt;
+  &lt;article class="dg-card dg-card-hover"&gt;
+    &lt;img class="dg-card-img" src="portada.jpg" alt=""&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;span class="dg-eyebrow"&gt;Artículo&lt;/span&gt;
+      &lt;h3 class="dg-card-title dg-mt-2"&gt;El peso del blanco&lt;/h3&gt;
+      &lt;p class="dg-muted dg-mt-2 dg-text-sm"&gt;El espacio negativo como herramienta principal de composición.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-card-footer dg-flex dg-items-center dg-justify-between"&gt;
+      &lt;span class="dg-text-sm dg-muted"&gt;5 min&lt;/span&gt;
+      &lt;a class="dg-link dg-text-sm" href="#"&gt;Leer&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+
+  &lt;!-- Plan / precio --&gt;
+  &lt;article class="dg-card dg-card-hover"&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;h3 class="dg-card-title"&gt;Plan Pro&lt;/h3&gt;
+      &lt;p class="dg-display dg-mt-3 dg-text-3xl"&gt;$12&lt;span class="dg-text-sm dg-muted dg-serif"&gt;/mes&lt;/span&gt;&lt;/p&gt;
+      &lt;div class="dg-stack dg-mt-4 dg-text-sm dg-muted dg-gap-2"&gt;
+        &lt;span&gt;Componentes ilimitados&lt;/span&gt;&lt;span&gt;Modo oscuro&lt;/span&gt;&lt;span&gt;Soporte prioritario&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;button class="dg-btn dg-btn-primary dg-btn-block dg-mt-5"&gt;Elegir Pro&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+
+  &lt;!-- Perfil / cita --&gt;
+  &lt;article class="dg-card dg-card-hover"&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;div class="dg-cluster dg-mb-4"&gt;
+        &lt;span class="dg-avatar"&gt;DG&lt;/span&gt;
+        &lt;div&gt;&lt;div class="dg-fw-semi dg-text-sm"&gt;dgarz&lt;/div&gt;&lt;div class="dg-text-xs dg-muted"&gt;@dgarzdesign&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class="dg-serif dg-italic dg-text-lg"&gt;"Menos, pero mejor." Un sistema que respira.&lt;/p&gt;
+      &lt;div class="dg-cluster dg-mt-4"&gt;&lt;span class="dg-badge"&gt;monocromo&lt;/span&gt;&lt;span class="dg-badge"&gt;minimal&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</pre></div>
+
       <div class="doc-sub">Cabecera con acciones (header-row)</div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card"&gt;
   &lt;!-- .dg-card-header-row pone título y acciones en la misma línea --&gt;
@@ -82,7 +122,7 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
         <div class="dg-grid dg-grid-2 dg-mb-5">
           <!-- Horizontal -->
           <article class="dg-card dg-card-row dg-card-hover">
-            <div class="dg-card-img doc-stage-neutral"></div>
+            <div class="dg-card-img"></div>
             <div class="dg-card-body">
               <span class="dg-eyebrow">Horizontal</span>
               <h3 class="dg-card-title dg-mt-2">Media al lado</h3>
@@ -91,7 +131,7 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
           </article>
           <!-- Media overlay -->
           <article class="dg-card dg-card-media dg-card-hover">
-            <div class="dg-card-img doc-stage-dark"></div>
+            <div class="dg-card-img dg-bg-dark"></div>
             <div class="dg-card-overlay">
               <span class="dg-eyebrow dg-text-on-dark">Reportaje</span>
               <h3 class="dg-card-title dg-mt-2">Texto sobre imagen</h3>

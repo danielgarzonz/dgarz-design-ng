@@ -13,9 +13,14 @@ npm install dgarz-design
 ```
 
 ```js
-import "dgarz-design";       // core + components
-import "dgarz-design/app";   // optional app pack
+// CSS — pick one
 import "dgarz-design/full";  // everything at once
+import "dgarz-design/css";   // core + components
+import "dgarz-design/app";   // optional app pack (load after css)
+
+// JS behavior layer (optional, auto-initializes)
+import dgarz from "dgarz-design";
+dgarz.toast("Hello!");
 ```
 
 ### CDN
@@ -50,7 +55,7 @@ Pick only what you need:
 | `dist/dgarz.full.css` / `.min.css` | Everything in one file |
 | `dist/dgarz.js` / `.min.js` | Behavior layer — UMD (browser global `window.dgarz`) |
 | `dist/dgarz.esm.js` | Behavior layer — ES module |
-| `dist/dgarz-icons.svg` | Icon sprite (33 icons, 24×24, stroke-based) |
+| `dist/dgarz-icons.svg` | Icon sprite (36 icons, 24×24, stroke-based) |
 
 ---
 

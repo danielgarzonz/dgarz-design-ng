@@ -3,13 +3,27 @@
 All notable changes to **dgarz design** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.2.0] — 2026-09-20
+## [Unreleased] — 1.2.0
 
-### Changed
-- **Modal**: status-accent variants (`.dg-modal-accent` + `is-success`/`is-warning`/`is-danger`/`is-info`) inheriting the same color language as alerts/callouts.
-- **Modal**: optional glow effects — a pulsing inner halo (`.dg-modal-glow`) and a spinning gradient ring (`.dg-modal-glow-spin`), both status-aware, plus a duotone variant.
-- **Modal**: large icon hero + status tag layout (`.dg-modal-status-hero`, `.dg-status-tag`) for result/confirmation modals.
-- **Modal**: onboarding variant (`.dg-modal-onboard`) with stepped media, step label and progress dots.
+### Added
+- **Forms**: date/time picker (`.dg-datepicker`, `.dg-cal-*`), combobox with search and multi-select tags (`.dg-combobox`), file upload dropzone with file list and progress (`.dg-dropzone`, `.dg-file-*`), input masks (`data-mask`, `data-mask-pattern`, `data-currency`), password visibility toggle (`.dg-password-wrap`).
+- **Content blocks**: pricing (`.dg-pricing-*`), feature grid (`.dg-feature-*`), testimonial (`.dg-testimonial-*`), timeline (`.dg-timeline-*`), FAQ with search (`.dg-faq`), image gallery with lightbox (`.dg-gallery`, `.dg-lightbox-*`).
+- **Tables**: row-to-card layout for mobile (`.dg-table-desktop` / `.dg-table-cards` / `.dg-table-rowcard-*`), inline cell editing (`.dg-table-editable`, `dg:cell-saved` event), select-all checkbox in `th.dg-cell-check` that marks rows with `.is-selected` (`dg:select` event).
+- **Navigation**: collapsible sidebar sub-menus (`.dg-nav-item-toggle`, `.dg-nav-sub`), toolbar actions bar (`.dg-actions`).
+- **Tooltip**: JS-positioned tooltip (`data-tip`, `.dg-tooltip-pop-*`).
+- **Modal**: optional glow effects — pulsing halo (`.dg-modal-glow`) and spinning gradient ring (`.dg-modal-glow-spin`).
+- **JS**: `dgConfirm` / `dgAlert` / `dgPrompt` helpers are now exported (announced in 1.1.0 but missing from that build).
+- **Buttons**: `.dg-btn-cancel`.
+- **Animations**: `.dg-fade-in`, `.dg-fade-in-up`, `.dg-fade-in-down`, `.dg-pop-in`, `.dg-delay-*`.
+- **Utilities**: full flexbox set (direction, wrap, align-self, align-content, order), complete spacing scale on every axis (`mx/my/ml/mr/px/py/pt/pb/pl/pr` 0–6, plus `mt/mb/mx/ml/mr-auto`), `.dg-top-0` / `.dg-left-0`, shadow scale `.dg-shadow-xs…xl`, `.dg-shadow-inset-*`, colored and special shadows, `.dg-shadow-none`, `.dg-opacity-25`, `.dg-cursor-text`, `.dg-transition-colors/-transform/-opacity`, scroll utilities (`.dg-scroll-smooth`, `.dg-scroll-snap-x/y`, `.dg-snap-start/center/end`).
+- **Icons**: `dg-minus` (36 icons).
+- **Package**: `dgarz-design/esm`, `dgarz-design/js` and `dgarz-design/js/min` export paths.
+
+### Fixed
+- Sortable tables sorted by the wrong column when a non-sortable column (e.g. a checkbox) came first.
+
+### Deprecated
+- `.dg-surface-liquid` / `.dg-liquid` — use `.dg-surface-glass-strong`. Will be removed in 2.0.
 
 ## [1.1.0] — 2026-06-24
 
@@ -19,7 +33,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 - **Modal**: additional sizes (`sm`, `lg`, `xl`, `full`) and a compact bar/snackbar variant (`.dg-modal-bar`).
 - **Modal**: centered confirmation layout with icon, plus `dgConfirm` / `dgAlert` / `dgPrompt` JS helpers (`core/src/js/confirm.js`).
 
-## [1.0.0] — 2026-05-28
+## [1.0.0] — 2026-06-05
 
 ### Added
 - **Core**: design tokens (`--dg-*`), reset, editorial typography (Newsreader + Geist), 12-column responsive grid with `sm`/`md`/`lg` breakpoints and offsets, utility classes.
@@ -31,6 +45,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 - **Distribution**: `dist/` with split and combined builds (`dgarz`, `dgarz-app`, `dgarz.full`), minified variants, npm package and jsDelivr/unpkg support.
 - **Docs**: interactive component showcase + a real dashboard demo.
 
-[1.2.0]: https://github.com/dgarzonz/dgarz-design/releases/tag/v1.2.0
+[Unreleased]: https://github.com/dgarzonz/dgarz-design/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/dgarzonz/dgarz-design/releases/tag/v1.1.0
 [1.0.0]: https://github.com/dgarzonz/dgarz-design/releases/tag/v1.0.0

@@ -1,0 +1,53 @@
+/* Flat presentation applies to every component and interaction state.
+   Keep border-radius and keyboard outlines; remove decorative strokes/elevation. */
+:root body,
+:root body *,
+:root body::before,
+:root body::after,
+:root body *::before,
+:root body *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Functional form borders retain their component styles and validation colors. */
+:root body,
+:root body *:not(:where(
+  input, select, textarea,
+  .dg-input, .dg-select, .dg-textarea,
+  .dg-check-box, .dg-switch-track,
+  .dg-input-addon, .dg-combobox-control, .dg-combobox-tag,
+  .dg-combobox-dropdown, .dg-combobox-check,
+  .dg-dropzone, .dg-file-item, .dg-segmented,
+  .dg-btn-group .dg-btn
+)),
+:root body::before,
+:root body::after,
+:root body *::before,
+:root body *:not(:where(.dg-check-box, .dg-combobox-check))::after {
+  border: none !important;
+}
+
+.dg-btn-group .dg-btn,
+.dg-segmented {
+  border: 1px solid var(--dg-field-border);
+}
+
+/* Hidden native controls transfer keyboard focus to their visible indicator. */
+.dg-check input:focus-visible + .dg-check-box,
+.dg-switch input:focus-visible + .dg-switch-track {
+  outline: 2px solid var(--dg-accent);
+  outline-offset: 3px;
+}
+
+:root body :focus-visible {
+  outline: 2px solid var(--dg-accent) !important;
+  outline-offset: 3px;
+}
+
+/* Loading indicators use a filled arc instead of a border. */
+:root body .dg-btn.is-loading::after,
+:root body .dg-spinner {
+  background: conic-gradient(from 0deg, transparent 0deg 75deg, currentColor 110deg 360deg);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}

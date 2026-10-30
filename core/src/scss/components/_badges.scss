@@ -7,10 +7,10 @@
 }
 .dg-badge-solid { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; }
 .dg-badge-outline { background: transparent; border-color: var(--dg-border-strong); }
-.dg-badge-success { background: var(--dg-success-bg); color: var(--dg-success); border-color: transparent; }
-.dg-badge-warning { background: var(--dg-warning-bg); color: var(--dg-warning); border-color: transparent; }
-.dg-badge-danger { background: var(--dg-danger-bg); color: var(--dg-danger); border-color: transparent; }
+.dg-badge-success { background: var(--dg-success-bg); color: var(--dg-on-success-subtle); border-color: transparent; }
+.dg-badge-warning { background: var(--dg-warning-bg); color: var(--dg-on-warning-subtle); border-color: transparent; }
+.dg-badge-danger { background: var(--dg-danger-bg); color: var(--dg-on-danger-subtle); border-color: transparent; }
 .dg-badge-dot::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: currentColor; }
 
 /* ---- Badge: info variant ---------------------------------- */
-.dg-badge-info { background: var(--dg-info-bg); color: var(--dg-info); border-color: transparent; }
+.dg-badge-info { background: var(--dg-info-bg); color: var(--dg-on-info-subtle); border-color: transparent; }

@@ -5,15 +5,16 @@
   border-radius: var(--dg-radius);
   border: 1px solid var(--dg-border);
   background: var(--dg-surface-2);
+  color: var(--dg-text);
   font-size: var(--dg-text-sm);
 }
 .dg-alert .dg-alert-icon { flex: none; margin-top: 0.1em; }
 .dg-alert-title { font-weight: var(--dg-weight-semi); margin-bottom: 0.2em; }
 .dg-alert-body { color: inherit; }
-.dg-alert-success { background: var(--dg-success-bg); border-color: transparent; color: var(--dg-success); }
-.dg-alert-warning { background: var(--dg-warning-bg); border-color: transparent; color: var(--dg-warning); }
-.dg-alert-danger { background: var(--dg-danger-bg); border-color: transparent; color: var(--dg-danger); }
-.dg-alert-info { background: var(--dg-info-bg); border-color: transparent; color: var(--dg-info); }
+.dg-alert-success { background: var(--dg-success-bg); border-color: transparent; color: var(--dg-on-success-subtle); }
+.dg-alert-warning { background: var(--dg-warning-bg); border-color: transparent; color: var(--dg-on-warning-subtle); }
+.dg-alert-danger { background: var(--dg-danger-bg); border-color: transparent; color: var(--dg-on-danger-subtle); }
+.dg-alert-info { background: var(--dg-info-bg); border-color: transparent; color: var(--dg-on-info-subtle); }
 
 /* ---- Alert: dismissible close button ---------------------- */
 .dg-alert-close {
@@ -25,14 +26,15 @@
 
 /* ---- Callout (informational block) ------------------------ */
 .dg-callout {
+  color: var(--dg-text);
   padding: var(--dg-space-4) var(--dg-space-5);
   border-radius: var(--dg-radius);
   border-left: 3px solid var(--dg-border-strong);
   background: var(--dg-surface-2);
   font-size: var(--dg-text-sm);
 }
-.dg-callout-success { border-left-color: var(--dg-success); background: var(--dg-success-bg); color: var(--dg-success); }
-.dg-callout-warning { border-left-color: var(--dg-warning); background: var(--dg-warning-bg); color: var(--dg-warning); }
-.dg-callout-danger  { border-left-color: var(--dg-danger);  background: var(--dg-danger-bg);  color: var(--dg-danger); }
-.dg-callout-info    { border-left-color: var(--dg-info);    background: var(--dg-info-bg);    color: var(--dg-info); }
+.dg-callout-success { border-left-color: var(--dg-success); background: var(--dg-success-bg); color: var(--dg-on-success-subtle); }
+.dg-callout-warning { border-left-color: var(--dg-warning); background: var(--dg-warning-bg); color: var(--dg-on-warning-subtle); }
+.dg-callout-danger  { border-left-color: var(--dg-danger);  background: var(--dg-danger-bg);  color: var(--dg-on-danger-subtle); }
+.dg-callout-info    { border-left-color: var(--dg-info);    background: var(--dg-info-bg);    color: var(--dg-on-info-subtle); }
 .dg-callout-title   { font-weight: var(--dg-weight-semi); margin-bottom: var(--dg-space-2); }

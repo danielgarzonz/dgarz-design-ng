@@ -6,7 +6,7 @@ import { applySavedTheme, toggleTheme } from './theme.js';
 import { wireDropdown, closeAllMenus } from './dropdown.js';
 import { wireTabs } from './tabs.js';
 import { wireAccordion } from './accordion.js';
-import { wireSortable } from './sortable.js';
+import { wireSortable, wireTableSelect } from './sortable.js';
 import { wirePureFloatField, wirePasswordToggle } from './forms.js';
 import { wireCollapse } from './collapse.js';
 import { wireCarousel } from './carousel.js';
@@ -62,6 +62,7 @@ function init(ctx) {
   $all("[data-dg-accordion]", ctx).forEach(wireAccordion);
   $all("[data-dg-segmented]", ctx).forEach(wireSegmented);
   $all("[data-dg-sortable]", ctx).forEach(wireSortable);
+  $all(".dg-table", ctx).forEach(wireTableSelect);
   $all("[data-dg-collapse]", ctx).forEach(wireCollapse);
   $all("[data-dg-carousel]", ctx).forEach(wireCarousel);
   $all("[data-dg-popover]", ctx).forEach(wirePopover);

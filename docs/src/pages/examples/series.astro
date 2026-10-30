@@ -17,174 +17,298 @@ import Code from "../../components/Code.astro";
   </p>
 
   <div class="doc-sub">Serie 1 · Fintech glass</div>
-  <Demo plain class="doc-stage doc-stage-cool">
-    <div class="doc-showcase-grid-2">
-      <section class="doc-showcase-panel dg-surface-glass-strong">
-        <span class="dg-glass-pill">Form</span>
-        <h3 class="doc-showcase-title">Create savings pocket</h3>
-        <p class="dg-muted dg-text-sm">Onboarding corto para abrir una nueva meta financiera.</p>
-        <div class="dg-stack dg-mt-4 dg-gap-3">
-          <div class="dg-float-field">
-            <input class="dg-input" id="cool-pocket" type="text" placeholder=" " />
-            <label for="cool-pocket">Pocket name</label>
+  <Demo plain class="dg-surface-gradient-cool dg-rounded-xl">
+    <div class="dg-grid dg-grid-2">
+      <section class="dg-card dg-surface-glass-strong">
+        <div class="dg-card-body">
+          <span class="dg-glass-pill">Form</span>
+          <h3 class="dg-h4">Create savings pocket</h3>
+          <p class="dg-muted dg-text-sm">Onboarding corto para abrir una nueva meta financiera.</p>
+          <div class="dg-stack dg-mt-4 dg-gap-3">
+            <div class="dg-float-field">
+              <input class="dg-input" id="cool-pocket" type="text" placeholder=" " />
+              <label for="cool-pocket">Pocket name</label>
+            </div>
+            <div class="dg-float-field">
+              <input class="dg-input" id="cool-goal" type="number" placeholder=" " />
+              <label for="cool-goal">Goal amount</label>
+            </div>
+            <div class="dg-float-field">
+              <select class="dg-select" id="cool-plan">
+                <option value="">Monthly plan</option>
+                <option>$200 / month</option>
+                <option>$500 / month</option>
+                <option>$900 / month</option>
+              </select>
+              <label for="cool-plan">Contribution</label>
+            </div>
           </div>
-          <div class="dg-float-field">
-            <input class="dg-input" id="cool-goal" type="number" placeholder=" " />
-            <label for="cool-goal">Goal amount</label>
+          <div class="dg-flex dg-gap-2 dg-mt-4">
+            <button class="dg-btn dg-btn-glass">Later</button>
+            <button class="dg-btn dg-btn-gradient">Create pocket</button>
           </div>
-          <div class="dg-float-field">
-            <select class="dg-select" id="cool-plan">
-              <option value="">Monthly plan</option>
-              <option>$200 / month</option>
-              <option>$500 / month</option>
-              <option>$900 / month</option>
-            </select>
-            <label for="cool-plan">Contribution</label>
-          </div>
-        </div>
-        <div class="dg-flex dg-gap-2 dg-mt-4">
-          <button class="dg-btn dg-btn-glass">Later</button>
-          <button class="dg-btn dg-btn-gradient">Create pocket</button>
         </div>
       </section>
-
-      <section class="doc-showcase-stack">
-        <article class="doc-showcase-panel dg-surface-gradient-cool dg-surface-shine">
-          <div class="dg-flex dg-items-start dg-justify-between">
-            <div>
-              <span class="dg-glass-pill">Card</span>
-              <h3 class="doc-showcase-title dg-mt-3">$23,558 saved</h3>
-              <p class="dg-text-sm dg-max-w-24ch dg-text-muted">Mastercard pocket with auto-invest enabled and weekly transfers.</p>
+      <section class="dg-stack dg-gap-4">
+        <article class="dg-card dg-surface-gradient-cool dg-surface-shine">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-items-start dg-justify-between">
+              <div>
+                <span class="dg-glass-pill">Card</span>
+                <h3 class="dg-h4 dg-mt-3">$23,558 saved</h3>
+                <p class="dg-text-sm dg-max-w-24ch dg-text-muted">Mastercard pocket with auto-invest enabled and weekly transfers.</p>
+              </div>
+              <button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Abrir"><svg class="dg-icon dg-icon-sm"><use href="#dg-external"/></svg></button>
             </div>
-            <button class="dg-btn dg-btn-glass dg-btn-icon">↗</button>
           </div>
         </article>
-
-        <article class="doc-showcase-panel dg-surface-glass-strong">
-          <div class="dg-flex dg-items-center dg-justify-between">
-            <div>
-              <span class="dg-glass-pill">Modal preview</span>
-              <h3 class="doc-showcase-title dg-mt-3">Confirm transfer</h3>
+        <article class="dg-card dg-surface-glass-strong">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-items-center dg-justify-between">
+              <div>
+                <span class="dg-glass-pill">Modal preview</span>
+                <h3 class="dg-h4 dg-mt-3">Confirm transfer</h3>
+              </div>
+              <button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
             </div>
-            <button class="dg-btn dg-btn-glass dg-btn-icon">×</button>
-          </div>
-          <div class="doc-showcase-modal dg-mt-4">
-            <div class="dg-text-sm dg-muted">Send from</div>
-            <div class="dg-fw-semi">Emergency fund</div>
-            <div class="dg-text-sm dg-muted dg-mt-3">To</div>
-            <div class="dg-fw-semi">Travel pocket</div>
-            <div class="dg-flex dg-gap-2 dg-mt-4">
-              <button class="dg-btn dg-btn-glass dg-btn-block">Cancel</button>
-              <button class="dg-btn dg-btn-gradient dg-btn-block">Transfer</button>
+            <div class="dg-card dg-bg-surface-2 dg-p-4 dg-mt-4">
+              <div class="dg-text-sm dg-muted">Send from</div>
+              <div class="dg-fw-semi">Emergency fund</div>
+              <div class="dg-text-sm dg-muted dg-mt-3">To</div>
+              <div class="dg-fw-semi">Travel pocket</div>
+              <div class="dg-flex dg-gap-2 dg-mt-4">
+                <button class="dg-btn dg-btn-glass dg-btn-block">Cancel</button>
+                <button class="dg-btn dg-btn-gradient dg-btn-block">Transfer</button>
+              </div>
             </div>
           </div>
         </article>
       </section>
     </div>
   </Demo>
-  <Code />
+  <Code>&lt;div class="dg-grid dg-grid-2"&gt;
+  &lt;section class="dg-card dg-surface-glass-strong"&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;span class="dg-glass-pill"&gt;Form&lt;/span&gt;
+      &lt;h3 class="dg-h4"&gt;Create savings pocket&lt;/h3&gt;
+      &lt;p class="dg-muted dg-text-sm"&gt;Onboarding corto para abrir una nueva meta financiera.&lt;/p&gt;
+      &lt;div class="dg-stack dg-mt-4 dg-gap-3"&gt;
+        &lt;div class="dg-float-field"&gt;
+          &lt;input class="dg-input" id="cool-pocket" type="text" placeholder=" " /&gt;
+          &lt;label for="cool-pocket"&gt;Pocket name&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-float-field"&gt;
+          &lt;input class="dg-input" id="cool-goal" type="number" placeholder=" " /&gt;
+          &lt;label for="cool-goal"&gt;Goal amount&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-float-field"&gt;
+          &lt;select class="dg-select" id="cool-plan"&gt;
+            &lt;option value=""&gt;Monthly plan&lt;/option&gt;
+            &lt;option&gt;$200 / month&lt;/option&gt;
+            &lt;option&gt;$500 / month&lt;/option&gt;
+            &lt;option&gt;$900 / month&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;label for="cool-plan"&gt;Contribution&lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
+        &lt;button class="dg-btn dg-btn-glass"&gt;Later&lt;/button&gt;
+        &lt;button class="dg-btn dg-btn-gradient"&gt;Create pocket&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class="dg-stack dg-gap-4"&gt;
+    &lt;article class="dg-card dg-surface-gradient-cool dg-surface-shine"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;div class="dg-flex dg-items-start dg-justify-between"&gt;
+          &lt;div&gt;
+            &lt;span class="dg-glass-pill"&gt;Card&lt;/span&gt;
+            &lt;h3 class="dg-h4 dg-mt-3"&gt;$23,558 saved&lt;/h3&gt;
+            &lt;p class="dg-text-sm dg-max-w-24ch dg-text-muted"&gt;Mastercard pocket with auto-invest enabled and weekly transfers.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Abrir"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-external"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+    &lt;article class="dg-card dg-surface-glass-strong"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;div class="dg-flex dg-items-center dg-justify-between"&gt;
+          &lt;div&gt;
+            &lt;span class="dg-glass-pill"&gt;Modal preview&lt;/span&gt;
+            &lt;h3 class="dg-h4 dg-mt-3"&gt;Confirm transfer&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-card dg-bg-surface-2 dg-p-4 dg-mt-4"&gt;
+          &lt;div class="dg-text-sm dg-muted"&gt;Send from&lt;/div&gt;
+          &lt;div class="dg-fw-semi"&gt;Emergency fund&lt;/div&gt;
+          &lt;div class="dg-text-sm dg-muted dg-mt-3"&gt;To&lt;/div&gt;
+          &lt;div class="dg-fw-semi"&gt;Travel pocket&lt;/div&gt;
+          &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
+            &lt;button class="dg-btn dg-btn-glass dg-btn-block"&gt;Cancel&lt;/button&gt;
+            &lt;button class="dg-btn dg-btn-gradient dg-btn-block"&gt;Transfer&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</Code>
 
   <div class="doc-sub">Serie 2 · Editorial warm</div>
-  <Demo plain class="doc-stage doc-stage-warm">
-    <div class="doc-showcase-grid-2">
-      <section class="doc-showcase-panel dg-surface-gradient-warm">
-        <span class="dg-badge">Newsletter</span>
-        <h3 class="doc-showcase-title">Subscribe to weekly dispatch</h3>
-        <p class="dg-muted dg-text-sm">Una versión más cálida y editorial, con superficies limpias y CTA marcado.</p>
-        <div class="dg-stack dg-mt-4 dg-gap-3">
-          <div class="dg-field">
-            <label class="dg-label" for="warm-name">Full name</label>
-            <input class="dg-input" id="warm-name" type="text" placeholder="Ana Rivas" />
+  <Demo plain class="dg-surface-gradient-warm dg-rounded-xl">
+    <div class="dg-grid dg-grid-2">
+      <section class="dg-card dg-surface-gradient-warm">
+        <div class="dg-card-body">
+          <span class="dg-badge">Newsletter</span>
+          <h3 class="dg-h4">Subscribe to weekly dispatch</h3>
+          <p class="dg-muted dg-text-sm">Una versión más cálida y editorial, con superficies limpias y CTA marcado.</p>
+          <div class="dg-stack dg-mt-4 dg-gap-3">
+            <div class="dg-field">
+              <label class="dg-label" for="warm-name">Full name</label>
+              <input class="dg-input" id="warm-name" type="text" placeholder="Ana Rivas" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="warm-mail">Email</label>
+              <input class="dg-input" id="warm-mail" type="email" placeholder="ana@studio.com" />
+            </div>
           </div>
-          <div class="dg-field">
-            <label class="dg-label" for="warm-mail">Email</label>
-            <input class="dg-input" id="warm-mail" type="email" placeholder="ana@studio.com" />
-          </div>
+          <button class="dg-btn dg-btn-gradient-warm dg-btn-block dg-mt-4">Subscribe now</button>
         </div>
-        <button class="dg-btn dg-btn-gradient-warm dg-btn-block dg-mt-4">Subscribe now</button>
       </section>
-
-      <section class="doc-showcase-stack">
-        <article class="doc-showcase-panel dg-card">
+      <section class="dg-stack dg-gap-4">
+        <article class="dg-card">
           <div class="dg-card-body">
             <span class="dg-badge dg-badge-outline">Feature card</span>
-            <h3 class="doc-showcase-title dg-mt-3">Design systems should feel chosen, not generic.</h3>
+            <h3 class="dg-h4 dg-mt-3">Design systems should feel chosen, not generic.</h3>
             <p class="dg-muted dg-text-sm dg-mt-3">
               Esta serie funciona bien para productos editoriales, cursos o herramientas creativas donde el contraste
               no tiene que sentirse tan “fintech”.
             </p>
           </div>
         </article>
-
-        <article class="doc-showcase-panel dg-surface-glass">
-          <div class="dg-flex dg-items-center dg-justify-between">
-            <div>
-              <span class="dg-badge">Modal preview</span>
-              <h3 class="doc-showcase-title dg-mt-3">Save article</h3>
+        <article class="dg-card dg-surface-glass">
+          <div class="dg-card-body">
+            <div class="dg-flex dg-items-center dg-justify-between">
+              <div>
+                <span class="dg-badge">Modal preview</span>
+                <h3 class="dg-h4 dg-mt-3">Save article</h3>
+              </div>
+              <button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
             </div>
-            <button class="dg-btn dg-btn-glass dg-btn-icon">×</button>
-          </div>
-          <div class="doc-showcase-modal dg-mt-4">
-            <div class="dg-text-sm dg-muted">Collection</div>
-            <div class="dg-fw-semi">Minimal dashboards</div>
-            <div class="dg-text-sm dg-muted dg-mt-3">Visibility</div>
-            <div class="dg-fw-semi">Private</div>
-            <div class="dg-flex dg-gap-2 dg-mt-4">
-              <button class="dg-btn dg-btn-outline dg-btn-block">Later</button>
-              <button class="dg-btn dg-btn-gradient-warm dg-btn-block">Save</button>
+            <div class="dg-card dg-bg-surface-2 dg-p-4 dg-mt-4">
+              <div class="dg-text-sm dg-muted">Collection</div>
+              <div class="dg-fw-semi">Minimal dashboards</div>
+              <div class="dg-text-sm dg-muted dg-mt-3">Visibility</div>
+              <div class="dg-fw-semi">Private</div>
+              <div class="dg-flex dg-gap-2 dg-mt-4">
+                <button class="dg-btn dg-btn-outline dg-btn-block">Later</button>
+                <button class="dg-btn dg-btn-gradient-warm dg-btn-block">Save</button>
+              </div>
             </div>
           </div>
         </article>
       </section>
     </div>
   </Demo>
-  <Code />
+  <Code>&lt;div class="dg-grid dg-grid-2"&gt;
+  &lt;section class="dg-card dg-surface-gradient-warm"&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;span class="dg-badge"&gt;Newsletter&lt;/span&gt;
+      &lt;h3 class="dg-h4"&gt;Subscribe to weekly dispatch&lt;/h3&gt;
+      &lt;p class="dg-muted dg-text-sm"&gt;Una versión más cálida y editorial, con superficies limpias y CTA marcado.&lt;/p&gt;
+      &lt;div class="dg-stack dg-mt-4 dg-gap-3"&gt;
+        &lt;div class="dg-field"&gt;
+          &lt;label class="dg-label" for="warm-name"&gt;Full name&lt;/label&gt;
+          &lt;input class="dg-input" id="warm-name" type="text" placeholder="Ana Rivas" /&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-field"&gt;
+          &lt;label class="dg-label" for="warm-mail"&gt;Email&lt;/label&gt;
+          &lt;input class="dg-input" id="warm-mail" type="email" placeholder="ana@studio.com" /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button class="dg-btn dg-btn-gradient-warm dg-btn-block dg-mt-4"&gt;Subscribe now&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class="dg-stack dg-gap-4"&gt;
+    &lt;article class="dg-card"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;span class="dg-badge dg-badge-outline"&gt;Feature card&lt;/span&gt;
+        &lt;h3 class="dg-h4 dg-mt-3"&gt;Design systems should feel chosen, not generic.&lt;/h3&gt;
+        &lt;p class="dg-muted dg-text-sm dg-mt-3"&gt;
+          Esta serie funciona bien para productos editoriales, cursos o herramientas creativas donde el contraste
+          no tiene que sentirse tan “fintech”.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+    &lt;article class="dg-card dg-surface-glass"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;div class="dg-flex dg-items-center dg-justify-between"&gt;
+          &lt;div&gt;
+            &lt;span class="dg-badge"&gt;Modal preview&lt;/span&gt;
+            &lt;h3 class="dg-h4 dg-mt-3"&gt;Save article&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-card dg-bg-surface-2 dg-p-4 dg-mt-4"&gt;
+          &lt;div class="dg-text-sm dg-muted"&gt;Collection&lt;/div&gt;
+          &lt;div class="dg-fw-semi"&gt;Minimal dashboards&lt;/div&gt;
+          &lt;div class="dg-text-sm dg-muted dg-mt-3"&gt;Visibility&lt;/div&gt;
+          &lt;div class="dg-fw-semi"&gt;Private&lt;/div&gt;
+          &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
+            &lt;button class="dg-btn dg-btn-outline dg-btn-block"&gt;Later&lt;/button&gt;
+            &lt;button class="dg-btn dg-btn-gradient-warm dg-btn-block"&gt;Save&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</Code>
 
   <div class="doc-sub">Serie 3 · Neutral product UI</div>
-  <Demo plain class="doc-stage doc-stage-neutral">
-    <div class="doc-showcase-grid-2">
-      <section class="doc-showcase-panel dg-card">
-        <span class="dg-badge dg-badge-dot">Support</span>
-        <h3 class="doc-showcase-title">Open a request</h3>
-        <p class="dg-muted dg-text-sm">Una serie más sobria para productos B2B donde la prioridad es legibilidad y neutralidad.</p>
-        <div class="dg-stack dg-mt-4 dg-gap-3">
-          <div class="dg-field">
-            <label class="dg-label" for="neutral-subject">Subject</label>
-            <input class="dg-input" id="neutral-subject" type="text" placeholder="Billing issue" />
+  <Demo plain class="dg-bg-surface-2 dg-rounded-xl">
+    <div class="dg-grid dg-grid-2">
+      <section class="dg-card">
+        <div class="dg-card-body">
+          <span class="dg-badge dg-badge-dot">Support</span>
+          <h3 class="dg-h4">Open a request</h3>
+          <p class="dg-muted dg-text-sm">Una serie más sobria para productos B2B donde la prioridad es legibilidad y neutralidad.</p>
+          <div class="dg-stack dg-mt-4 dg-gap-3">
+            <div class="dg-field">
+              <label class="dg-label" for="neutral-subject">Subject</label>
+              <input class="dg-input" id="neutral-subject" type="text" placeholder="Billing issue" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="neutral-msg">Message</label>
+              <textarea class="dg-textarea" id="neutral-msg" placeholder="Describe the issue"></textarea>
+            </div>
           </div>
-          <div class="dg-field">
-            <label class="dg-label" for="neutral-msg">Message</label>
-            <textarea class="dg-textarea" id="neutral-msg" placeholder="Describe the issue"></textarea>
+          <div class="dg-flex dg-gap-2 dg-mt-4">
+            <button class="dg-btn dg-btn-outline">Cancel</button>
+            <button class="dg-btn">Submit</button>
           </div>
-        </div>
-        <div class="dg-flex dg-gap-2 dg-mt-4">
-          <button class="dg-btn dg-btn-outline">Cancel</button>
-          <button class="dg-btn">Submit</button>
         </div>
       </section>
-
-      <section class="doc-showcase-stack">
-        <article class="doc-showcase-panel dg-card dg-card-hover">
+      <section class="dg-stack dg-gap-4">
+        <article class="dg-card dg-card-hover">
           <div class="dg-card-body">
             <div class="dg-flex dg-items-center dg-justify-between">
               <div>
                 <div class="dg-text-sm dg-muted">Status card</div>
-                <h3 class="doc-showcase-title dg-mt-2">System healthy</h3>
+                <h3 class="dg-h4 dg-mt-2">System healthy</h3>
               </div>
               <span class="dg-badge dg-badge-success">99.98%</span>
             </div>
             <p class="dg-muted dg-text-sm dg-mt-3">Perfecta para paneles internos o dashboards de operación.</p>
           </div>
         </article>
-
-        <article class="doc-showcase-panel dg-card">
+        <article class="dg-card">
           <div class="dg-card-body">
             <div class="dg-flex dg-items-center dg-justify-between">
               <div>
                 <div class="dg-text-sm dg-muted">Modal preview</div>
-                <h3 class="doc-showcase-title dg-mt-2">Archive project</h3>
+                <h3 class="dg-h4 dg-mt-2">Archive project</h3>
               </div>
-              <button class="dg-btn dg-btn-ghost dg-btn-icon">×</button>
+              <button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
             </div>
             <p class="dg-muted dg-text-sm dg-mt-3">This action keeps all records but hides the project from active views.</p>
             <div class="dg-flex dg-gap-2 dg-mt-4">
@@ -196,7 +320,59 @@ import Code from "../../components/Code.astro";
       </section>
     </div>
   </Demo>
-  <Code />
+  <Code>&lt;div class="dg-grid dg-grid-2"&gt;
+  &lt;section class="dg-card"&gt;
+    &lt;div class="dg-card-body"&gt;
+      &lt;span class="dg-badge dg-badge-dot"&gt;Support&lt;/span&gt;
+      &lt;h3 class="dg-h4"&gt;Open a request&lt;/h3&gt;
+      &lt;p class="dg-muted dg-text-sm"&gt;Una serie más sobria para productos B2B donde la prioridad es legibilidad y neutralidad.&lt;/p&gt;
+      &lt;div class="dg-stack dg-mt-4 dg-gap-3"&gt;
+        &lt;div class="dg-field"&gt;
+          &lt;label class="dg-label" for="neutral-subject"&gt;Subject&lt;/label&gt;
+          &lt;input class="dg-input" id="neutral-subject" type="text" placeholder="Billing issue" /&gt;
+        &lt;/div&gt;
+        &lt;div class="dg-field"&gt;
+          &lt;label class="dg-label" for="neutral-msg"&gt;Message&lt;/label&gt;
+          &lt;textarea class="dg-textarea" id="neutral-msg" placeholder="Describe the issue"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
+        &lt;button class="dg-btn dg-btn-outline"&gt;Cancel&lt;/button&gt;
+        &lt;button class="dg-btn"&gt;Submit&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class="dg-stack dg-gap-4"&gt;
+    &lt;article class="dg-card dg-card-hover"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;div class="dg-flex dg-items-center dg-justify-between"&gt;
+          &lt;div&gt;
+            &lt;div class="dg-text-sm dg-muted"&gt;Status card&lt;/div&gt;
+            &lt;h3 class="dg-h4 dg-mt-2"&gt;System healthy&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;span class="dg-badge dg-badge-success"&gt;99.98%&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p class="dg-muted dg-text-sm dg-mt-3"&gt;Perfecta para paneles internos o dashboards de operación.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+    &lt;article class="dg-card"&gt;
+      &lt;div class="dg-card-body"&gt;
+        &lt;div class="dg-flex dg-items-center dg-justify-between"&gt;
+          &lt;div&gt;
+            &lt;div class="dg-text-sm dg-muted"&gt;Modal preview&lt;/div&gt;
+            &lt;h3 class="dg-h4 dg-mt-2"&gt;Archive project&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class="dg-muted dg-text-sm dg-mt-3"&gt;This action keeps all records but hides the project from active views.&lt;/p&gt;
+        &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
+          &lt;button class="dg-btn dg-btn-outline dg-btn-block"&gt;Keep active&lt;/button&gt;
+          &lt;button class="dg-btn dg-btn-danger dg-btn-block"&gt;Archive&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</Code>
 
   <div class="doc-sub">Patrón recomendado</div>
   <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- 1. Elige una superficie dominante para la serie --&gt;

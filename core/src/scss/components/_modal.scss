@@ -2,7 +2,7 @@
 .dg-modal-backdrop {
   position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
   padding: var(--dg-space-5); background: color-mix(in oklab, var(--dg-950) 22%, transparent);
-  animation: dg-fade var(--dg-dur) var(--dg-ease) both;
+  animation: dg-backdrop-in 320ms cubic-bezier(.22,1,.36,1) both;
 }
 .dg-modal-backdrop[hidden] {
   display: flex !important;
@@ -10,10 +10,11 @@
   pointer-events: none !important;
   animation: none !important;
 }
-@keyframes dg-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dg-fade       { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dg-backdrop-in  { from { opacity: 0; backdrop-filter: blur(0); } to { opacity: 1; } }
 .dg-modal {
-  width: 100%; max-width: 460px;
-  background: color-mix(in oklab, var(--dg-surface) 80%, transparent);
+  width: 100%; max-width: 720px;
+  background: var(--dg-surface);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid color-mix(in oklab, var(--dg-text) 16%, transparent);
@@ -25,9 +26,13 @@
     inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
     0 6px 28px color-mix(in oklab, #000 7%, transparent);
   box-shadow: var(--dg-modal-shadow);
-  overflow: hidden; isolation: isolate; animation: dg-modal-in var(--dg-dur) var(--dg-ease) both;
+  overflow: hidden; isolation: isolate; animation: dg-modal-in 380ms cubic-bezier(.34,1.26,.64,1) both;
 }
-@keyframes dg-modal-in { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(.95); filter: blur(2px); }
+  60%  { opacity: 1; filter: blur(0); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
 
 /* ---- Modal surface variants ------------------------------- */
 .dg-modal.is-solid {
@@ -39,43 +44,263 @@
   box-shadow: var(--dg-modal-shadow);
 }
 .dg-modal.is-solid .dg-modal-header { border-bottom-color: var(--dg-border); }
-.dg-modal.is-solid .dg-modal-footer { border-top-color: var(--dg-border); background: var(--dg-surface-2); }
+.dg-modal.is-solid .dg-modal-footer { border-color: var(--dg-border); background: var(--dg-surface-3); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.dg-modal.is-solid .dg-modal-footer-flush { border-top-color: var(--dg-border); background: var(--dg-surface-3); }
 
 
 .dg-modal-header {
-  padding: var(--dg-space-5) var(--dg-space-5) var(--dg-space-4);
+  position: relative;
+  z-index: 10;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--dg-space-3) 68px;
+  background: var(--dg-surface-3);
+  text-align: center;
+  flex-shrink: 0;
   border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
 }
-.dg-modal-title { font-family: var(--dg-font-heading); font-size: var(--dg-modal-title-size); font-weight: var(--dg-modal-title-weight); color: var(--dg-text); }
-.dg-modal-body { padding: var(--dg-space-5); color: var(--dg-text-muted); }
-.dg-modal-footer {
-  padding: var(--dg-space-4) var(--dg-space-5);
-  border-top: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
-  display: flex; align-items: center; justify-content: center; gap: var(--dg-space-3);
-  background: color-mix(in oklab, var(--dg-surface-2) 14%, transparent);
+.dg-modal-title {
+  font-family: var(--dg-font-heading);
+  font-size: var(--dg-modal-title-size);
+  font-weight: var(--dg-modal-title-weight);
+  line-height: 1;
+  color: var(--dg-text);
+  margin: 0;
+  overflow-wrap: anywhere;
 }
-.dg-modal-footer .dg-btn { min-width: 110px; }
+
+.dg-modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--dg-space-5);
+  padding-bottom: calc(var(--dg-space-5) + 68px);
+  color: var(--dg-text-muted);
+}
+
+/* Floating footer: floats on top of the modal content (no container behind it) */
+.dg-modal-footer {
+  position: absolute;
+  bottom: var(--dg-space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: var(--dg-space-3) var(--dg-space-4);
+  display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: var(--dg-space-3);
+  /* --dg-surface-3 es más oscuro/contrastado que --dg-surface, así el footer
+     se distingue del fondo del modal incluso en superficie glass */
+  background: color-mix(in oklab, var(--dg-surface-3) 88%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--dg-space-3));
+  border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
+  box-shadow: 0 2px 16px color-mix(in oklab, #000 10%, transparent),
+              inset 0 1px 0 color-mix(in oklab, #fff 30%, transparent);
+  border: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+}
+.dg-modal-footer .dg-btn {
+  min-width: 96px;
+  flex-shrink: 0;
+  transition: transform var(--dg-dur) var(--dg-ease),
+              background var(--dg-dur) var(--dg-ease),
+              color var(--dg-dur) var(--dg-ease),
+              opacity var(--dg-dur) var(--dg-ease),
+              box-shadow var(--dg-dur) var(--dg-ease);
+
+}
+.dg-modal-footer .dg-btn:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
+}
+.dg-modal-footer .dg-btn:not(:disabled):not(.is-disabled):active {
+  transform: scale(0.98);
+}
+
+/* Round icon-only buttons in footer */
+.dg-modal-footer .dg-btn-icon,
+.dg-modal-footer .dg-icon-btn,
+.dg-modal-footer .dg-btn.is-icon {
+  min-width: unset;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.dg-modal-footer .dg-btn-icon svg,
+.dg-modal-footer .dg-icon-btn svg,
+.dg-modal-footer .dg-btn.is-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Ghost icon-buttons en footer: el footer ya tiene --dg-surface-3 de fondo,
+   así que el ghost necesita un tono más oscuro y un borde para verse */
+.dg-modal-footer .dg-btn-ghost.dg-btn-icon,
+.dg-modal-footer .dg-btn-ghost.dg-icon-btn,
+.dg-modal-footer .dg-btn-ghost.is-icon {
+  background: color-mix(in oklab, var(--dg-text) 10%, transparent);
+  border: 1px solid color-mix(in oklab, var(--dg-border) 70%, transparent);
+  color: var(--dg-text);
+}
+.dg-modal-footer .dg-btn-ghost.dg-btn-icon:hover,
+.dg-modal-footer .dg-btn-ghost.dg-icon-btn:hover,
+.dg-modal-footer .dg-btn-ghost.is-icon:hover {
+  background: color-mix(in oklab, var(--dg-text) 18%, transparent);
+  opacity: 1;
+}
+
+/* Botón sólido (primary) icon: fuerza icono blanco sobre fondo oscuro */
+.dg-modal-footer .dg-btn:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(.dg-btn-danger).dg-btn-icon {
+  color: var(--dg-on-solid);
+}
+.dg-modal-footer .dg-btn:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(.dg-btn-danger).dg-btn-icon svg {
+  color: var(--dg-on-solid);
+  stroke: var(--dg-on-solid);
+}
+
+/* Backward compatibility: floating footer was previously explicit */
+.dg-modal-footer-rounded {
+  position: absolute;
+  bottom: var(--dg-space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--dg-space-3));
+  border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
+}
+
+/* Wide floating footer: floats across modal width with margin and rounded corners */
+.dg-modal-footer-wide,
+.dg-modal-footer.is-wide,
+.dg-modal-footer-expanded,
+.dg-modal-footer.is-expanded {
+  position: absolute;
+  bottom: var(--dg-space-3);
+  left: var(--dg-space-3);
+  right: var(--dg-space-3);
+  transform: none;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
+}
+
+/* Button alignment helpers for footer */
+.dg-modal-footer.is-between { justify-content: space-between; }
+.dg-modal-footer.is-end     { justify-content: flex-end; }
+.dg-modal-footer.is-start   { justify-content: flex-start; }
+
+/* Flush / normal footer: attached to the bottom edge of modal in normal flow */
+.dg-modal-footer-flush,
+.dg-modal-footer.is-flush {
+  position: static;
+  transform: none;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  border-top: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  background: var(--dg-surface-3);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* When footer is flush, modal body uses standard bottom padding */
+.dg-modal:has(.dg-modal-footer-flush) .dg-modal-body,
+.dg-modal:has(.dg-modal-footer.is-flush) .dg-modal-body {
+  padding-bottom: var(--dg-space-5);
+}
 
 /* ---- Modal: sizes, close, icon/confirm, scrollable -------- */
 .dg-modal-sm   { max-width: 360px; }
 .dg-modal-lg   { max-width: 640px; }
 .dg-modal-xl   { max-width: 840px; }
-.dg-modal-full { max-width: min(1100px, 94vw); }
+.dg-modal-md   { max-width: 720px; }
 .dg-modal-close {
-  position: absolute; top: var(--dg-space-4); right: var(--dg-space-4);
-  width: 34px; height: 34px; border-radius: var(--dg-radius-pill);
+  position: absolute;
+  top: 8px;
+  right: var(--dg-space-4);
+  width: 42px; height: 42px; padding: 0; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  color: var(--dg-text-muted); transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+  font-size: 1.25rem;
+  background: var(--dg-danger-subtle);
+  color: #000000;
+  border: 1px solid color-mix(in oklab, var(--dg-danger) 28%, transparent);
+  z-index: 20;
+  transition: background var(--dg-dur) var(--dg-ease),
+              color var(--dg-dur) var(--dg-ease),
+              border-color var(--dg-dur) var(--dg-ease),
+              transform var(--dg-dur) var(--dg-ease);
 }
-.dg-modal-close:hover { background: var(--dg-surface-2); color: var(--dg-text); }
+.dg-modal-close svg,
+.dg-modal-close .dg-icon {
+  width: 20px;
+  height: 20px;
+  stroke: #000000;
+  color: #000000;
+}
+.dg-modal-close:hover {
+  background: color-mix(in oklab, var(--dg-danger) 22%, var(--dg-danger-subtle));
+  color: #000000;
+  border-color: color-mix(in oklab, var(--dg-danger) 45%, transparent);
+  transform: scale(1.06);
+}
+.dg-modal-close:hover svg,
+.dg-modal-close:hover .dg-icon {
+  stroke: #000000;
+  color: #000000;
+}
+.dg-modal-close:active {
+  transform: scale(0.96);
+}
 .dg-modal { position: relative; display: flex; flex-direction: column; max-height: calc(100vh - var(--dg-space-7)); }
-.dg-modal-body { overflow-y: auto; }
-.dg-modal-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--dg-space-4); }
+.dg-modal-body { min-height: 0; overflow-y: auto; }
+.dg-modal-grid { display: grid; grid-template-columns: 1fr; gap: var(--dg-space-4); }
+@media (min-width: 640px) {
+  .dg-modal:not(.dg-modal-sm) .dg-modal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.dg-modal-full {
+  position: fixed; inset: 0;
+  width: 100%; max-width: none;
+  height: 100vh; height: 100dvh; max-height: none;
+  border-radius: 0;
+}
+.dg-modal-full .dg-modal-header {
+  border-bottom-left-radius: 48px;
+  border-bottom-right-radius: 48px;
+  border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 40%, transparent);
+  box-shadow: 0 4px 20px color-mix(in oklab, #000 6%, transparent);
+  padding-inline: calc(48px + var(--dg-space-4));
+}
+.dg-modal-full .dg-modal-close {
+  right: calc(48px + var(--dg-space-3));
+}
+.dg-modal-full .dg-modal-body {
+  flex: 1; display: flex; flex-direction: column;
+  padding-inline: max(var(--dg-space-5), calc((100% - 1100px) / 2));
+}
+.dg-modal-content { width: 100%; min-width: 0; }
+.dg-modal-full .dg-modal-content { margin-top: 0; margin-bottom: auto; }
+.dg-modal-header-row { display: flex; align-items: center; justify-content: center; gap: var(--dg-space-4); }
 
 /* Centered confirmation with icon */
 .dg-modal-confirm { text-align: center; }
-.dg-modal-confirm .dg-modal-icon { width: 56px; height: 56px; margin: var(--dg-space-5) auto var(--dg-space-2); animation: dg-icon-pop .5s cubic-bezier(.34,1.56,.64,1) both; }
-.dg-modal-confirm .dg-modal-footer { justify-content: center; border-top: none; }
+.dg-modal-confirm .dg-modal-body { padding-top: var(--dg-space-7); color: var(--dg-text); }
+.dg-modal-confirm .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-3); }
+.dg-modal-confirm .dg-modal-icon { width: 56px; height: 56px; margin: 0 auto var(--dg-space-3); animation: dg-icon-pop .5s cubic-bezier(.34,1.56,.64,1) both; }
+.dg-modal-confirm .dg-modal-footer { justify-content: center; }
 @keyframes dg-icon-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
 
 /* dgConfirm/dgAlert/dgPrompt (src/js/confirm.js) — inline error shown when preConfirm rejects */
@@ -89,16 +314,89 @@
   text-align: left;
 }
 
-/* Base icon — usable standalone or inside header-row */
+/* Base icon — 2-concentric circle design: subtle outer ring + solid inner circle */
 .dg-modal-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
-  background: var(--dg-surface-3); color: var(--dg-text);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  isolation: isolate;
+  background: var(--dg-surface-3);
+  color: var(--dg-text);
+  --dg-modal-icon-solid: var(--dg-solid);
 }
-.dg-modal-icon.is-success { background: var(--dg-success-bg); color: var(--dg-success); }
-.dg-modal-icon.is-warning { background: var(--dg-warning-bg); color: var(--dg-warning); }
-.dg-modal-icon.is-danger  { background: var(--dg-danger-bg);  color: var(--dg-danger); }
-.dg-modal-icon.is-info    { background: var(--dg-info-bg);    color: var(--dg-info); }
+
+.dg-modal-icon::before {
+  content: "";
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  background: var(--dg-modal-icon-solid, currentColor);
+  z-index: 0;
+}
+
+.dg-modal-icon svg,
+.dg-modal-icon .dg-icon {
+  position: relative;
+  z-index: 1;
+  color: #ffffff;
+}
+
+.dg-modal-icon.is-success {
+  background: var(--dg-success-subtle);
+  --dg-modal-icon-solid: var(--dg-success);
+}
+.dg-modal-icon.is-warning {
+  background: var(--dg-warning-subtle);
+  --dg-modal-icon-solid: var(--dg-warning);
+}
+.dg-modal-icon.is-danger  {
+  background: var(--dg-danger-subtle);
+  --dg-modal-icon-solid: var(--dg-danger);
+}
+.dg-modal-icon.is-info    {
+  background: var(--dg-info-subtle);
+  --dg-modal-icon-solid: var(--dg-info);
+}
+
+/* Check animated drawing */
+.dg-modal-icon .dg-check-path,
+.dg-modal-icon.is-success svg path,
+.dg-check-animated path {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+  animation: dg-check-draw .55s cubic-bezier(.4, 0, .2, 1) .15s forwards;
+}
+
+@keyframes dg-check-draw {
+  from { stroke-dashoffset: 28; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-modal-icon .dg-check-path,
+  .dg-modal-icon.is-success svg path,
+  .dg-check-animated path {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}
+
+/* prefers-reduced-motion: modal entrance/exit become simple fades */
+@media (prefers-reduced-motion: reduce) {
+  .dg-modal-backdrop          { animation: dg-fade 160ms linear both; }
+  .dg-modal-backdrop.is-closing { animation: dg-fade-out 160ms linear forwards; }
+  .dg-modal,
+  .dg-pos-top    .dg-modal,
+  .dg-pos-bottom .dg-modal,
+  .dg-pos-left   .dg-modal,
+  .dg-pos-right  .dg-modal    { animation: dg-fade 160ms linear both; filter: none !important; }
+  .dg-modal.is-closing        { animation: dg-fade-out 160ms linear forwards; filter: none !important; }
+}
 
 /* ---- Modal positions -------------------------------------- */
 /* The backdrop fills the viewport; these align the dialog to an edge. */
@@ -108,25 +406,28 @@
 .dg-modal-backdrop.dg-pos-right  { justify-content: flex-end; }
 
 /* Direction-aware entrance */
-.dg-pos-top    .dg-modal { animation: dg-modal-down var(--dg-dur) var(--dg-ease); }
-.dg-pos-bottom .dg-modal { animation: dg-modal-up   var(--dg-dur) var(--dg-ease); }
-.dg-pos-left   .dg-modal { animation: dg-modal-inleft  var(--dg-dur) var(--dg-ease); }
-.dg-pos-right  .dg-modal { animation: dg-modal-inright var(--dg-dur) var(--dg-ease); }
-@keyframes dg-modal-down    { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
-@keyframes dg-modal-up      { from { opacity: 0; transform: translateY(24px); }  to { opacity: 1; transform: none; } }
-@keyframes dg-modal-inleft  { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
-@keyframes dg-modal-inright { from { opacity: 0; transform: translateX(28px); }  to { opacity: 1; transform: none; } }
+.dg-pos-top    .dg-modal { animation: dg-modal-down    380ms cubic-bezier(.34,1.26,.64,1) both; }
+.dg-pos-bottom .dg-modal { animation: dg-modal-up      380ms cubic-bezier(.34,1.26,.64,1) both; }
+.dg-pos-left   .dg-modal { animation: dg-modal-inleft  380ms cubic-bezier(.34,1.26,.64,1) both; }
+.dg-pos-right  .dg-modal { animation: dg-modal-inright 380ms cubic-bezier(.34,1.26,.64,1) both; }
+@keyframes dg-modal-down    { from { opacity: 0; transform: translateY(-28px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-up      { from { opacity: 0; transform: translateY(28px)  scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-inleft  { from { opacity: 0; transform: translateX(-32px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-inright { from { opacity: 0; transform: translateX(32px)  scale(.97); } to { opacity: 1; transform: none; } }
 
 /* ---- Exit animations (via JS .is-closing class) ----------- */
 /* ease-in cubic + duración 0.26s — más perceptible que la entrada */
-@keyframes dg-modal-out       { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(18px) scale(.94); } }
+@keyframes dg-modal-out  {
+  from { opacity: 1; transform: none; filter: blur(0); }
+  to   { opacity: 0; transform: translateY(16px) scale(.95); filter: blur(3px); }
+}
 @keyframes dg-fade-out        { from { opacity: 1; }                    to { opacity: 0; } }
 @keyframes dg-drawer-out      { from { transform: none; }               to { transform: translateX(110%); } }
 @keyframes dg-drawer-out-left { from { transform: none; }               to { transform: translateX(-110%); } }
 @keyframes dg-menu-out        { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(-6px) scale(.97); } }
 
-.dg-modal.is-closing            { animation: dg-modal-out       .26s cubic-bezier(.4,0,1,1) forwards; }
-.dg-modal-backdrop.is-closing   { animation: dg-fade-out        .26s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
+.dg-modal.is-closing            { animation: dg-modal-out       .22s cubic-bezier(.55,0,1,.6) forwards; }
+.dg-modal-backdrop.is-closing   { animation: dg-fade-out        .24s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
 .dg-drawer.is-closing           { animation: dg-drawer-out      .26s cubic-bezier(.4,0,1,1) forwards; }
 .dg-drawer.dg-drawer-left.is-closing { animation: dg-drawer-out-left .26s cubic-bezier(.4,0,1,1) forwards; }
 .dg-drawer-backdrop.is-closing  { animation: dg-fade-out        .26s cubic-bezier(.4,0,1,1) forwards; pointer-events: none; }
@@ -292,19 +593,17 @@
   gap: var(--dg-space-2);
   padding: var(--dg-space-6) var(--dg-space-5) 0;
 }
-/* Bigger badge, but the circle stays a subtle tint — the status color
-   lives in the icon glyph itself, same pairing as .dg-modal-confirm's
-   icon, just scaled up. */
+/* Bigger badge with concentric rings: subtle tint outside, solid circle inside */
 .dg-modal-status-hero .dg-modal-icon {
   width: 76px; height: 76px;
   animation: dg-icon-pop .5s cubic-bezier(.34,1.56,.64,1) both;
 }
 .dg-modal-status-hero .dg-modal-icon svg,
-.dg-modal-status-hero .dg-modal-icon .dg-icon { width: 34px; height: 34px; }
-.dg-modal-status-hero .dg-modal-icon.is-success { background: var(--dg-success-bg); color: var(--dg-success); }
-.dg-modal-status-hero .dg-modal-icon.is-warning { background: var(--dg-warning-bg); color: var(--dg-warning); }
-.dg-modal-status-hero .dg-modal-icon.is-danger  { background: var(--dg-danger-bg);  color: var(--dg-danger); }
-.dg-modal-status-hero .dg-modal-icon.is-info    { background: var(--dg-info-bg);    color: var(--dg-info); }
+.dg-modal-status-hero .dg-modal-icon .dg-icon { width: 30px; height: 30px; }
+.dg-modal-status-hero .dg-modal-icon.is-success { background: var(--dg-success-subtle); --dg-modal-icon-solid: var(--dg-success); }
+.dg-modal-status-hero .dg-modal-icon.is-warning { background: var(--dg-warning-subtle); --dg-modal-icon-solid: var(--dg-warning); }
+.dg-modal-status-hero .dg-modal-icon.is-danger  { background: var(--dg-danger-subtle);  --dg-modal-icon-solid: var(--dg-danger); }
+.dg-modal-status-hero .dg-modal-icon.is-info    { background: var(--dg-info-subtle);    --dg-modal-icon-solid: var(--dg-info); }
 
 /* Title + message live together inside .dg-modal-body (no separate header).
    Full-strength text color, not the usual muted body tone — a status
@@ -315,7 +614,22 @@
   color: var(--dg-text);
 }
 .dg-modal-status-hero + .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-2); }
-.dg-modal-status-hero ~ .dg-modal-footer { justify-content: center; }
+
+/* Floating footer in notice and status modals: translucent with soft blur */
+.dg-modal-status-hero ~ .dg-modal-footer,
+.dg-modal-confirm .dg-modal-footer,
+.dg-modal-accent .dg-modal-footer,
+.dg-modal.is-warning .dg-modal-footer,
+.dg-modal.is-success .dg-modal-footer,
+.dg-modal.is-danger .dg-modal-footer,
+.dg-modal.is-info .dg-modal-footer,
+.dg-modal-footer.is-translucent,
+.dg-modal-footer.is-transparent {
+  background: color-mix(in oklab, var(--dg-surface-3) 40%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  justify-content: center;
+}
 
 /* Status tag — a pill in the modal header */
 .dg-status-tag {
@@ -345,4 +659,4 @@
 .dg-modal-onboard .dg-onboard-dots { display: flex; gap: 6px; justify-content: center; }
 .dg-modal-onboard .dg-onboard-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--dg-border-strong); transition: background var(--dg-dur) var(--dg-ease), width var(--dg-dur) var(--dg-ease); }
 .dg-modal-onboard .dg-onboard-dots i.is-active { background: var(--dg-solid); width: 20px; border-radius: var(--dg-radius-pill); }
-.dg-modal-onboard .dg-modal-footer { justify-content: space-between; align-items: center; }
+.dg-modal-onboard .dg-modal-footer { justify-content: center; align-items: center; }

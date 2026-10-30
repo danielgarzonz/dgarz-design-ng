@@ -2,22 +2,27 @@
 import Layout from "../../layouts/DocsLayout.astro";
 import { CHANGELOG } from "../../data/changelog";
 
-const latest = CHANGELOG[0];
+const latestReleased = CHANGELOG.find((r) => !r.unreleased);
 ---
 
 <Layout title="Changelog" lead="Todo lo que cambia en dgarz design, versión por versión." currentHref="/comenzar/changelog">
   <div class="changelog-list">
-    {CHANGELOG.map((release, i) => (
+    {CHANGELOG.map((release) => (
       <div class="dg-card changelog-item">
         <div class="dg-card-body">
           <div class="changelog-item-head">
             <div class="changelog-item-title">
               <span class="dg-eyebrow">v{release.version}</span>
-              {i === 0 && <span class="dg-badge dg-badge-solid">Última</span>}
+              {release.unreleased && <span class="dg-badge dg-badge-outline">En desarrollo</span>}
+              {release === latestReleased && <span class="dg-badge dg-badge-solid">Última</span>}
             </div>
             <div class="changelog-item-meta">
-              <time datetime={release.date}>{release.date}</time>
-              <a href={`https://www.npmjs.com/package/dgarz-design/v/${release.version}`} target="_blank" rel="noopener">npm ↗</a>
+              {release.unreleased
+                ? <span>Próximamente</span>
+                : <>
+                    <time datetime={release.date}>{release.date}</time>
+                    <a href={`https://www.npmjs.com/package/dgarz-design/v/${release.version}`} target="_blank" rel="noopener">npm ↗</a>
+                  </>}
             </div>
           </div>
           <p class="dg-muted dg-text-sm dg-mt-2 dg-mb-3">{release.summary}</p>

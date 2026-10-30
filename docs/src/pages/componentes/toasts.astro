@@ -28,13 +28,16 @@ dgarz.toast("Actualización disponible.", { variant: "info" });</pre></div>
 
       <div class="doc-sub">Estructura HTML manual (sin JS)</div>
       <div class="doc-demo is-plain">
-        <div class="dg-relative dg-h-80">
-          <div class="dg-absolute dg-bottom-0 dg-right-0 dg-flex dg-col-flex dg-gap-2">
-            <div class="dg-toast dg-toast-success dg-anim-none">Guardado</div>
-          </div>
+        <div class="dg-flex dg-col-flex dg-items-end dg-gap-3">
+          <div class="dg-toast dg-anim-none">Mensaje por defecto</div>
+          <div class="dg-toast dg-toast-success dg-anim-none">Guardado</div>
+          <div class="dg-toast dg-toast-warning dg-anim-none">Aviso</div>
+          <div class="dg-toast dg-toast-danger dg-anim-none">Error</div>
+          <div class="dg-toast dg-toast-info dg-anim-none">Actualización</div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Contenedor fijo (ya incluido en el framework) --&gt;
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- .dg-toast-stack: contenedor fijo abajo a la derecha.
+     dgarz.toast() lo crea solo; escríbelo a mano solo si no usas JS --&gt;
 &lt;div class="dg-toast-stack"&gt;
   &lt;div class="dg-toast"&gt;Mensaje por defecto&lt;/div&gt;
   &lt;div class="dg-toast dg-toast-success"&gt;Guardado&lt;/div&gt;

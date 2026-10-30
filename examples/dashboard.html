@@ -9,55 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/dist/dgarz.full.min.css" />
 
-  <style>
-    /* ---- mini chart bars (pure CSS) ---- */
-    .chart-bar-group { display: flex; align-items: flex-end; gap: 6px; height: 64px; }
-    .chart-bar { flex: 1; border-radius: 4px 4px 0 0; background: var(--dg-solid); opacity: .18; transition: opacity var(--dg-dur); }
-    .chart-bar.is-active { opacity: 1; }
-    .chart-bar:hover { opacity: .7; }
-
-    /* ---- avatar placeholder ---- */
-    .avatar-img { width: 2rem; height: 2rem; border-radius: 50%; background: var(--dg-surface-3); display: inline-flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 600; color: var(--dg-text-muted); flex-shrink: 0; }
-
-    /* ---- activity dot ---- */
-    .dot { width: .55em; height: .55em; border-radius: 50%; flex-shrink: 0; }
-    .dot-success { background: var(--dg-success); }
-    .dot-warning { background: var(--dg-warning); }
-    .dot-danger  { background: var(--dg-danger); }
-    .dot-info    { background: var(--dg-info); }
-
-    /* ---- sidebar collapse button ---- */
-    #sidebar-toggle { margin-left: auto; }
-    .dg-app.is-collapsed #sidebar-toggle svg { transform: rotate(180deg); }
-  </style>
 </head>
 <body>
-
-<!-- ═══════════════════════════════════════════
-     SVG ICON SPRITE
-════════════════════════════════════════════ -->
-<svg hidden aria-hidden="true" style="position:absolute">
-  <defs>
-    <symbol id="dg-home"         viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M5 10v11h14V10"/></symbol>
-    <symbol id="dg-trending-up"  viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
-    <symbol id="dg-users"        viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-    <symbol id="dg-shopping-bag" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
-    <symbol id="dg-bell"         viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
-    <symbol id="dg-settings"     viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
-    <symbol id="dg-inbox"        viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
-    <symbol id="dg-bar-chart"    viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
-    <symbol id="dg-arrow-up"     viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
-    <symbol id="dg-arrow-down"   viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
-    <symbol id="dg-menu"         viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
-    <symbol id="dg-sun"          viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
-    <symbol id="dg-moon"         viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
-    <symbol id="dg-search"       viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
-    <symbol id="dg-chevron-left" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
-    <symbol id="dg-more"         viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
-    <symbol id="dg-download"     viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
-    <symbol id="dg-filter"       viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
-  </defs>
-</svg>
 
 <!-- ═══════════════════════════════════════════
      APP SHELL
@@ -69,84 +22,84 @@
     <!-- Brand -->
     <div class="dg-app-brand">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      <span class="dg-label-collapsible">dgarz <span style="color:var(--dg-text-muted)">app</span></span>
+      <span class="dg-label-collapsible">dgarz <span class="dg-muted">app</span></span>
     </div>
 
     <!-- Nav -->
     <nav class="dg-nav-vertical dg-grow">
       <span class="dg-aside-heading dg-label-collapsible">Principal</span>
       <a class="dg-nav-item is-active" href="#">
-        <svg class="dg-icon"><use href="#dg-home"/></svg><span>Inicio</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-home"/></svg><span>Inicio</span>
       </a>
       <a class="dg-nav-item" href="#">
-        <svg class="dg-icon"><use href="#dg-bar-chart"/></svg><span>Analítica</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-chart"/></svg><span>Analítica</span>
         <span class="dg-badge dg-badge-solid dg-nav-badge">3</span>
       </a>
       <a class="dg-nav-item" href="#">
-        <svg class="dg-icon"><use href="#dg-users"/></svg><span>Clientes</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-users"/></svg><span>Clientes</span>
       </a>
       <a class="dg-nav-item" href="#">
-        <svg class="dg-icon"><use href="#dg-shopping-bag"/></svg><span>Pedidos</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-credit"/></svg><span>Pedidos</span>
       </a>
       <a class="dg-nav-item" href="#">
-        <svg class="dg-icon"><use href="#dg-inbox"/></svg><span>Mensajes</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-inbox"/></svg><span>Mensajes</span>
         <span class="dg-badge dg-badge-solid dg-nav-badge">12</span>
       </a>
 
-      <span class="dg-aside-heading dg-label-collapsible" style="margin-top:var(--dg-space-3)">Cuenta</span>
+      <span class="dg-aside-heading dg-label-collapsible dg-mt-3">Cuenta</span>
       <a class="dg-nav-item" href="#">
-        <svg class="dg-icon"><use href="#dg-settings"/></svg><span>Configuración</span>
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-settings"/></svg><span>Configuración</span>
       </a>
     </nav>
 
     <!-- Collapse toggle -->
-    <button class="dg-btn dg-btn-ghost dg-btn-sm" id="sidebar-toggle" onclick="document.getElementById('app').classList.toggle('is-collapsed')" title="Colapsar sidebar">
-      <svg class="dg-icon" style="transition:transform var(--dg-dur)"><use href="#dg-chevron-left"/></svg>
+    <button class="dg-btn dg-btn-ghost dg-btn-sm dg-ml-auto" id="sidebar-toggle" onclick="document.getElementById('app').classList.toggle('is-collapsed')" title="Colapsar sidebar">
+      <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-chevron-left"/></svg>
     </button>
   </aside>
 
   <!-- ── Header ── -->
   <header class="dg-app-header">
     <!-- Hamburger (mobile) -->
-    <button class="dg-btn dg-btn-ghost dg-btn-sm" onclick="document.getElementById('app').classList.toggle('is-aside-open')" style="display:none" id="menu-btn">
-      <svg class="dg-icon"><use href="#dg-menu"/></svg>
+    <button class="dg-btn dg-btn-ghost dg-btn-icon dg-hidden-desktop" onclick="document.getElementById('app').classList.toggle('is-aside-open')" id="menu-btn" aria-label="Menú">
+      <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-menu"/></svg>
     </button>
 
     <!-- Breadcrumb -->
     <nav class="dg-breadcrumb dg-hidden-mobile">
       <a href="#">Inicio</a>
-      <svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="#dg-chevron-left" transform="rotate(180,12,12)"/></svg>
+      <svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="/dist/dgarz-icons.svg#dg-chevron-right"/></svg>
       <span aria-current="page">Dashboard</span>
     </nav>
 
     <!-- Search -->
-    <div class="dg-input-icon dg-ml-auto" style="max-width:260px">
-      <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-search"/></svg>
-      <input class="dg-input dg-input-sm" placeholder="Buscar…" style="padding-left:2.2rem" />
+    <div class="dg-input-icon dg-ml-auto dg-max-w-260">
+      <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="/dist/dgarz-icons.svg#dg-search"/></svg>
+      <input class="dg-input dg-input-sm" placeholder="Buscar…" />
     </div>
 
     <!-- Actions -->
     <div class="dg-flex dg-items-center dg-gap-2">
-      <button class="dg-btn dg-btn-ghost dg-btn-sm dg-relative" style="padding:.45rem" title="Notificaciones">
-        <svg class="dg-icon"><use href="#dg-bell"/></svg>
-        <span class="dg-badge dg-badge-solid" style="position:absolute;top:2px;right:2px;padding:.15em .4em;font-size:.6rem">4</span>
+      <button class="dg-btn dg-btn-ghost dg-btn-icon dg-relative" title="Notificaciones" aria-label="Notificaciones">
+        <svg class="dg-icon"><use href="/dist/dgarz-icons.svg#dg-bell"/></svg>
+        <span class="dg-badge dg-badge-solid dg-absolute dg-top-0 dg-right-0 dg-text-xs">4</span>
       </button>
 
-      <button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.45rem" data-dg-theme-toggle title="Cambiar tema">
-        <svg class="dg-icon" id="theme-icon"><use href="#dg-sun"/></svg>
+      <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-theme-toggle title="Cambiar tema" aria-label="Cambiar tema">
+        <svg class="dg-icon" id="theme-icon"><use href="/dist/dgarz-icons.svg#dg-sun"/></svg>
       </button>
 
       <!-- User menu -->
-      <div class="dg-dropdown">
-        <button class="dg-btn dg-btn-ghost dg-btn-sm dg-flex dg-items-center dg-gap-2" style="padding:.3rem .5rem">
-          <div class="avatar-img">DG</div>
+      <div class="dg-dropdown" data-dg-dropdown>
+        <button class="dg-btn dg-btn-ghost dg-btn-sm dg-flex dg-items-center dg-gap-2" data-dg-dropdown-trigger>
+          <div class="dg-avatar dg-avatar-sm">DG</div>
           <span class="dg-text-sm dg-hidden-mobile">Daniel G.</span>
         </button>
-        <div class="dg-menu" style="right:0;left:auto;min-width:180px">
+        <div class="dg-menu dg-menu-end">
           <a class="dg-menu-item" href="#">Perfil</a>
           <a class="dg-menu-item" href="#">Configuración</a>
-          <div class="dg-menu-separator"></div>
-          <a class="dg-menu-item" href="#" style="color:var(--dg-danger)">Cerrar sesión</a>
+          <div class="dg-menu-sep"></div>
+          <a class="dg-menu-item dg-menu-item-danger" href="#">Cerrar sesión</a>
         </div>
       </div>
     </div>
@@ -163,11 +116,11 @@
       </div>
       <div class="dg-flex dg-gap-2">
         <button class="dg-btn dg-btn-outline dg-btn-sm">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-filter"/></svg>
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-filter"/></svg>
           Filtrar
         </button>
         <button class="dg-btn dg-btn-sm">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-download"/></svg>
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-down"/></svg>
           Exportar
         </button>
       </div>
@@ -179,28 +132,28 @@
         <div class="dg-stat-label">Ingresos</div>
         <div class="dg-stat-value">$48.2k</div>
         <span class="dg-stat-delta is-up">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-arrow-up"/></svg>12.4% vs mes anterior
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-up"/></svg>12.4% vs mes anterior
         </span>
       </div>
       <div class="dg-stat">
         <div class="dg-stat-label">Pedidos</div>
         <div class="dg-stat-value">1,284</div>
         <span class="dg-stat-delta is-up">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-arrow-up"/></svg>+8.1% esta semana
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-up"/></svg>+8.1% esta semana
         </span>
       </div>
       <div class="dg-stat">
         <div class="dg-stat-label">Clientes activos</div>
         <div class="dg-stat-value">612</div>
         <span class="dg-stat-delta is-down">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-arrow-down"/></svg>−1.8% esta semana
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-down"/></svg>−1.8% esta semana
         </span>
       </div>
       <div class="dg-stat">
         <div class="dg-stat-label">Conversión</div>
         <div class="dg-stat-value">3.9%</div>
         <span class="dg-stat-delta is-up">
-          <svg class="dg-icon dg-icon-sm"><use href="#dg-arrow-up"/></svg>+0.6 pts
+          <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-up"/></svg>+0.6 pts
         </span>
       </div>
     </div>
@@ -213,7 +166,7 @@
           <div class="dg-card-header">
             <div>
               <h2 class="dg-h6">Ingresos mensuales</h2>
-              <p class="dg-text-sm dg-muted">Últimos 12 meses</p>
+              <p class="dg-text-sm dg-muted">Últimos 6 meses</p>
             </div>
             <div class="dg-segmented" data-dg-segmented>
               <button class="dg-btn dg-btn-sm is-active">Mes</button>
@@ -222,25 +175,38 @@
             </div>
           </div>
           <div class="dg-card-body">
-            <!-- Mini bar chart -->
-            <div class="dg-flex dg-items-end dg-gap-2" style="height:120px;margin-bottom:var(--dg-space-3)">
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:55%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:68%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:45%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:80%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:62%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:72%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:58%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:88%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:70%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:94%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:.22;height:76%"></div>
-              <div style="flex:1;border-radius:4px 4px 0 0;background:var(--dg-solid);opacity:1;height:100%"></div>
-            </div>
-            <div class="dg-flex dg-justify-between dg-text-xs dg-muted">
-              <span>Jul</span><span>Ago</span><span>Sep</span><span>Oct</span><span>Nov</span>
-              <span>Dic</span><span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span>
-              <span>May</span><span class="dg-fw-semi" style="color:var(--dg-text)">Jun</span>
+            <!-- Revenue: progress rows (no chart library needed) -->
+            <div class="dg-stack dg-gap-3">
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-muted">Ene</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal dg-opacity-50" style="width:58%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-muted">$27.9k</span>
+              </div>
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-muted">Feb</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal dg-opacity-50" style="width:88%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-muted">$42.4k</span>
+              </div>
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-muted">Mar</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal dg-opacity-50" style="width:70%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-muted">$33.7k</span>
+              </div>
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-muted">Abr</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal dg-opacity-50" style="width:94%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-muted">$45.3k</span>
+              </div>
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-muted">May</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal dg-opacity-50" style="width:76%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-muted">$36.6k</span>
+              </div>
+              <div class="dg-flex dg-items-center dg-gap-3 dg-text-sm">
+                <span class="dg-w-80 dg-no-shrink"><span class="dg-fw-semi">Jun</span></span>
+                <div class="dg-progress dg-grow"><div class="dg-progress-bar dg-reveal" style="width:100%"></div></div>
+                <span class="dg-w-80 dg-text-right dg-no-shrink dg-fw-semi">$48.2k</span>
+              </div>
             </div>
           </div>
         </div>
@@ -248,14 +214,14 @@
 
       <!-- Activity feed -->
       <div class="dg-col-12 dg-col-lg-4">
-        <div class="dg-card" style="height:100%">
+        <div class="dg-card dg-h-full">
           <div class="dg-card-header">
             <h2 class="dg-h6">Actividad reciente</h2>
             <a href="#" class="dg-text-sm dg-muted">Ver todo</a>
           </div>
-          <div class="dg-card-body dg-stack" style="gap:var(--dg-space-4)">
+          <div class="dg-card-body dg-stack dg-gap-4">
             <div class="dg-flex dg-gap-3">
-              <div class="dot dot-success dg-mt-1"></div>
+              <svg class="dg-icon dg-icon-sm dg-text-success dg-mt-1 dg-no-shrink"><use href="/dist/dgarz-icons.svg#dg-check"/></svg>
               <div>
                 <p class="dg-text-sm dg-fw-medium">Nuevo pedido #1284</p>
                 <p class="dg-text-xs dg-muted">Ana García · hace 3 min</p>
@@ -263,14 +229,14 @@
               <span class="dg-badge dg-badge-success dg-ml-auto">+$340</span>
             </div>
             <div class="dg-flex dg-gap-3">
-              <div class="dot dot-info dg-mt-1"></div>
+              <svg class="dg-icon dg-icon-sm dg-text-info dg-mt-1 dg-no-shrink"><use href="/dist/dgarz-icons.svg#dg-user"/></svg>
               <div>
                 <p class="dg-text-sm dg-fw-medium">Cliente registrado</p>
                 <p class="dg-text-xs dg-muted">Carlos Ruiz · hace 18 min</p>
               </div>
             </div>
             <div class="dg-flex dg-gap-3">
-              <div class="dot dot-warning dg-mt-1"></div>
+              <svg class="dg-icon dg-icon-sm dg-text-warning dg-mt-1 dg-no-shrink"><use href="/dist/dgarz-icons.svg#dg-alert-tri"/></svg>
               <div>
                 <p class="dg-text-sm dg-fw-medium">Stock bajo: Producto A</p>
                 <p class="dg-text-xs dg-muted">Sistema · hace 42 min</p>
@@ -278,7 +244,7 @@
               <span class="dg-badge dg-badge-warning dg-ml-auto">3 uds</span>
             </div>
             <div class="dg-flex dg-gap-3">
-              <div class="dot dot-success dg-mt-1"></div>
+              <svg class="dg-icon dg-icon-sm dg-text-success dg-mt-1 dg-no-shrink"><use href="/dist/dgarz-icons.svg#dg-check"/></svg>
               <div>
                 <p class="dg-text-sm dg-fw-medium">Pago confirmado</p>
                 <p class="dg-text-xs dg-muted">Pedido #1281 · hace 1h</p>
@@ -286,7 +252,7 @@
               <span class="dg-badge dg-badge-success dg-ml-auto">+$820</span>
             </div>
             <div class="dg-flex dg-gap-3">
-              <div class="dot dot-danger dg-mt-1"></div>
+              <svg class="dg-icon dg-icon-sm dg-text-danger dg-mt-1 dg-no-shrink"><use href="/dist/dgarz-icons.svg#dg-x"/></svg>
               <div>
                 <p class="dg-text-sm dg-fw-medium">Pedido cancelado #1278</p>
                 <p class="dg-text-xs dg-muted">Luis Torres · hace 2h</p>
@@ -311,25 +277,25 @@
               <div class="dg-flex dg-justify-between dg-text-sm dg-mb-2">
                 <span>Ingresos</span><span class="dg-fw-medium">$48.2k / $50k</span>
               </div>
-              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:96%" role="progressbar" aria-valuenow="96"></div></div>
+              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:96%"></div></div>
             </div>
             <div>
               <div class="dg-flex dg-justify-between dg-text-sm dg-mb-2">
                 <span>Pedidos</span><span class="dg-fw-medium">1,284 / 1,500</span>
               </div>
-              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:85%" role="progressbar" aria-valuenow="85"></div></div>
+              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:85%"></div></div>
             </div>
             <div>
               <div class="dg-flex dg-justify-between dg-text-sm dg-mb-2">
                 <span>Clientes nuevos</span><span class="dg-fw-medium">87 / 200</span>
               </div>
-              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:43%" role="progressbar" aria-valuenow="43"></div></div>
+              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:43%"></div></div>
             </div>
             <div>
               <div class="dg-flex dg-justify-between dg-text-sm dg-mb-2">
                 <span>NPS</span><span class="dg-fw-medium">72 / 80</span>
               </div>
-              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:90%" role="progressbar" aria-valuenow="90"></div></div>
+              <div class="dg-progress"><div class="dg-progress-bar dg-reveal" style="width:90%"></div></div>
             </div>
           </div>
         </div>
@@ -340,9 +306,9 @@
           <div class="dg-card-header">
             <h2 class="dg-h6">Top productos</h2>
           </div>
-          <div class="dg-list" style="border:none;border-radius:0">
+          <div class="dg-list dg-border-0 dg-rounded-0">
             <div class="dg-list-item">
-              <div class="avatar-img" style="border-radius:var(--dg-radius-sm)">P1</div>
+              <div class="dg-avatar dg-avatar-sm dg-rounded-sm">P1</div>
               <div>
                 <div class="dg-list-title">Producto Premium A</div>
                 <div class="dg-list-meta">348 unidades vendidas</div>
@@ -350,7 +316,7 @@
               <div class="dg-list-end dg-text-sm dg-fw-medium">$12.4k</div>
             </div>
             <div class="dg-list-item">
-              <div class="avatar-img" style="border-radius:var(--dg-radius-sm)">P2</div>
+              <div class="dg-avatar dg-avatar-sm dg-rounded-sm">P2</div>
               <div>
                 <div class="dg-list-title">Producto Estándar B</div>
                 <div class="dg-list-meta">291 unidades vendidas</div>
@@ -358,7 +324,7 @@
               <div class="dg-list-end dg-text-sm dg-fw-medium">$8.7k</div>
             </div>
             <div class="dg-list-item">
-              <div class="avatar-img" style="border-radius:var(--dg-radius-sm)">P3</div>
+              <div class="dg-avatar dg-avatar-sm dg-rounded-sm">P3</div>
               <div>
                 <div class="dg-list-title">Kit Combo C</div>
                 <div class="dg-list-meta">184 unidades vendidas</div>
@@ -366,7 +332,7 @@
               <div class="dg-list-end dg-text-sm dg-fw-medium">$6.1k</div>
             </div>
             <div class="dg-list-item">
-              <div class="avatar-img" style="border-radius:var(--dg-radius-sm)">P4</div>
+              <div class="dg-avatar dg-avatar-sm dg-rounded-sm">P4</div>
               <div>
                 <div class="dg-list-title">Accesorio D</div>
                 <div class="dg-list-meta">127 unidades vendidas</div>
@@ -386,17 +352,17 @@
           <p class="dg-text-sm dg-muted">Últimas 8 operaciones</p>
         </div>
         <div class="dg-flex dg-gap-2">
-          <input class="dg-input dg-input-sm" placeholder="Buscar…" style="max-width:160px" />
-          <button class="dg-btn dg-btn-outline dg-btn-sm">
-            <svg class="dg-icon dg-icon-sm"><use href="#dg-download"/></svg>
+          <input class="dg-input dg-input-sm dg-w-160" placeholder="Buscar…" />
+          <button class="dg-btn dg-btn-outline dg-btn-sm dg-btn-icon" aria-label="Exportar">
+            <svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-arrow-down"/></svg>
           </button>
         </div>
       </div>
-      <div class="dg-card-body" style="padding:0;overflow-x:auto">
+      <div class="dg-card-body dg-p-0 dg-overflow-x-auto">
         <table class="dg-table dg-table-hover" data-dg-sortable>
           <thead>
             <tr>
-              <th class="dg-sortable" style="padding-left:var(--dg-space-5)">ID</th>
+              <th class="dg-sortable dg-pl-5">ID</th>
               <th class="dg-sortable">Cliente</th>
               <th class="dg-sortable">Producto</th>
               <th class="dg-sortable">Fecha</th>
@@ -407,76 +373,76 @@
           </thead>
           <tbody>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1284</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">AG</div><span class="dg-text-sm">Ana García</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1284</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">AG</div><span class="dg-text-sm">Ana García</span></div></td>
               <td><span class="dg-text-sm">Producto Premium A</span></td>
               <td><span class="dg-text-sm dg-muted">05 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$340.00</span></td>
               <td><span class="dg-badge dg-badge-success">Completado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1283</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">MF</div><span class="dg-text-sm">Marco Fernández</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1283</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">MF</div><span class="dg-text-sm">Marco Fernández</span></div></td>
               <td><span class="dg-text-sm">Kit Combo C</span></td>
               <td><span class="dg-text-sm dg-muted">05 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$215.00</span></td>
               <td><span class="dg-badge dg-badge-info">En proceso</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1282</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">SL</div><span class="dg-text-sm">Sofía López</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1282</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">SL</div><span class="dg-text-sm">Sofía López</span></div></td>
               <td><span class="dg-text-sm">Producto Estándar B</span></td>
               <td><span class="dg-text-sm dg-muted">04 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$189.00</span></td>
               <td><span class="dg-badge dg-badge-success">Completado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1281</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">JR</div><span class="dg-text-sm">Juan Ramírez</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1281</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">JR</div><span class="dg-text-sm">Juan Ramírez</span></div></td>
               <td><span class="dg-text-sm">Producto Premium A</span></td>
               <td><span class="dg-text-sm dg-muted">04 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$820.00</span></td>
               <td><span class="dg-badge dg-badge-success">Completado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1280</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">CR</div><span class="dg-text-sm">Carlos Ruiz</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1280</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">CR</div><span class="dg-text-sm">Carlos Ruiz</span></div></td>
               <td><span class="dg-text-sm">Accesorio D</span></td>
               <td><span class="dg-text-sm dg-muted">03 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$95.00</span></td>
               <td><span class="dg-badge dg-badge-warning">Pendiente</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1279</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">PM</div><span class="dg-text-sm">Paula Moreno</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1279</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">PM</div><span class="dg-text-sm">Paula Moreno</span></div></td>
               <td><span class="dg-text-sm">Kit Combo C</span></td>
               <td><span class="dg-text-sm dg-muted">03 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$430.00</span></td>
               <td><span class="dg-badge dg-badge-success">Completado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1278</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">LT</div><span class="dg-text-sm">Luis Torres</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1278</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">LT</div><span class="dg-text-sm">Luis Torres</span></div></td>
               <td><span class="dg-text-sm">Producto Estándar B</span></td>
               <td><span class="dg-text-sm dg-muted">02 Jun 2026</span></td>
-              <td><span class="dg-fw-medium" style="color:var(--dg-danger)">−$160.00</span></td>
+              <td><span class="dg-fw-medium dg-text-danger">−$160.00</span></td>
               <td><span class="dg-badge dg-badge-danger">Cancelado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
             <tr>
-              <td style="padding-left:var(--dg-space-5);font-family:var(--dg-font-mono);font-size:var(--dg-text-sm)">#1277</td>
-              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="avatar-img">NV</div><span class="dg-text-sm">Natalia Vargas</span></div></td>
+              <td class="dg-pl-5 dg-font-mono dg-text-sm">#1277</td>
+              <td><div class="dg-flex dg-items-center dg-gap-2"><div class="dg-avatar dg-avatar-sm">NV</div><span class="dg-text-sm">Natalia Vargas</span></div></td>
               <td><span class="dg-text-sm">Producto Premium A</span></td>
               <td><span class="dg-text-sm dg-muted">01 Jun 2026</span></td>
               <td><span class="dg-fw-medium">$680.00</span></td>
               <td><span class="dg-badge dg-badge-success">Completado</span></td>
-              <td><button class="dg-btn dg-btn-ghost dg-btn-sm" style="padding:.3rem"><svg class="dg-icon dg-icon-sm"><use href="#dg-more"/></svg></button></td>
+              <td><button class="dg-btn dg-btn-ghost dg-btn-sm dg-btn-icon" aria-label="Más acciones"><svg class="dg-icon dg-icon-sm"><use href="/dist/dgarz-icons.svg#dg-more"/></svg></button></td>
             </tr>
           </tbody>
         </table>
@@ -489,7 +455,7 @@
           <button class="dg-page is-active">1</button>
           <button class="dg-page">2</button>
           <button class="dg-page">3</button>
-          <span class="dg-page" style="cursor:default">…</span>
+          <span class="dg-page dg-cursor-default">…</span>
           <button class="dg-page">161</button>
           <button class="dg-page">›</button>
         </nav>
@@ -498,21 +464,13 @@
 
     <!-- Footer -->
     <p class="dg-text-xs dg-muted dg-text-center dg-py-4">
-      dgarz design — <a href="https://github.com/dgarz-design/dgarz-design" class="dg-link">github.com/dgarz-design/dgarz-design</a>
+      dgarz design — <a href="https://github.com/dgarzonz/dgarz-design" class="dg-link">github.com/dgarzonz/dgarz-design</a>
     </p>
 
   </main>
 </div><!-- /.dg-app -->
 
 <script>
-  // Show hamburger on mobile
-  var menuBtn = document.getElementById('menu-btn');
-  if (menuBtn) {
-    if (window.innerWidth <= 860) menuBtn.style.display = '';
-    window.addEventListener('resize', function() {
-      menuBtn.style.display = window.innerWidth <= 860 ? '' : 'none';
-    });
-  }
 
   // Sync theme icon
   document.addEventListener('dg:themechange', function(e) {

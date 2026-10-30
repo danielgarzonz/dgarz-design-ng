@@ -102,83 +102,169 @@ import Layout from "../../layouts/DocsLayout.astro";
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
 
-      <div class="doc-sub">2. Tamaños</div>
-      <div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdSm">Pequeño (360px)</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#jsModal">Estándar (460px)</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdLg">Grande (640px)</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#mdForm">Extra (840px)</button>
+      <div class="doc-sub" id="modal-size-label">2. Tamaños: chico, mediano y full</div>
+      <section data-modal-size-tabs>
+        <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-size-label">
+          <button type="button" class="is-active" role="tab" id="modal-size-tab-0" aria-controls="modal-size-panel-0" aria-selected="true" tabindex="0">Chico</button>
+          <button type="button" class="" role="tab" id="modal-size-tab-1" aria-controls="modal-size-panel-1" aria-selected="false" tabindex="-1">Mediano</button>
+          <button type="button" class="" role="tab" id="modal-size-tab-2" aria-controls="modal-size-panel-2" aria-selected="false" tabindex="-1">Full</button>
         </div>
-      </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-sm"&gt;Pequeño (360px)&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-md"&gt;Estándar (460px)&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-lg"&gt;Grande (640px)&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-xl"&gt;Extra (840px)&lt;/button&gt;
+        <div role="tabpanel" id="modal-size-panel-0" aria-labelledby="modal-size-tab-0" tabindex="0">
+          <p class="dg-muted dg-text-sm dg-mt-3">Una columna · 360px</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdSm">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize0"&gt;Ver modal chico&lt;/button&gt;
 
-&lt;!-- Pequeño: 360px --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-sm" data-dg-backdrop="" hidden&gt;
+&lt;div class="dg-modal-backdrop" id="ejemploSize0" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="#dg-x"/&gt;&lt;/svg&gt;&lt;/button&gt;
     &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal pequeño&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Ideal para mensajes breves.&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="smallName"&gt;Nombre&lt;/label&gt;&lt;input class="dg-input" id="smallName" placeholder="Nombre completo" /&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn" data-dg-close&gt;Entendido&lt;/button&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+        <div role="tabpanel" id="modal-size-panel-1" aria-labelledby="modal-size-tab-1" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Dos columnas · 720px; se apilan en móvil</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#jsModal">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize1"&gt;Ver modal mediano&lt;/button&gt;
 
-&lt;!-- Estándar: 460px (default, sin clase extra) --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-md" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal estándar&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Tamaño por defecto.&lt;/div&gt;
+&lt;div class="dg-modal-backdrop" id="ejemploSize1" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="ejemploSize1Title"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="#dg-x"/&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploSize1Title"&gt;Modal accesible&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;&lt;div class="dg-modal-grid"&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="modalName"&gt;Nombre&lt;/label&gt;&lt;input class="dg-input" id="modalName" placeholder="Nombre completo" /&gt;&lt;/div&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="modalEmail"&gt;Correo&lt;/label&gt;&lt;input class="dg-input" id="modalEmail" type="email" placeholder="nombre@ejemplo.com" /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Entendido&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+        <div role="tabpanel" id="modal-size-panel-2" aria-labelledby="modal-size-tab-2" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Pantalla completa · contenido centrado</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdFull">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize2"&gt;Ver modal full&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="ejemploSize2" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-full" role="dialog" aria-modal="true" aria-labelledby="ejemploSize2Title"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;×&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploSize2Title"&gt;Modal full&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;&lt;div class="dg-modal-content"&gt;&lt;div class="dg-modal-grid"&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="fullName"&gt;Nombre&lt;/label&gt;&lt;input class="dg-input" id="fullName" placeholder="Nombre completo" /&gt;&lt;/div&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="fullEmail"&gt;Correo&lt;/label&gt;&lt;input class="dg-input" id="fullEmail" type="email" placeholder="nombre@ejemplo.com" /&gt;&lt;/div&gt;&lt;div class="dg-field"&gt;&lt;label class="dg-label" for="fullNotes"&gt;Notas&lt;/label&gt;&lt;textarea class="dg-textarea" id="fullNotes" placeholder="Contenido centrado en la pantalla completa"&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;
       &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
       &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+      </section>
 
-&lt;!-- Grande: 640px --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-lg" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-lg" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal grande&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Más espacio para contenido extenso.&lt;/div&gt;
+      <div class="doc-sub" id="modal-footer-label">3. Variantes de footer</div>
+      <section data-modal-footer-tabs>
+        <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-footer-label">
+          <button type="button" class="is-active" role="tab" id="modal-footer-tab-0" aria-controls="modal-footer-panel-0" aria-selected="true" tabindex="0">Flotante estándar</button>
+          <button type="button" class="" role="tab" id="modal-footer-tab-1" aria-controls="modal-footer-panel-1" aria-selected="false" tabindex="-1">Flotante ampliado</button>
+          <button type="button" class="" role="tab" id="modal-footer-tab-2" aria-controls="modal-footer-panel-2" aria-selected="false" tabindex="-1">Tradicional (flush)</button>
+          <button type="button" class="" role="tab" id="modal-footer-tab-3" aria-controls="modal-footer-panel-3" aria-selected="false" tabindex="-1">Solo iconos</button>
+        </div>
+
+        <div role="tabpanel" id="modal-footer-panel-0" aria-labelledby="modal-footer-tab-0" tabindex="0">
+          <p class="dg-muted dg-text-sm dg-mt-3">Por defecto · centrado y ajustado al ancho de los botones con esquinas redondeadas</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdDefaultFooter">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterDefault"&gt;Ver modal&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="ejemploFooterDefault" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="ejemploFooterDefaultTitle"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;×&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploFooterDefaultTitle"&gt;Footer flotante estándar&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;El footer es flotante por defecto, centrado y ajustado al ancho de los botones.&lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;
       &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Guardar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Extra: 840px --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-xl" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal extra&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Ideal para formularios o tablas amplias.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Guardar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+        </div>
 
-      <div class="doc-sub">3. Confirmación con icono</div>
+        <div role="tabpanel" id="modal-footer-panel-1" aria-labelledby="modal-footer-tab-1" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Flotante ampliado · <code>.dg-modal-footer-wide</code> abarca el ancho del diálogo manteniendo margen y esquinas redondeadas</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdWideFooter">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterWide"&gt;Ver modal&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="ejemploFooterWide" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="ejemploFooterWideTitle"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;×&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploFooterWideTitle"&gt;Footer flotante ampliado&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;El footer se expande a lo ancho del diálogo manteniendo su margen y esquinas redondeadas.&lt;/div&gt;
+    &lt;div class="dg-modal-footer dg-modal-footer-wide is-between"&gt;
+      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Guardar cambios&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div role="tabpanel" id="modal-footer-panel-2" aria-labelledby="modal-footer-tab-2" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Tradicional (flush) · <code>.dg-modal-footer-flush</code> adherido al fondo y a los bordes con línea divisoria</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdFlushFooter">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterFlush"&gt;Ver modal&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="ejemploFooterFlush" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="ejemploFooterFlushTitle"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;×&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploFooterFlushTitle"&gt;Footer tradicional (flush)&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;El footer se extiende al ancho completo del modal y queda adherido al borde inferior.&lt;/div&gt;
+    &lt;div class="dg-modal-footer dg-modal-footer-flush"&gt;
+      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div role="tabpanel" id="modal-footer-panel-3" aria-labelledby="modal-footer-tab-3" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Solo iconos · <code>.dg-btn-icon</code> botones circulares de 42px para acciones rápidas</p>
+          <button class="dg-btn dg-mt-3" data-dg-open="#mdIconFooter">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploIconFooter"&gt;Ver modal&lt;/button&gt;
+
+&lt;div class="dg-modal-backdrop" id="ejemploIconFooter" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true" aria-labelledby="ejemploIconFooterTitle"&gt;
+    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;×&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="ejemploIconFooterTitle"&gt;Acciones rápidas&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;El footer flotante se ajusta automáticamente a los botones redondos con solo iconos.&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar"&gt;
+        &lt;svg class="dg-icon"&gt;&lt;use href="#dg-x"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Destacar"&gt;
+        &lt;svg class="dg-icon"&gt;&lt;use href="#dg-star"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;button class="dg-btn dg-btn-danger dg-btn-icon" aria-label="Eliminar"&gt;
+        &lt;svg class="dg-icon"&gt;&lt;use href="#dg-trash"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;button class="dg-btn dg-btn-icon" data-dg-close aria-label="Confirmar"&gt;
+        &lt;svg class="dg-icon"&gt;&lt;use href="#dg-check"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+      </section>
+
+      <div class="doc-sub">4. Confirmación con icono</div>
       <div class="doc-demo is-plain">
         <button class="dg-btn dg-btn-danger" data-dg-open="#mdConfirm">Eliminar proyecto</button>
       </div>
       <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-danger" data-dg-open="#mi-confirm"&gt;Eliminar proyecto&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="mi-confirm" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true"&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true" aria-labelledby="mi-confirm-title"&gt;
     &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;…&lt;/button&gt;
-    &lt;span class="dg-modal-icon is-danger"&gt;…&lt;/span&gt;
-    &lt;div class="dg-modal-header"&gt;
-      &lt;h3 class="dg-modal-title"&gt;¿Eliminar proyecto?&lt;/h3&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;span class="dg-modal-icon is-danger"&gt;…&lt;/span&gt;
+      &lt;h3 class="dg-modal-title" id="mi-confirm-title"&gt;¿Eliminar proyecto?&lt;/h3&gt;
+      &lt;p&gt;Esta acción es permanente y no se puede deshacer.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Esta acción es permanente y no se puede deshacer.&lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;
       &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
       &lt;button class="dg-btn dg-btn-danger" data-dg-close&gt;Eliminar&lt;/button&gt;
@@ -186,88 +272,58 @@ import Layout from "../../layouts/DocsLayout.astro";
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
 
-      <div class="doc-sub">4. Modal posicionado</div>
-      <div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="center">Centro</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="top">Superior</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="bottom">Inferior</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="left">Izquierda</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-pos="right">Derecha</button>
+      <div class="doc-sub" id="modal-pos-label">5. Modal posicionado</div>
+      <section data-modal-pos-tabs>
+        <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-pos-label">
+          <button type="button" class="is-active" role="tab" id="modal-pos-tab-0" aria-controls="modal-pos-panel-0" aria-selected="true"  tabindex="0">Centro</button>
+          <button type="button" class=""           role="tab" id="modal-pos-tab-1" aria-controls="modal-pos-panel-1" aria-selected="false" tabindex="-1">Superior</button>
+          <button type="button" class=""           role="tab" id="modal-pos-tab-2" aria-controls="modal-pos-panel-2" aria-selected="false" tabindex="-1">Inferior</button>
+          <button type="button" class=""           role="tab" id="modal-pos-tab-3" aria-controls="modal-pos-panel-3" aria-selected="false" tabindex="-1">Izquierda</button>
+          <button type="button" class=""           role="tab" id="modal-pos-tab-4" aria-controls="modal-pos-panel-4" aria-selected="false" tabindex="-1">Derecha</button>
         </div>
-      </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-center"&gt;Centro&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-top"&gt;Superior&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-bottom"&gt;Inferior&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-left"&gt;Izquierda&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-right"&gt;Derecha&lt;/button&gt;
 
-&lt;!-- Centro (por defecto) --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-center" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal centrado&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Aparece en el centro de la pantalla.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Superior --&gt;
-&lt;div class="dg-modal-backdrop dg-pos-top" id="modal-top" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal superior&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Aparece en la parte superior.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Inferior --&gt;
-&lt;div class="dg-modal-backdrop dg-pos-bottom" id="modal-bottom" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal inferior&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Aparece en la parte inferior.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Izquierda --&gt;
-&lt;div class="dg-modal-backdrop dg-pos-left" id="modal-left" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal izquierda&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Aparece en el lateral izquierdo.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Derecha --&gt;
-&lt;div class="dg-modal-backdrop dg-pos-right" id="modal-right" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;
-    &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
-    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title"&gt;Modal derecha&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;Aparece en el lateral derecho.&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+        <div role="tabpanel" id="modal-pos-panel-0" aria-labelledby="modal-pos-tab-0" tabindex="0">
+          <p class="dg-muted dg-text-sm dg-mt-3">Por defecto · centrado en pantalla</p>
+          <button class="dg-btn dg-mt-3" data-pos="center">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop" id="modal-center" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+        </div>
 
-      <div class="doc-sub">5. Modal de estado (accent)</div>
+        <div role="tabpanel" id="modal-pos-panel-1" aria-labelledby="modal-pos-tab-1" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-top</code> · anclado al borde superior</p>
+          <button class="dg-btn dg-mt-3" data-pos="top">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-top" id="modal-top" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div role="tabpanel" id="modal-pos-panel-2" aria-labelledby="modal-pos-tab-2" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-bottom</code> · anclado al borde inferior</p>
+          <button class="dg-btn dg-mt-3" data-pos="bottom">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-bottom" id="modal-bottom" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div role="tabpanel" id="modal-pos-panel-3" aria-labelledby="modal-pos-tab-3" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-left</code> · anclado al lateral izquierdo</p>
+          <button class="dg-btn dg-mt-3" data-pos="left">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-left" id="modal-left" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div role="tabpanel" id="modal-pos-panel-4" aria-labelledby="modal-pos-tab-4" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-right</code> · anclado al lateral derecho</p>
+          <button class="dg-btn dg-mt-3" data-pos="right">Ver modal</button>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-right" id="modal-right" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+      </section>
+
+      <div class="doc-sub" id="modal-pos-label">6. Modal de estado (accent)</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
         Dos efectos opcionales para que un resultado (éxito/error) llame la atención mientras está en pantalla
         — independientes, usa el que prefieras:<br /><br />
@@ -278,7 +334,8 @@ import Layout from "../../layouts/DocsLayout.astro";
         de pulsar.<br /><br />
         Ambas leen el mismo <code class="dg-code">.is-success/.is-warning/.is-danger/.is-info</code> que
         <code class="dg-code">.dg-modal-accent</code>, y respetan <code class="dg-code">prefers-reduced-motion</code>
-        (quedan fijas, sin animar).
+        (quedan fijas, sin animar).<br /><br />
+        En estos modales, el <strong>footer flotante es más translúcido</strong> (con desenfoque de fondo), el icono presenta <strong>doble círculo</strong> (anillo exterior con tono sutil y círculo interior sólido), y el check se anima simulando un trazo que se dibuja.
       </p>
       <div class="doc-demo is-plain">
         <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
@@ -305,7 +362,11 @@ import Layout from "../../layouts/DocsLayout.astro";
 &lt;!-- Éxito --&gt;
 &lt;div class="dg-modal-backdrop" id="modal-success" data-dg-backdrop="" data-dg-static hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-success" role="dialog" aria-modal="true"&gt;
-    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-success"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-status-hero"&gt;
+      &lt;span class="dg-modal-icon is-success"&gt;
+        &lt;svg class="dg-check-animated" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path class="dg-check-path" d="m5 12 4.5 4.5L19 7"/&gt;&lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
     &lt;!-- Título y mensaje van juntos dentro de .dg-modal-body, sin header aparte --&gt;
     &lt;div class="dg-modal-body"&gt;
       &lt;h3 class="dg-modal-title"&gt;Operación exitosa&lt;/h3&gt;
@@ -359,7 +420,7 @@ import Layout from "../../layouts/DocsLayout.astro";
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
 
-      <div class="doc-sub">6. Onboarding</div>
+      <div class="doc-sub">7. Onboarding</div>
       <div class="doc-demo is-plain">
         <button class="dg-btn" data-dg-open="#mdOnboard">Ver onboarding</button>
       </div>
@@ -382,7 +443,7 @@ import Layout from "../../layouts/DocsLayout.astro";
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
 
-      <div class="doc-sub">7. Confirm, Alert y Prompt (JS)</div>
+      <div class="doc-sub">8. Confirm, Alert y Prompt (JS)</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
         Diálogos generados por JavaScript — no escribes el HTML del modal a mano. Cada función retorna una
         <code class="dg-code">Promise</code> y reutiliza el mismo motor de overlay (foco atrapado, Escape,
@@ -457,9 +518,9 @@ await dgarz.dgConfirm({
 
 <div class="dg-modal-backdrop" id="jsModal" data-dg-backdrop="" hidden>
   <div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="jsModalTitle">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     <div class="dg-modal-header"><h3 class="dg-modal-title" id="jsModalTitle">Modal accesible</h3></div>
-    <div class="dg-modal-body">Abierto con <code>data-dg-open</code>. Atrapa el foco, cierra con Esc o clic fuera, y devuelve el foco al botón que lo abrió.</div>
+    <div class="dg-modal-body"><div class="dg-modal-grid"><div class="dg-field"><label class="dg-label" for="modalName">Nombre</label><input class="dg-input" id="modalName" placeholder="Nombre completo" /></div><div class="dg-field"><label class="dg-label" for="modalEmail">Correo</label><input class="dg-input" id="modalEmail" type="email" placeholder="nombre@ejemplo.com" /></div></div></div>
     <div class="dg-modal-footer">
       <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
       <button class="dg-btn" data-dg-close>Entendido</button>
@@ -469,16 +530,28 @@ await dgarz.dgConfirm({
 
 <div class="dg-modal-backdrop" id="mdSm" data-dg-backdrop="" hidden>
   <div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     <div class="dg-modal-header"><h3 class="dg-modal-title">Modal pequeño</h3></div>
-    <div class="dg-modal-body">Ideal para mensajes breves. Clase <code>.dg-modal-sm</code>.</div>
+    <div class="dg-modal-body"><div class="dg-field"><label class="dg-label" for="smallName">Nombre</label><input class="dg-input" id="smallName" placeholder="Nombre completo" /></div></div>
     <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Entendido</button></div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdFull" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-full" role="dialog" aria-modal="true" aria-labelledby="mdFullTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar">×</button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdFullTitle">Modal full</h3></div>
+    <div class="dg-modal-body"><div class="dg-modal-content"><div class="dg-modal-grid"><div class="dg-field"><label class="dg-label" for="fullName">Nombre</label><input class="dg-input" id="fullName" placeholder="Nombre completo" /></div><div class="dg-field"><label class="dg-label" for="fullEmail">Correo</label><input class="dg-input" id="fullEmail" type="email" placeholder="nombre@ejemplo.com" /></div><div class="dg-field"><label class="dg-label" for="fullNotes">Notas</label><textarea class="dg-textarea" id="fullNotes" placeholder="Contenido centrado en la pantalla completa"></textarea></div></div></div></div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Aceptar</button>
+    </div>
   </div>
 </div>
 
 <div class="dg-modal-backdrop" id="mdLg" data-dg-backdrop="" hidden>
   <div class="dg-modal dg-modal-lg" role="dialog" aria-modal="true">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     <div class="dg-modal-header"><h3 class="dg-modal-title">Modal grande</h3></div>
     <div class="dg-modal-body">Con <code>.dg-modal-lg</code>. El cuerpo hace scroll si el contenido excede la altura disponible.</div>
     <div class="dg-modal-footer">
@@ -492,7 +565,7 @@ await dgarz.dgConfirm({
   <div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true" aria-labelledby="mdFormTitle">
     <div class="dg-modal-header dg-modal-header-row">
       <h3 class="dg-modal-title" id="mdFormTitle">Nuevo cliente</h3>
-      <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+      <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     </div>
     <div class="dg-modal-body">
       <div class="dg-row">
@@ -515,11 +588,13 @@ await dgarz.dgConfirm({
 </div>
 
 <div class="dg-modal-backdrop" id="mdConfirm" data-dg-backdrop="" hidden>
-  <div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
-    <span class="dg-modal-icon is-danger"><svg class="dg-icon dg-icon-lg"><use href="#dg-x"/></svg></span>
-    <div class="dg-modal-header"><h3 class="dg-modal-title">¿Eliminar proyecto?</h3></div>
-    <div class="dg-modal-body">Esta acción es permanente y no se puede deshacer.</div>
+  <div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true" aria-labelledby="mdConfirmTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-body">
+      <span class="dg-modal-icon is-danger"><svg class="dg-icon dg-icon-lg"><use href="#dg-x"/></svg></span>
+      <h3 class="dg-modal-title" id="mdConfirmTitle">¿Eliminar proyecto?</h3>
+      <p>Esta acción es permanente y no se puede deshacer.</p>
+    </div>
     <div class="dg-modal-footer">
       <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
       <button class="dg-btn dg-btn-danger" data-dg-close>Eliminar</button>
@@ -530,7 +605,7 @@ await dgarz.dgConfirm({
 
 <div class="dg-modal-backdrop" id="mdPos" data-dg-backdrop="" hidden>
   <div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdPosTitle">Modal posicionado</h3></div>
     <div class="dg-modal-body" id="mdPosBody">Este diálogo se ancla al borde elegido y entra deslizándose desde ahí.</div>
     <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Entendido</button></div>
@@ -554,7 +629,7 @@ await dgarz.dgConfirm({
 
 <div class="dg-modal-backdrop" id="mdOnboard" data-dg-backdrop="" hidden>
   <div class="dg-modal dg-modal-onboard" role="dialog" aria-modal="true">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-minus"/></svg></button>
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
     <div class="dg-onboard-media"><svg class="dg-icon dg-size-48" id="onboardIcon"><use href="#dg-star"/></svg></div>
     <div class="dg-modal-body">
       <span class="dg-onboard-step" id="onboardStep">Paso 1 de 3</span>
@@ -570,6 +645,35 @@ await dgarz.dgConfirm({
 </div>
 
 <script>
+
+  document.querySelectorAll<HTMLElement>('[data-modal-size-tabs], [data-modal-footer-tabs], [data-modal-pos-tabs]').forEach((group) => {
+    const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(group.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    const select = (index: number) => {
+      tabs.forEach((tab, i) => {
+        tab.setAttribute('aria-selected', String(i === index));
+        tab.classList.toggle('is-active', i === index);
+        tab.tabIndex = i === index ? 0 : -1;
+        panels[i].hidden = i !== index;
+      });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', (event) => {
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        select(next);
+        tabs[next].focus();
+      });
+    });
+  });
+
+
   // Surface switcher
   const switcher = document.getElementById('surfaceSwitcher');
   if (switcher) {
@@ -625,7 +729,11 @@ await dgarz.dgConfirm({
         document.getElementById('mdStatusAccept').className = 'dg-btn dg-btn-' + s;
         const ic = document.getElementById('mdStatusIcon');
         ic.className = 'dg-modal-icon is-' + s;
-        ic.querySelector('use').setAttribute('href', c.use);
+        if (s === 'success') {
+          ic.innerHTML = '<svg class="dg-check-animated" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path class="dg-check-path" d="m5 12 4.5 4.5L19 7"/></svg>';
+        } else {
+          ic.innerHTML = '<svg class="dg-icon dg-icon-sm"><use href="' + c.use + '"/></svg>';
+        }
         document.getElementById('mdStatusTitle').textContent = c.title;
         document.getElementById('mdStatusBody').textContent = c.body;
         window.dgarz.openOverlay(mdStatus);
@@ -690,3 +798,96 @@ await dgarz.dgConfirm({
     });
   }
 </script>
+
+
+<div class="dg-modal-backdrop" id="mdDefaultFooter" data-dg-backdrop="" hidden>
+  <div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="mdDefaultFooterTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdDefaultFooterTitle">Footer flotante estándar</h3></div>
+    <div class="dg-modal-body">
+      <p class="dg-mb-3">El footer flotante es el estilo por defecto en <strong>Dgarz Design</strong>. Se ubica flotando sobre el diálogo con esquinas redondeadas y fondo translúcido con desenfoque suave.</p>
+      <p class="dg-mb-3"><strong>Sin contenedor detrás:</strong> el contenido del modal fluye y hace scroll directamente por detrás de los botones, aprovechando todo el alto disponible del modal sin barras ni fondos adicionales.</p>
+      <p class="dg-mb-3">Puedes desplazarte libremente por este contenido para comprobar cómo el texto pasa fluidamente por debajo de los botones de acción con el efecto de cristal esmerilado.</p>
+      <div class="dg-card dg-card-sm dg-mb-3">
+        <div class="dg-card-body">
+          <h4 class="dg-text-sm dg-font-bold dg-mb-1">Espaciado inteligente</h4>
+          <p class="dg-text-xs dg-muted">El cuerpo del modal incluye una compensación inferior (<code>padding-bottom</code>) para asegurar que el último elemento sea 100% visible y accionable al llegar al final del scroll.</p>
+        </div>
+      </div>
+      <div class="dg-card dg-card-sm dg-mb-3">
+        <div class="dg-card-body">
+          <h4 class="dg-text-sm dg-font-bold dg-mb-1">Efecto glass y elevación</h4>
+          <p class="dg-text-xs dg-muted">La cápsula flotante cuenta con sombra suave y borde sutil, integrándose perfectamente sobre cualquier tipo de contenido.</p>
+        </div>
+      </div>
+      <p class="dg-text-sm dg-muted">Fin del contenido demostrativo. Observa cómo este texto queda totalmente legible sobre el fondo del diálogo.</p>
+    </div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdWideFooter" data-dg-backdrop="" hidden>
+  <div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="mdWideFooterTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdWideFooterTitle">Footer flotante ampliado</h3></div>
+    <div class="dg-modal-body">
+      <p class="dg-mb-3">Con <code>.dg-modal-footer-wide</code> el footer flotante abarca todo el ancho del diálogo, manteniendo una separación uniforme a los lados y esquinas redondeadas.</p>
+      <p class="dg-mb-3">Al igual que el footer estándar, flota libremente por encima del contenido sin ningún contenedor o bloque detrás. El contenido pasa directamente por debajo al hacer scroll.</p>
+      <div class="dg-card dg-card-sm dg-mb-3">
+        <div class="dg-card-body">
+          <h4 class="dg-text-sm dg-font-bold dg-mb-1">Distribución flexible</h4>
+          <p class="dg-text-xs dg-muted">Puedes combinarlo con <code>is-between</code> para separar los botones de acción a los extremos izquierdo y derecho.</p>
+        </div>
+      </div>
+      <p class="dg-text-sm dg-muted">Prueba desplazando el contenido para observar el desenfoque en toda la franja flotante.</p>
+    </div>
+    <div class="dg-modal-footer dg-modal-footer-wide is-between">
+      <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdFlushFooter" data-dg-backdrop="" hidden>
+  <div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="mdFlushFooterTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdFlushFooterTitle">Footer tradicional (flush)</h3></div>
+    <div class="dg-modal-body">
+      <p class="dg-mb-3">El footer se extiende al ancho completo del modal y queda adherido al borde inferior con una línea divisoria superior.</p>
+      <p class="dg-text-sm dg-muted">En este modo clásico, el cuerpo del modal termina justo antes del footer con el espaciado tradicional.</p>
+    </div>
+    <div class="dg-modal-footer dg-modal-footer-flush">
+      <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdIconFooter" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true" aria-labelledby="mdIconFooterTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdIconFooterTitle">Acciones rápidas</h3></div>
+    <div class="dg-modal-body">
+      <p class="dg-mb-3">El footer flotante se adapta de forma automática cuando contiene botones circulares con solo iconos (<code>.dg-btn-icon</code>).</p>
+      <p class="dg-text-xs dg-muted">Al igual que los demás modales flotantes, no tiene ningún contenedor detrás y el contenido fluye libremente.</p>
+    </div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar">
+        <svg class="dg-icon"><use href="#dg-x"/></svg>
+      </button>
+      <button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Destacar">
+        <svg class="dg-icon"><use href="#dg-star"/></svg>
+      </button>
+      <button class="dg-btn dg-btn-danger dg-btn-icon" aria-label="Eliminar">
+        <svg class="dg-icon"><use href="#dg-trash"/></svg>
+      </button>
+      <button class="dg-btn dg-btn-icon" data-dg-close aria-label="Confirmar">
+        <svg class="dg-icon"><use href="#dg-check"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+

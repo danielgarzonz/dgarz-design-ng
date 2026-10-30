@@ -39,7 +39,7 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         <div class="dg-col-12 dg-col-md-6">
           <p class="dg-text-xs dg-faint dg-mb-2">Sin clases, sin <code class="dg-code">.dg-auto</code> — controles nativos del navegador</p>
           <div class="doc-demo is-plain">
-            <form class="dg-stack" style="gap:.6rem">
+            <form class="dg-stack dg-gap-2">
               <label for="autoOffName">Nombre</label>
               <input id="autoOffName" name="nombre" required />
               <button type="submit">Guardar</button>
@@ -49,7 +49,7 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         <div class="dg-col-12 dg-col-md-6">
           <p class="dg-text-xs dg-faint dg-mb-2">Mismo HTML, dentro de <code class="dg-code">.dg-auto</code></p>
           <div class="doc-demo is-plain dg-auto">
-            <form class="dg-stack" style="gap:.6rem">
+            <form class="dg-stack dg-gap-2">
               <label for="autoOnName">Nombre</label>
               <input id="autoOnName" name="nombre" required />
               <button type="submit">Guardar</button>
@@ -128,7 +128,12 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
           <input placeholder="Campo normal" />
           <input placeholder="Deshabilitado" disabled />
         </div>
-      </div>`;
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Dentro de .dg-auto: sin clases en los controles --&gt;
+&lt;div class="dg-cluster"&gt;
+  &lt;input placeholder="Campo normal" /&gt;
+  &lt;input placeholder="Deshabilitado" disabled /&gt;
+&lt;/div&gt;</pre></div>`;
 ---
 
 <Layout title="HTML semántico (auto)" lead="button, input, select, textarea, label y table con la apariencia del framework sin escribir clases." currentHref="/fundamentos/auto">

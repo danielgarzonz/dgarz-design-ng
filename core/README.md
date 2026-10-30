@@ -11,9 +11,14 @@ npm install dgarz-design
 ```
 
 ```js
-import "dgarz-design";       // core + components
-import "dgarz-design/app";   // optional app pack
+// CSS — pick one
 import "dgarz-design/full";  // everything at once
+import "dgarz-design/css";   // core + components
+import "dgarz-design/app";   // optional app pack (load after css)
+
+// JS behavior layer (optional, auto-initializes)
+import dgarz from "dgarz-design";
+dgarz.toast("Hello!");
 ```
 
 ## CDN
@@ -61,6 +66,8 @@ unpkg:
 | Import | File |
 |--------|------|
 | `"dgarz-design"` | `dist/dgarz.js` (UMD) / `dist/dgarz.esm.js` (ESM) |
+| `"dgarz-design/esm"` | `dist/dgarz.esm.js` |
+| `"dgarz-design/js"` / `"dgarz-design/js/min"` | `dist/dgarz.js` / `dist/dgarz.min.js` |
 | `"dgarz-design/css"` | `dist/dgarz.css` |
 | `"dgarz-design/full"` | `dist/dgarz.full.css` |
 | `"dgarz-design/app"` | `dist/dgarz-app.css` |

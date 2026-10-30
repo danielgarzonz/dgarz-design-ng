@@ -22,8 +22,8 @@
   --dg-border:      var(--dg-200);
   --dg-border-strong: var(--dg-300);
   --dg-text:        var(--dg-950);
-  --dg-text-muted:  var(--dg-500);
-  --dg-text-faint:  var(--dg-400);
+  --dg-text-muted:  #62626b;
+  --dg-text-faint:  #65656f;
 
   /* Inversion pair (solid / on-solid) used by primary controls */
   --dg-solid:       var(--dg-950);
@@ -39,6 +39,7 @@
 
   --dg-glass-blur:        12px;
   --dg-glass-blur-strong: 20px;
+  --dg-liquid-blur:       36px; /* deprecated — see .dg-surface-liquid */
 
   /* Semantic colors */
   --dg-success-subtle:     #eef4f0;
@@ -51,7 +52,7 @@
   --dg-on-success-dark:    #ffffff;
 
   --dg-warning-subtle:     #f6f1e3;
-  --dg-on-warning-subtle:  #8a6d1f;
+  --dg-on-warning-subtle:  #785d18;
   --dg-warning-light:      #c49a36;
   --dg-on-warning-light:   #3d2e0a;
   --dg-warning:            #8a6d1f;
@@ -88,7 +89,7 @@
   --dg-on-primary-dark:    var(--dg-0);
 
   --dg-secondary-subtle:   var(--dg-surface-2);
-  --dg-on-secondary-subtle: var(--dg-500);
+  --dg-on-secondary-subtle: var(--dg-text-muted);
   --dg-secondary-light:    var(--dg-400);
   --dg-on-secondary-light: var(--dg-950);
   --dg-secondary:          var(--dg-500);
@@ -119,7 +120,7 @@
 
   /* Modal title — its own tokens so consumers can retint/resize without
      writing a local override rule. Defaults match the shipped look. */
-  --dg-modal-title-size:   var(--dg-text-2xl);
+  --dg-modal-title-size:   1.5625rem; /* 25px */
   --dg-modal-title-weight: var(--dg-weight-medium);
 
   /* Gap between an .dg-eyebrow and the heading right after it inside .dg-stack —
@@ -180,6 +181,21 @@
   --dg-shadow-3: 0 8px 24px rgba(11,11,12,.10), 0 16px 40px rgba(11,11,12,.10);
   --dg-ring:     0 0 0 3px rgba(11,11,12,.14);
 
+  /* Elevation scale (.dg-shadow-*) */
+  --dg-shadow-xs: 0 1px 3px rgba(11,11,12,.08), 0 1px 2px rgba(11,11,12,.05);
+  --dg-shadow-sm: 0 2px 8px rgba(11,11,12,.09), 0 4px 16px rgba(11,11,12,.07);
+  --dg-shadow-md: 0 6px 20px rgba(11,11,12,.10), 0 12px 32px rgba(11,11,12,.09);
+  --dg-shadow-lg: 0 12px 36px rgba(11,11,12,.12), 0 24px 56px rgba(11,11,12,.10);
+  --dg-shadow-xl: 0 24px 64px rgba(11,11,12,.16), 0 40px 80px rgba(11,11,12,.10);
+  --dg-shadow-inset-xs: inset 0 1px 3px rgba(11,11,12,.10);
+  --dg-shadow-inset-sm: inset 0 2px 6px rgba(11,11,12,.14);
+  --dg-shadow-inset-md: inset 0 4px 12px rgba(11,11,12,.16);
+  --dg-shadow-inset-lg: inset 0 6px 18px rgba(11,11,12,.18);
+  --dg-shadow-inset-xl: inset 0 10px 28px rgba(11,11,12,.22);
+  --dg-shadow-long:  4px 4px 0 rgba(11,11,12,.07), 8px 8px 0 rgba(11,11,12,.05), 12px 12px 0 rgba(11,11,12,.03);
+  --dg-shadow-bevel: inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(11,11,12,.08), 0 3px 10px rgba(11,11,12,.08);
+  --dg-shadow-float: 0 32px 64px rgba(11,11,12,.18), 0 8px 16px rgba(11,11,12,.06);
+
   /* Motion */
   --dg-ease:     cubic-bezier(.2, .6, .2, 1);
   --dg-dur:      .18s;
@@ -205,7 +221,7 @@
   --dg-border-strong: #3a3a40;
   --dg-text:        #f4f4f5;
   --dg-text-muted:  #9a9aa2;
-  --dg-text-faint:  #6f6f78;
+  --dg-text-faint:  #9a9aa2;
 
   --dg-solid:       var(--dg-0);
   --dg-on-solid:    var(--dg-950);
@@ -220,7 +236,7 @@
   --dg-success-subtle:     #14211b;
   --dg-on-success-subtle:  #7fc6a3;
   --dg-success-light:      #3d7a5e;
-  --dg-on-success-light:   #c8eada;
+  --dg-on-success-light:   #ffffff;
   --dg-success:            #7fc6a3;
   --dg-on-success:         #0f1713;
   --dg-success-dark:       #0d2b1e;
@@ -229,7 +245,7 @@
   --dg-warning-subtle:     #221d10;
   --dg-on-warning-subtle:  #d9bd72;
   --dg-warning-light:      #7a5e1a;
-  --dg-on-warning-light:   #f0daa0;
+  --dg-on-warning-light:   #ffffff;
   --dg-warning:            #d9bd72;
   --dg-on-warning:         #191406;
   --dg-warning-dark:       #2a1e08;
@@ -280,4 +296,18 @@
   --dg-shadow-2: 0 2px 6px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.4);
   --dg-shadow-3: 0 8px 24px rgba(0,0,0,.55), 0 16px 40px rgba(0,0,0,.5);
   --dg-ring:     0 0 0 3px rgba(255,255,255,.18);
+
+  --dg-shadow-xs: 0 1px 3px rgba(0,0,0,.40), 0 1px 2px rgba(0,0,0,.30);
+  --dg-shadow-sm: 0 2px 8px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.35);
+  --dg-shadow-md: 0 6px 20px rgba(0,0,0,.50), 0 12px 32px rgba(0,0,0,.40);
+  --dg-shadow-lg: 0 12px 36px rgba(0,0,0,.55), 0 24px 56px rgba(0,0,0,.45);
+  --dg-shadow-xl: 0 24px 64px rgba(0,0,0,.60), 0 40px 80px rgba(0,0,0,.50);
+  --dg-shadow-inset-xs: inset 0 1px 3px rgba(0,0,0,.35);
+  --dg-shadow-inset-sm: inset 0 2px 6px rgba(0,0,0,.40);
+  --dg-shadow-inset-md: inset 0 4px 12px rgba(0,0,0,.45);
+  --dg-shadow-inset-lg: inset 0 6px 18px rgba(0,0,0,.50);
+  --dg-shadow-inset-xl: inset 0 10px 28px rgba(0,0,0,.55);
+  --dg-shadow-long:  4px 4px 0 rgba(0,0,0,.30), 8px 8px 0 rgba(0,0,0,.20), 12px 12px 0 rgba(0,0,0,.12);
+  --dg-shadow-bevel: inset 0 1px 0 rgba(255,255,255,.08), inset 0 -1px 0 rgba(0,0,0,.40), 0 3px 10px rgba(0,0,0,.40);
+  --dg-shadow-float: 0 32px 64px rgba(0,0,0,.60), 0 8px 16px rgba(0,0,0,.40);
 }

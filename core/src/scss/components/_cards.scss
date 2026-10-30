@@ -1,6 +1,7 @@
 /* ---- Cards ------------------------------------------------ */
 .dg-card {
-  background: color-mix(in oklab, var(--dg-surface) 78%, transparent);
+  color: var(--dg-text);
+  background: var(--dg-surface);
   backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   border: none;
