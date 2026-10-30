@@ -1,7 +1,7 @@
 /* Flat presentation applies to every component and interaction state.
    Keep border-radius and keyboard outlines; remove decorative strokes/elevation. */
 :root body,
-:root body *,
+:root body *:not([class*="dg-shadow-"]),
 :root body::before,
 :root body::after,
 :root body *::before,

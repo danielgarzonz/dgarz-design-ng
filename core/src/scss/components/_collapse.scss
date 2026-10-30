@@ -6,6 +6,23 @@
   max-height: 0;
   transition: max-height .32s var(--dg-ease);
 }
-/* JS sets max-height via scrollHeight for smooth animation */
-.dg-collapse-trigger[aria-expanded="true"] .dg-collapse-icon { transform: rotate(180deg); }
-.dg-collapse-icon { transition: transform var(--dg-dur) var(--dg-ease); display: inline-flex; }
+/* JS sets max-height via scrollHeight for smooth animation. */
+[data-dg-collapse] {
+  background: var(--dg-surface-3);
+  text-align: left;
+  white-space: normal;
+}
+[data-dg-collapse]:hover { background: var(--dg-surface-2); }
+.dg-collapse-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform var(--dg-dur) var(--dg-ease);
+}
+.dg-collapse-icon::before { content: "+"; }
+[data-dg-collapse][aria-expanded="true"] .dg-collapse-icon { transform: rotate(45deg); }

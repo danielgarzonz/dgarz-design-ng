@@ -22,7 +22,7 @@ export const NAV: NavGroup[] = [
     title: "Comenzar",
     color: "#6366f1",
     items: [
-      { label: "Introducción",     href: "/comenzar/intro" },
+      { label: "Introducción",     href: "/" },
       { label: "Instalación",      href: "/comenzar/install" },
       { label: "JavaScript",       href: "/comenzar/js" },
       { label: "Changelog",        href: "/comenzar/changelog" },

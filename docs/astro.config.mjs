@@ -10,6 +10,7 @@ const coreDist = resolve(__dirname, '../core/dist');
 export default defineConfig({
   site: 'https://dgarz-design.github.io/dgarz-design',
   devToolbar: { enabled: false },
+  server: { host: '0.0.0.0', port: 4321 },
 
   vite: {
     server: {

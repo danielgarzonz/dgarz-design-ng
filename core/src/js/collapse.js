@@ -5,6 +5,7 @@ export function wireCollapse(trigger) {
   var id = trigger.getAttribute("data-dg-collapse");
   var panel = $(id);
   if (!panel) return;
+  if (panel.id) trigger.setAttribute("aria-controls", panel.id);
   var isOpen = panel.classList.contains("is-open");
   panel.style.maxHeight = isOpen ? panel.scrollHeight + "px" : "0";
   trigger.setAttribute("aria-expanded", String(isOpen));
