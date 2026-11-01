@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain">
+const pageContent = `<div class="doc-sub">Layout con sidebar</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Composición base de una aplicación: navegación lateral a la izquierda y contenido a la derecha.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-border dg-rounded-lg dg-overflow-hidden dg-grid-d dg-columns-200-1fr dg-h-240">
           <div class="dg-stack dg-bg-surface dg-border-end dg-p-4">
             <div class="dg-app-brand dg-pb-3"><span class="dg-italic">d</span>dgarz</div>
@@ -17,7 +20,8 @@ const pageContent = `<div class="doc-demo is-plain">
   &lt;aside class="dg-app-aside"&gt;…&lt;/aside&gt;
   &lt;header class="dg-app-header"&gt;…&lt;/header&gt;
   &lt;main class="dg-app-main"&gt;…&lt;/main&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="App Shell" lead="Layout de aplicación con sidebar colapsable y header sticky." currentHref="/app-pack/shell">

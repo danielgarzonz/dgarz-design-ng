@@ -2,6 +2,7 @@
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `
   <div class="doc-sub">Overflow</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Define qué pasa cuando el contenido no cabe en su contenedor.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-overflow-hidden"&gt;...&lt;/div&gt;
 &lt;div class="dg-overflow-auto"&gt;...&lt;/div&gt;
 &lt;div class="dg-overflow-scroll"&gt;...&lt;/div&gt;
@@ -9,12 +10,14 @@ const pageContent = `
 &lt;div class="dg-overflow-y-auto"&gt;...&lt;/div&gt;</pre></div>
 
   <div class="doc-sub">Visibilidad</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-invisible</code> oculta el elemento y conserva su espacio, <code class="dg-code">.dg-hidden</code> lo quita del flujo y <code class="dg-code">.dg-sr-only</code> lo deja solo para lectores de pantalla.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-visible"&gt;...&lt;/div&gt;     &lt;!-- visibility: visible --&gt;
 &lt;div class="dg-invisible"&gt;...&lt;/div&gt;   &lt;!-- visibility: hidden (ocupa espacio) --&gt;
 &lt;div class="dg-hidden"&gt;...&lt;/div&gt;      &lt;!-- display: none --&gt;
 &lt;span class="dg-sr-only"&gt;...&lt;/span&gt;   &lt;!-- solo para lectores de pantalla --&gt;</pre></div>
 
   <div class="doc-sub">Visibilidad responsive</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Oculta elementos según el ancho de pantalla con <code class="dg-code">.dg-hidden-mobile</code>, <code class="dg-code">.dg-hidden-desktop</code> y sus variantes.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;...&lt;/div&gt;    &lt;!-- oculto en &lt; 992px --&gt;
 &lt;div class="dg-hidden-desktop"&gt;...&lt;/div&gt;   &lt;!-- oculto en &gt;= 992px --&gt;
 &lt;div class="dg-hidden-xs"&gt;...&lt;/div&gt;        &lt;!-- oculto en &lt; 576px --&gt;
@@ -22,6 +25,7 @@ const pageContent = `
 &lt;div class="dg-hidden-md"&gt;...&lt;/div&gt;        &lt;!-- oculto entre 768–991px --&gt;</pre></div>
 
   <div class="doc-sub">Posición</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Define cómo se coloca el elemento. <code class="dg-code">.dg-inset-0</code> hace que cubra a su contenedor posicionado.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-relative"&gt;...&lt;/div&gt;
 &lt;div class="dg-absolute"&gt;...&lt;/div&gt;
 &lt;div class="dg-fixed"&gt;...&lt;/div&gt;
@@ -33,6 +37,7 @@ const pageContent = `
 &lt;div class="dg-absolute dg-bottom-0"&gt;...&lt;/div&gt;</pre></div>
 
   <div class="doc-sub">Z-index</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Ordena elementos superpuestos con niveles de <code class="dg-code">.dg-z-10</code> a <code class="dg-code">.dg-z-50</code>.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-z-10"&gt;...&lt;/div&gt;
 &lt;div class="dg-z-20"&gt;...&lt;/div&gt;
 &lt;div class="dg-z-30"&gt;...&lt;/div&gt;
@@ -40,6 +45,7 @@ const pageContent = `
 &lt;div class="dg-z-50"&gt;...&lt;/div&gt;</pre></div>
 
   <div class="doc-sub">Float</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Alinea elementos a un lado. Usa <code class="dg-code">.dg-clearfix</code> en el padre para contenerlos.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-float-start"&gt;...&lt;/div&gt;   &lt;!-- float: left --&gt;
 &lt;div class="dg-float-end"&gt;...&lt;/div&gt;     &lt;!-- float: right --&gt;
 &lt;div class="dg-float-none"&gt;...&lt;/div&gt;

@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Skeleton loaders</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Reservan el espacio del contenido mientras carga. Combina <code class="dg-code">.dg-skeleton</code> con <code class="dg-code">.dg-skeleton-circle</code> o <code class="dg-code">.dg-skeleton-text</code> según la forma que necesites.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-grid dg-grid-2">
           <div class="dg-card"><div class="dg-card-body">
             <div class="dg-cluster dg-mb-4">
@@ -33,9 +35,12 @@ const pageContent = `<div class="doc-sub">Skeleton loaders</div>
 
 &lt;!-- Imagen rectangular --&gt;
 &lt;div class="dg-skeleton dg-h-140 dg-rounded-0"&gt;&lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Empty state</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Indica que todavía no hay datos y orienta el siguiente paso. Usa <code class="dg-code">.dg-empty</code> con <code class="dg-code">.dg-empty-icon</code>, <code class="dg-code">.dg-empty-title</code> y un botón de acción.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-card dg-max-w-sm dg-mx-auto">
           <div class="dg-empty">
             <span class="dg-empty-icon"><svg class="dg-icon dg-icon-lg"><use href="#dg-inbox"/></svg></span>
@@ -52,7 +57,8 @@ const pageContent = `<div class="doc-sub">Skeleton loaders</div>
   &lt;div class="dg-empty-title"&gt;Sin resultados&lt;/div&gt;
   &lt;p&gt;Descripción breve del estado vacío.&lt;/p&gt;
   &lt;button class="dg-btn dg-btn-primary dg-btn-sm"&gt;Acción principal&lt;/button&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Skeleton & Empty" lead="Estados de carga y pantallas vacías." currentHref="/app-pack/feedback">

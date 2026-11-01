@@ -1,4 +1,4 @@
-import { $ } from './utils.js';
+import { $, DUR } from './utils.js';
 
 export function toast(msg, opts) {
   opts = opts || {};
@@ -11,8 +11,8 @@ export function toast(msg, opts) {
   stack.appendChild(t);
   var dur = opts.duration == null ? 2800 : opts.duration;
   if (dur > 0) setTimeout(function () {
-    t.style.animation = "dg-toast-out .22s var(--dg-ease) forwards";
-    setTimeout(function () { t.remove(); }, 220);
+    t.style.animation = "dg-toast-out var(--dg-dur-motion) var(--dg-ease-exit) forwards";
+    setTimeout(function () { t.remove(); }, DUR);
   }, dur);
   return t;
 }

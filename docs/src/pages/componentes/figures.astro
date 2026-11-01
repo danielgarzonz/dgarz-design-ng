@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain">
+const pageContent = `<div class="doc-sub">Figura con caption</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-figure</code> agrupa una imagen <code class="dg-code">.dg-figure-img</code> con su texto en <code class="dg-code">.dg-figure-caption</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-grid dg-grid-2 dg-max-w-2xl">
           <figure class="dg-figure">
             <div class="dg-figure-img doc-figure-gradient-a"></div>
@@ -12,6 +15,13 @@ const pageContent = `<div class="doc-demo is-plain">
           </figure>
         </div>
       </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;figure class="dg-figure"&gt;
+  &lt;img class="dg-figure-img" src="foto.jpg" alt="Descripción de la imagen" /&gt;
+  &lt;figcaption class="dg-figure-caption"&gt;
+    Figura 1 — Texto descriptivo de la imagen.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</pre></div>
+</div>
       <style>
         .doc-figure-gradient-a,
         .doc-figure-gradient-b {
@@ -26,13 +36,7 @@ const pageContent = `<div class="doc-demo is-plain">
         .doc-figure-gradient-b {
           background: linear-gradient(135deg, var(--dg-600), var(--dg-950));
         }
-      </style>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;figure class="dg-figure"&gt;
-  &lt;img class="dg-figure-img" src="foto.jpg" alt="Descripción de la imagen" /&gt;
-  &lt;figcaption class="dg-figure-caption"&gt;
-    Figura 1 — Texto descriptivo de la imagen.
-  &lt;/figcaption&gt;
-&lt;/figure&gt;</pre></div>`;
+      </style>`;
 ---
 
 <Layout title="Figures" lead="Imágenes con caption y variantes de aspecto." currentHref="/componentes/figures">

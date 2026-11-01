@@ -41,7 +41,8 @@ const alignContentValues = [
     Convierte cualquier elemento en un contenedor flex o inline-flex. Sus hijos directos pasan a ser flex items.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label"><code>.dg-flex</code></div>
       <div class={track}>
@@ -70,6 +71,7 @@ const alignContentValues = [
   &lt;span class="dg-bg-dark dg-p-2"&gt;Icono&lt;/span&gt;
   &lt;span class="dg-bg-dark dg-p-2"&gt;Etiqueta&lt;/span&gt;
 &lt;/span&gt;</pre></div>
+</div>
 
   <!-- ══ 2. DIRECTION ════════════════════════════════════════════════════── -->
   <div class="doc-sub">Dirección</div>
@@ -77,7 +79,8 @@ const alignContentValues = [
     Establece la dirección del eje principal con <code class="dg-code">flex-direction</code>.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">row (default)</div>
       <div class={`${track} dg-flex-row`}>
@@ -134,6 +137,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-p-2"&gt;Título&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2"&gt;Descripción&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 3. JUSTIFY CONTENT ══════════════════════════════════════════════── -->
   <div class="doc-sub">Justify content</div>
@@ -141,7 +145,8 @@ const alignContentValues = [
     Distribuye los flex items en el eje principal.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     {justifyValues.map(([cls, val]) => (
       <div>
         <div class="doc-flex-label">{val}</div>
@@ -182,6 +187,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 4. ALIGN ITEMS ══════════════════════════════════════════════════── -->
   <div class="doc-sub">Align items</div>
@@ -189,7 +195,8 @@ const alignContentValues = [
     Alinea los items en el eje cruzado. El contenedor tiene altura fija para que el efecto sea visible.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">flex-start</div>
       <div class={`${track} dg-items-start dg-h-96`}>
@@ -261,6 +268,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-px-2"&gt;Contenido&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-px-2"&gt;Estado&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 5. ALIGN SELF ═══════════════════════════════════════════════════── -->
   <div class="doc-sub">Align self</div>
@@ -268,7 +276,8 @@ const alignContentValues = [
     Sobrescribe <code class="dg-code">align-items</code> en un item individual.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">flex-start</div>
       <div class={`${track} dg-h-96`}>
@@ -339,6 +348,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-px-2 dg-self-stretch"&gt;Contenido&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 6. AUTO MARGINS ═════════════════════════════════════════════════── -->
   <div class="doc-sub">Auto margins</div>
@@ -346,7 +356,8 @@ const alignContentValues = [
     Combina <code class="dg-code">dg-ml-auto</code> o <code class="dg-code">dg-mr-auto</code> con flex para empujar items hacia un lado.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">sin auto margin</div>
       <div class={track}>
@@ -383,6 +394,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-p-2"&gt;Exportar&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2 dg-ml-auto"&gt;Acción&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 7. WRAP ══════════════════════════════════════════════════════════── -->
   <div class="doc-sub">Wrap</div>
@@ -390,7 +402,8 @@ const alignContentValues = [
     Controla si los items pueden saltar de línea cuando no caben.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">nowrap (default)</div>
       <div class={`${track} dg-nowrap`} style="overflow:hidden">
@@ -422,6 +435,7 @@ const alignContentValues = [
 
 &lt;div class="dg-flex dg-wrap"&gt;...&lt;/div&gt;
 &lt;div class="dg-flex dg-wrap-reverse"&gt;...&lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 8. GROW & SHRINK ════════════════════════════════════════════════── -->
   <div class="doc-sub">Grow y shrink</div>
@@ -429,7 +443,8 @@ const alignContentValues = [
     Controla si un item puede crecer o encogerse dentro del contenedor.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class="doc-flex-label">flex: 1 1 auto</div>
       <div class={track}>
@@ -458,6 +473,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-p-2"&gt;Contenido principal&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2"&gt;Sidebar&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 9. ORDER ════════════════════════════════════════════════════════── -->
   <div class="doc-sub">Order</div>
@@ -465,7 +481,8 @@ const alignContentValues = [
     Cambia el orden visual sin modificar el DOM.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div>
       <div class={track}>
         <div class={`${item} dg-order-3`}>Sidebar <code>.dg-order-3</code></div>
@@ -480,6 +497,7 @@ const alignContentValues = [
   &lt;div class="dg-bg-dark dg-p-2 dg-order-1"&gt;Contenido&lt;/div&gt;
   &lt;div class="dg-bg-dark dg-p-2 dg-order-2"&gt;Anuncios&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ 10. ALIGN CONTENT ═══════════════════════════════════════════════── -->
   <div class="doc-sub">Align content</div>
@@ -487,7 +505,8 @@ const alignContentValues = [
     Alinea las líneas wrap en el eje cruzado. Requiere <code class="dg-code">dg-wrap</code> y altura fija.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     {alignContentValues.map(([cls, val]) => (
       <div>
         <div class="doc-flex-label">{val}</div>
@@ -512,11 +531,14 @@ const alignContentValues = [
 &lt;div class="dg-flex dg-wrap dg-content-between"&gt;...&lt;/div&gt;
 &lt;div class="dg-flex dg-wrap dg-content-around"&gt;...&lt;/div&gt;
 &lt;div class="dg-flex dg-wrap dg-content-stretch"&gt;...&lt;/div&gt;</pre></div>
+</div>
 
   <!-- ══ GAP ═════════════════════════════════════════════════════════════── -->
   <div class="doc-sub">Gap</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-gap-*</code> separa los items sin añadir márgenes.</p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="doc-flex-gap-stack">
       {[1,2,3,4,5,6].map(n => (
         <div class="doc-flex-gap-row">
@@ -541,6 +563,7 @@ const alignContentValues = [
 &lt;div class="dg-flex dg-gap-4"&gt;...&lt;/div&gt;
 &lt;div class="dg-flex dg-gap-5"&gt;...&lt;/div&gt;
 &lt;div class="dg-flex dg-gap-6"&gt;...&lt;/div&gt;</pre></div>
+</div>
 
 <style>
   .doc-flex-label {

@@ -201,6 +201,10 @@
   --dg-dur:      .18s;
   --dg-dur-fast: .1s;
   --dg-dur-slow: .32s;
+  /* Entradas y salidas: páginas, menús, overlays y paneles. */
+  --dg-dur-motion: 1s;
+  --dg-ease-motion: cubic-bezier(.22, 1, .36, 1);
+  --dg-ease-exit: cubic-bezier(.45, 0, .2, 1);
 
   /* Layout */
   --dg-container: 1140px;

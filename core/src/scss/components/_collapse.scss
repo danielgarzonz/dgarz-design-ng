@@ -1,28 +1,61 @@
-/* ============================================================
-   COLLAPSE — panel colapsable independiente
-   ============================================================ */
+/* Independent disclosure panels and compact inline expanders. */
 .dg-collapse {
   overflow: hidden;
   max-height: 0;
-  transition: max-height .32s var(--dg-ease);
+  transition: max-height var(--dg-dur-motion) var(--dg-ease-motion);
 }
-/* JS sets max-height via scrollHeight for smooth animation. */
-[data-dg-collapse] {
-  background: var(--dg-surface-3);
-  text-align: left;
-  white-space: normal;
+[data-dg-collapse] { text-align: left; white-space: normal; }
+.dg-collapse-group {
+  width: 100%; overflow: hidden;
+  border-radius: var(--dg-radius-lg);
+  background: var(--dg-surface-2);
 }
-[data-dg-collapse]:hover { background: var(--dg-surface-2); }
+.dg-collapse-group.dg-collapse-bordered { border: 1px solid var(--dg-border-strong); background: var(--dg-surface); }
+.dg-collapse-group.dg-collapse-muted { background: var(--dg-surface-3); }
+.dg-collapse-trigger {
+  display: flex; align-items: center; gap: var(--dg-space-4);
+  width: 100%; padding: 18px 20px; border: 0;
+  border-radius: var(--dg-radius-lg);
+  background: var(--dg-surface-2); color: var(--dg-text);
+  cursor: pointer;
+  transition: background 180ms var(--dg-ease);
+}
+.dg-collapse-group > .dg-collapse-trigger { border-radius: 0; background: transparent; }
+.dg-collapse-trigger:hover { background: var(--dg-surface-3); }
+.dg-collapse-trigger:focus-visible { outline-offset: -3px; }
+.dg-collapse-heading { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.dg-collapse-title { font-size: var(--dg-text-sm); font-weight: var(--dg-weight-semi); line-height: 1.4; }
+.dg-collapse-description { font-size: var(--dg-text-xs); font-weight: var(--dg-weight-normal); color: var(--dg-text-muted); line-height: 1.5; }
 .dg-collapse-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 1em;
-  height: 1em;
-  font-size: 1.25rem;
-  line-height: 1;
-  transition: transform var(--dg-dur) var(--dg-ease);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 0 0 24px; width: 24px; min-width: 24px; max-width: 24px; height: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%; background: var(--dg-solid); color: var(--dg-on-solid);
+  transition: transform var(--dg-dur-motion) var(--dg-ease-motion);
 }
-.dg-collapse-icon::before { content: "+"; }
-[data-dg-collapse][aria-expanded="true"] .dg-collapse-icon { transform: rotate(45deg); }
+.dg-collapse-icon::before {
+  content: ''; width: 12px; height: 12px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+[data-dg-collapse] > .dg-collapse-icon:last-child { margin-inline-start: auto; }
+[data-dg-collapse][aria-expanded="true"] .dg-collapse-icon { transform: rotate(180deg); }
+.dg-collapse-content {
+  padding: 0 20px 20px;
+  font-size: var(--dg-text-sm); line-height: 1.65; color: var(--dg-text-muted);
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity var(--dg-dur-motion) var(--dg-ease-motion), transform var(--dg-dur-motion) var(--dg-ease-motion);
+}
+.dg-collapse.is-open > .dg-collapse-content { opacity: 1; transform: none; }
+.dg-collapse-content > :last-child { margin-bottom: 0; }
+.dg-collapse-link {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; padding: 6px 0; border: 0; background: transparent;
+  font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium); color: var(--dg-text);
+  cursor: pointer;
+}
+.dg-collapse-link .dg-collapse-icon { width: 24px; height: 24px; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-collapse, .dg-collapse-content, .dg-collapse-icon, .dg-collapse-trigger { transition: none; }
+  .dg-collapse-content { transform: none; }
+}

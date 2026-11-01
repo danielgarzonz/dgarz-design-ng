@@ -10,10 +10,7 @@ export interface NavGroup {
 }
 
 export const TOP_NAV: NavItem[] = [
-  { label: "Temas", href: "/studio/themes" },
-  { label: "Alertas", href: "/studio/alerts" },
-  { label: "Galería", href: "/examples" },
-  { label: "Animaciones", href: "/studio/animations" },
+  { label: "Inicio", href: "/" },
   { label: "Changelog", href: "/comenzar/changelog" },
 ];
 
@@ -22,7 +19,7 @@ export const NAV: NavGroup[] = [
     title: "Comenzar",
     color: "#6366f1",
     items: [
-      { label: "Introducción",     href: "/" },
+      { label: "Introducción",     href: "/comenzar/intro" },
       { label: "Instalación",      href: "/comenzar/install" },
       { label: "JavaScript",       href: "/comenzar/js" },
       { label: "Changelog",        href: "/comenzar/changelog" },
@@ -34,6 +31,7 @@ export const NAV: NavGroup[] = [
     items: [
       { label: "Color",            href: "/fundamentos/color" },
       { label: "Tipografía",       href: "/fundamentos/typography" },
+      { label: "Efectos de texto", href: "/fundamentos/text-effects" },
       { label: "Tokens",           href: "/fundamentos/tokens" },
       { label: "Espaciado",        href: "/fundamentos/espaciado" },
       { label: "Sombras",          href: "/fundamentos/sombras" },
@@ -76,7 +74,8 @@ export const NAV: NavGroup[] = [
       { label: "Avatar · Progress", href: "/componentes/misc" },
       { label: "Chips",            href: "/componentes/chips" },
       { label: "Collapse",         href: "/componentes/collapse" },
-      { label: "Carousel",         href: "/componentes/carousel" },
+      { label: "Carruseles",       href: "/componentes/carousel" },
+
       { label: "Popover",          href: "/componentes/popover" },
       { label: "Figures",          href: "/componentes/figures" },
     ],

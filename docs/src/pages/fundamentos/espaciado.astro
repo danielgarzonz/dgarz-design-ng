@@ -12,11 +12,18 @@ const pageContent = `
     <code class="dg-code">--dg-space-*</code> o las clases utilitarias — nunca valores fijos.
   </p>
 
+  <div class="doc-example">
   <div class="doc-demo is-plain">
     <div class="space-scale">${scaleRows}</div>
   </div>
+  <div class="doc-code" data-lang="css"><button class="cp">Copiar</button><pre>.mi-card {
+  padding: var(--dg-space-5);
+  gap: var(--dg-space-3);
+}</pre></div>
+  </div>
 
   <div class="doc-sub">Margin</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Añade espacio fuera del elemento. Cambia el sufijo para un lado o un eje, y usa <code class="dg-code">.dg-mx-auto</code> para centrarlo.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-mt-1"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 4px --&gt;
 &lt;div class="dg-mt-2"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 8px --&gt;
 &lt;div class="dg-mt-3"&gt;...&lt;/div&gt;   &lt;!-- margin-top: 12px --&gt;
@@ -33,6 +40,7 @@ const pageContent = `
 &lt;div class="dg-mr-auto"&gt;...&lt;/div&gt; &lt;!-- margin-right: auto --&gt;</pre></div>
 
   <div class="doc-sub">Padding</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Añade espacio dentro del elemento. Cambia el sufijo para un lado o un eje.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-p-4"&gt;...&lt;/div&gt;    &lt;!-- padding: 16px --&gt;
 &lt;div class="dg-px-4"&gt;...&lt;/div&gt;   &lt;!-- padding-inline: 16px --&gt;
 &lt;div class="dg-py-4"&gt;...&lt;/div&gt;   &lt;!-- padding-block: 16px --&gt;
@@ -41,6 +49,7 @@ const pageContent = `
 &lt;div class="dg-p-0"&gt;...&lt;/div&gt;    &lt;!-- padding: 0 --&gt;</pre></div>
 
   <div class="doc-sub">Gap</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Define el espacio entre los hijos de un contenedor flex o grid con <code class="dg-code">.dg-gap-*</code>.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-gap-1"&gt;...&lt;/div&gt;  &lt;!-- gap: 4px --&gt;
 &lt;div class="dg-flex dg-gap-2"&gt;...&lt;/div&gt;  &lt;!-- gap: 8px --&gt;
 &lt;div class="dg-flex dg-gap-3"&gt;...&lt;/div&gt;  &lt;!-- gap: 12px --&gt;

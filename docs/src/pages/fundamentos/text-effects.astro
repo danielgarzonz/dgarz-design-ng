@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+---
+<Layout title="Efectos de texto" lead="Cinco tratamientos tipográficos reutilizables, sin JavaScript." currentHref="/fundamentos/text-effects">
+  <p>Aplica una clase al título o a un fragmento de texto. Los efectos animados respetan la preferencia de movimiento reducido.</p>
+  <div class="doc-sub">Entrada suave</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-text-in</code> hace aparecer el texto con un desenfoque breve. Los menús, modales, drawers, popovers, acordeones y pestañas ya lo aplican al abrirse. Combínalo con <code class="dg-code">.dg-delay-1</code> a <code class="dg-code">.dg-delay-16</code> para escalonar varios elementos.</p>
+  <div class="doc-example">
+<div class="doc-demo"><h2 class="dg-text-in">Las ideas cobran vida.</h2></div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;h2 class="dg-text-in"&gt;Las ideas cobran vida.&lt;/h2&gt;
+&lt;p class="dg-text-in dg-delay-2"&gt;Entra un poco después.&lt;/p&gt;</pre></div>
+</div>
+  <div class="doc-sub">Degradado animado</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-text-gradient</code> anima un degradado dentro del texto.</p>
+  <div class="doc-example">
+<div class="doc-demo"><h2 class="dg-text-gradient">Las ideas cobran vida.</h2></div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;h2 class="dg-text-gradient"&gt;Las ideas cobran vida.&lt;/h2&gt;</pre></div>
+</div>
+  <div class="doc-sub">Revelado de texto</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-text-reveal</code> descubre el texto con una animación de entrada.</p>
+  <div class="doc-example">
+<div class="doc-demo"><h2 class="dg-text-reveal">Las ideas cobran vida.</h2></div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;h2 class="dg-text-reveal"&gt;Las ideas cobran vida.&lt;/h2&gt;</pre></div>
+</div>
+  <div class="doc-sub">Brillo en movimiento</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-text-shimmer</code> hace pasar un brillo sobre el texto.</p>
+  <div class="doc-example">
+<div class="doc-demo"><h2 class="dg-text-shimmer">Las ideas cobran vida.</h2></div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;h2 class="dg-text-shimmer"&gt;Las ideas cobran vida.&lt;/h2&gt;</pre></div>
+</div>
+  <div class="doc-sub">Contorno tipográfico</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-text-outline</code> muestra solo el contorno de las letras.</p>
+  <div class="doc-example">
+<div class="doc-demo"><h2 class="dg-text-outline">Las ideas cobran vida.</h2></div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;h2 class="dg-text-outline"&gt;Las ideas cobran vida.&lt;/h2&gt;</pre></div>
+</div>
+  <p>La entrada y el revelado se reproducen al montar el elemento. Recarga la página para verlo de nuevo.</p>
+</Layout>

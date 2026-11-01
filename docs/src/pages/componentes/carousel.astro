@@ -1,16 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-sub">Cómo funciona</div>
-      <div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
-        <p class="dg-callout-title">Estructura</p>
-        <strong>1.</strong> <code class="dg-code">.dg-carousel</code> + <code class="dg-code">data-dg-carousel</code> — el contenedor.<br>
-        <strong>2.</strong> <code class="dg-code">.dg-carousel-inner</code> — el track que se desliza.<br>
-        <strong>3.</strong> <code class="dg-code">.dg-carousel-item</code> — cada diapositiva.<br>
-        <strong>4.</strong> Botones <code class="dg-code">.dg-carousel-prev/next</code> y puntos <code class="dg-code">[data-dg-carousel-go="N"]</code> son opcionales.
-      </div>
-
-      <div class="doc-sub">Demo con imágenes y caption</div>
-      <div class="doc-demo is-plain">
+const pageContent = `      <h2 class="doc-sub">Carrusel de imágenes con texto y reproducción automática</h2>
+  <p>Combina fotografías con título y descripción superpuestos, y cambia automáticamente de imagen cada cuatro segundos.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-carousel dg-max-w-720 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="4000">
           <div class="dg-carousel-inner">
             <div class="dg-carousel-item">
@@ -89,9 +82,12 @@ const pageContent = `<div class="doc-sub">Cómo funciona</div>
 
 &lt;!-- Teclado: ← → para navegar cuando el carousel tiene foco --&gt;
 &lt;!-- Touch: swipe izquierda/derecha en móvil --&gt;</pre></div>
+</div>
 
-      <div class="doc-sub">Carousel mínimo (sin controles)</div>
-      <div class="doc-demo is-plain">
+      <h2 class="doc-sub">Carrusel sencillo de mensajes automáticos</h2>
+  <p>Alterna mensajes breves cada 2,5 segundos dentro de una franja compacta, con un botón para pausar la reproducción.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-carousel dg-max-w-500 dg-mx-auto" data-dg-carousel data-dg-carousel-autoplay="2500">
           <div class="dg-carousel-inner">
             <div class="dg-carousel-item">
@@ -113,9 +109,157 @@ const pageContent = `<div class="doc-sub">Cómo funciona</div>
       &lt;div class="dg-carousel-slide dg-bg-surface-3 dg-aspect-3-1 dg-min-h-0 dg-text-lg"&gt;Solo texto — slide 2&lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
-<Layout title="Carousel" lead="Slider de diapositivas táctil con indicadores." currentHref="/componentes/carousel">
+<Layout title="Carruseles" lead="Un carrusel presenta contenido en una secuencia de diapositivas. Esta página reúne variantes para mostrar imágenes, mensajes y tarjetas con distintas transiciones." currentHref="/componentes/carousel">
+  <h2 id="slide" class="doc-sub">Carrusel deslizante horizontal</h2>
+  <p>Muestra una diapositiva a la vez y desplaza el contenido horizontalmente al avanzar o retroceder.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-carousel " data-dg-carousel aria-label="Carrusel deslizante">
+  <div class="dg-carousel-inner">
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>01 / 04</small><h3>Explora nuevas ideas</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>02 / 04</small><h3>Diseña con intención</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>03 / 04</small><h3>Construye algo memorable</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>04 / 04</small><h3>Comparte tu siguiente paso</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+  </div>
+  <button type="button" class="dg-carousel-prev" aria-label="Anterior">‹</button>
+  <button type="button" class="dg-carousel-next" aria-label="Siguiente">›</button>
+  <div class="dg-carousel-indicators">
+    <button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"></button>
+    <button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"></button>
+    <button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"></button>
+    <button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"></button>
+  </div>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- .dg-carousel + data-dg-carousel: contenedor --&gt;
+&lt;!-- .dg-carousel-inner: pista; .dg-carousel-item: diapositiva --&gt;
+&lt;!-- Flechas e indicadores opcionales. Requiere dgarz.js. --&gt;
+&lt;div class="dg-carousel " data-dg-carousel aria-label="Carrusel deslizante"&gt;
+  &lt;div class="dg-carousel-inner"&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;01 / 04&lt;/small&gt;&lt;h3&gt;Explora nuevas ideas&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;02 / 04&lt;/small&gt;&lt;h3&gt;Diseña con intención&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;03 / 04&lt;/small&gt;&lt;h3&gt;Construye algo memorable&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;04 / 04&lt;/small&gt;&lt;h3&gt;Comparte tu siguiente paso&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type="button" class="dg-carousel-prev" aria-label="Anterior"&gt;‹&lt;/button&gt;
+  &lt;button type="button" class="dg-carousel-next" aria-label="Siguiente"&gt;›&lt;/button&gt;
+  &lt;div class="dg-carousel-indicators"&gt;
+    &lt;button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+  <h2 id="fade" class="doc-sub">Carrusel con transición de fundido</h2>
+  <p>Sustituye una diapositiva por otra con un desvanecimiento suave, sin desplazamiento.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-carousel dg-carousel-fade" data-dg-carousel aria-label="Carrusel fundido">
+  <div class="dg-carousel-inner">
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>01 / 04</small><h3>Explora nuevas ideas</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>02 / 04</small><h3>Diseña con intención</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>03 / 04</small><h3>Construye algo memorable</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>04 / 04</small><h3>Comparte tu siguiente paso</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+  </div>
+  <button type="button" class="dg-carousel-prev" aria-label="Anterior">‹</button>
+  <button type="button" class="dg-carousel-next" aria-label="Siguiente">›</button>
+  <div class="dg-carousel-indicators">
+    <button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"></button>
+    <button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"></button>
+    <button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"></button>
+    <button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"></button>
+  </div>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-carousel dg-carousel-fade" data-dg-carousel aria-label="Carrusel fundido"&gt;
+  &lt;div class="dg-carousel-inner"&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;01 / 04&lt;/small&gt;&lt;h3&gt;Explora nuevas ideas&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;02 / 04&lt;/small&gt;&lt;h3&gt;Diseña con intención&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;03 / 04&lt;/small&gt;&lt;h3&gt;Construye algo memorable&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;04 / 04&lt;/small&gt;&lt;h3&gt;Comparte tu siguiente paso&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type="button" class="dg-carousel-prev" aria-label="Anterior"&gt;‹&lt;/button&gt;
+  &lt;button type="button" class="dg-carousel-next" aria-label="Siguiente"&gt;›&lt;/button&gt;
+  &lt;div class="dg-carousel-indicators"&gt;
+    &lt;button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+  <h2 id="cards" class="doc-sub">Carrusel de tarjetas adaptado al ancho</h2>
+  <p>Muestra varias tarjetas a la vez y adapta su cantidad al ancho de la pantalla: tres en escritorio, dos en tablet y una en móvil.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-carousel dg-carousel-cards" data-dg-carousel aria-label="Carrusel tarjetas">
+  <div class="dg-carousel-inner">
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>01 / 04</small><h3>Explora nuevas ideas</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>02 / 04</small><h3>Diseña con intención</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>03 / 04</small><h3>Construye algo memorable</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>04 / 04</small><h3>Comparte tu siguiente paso</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+  </div>
+  <button type="button" class="dg-carousel-prev" aria-label="Anterior">‹</button>
+  <button type="button" class="dg-carousel-next" aria-label="Siguiente">›</button>
+  <div class="dg-carousel-indicators">
+    <button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"></button>
+    <button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"></button>
+    <button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"></button>
+    <button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"></button>
+  </div>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-carousel dg-carousel-cards" data-dg-carousel aria-label="Carrusel tarjetas"&gt;
+  &lt;div class="dg-carousel-inner"&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;01 / 04&lt;/small&gt;&lt;h3&gt;Explora nuevas ideas&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;02 / 04&lt;/small&gt;&lt;h3&gt;Diseña con intención&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;03 / 04&lt;/small&gt;&lt;h3&gt;Construye algo memorable&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;04 / 04&lt;/small&gt;&lt;h3&gt;Comparte tu siguiente paso&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type="button" class="dg-carousel-prev" aria-label="Anterior"&gt;‹&lt;/button&gt;
+  &lt;button type="button" class="dg-carousel-next" aria-label="Siguiente"&gt;›&lt;/button&gt;
+  &lt;div class="dg-carousel-indicators"&gt;
+    &lt;button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+  <h2 id="vertical" class="doc-sub">Carrusel con desplazamiento vertical</h2>
+  <p>Muestra una diapositiva a la vez y cambia el contenido con un desplazamiento hacia arriba o hacia abajo.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-carousel dg-carousel-vertical" data-dg-carousel aria-label="Carrusel vertical">
+  <div class="dg-carousel-inner">
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>01 / 04</small><h3>Explora nuevas ideas</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>02 / 04</small><h3>Diseña con intención</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>03 / 04</small><h3>Construye algo memorable</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+    <div class="dg-carousel-item"><div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"><div><small>04 / 04</small><h3>Comparte tu siguiente paso</h3><p class="dg-text-sm">Dgarz Design · Colección creativa</p></div></div></div>
+  </div>
+  <button type="button" class="dg-carousel-prev" aria-label="Anterior">‹</button>
+  <button type="button" class="dg-carousel-next" aria-label="Siguiente">›</button>
+  <div class="dg-carousel-indicators">
+    <button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"></button>
+    <button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"></button>
+    <button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"></button>
+    <button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"></button>
+  </div>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-carousel dg-carousel-vertical" data-dg-carousel aria-label="Carrusel vertical"&gt;
+  &lt;div class="dg-carousel-inner"&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-info-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;01 / 04&lt;/small&gt;&lt;h3&gt;Explora nuevas ideas&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-success-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;02 / 04&lt;/small&gt;&lt;h3&gt;Diseña con intención&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-warning-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;03 / 04&lt;/small&gt;&lt;h3&gt;Construye algo memorable&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-carousel-item"&gt;&lt;div class="dg-carousel-slide" style="background:var(--dg-danger-subtle);color:var(--dg-text);padding:3.5rem;text-align:center"&gt;&lt;div&gt;&lt;small&gt;04 / 04&lt;/small&gt;&lt;h3&gt;Comparte tu siguiente paso&lt;/h3&gt;&lt;p class="dg-text-sm"&gt;Dgarz Design · Colección creativa&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type="button" class="dg-carousel-prev" aria-label="Anterior"&gt;‹&lt;/button&gt;
+  &lt;button type="button" class="dg-carousel-next" aria-label="Siguiente"&gt;›&lt;/button&gt;
+  &lt;div class="dg-carousel-indicators"&gt;
+    &lt;button type="button" data-dg-carousel-go="0" aria-label="Diapositiva 1"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="1" aria-label="Diapositiva 2"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="2" aria-label="Diapositiva 3"&gt;&lt;/button&gt;
+    &lt;button type="button" data-dg-carousel-go="3" aria-label="Diapositiva 4"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
   <Fragment set:html={pageContent} />
 </Layout>

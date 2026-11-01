@@ -1,5 +1,5 @@
 export var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
-export var DUR = 240;
+export var DUR = 1000;
 export var openStack = [];
 
 export function $(sel, ctx) { return (ctx || document).querySelector(sel); }

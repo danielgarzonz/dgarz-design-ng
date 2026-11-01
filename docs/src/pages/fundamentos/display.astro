@@ -9,7 +9,8 @@ import Layout from "../../layouts/DocsLayout.astro";
     Cada clase fuerza el valor de <code class="dg-code">display</code> en el elemento. Combínalas con utilidades de flex, grid o spacing.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="doc-disp-table">
       <div class="doc-disp-thead">
         <span>Clase</span>
@@ -105,13 +106,15 @@ import Layout from "../../layouts/DocsLayout.astro";
 &lt;div class="dg-grid-d"&gt;...&lt;/div&gt;
 &lt;div class="dg-hidden"&gt;...&lt;/div&gt;
 &lt;span class="dg-sr-only"&gt;Texto accesible&lt;/span&gt;</pre></div>
+</div>
 
   <div class="doc-sub">Visibilidad responsive</div>
   <p class="dg-muted dg-text-sm dg-mb-4">
     Oculta elementos según el breakpoint activo. Usan <code class="dg-code">display: none</code>, no <code class="dg-code">visibility: hidden</code>.
   </p>
 
-  <div class="doc-demo is-plain">
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="doc-disp-table">
       <div class="doc-disp-thead">
         <span>Clase</span>
@@ -149,6 +152,7 @@ import Layout from "../../layouts/DocsLayout.astro";
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;Solo visible en desktop&lt;/div&gt;
 &lt;div class="dg-hidden-desktop"&gt;Solo visible en móvil&lt;/div&gt;
 &lt;div class="dg-hidden-xs"&gt;Oculto en pantallas muy pequeñas&lt;/div&gt;</pre></div>
+</div>
 
 <style>
   .doc-disp-table { border: 1px solid var(--dg-border); border-radius: var(--dg-radius); overflow: hidden; }

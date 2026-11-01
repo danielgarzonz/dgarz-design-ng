@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Dropdown básico</div>
-      <div class="doc-demo is-plain dg-min-h-180">
+      <p class="dg-muted dg-text-sm dg-mb-4">Menú flotante que se abre desde un botón. Usa <code class="dg-code">.dg-dropdown</code> como contenedor, <code class="dg-code">.dg-menu</code> para el panel y <code class="dg-code">.dg-menu-item</code> para cada acción.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-min-h-180">
         <div class="dg-cluster">
           <div class="dg-dropdown" data-dg-dropdown>
             <button class="dg-btn dg-btn-outline" data-dg-dropdown-trigger>
@@ -49,8 +51,10 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
      - Click en cualquier .dg-menu-item
      - Click fuera del dropdown
      - Pulsar Escape --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Ítems con icono y estado peligro</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade un icono antes del texto y <code class="dg-code">.dg-text-danger</code> en las acciones destructivas. <code class="dg-code">.dg-menu-sep</code> separa grupos.</p>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Ítem con icono a la izquierda --&gt;
 &lt;button class="dg-menu-item"&gt;
   &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-mail"&gt;&lt;/use&gt;&lt;/svg&gt;
@@ -67,7 +71,9 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
 &lt;div class="dg-menu-sep"&gt;&lt;/div&gt;</pre></div>
 
       <div class="doc-sub">Dropdown en tabla (menú de acciones por fila)</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Usa un botón compacto al final de cada fila para abrir sus acciones.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-table-card dg-max-w-500">
           <table class="dg-table">
             <thead><tr><th>Proyecto</th><th>Estado</th><th class="dg-text-right">Acciones</th></tr></thead>
@@ -118,7 +124,8 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
   &lt;div class="dg-menu dg-menu-end" hidden&gt;
     …
   &lt;/div&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Overlays" lead="Dropdown menus con animación de entrada y salida." currentHref="/componentes/overlays">

@@ -1,17 +1,23 @@
 /* ---- Dropdown --------------------------------------------- */
 .dg-dropdown { position: relative; display: inline-block; }
+.dg-dropdown > button,
+[data-dg-dropdown-trigger] { border: 1px solid var(--dg-field-border); }
+.dg-dropdown > button:focus-visible,
+[data-dg-dropdown-trigger]:focus-visible,
+[data-dg-dropdown-trigger][aria-expanded="true"] { border-color: var(--dg-text); }
 .dg-menu {
   position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; z-index: 40;
   background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--dg-field-border);
   border-radius: var(--dg-radius);
   box-shadow:
     var(--dg-shadow-3),
     inset 0 1px 0 color-mix(in oklab, #fff 14%, transparent),
     inset 0 0 0 1px color-mix(in oklab, var(--dg-border-strong) 20%, transparent);
   padding: var(--dg-space-2); display: flex; flex-direction: column; gap: 2px;
-  transform-origin: top left; animation: dg-menu-in var(--dg-dur) var(--dg-ease);
+  transform-origin: top left; animation: dg-menu-in var(--dg-dur-motion) var(--dg-ease-motion);
 }
 .dg-menu-end { left: auto; right: 0; transform-origin: top right; }
 .dg-menu[hidden] { display: none; }
@@ -23,3 +29,11 @@
 .dg-menu-item-danger:hover,
 .dg-menu-item-danger:focus-visible { color: var(--dg-danger); background: color-mix(in oklab, var(--dg-danger-bg) 88%, transparent); }
 .dg-menu-sep { height: 1px; background: var(--dg-border); margin: var(--dg-space-2) 0; }
+
+/* Native top layer avoids clipping inside cards, scrollable tables and modals. */
+.dg-menu[popover] {
+  position: fixed; inset: auto; margin: 0;
+  min-width: min(200px, calc(100vw - 16px));
+  overflow: auto; overscroll-behavior: contain;
+}
+.dg-menu[popover]::backdrop { background: transparent; pointer-events: none; }

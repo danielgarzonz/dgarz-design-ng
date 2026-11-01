@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Estilos base</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-badge</code> es la etiqueta neutra. Usa <code class="dg-code">.dg-badge-solid</code> para darle más peso o <code class="dg-code">.dg-badge-outline</code> para aligerarla.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <span class="dg-badge">Default</span>
           <span class="dg-badge dg-badge-solid">Sólido</span>
@@ -11,9 +13,12 @@ const pageContent = `<div class="doc-sub">Estilos base</div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;span class="dg-badge"&gt;Default&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-solid"&gt;Sólido&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-outline"&gt;Outline&lt;/span&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Variantes semánticas</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Comunica un estado con <code class="dg-code">.dg-badge-success</code>, <code class="dg-code">.dg-badge-warning</code>, <code class="dg-code">.dg-badge-danger</code> o <code class="dg-code">.dg-badge-info</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <span class="dg-badge dg-badge-success">Completado</span>
           <span class="dg-badge dg-badge-warning">Pendiente</span>
@@ -25,9 +30,12 @@ const pageContent = `<div class="doc-sub">Estilos base</div>
 &lt;span class="dg-badge dg-badge-warning"&gt;Pendiente&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-danger"&gt;Error&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-info"&gt;Info&lt;/span&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Semánticas sólidas</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Combina <code class="dg-code">.dg-badge</code> con utilidades como <code class="dg-code">.dg-bg-success</code> y <code class="dg-code">.dg-border-transparent</code> para un fondo de color pleno.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <span class="dg-badge dg-bg-success dg-border-transparent">Completado</span>
           <span class="dg-badge dg-bg-warning dg-border-transparent">Pendiente</span>
@@ -40,9 +48,12 @@ const pageContent = `<div class="doc-sub">Estilos base</div>
 &lt;span class="dg-badge dg-bg-warning dg-border-transparent"&gt;Pendiente&lt;/span&gt;
 &lt;span class="dg-badge dg-bg-danger dg-border-transparent"&gt;Error&lt;/span&gt;
 &lt;span class="dg-badge dg-bg-info dg-border-transparent"&gt;Info&lt;/span&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Con punto de estado (.dg-badge-dot)</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-badge-dot</code> para mostrar un punto de color junto al texto. Es útil para indicar estados en tablas y listas.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
           <span class="dg-badge dg-badge-dot dg-badge-warning">Revisión</span>
@@ -57,9 +68,12 @@ const pageContent = `<div class="doc-sub">Estilos base</div>
 &lt;span class="dg-badge dg-badge-dot dg-badge-danger"&gt;Bloqueado&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-dot dg-badge-info"&gt;Procesando&lt;/span&gt;
 &lt;span class="dg-badge dg-badge-dot"&gt;Sin estado&lt;/span&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Uso combinado con otros componentes</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Los badges se integran dentro de botones y junto a avatares para mostrar contadores o estados.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-outline dg-btn-sm">
             Notificaciones <span class="dg-badge dg-badge-solid dg-ml-1">3</span>
@@ -85,7 +99,8 @@ const pageContent = `<div class="doc-sub">Estilos base</div>
     &lt;div class="dg-fw-medium dg-text-sm"&gt;Ana Rivas&lt;/div&gt;
     &lt;span class="dg-badge dg-badge-dot dg-badge-success dg-mt-px-2"&gt;Activo&lt;/span&gt;
   &lt;/div&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Badges" lead="Etiquetas de estado en variantes sólidas, outline y semánticas." currentHref="/componentes/badges">

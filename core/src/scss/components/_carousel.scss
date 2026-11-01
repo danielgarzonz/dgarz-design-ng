@@ -114,3 +114,35 @@
 
 /* No-transition during drag */
 .dg-carousel.is-dragging .dg-carousel-inner { transition: none; }
+
+/* Variantes: fundido, tarjetas y vertical */
+.dg-carousel-fade .dg-carousel-inner { display: grid; transform: none !important; }
+.dg-carousel-fade .dg-carousel-item { grid-area: 1 / 1; opacity: 0; transition: opacity .44s var(--dg-ease); }
+.dg-carousel-fade .dg-carousel-item.is-active { opacity: 1; z-index: 1; }
+.dg-carousel-cards { --dg-carousel-visible: 3; }
+.dg-carousel-cards .dg-carousel-item { flex-basis: calc(100% / var(--dg-carousel-visible)); padding: .75rem; }
+.dg-carousel-cards .dg-carousel-slide { border-radius: var(--dg-radius-lg); min-height: 280px; aspect-ratio: auto; }
+.dg-carousel-vertical .dg-carousel-inner { height: 340px; flex-direction: column; }
+.dg-carousel-vertical .dg-carousel-item { flex: 0 0 100%; min-height: 0; }
+.dg-carousel-vertical .dg-carousel-slide { height: 100%; min-height: 0; }
+.dg-carousel-caption { padding-bottom: 3rem; }
+.dg-carousel-pause { position: absolute; top: .75rem; right: .75rem; z-index: 3; }
+@media (max-width: 800px) { .dg-carousel-cards { --dg-carousel-visible: 2; } }
+@media (max-width: 520px) { .dg-carousel-cards { --dg-carousel-visible: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .dg-carousel-inner, .dg-carousel-fade .dg-carousel-item { transition: none; }
+}
+
+/* Text follows the newly active step with a short, staggered entrance. */
+@keyframes dg-carousel-text-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dg-carousel-item.is-active :is(.dg-carousel-caption > *, .dg-carousel-slide > div > *, .dg-carousel-text) {
+  animation: dg-carousel-text-in 360ms var(--dg-ease) 60ms both;
+}
+.dg-carousel-item.is-active :is(.dg-carousel-caption, .dg-carousel-slide > div) > :nth-child(2) { animation-delay: 100ms; }
+.dg-carousel-item.is-active :is(.dg-carousel-caption, .dg-carousel-slide > div) > :nth-child(3) { animation-delay: 140ms; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-carousel-item.is-active :is(.dg-carousel-caption > *, .dg-carousel-slide > div > *, .dg-carousel-text) { animation: none; }
+}

@@ -6,7 +6,8 @@ const pageContent = `<!-- NAVBAR -->
         La barra de navegación superior. Usa <code class="dg-code">glass morphism</code> (backdrop-filter) automáticamente.
         Marca el enlace activo con <code class="dg-code">.is-active</code>.
       </p>
-      <div class="doc-demo is-plain dg-p-0 dg-overflow-hidden dg-rounded-lg">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-p-0 dg-overflow-hidden dg-rounded-lg">
         <nav class="dg-navbar dg-static dg-rounded-0">
           <a href="#" class="dg-navbar-brand">MiApp</a>
           <div class="dg-navbar-nav">
@@ -40,6 +41,7 @@ const pageContent = `<!-- NAVBAR -->
 
 &lt;!-- Para hacerla sticky, añádele position:sticky;top:0;z-index:30 --&gt;
 &lt;!-- o usa la clase .doc-topbar como hace esta misma página --&gt;</pre></div>
+</div>
 
       <!-- TABS -->
       <div class="doc-sub dg-mt-7">Tabs</div>
@@ -49,7 +51,8 @@ const pageContent = `<!-- NAVBAR -->
         Si no usas JS, maneja tú mismo <code class="dg-code">.is-active</code> y el atributo <code class="dg-code">hidden</code>.
       </p>
 
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div data-dg-tabs>
           <div class="dg-tabs">
             <button class="dg-tab is-active" data-dg-panel="#tp1">Resumen</button>
@@ -79,9 +82,12 @@ const pageContent = `<!-- NAVBAR -->
 &lt;/div&gt;
 
 &lt;!-- Navegación con teclado: ← → para cambiar de tab, Enter/Space para activar --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Variantes de tabs</div>
-      <div class="doc-demo is-plain dg-stack dg-gap-5">
+      <p class="dg-muted dg-text-sm dg-mb-4">Además del estilo base, <code class="dg-code">.dg-tabs-pill</code> y <code class="dg-code">.dg-tabs-enclosed</code> cambian el aspecto de las pestañas.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-gap-5">
         <div>
           <p class="dg-text-xs dg-muted dg-mb-3">Underline (por defecto)</p>
           <div class="dg-tabs">
@@ -115,6 +121,7 @@ const pageContent = `<!-- NAVBAR -->
 
 &lt;!-- Enclosed: borde tipo card conectado al contenido --&gt;
 &lt;div class="dg-tabs dg-tabs-enclosed"&gt;…&lt;/div&gt;</pre></div>
+</div>
 
       <!-- SEGMENTED -->
       <div class="doc-sub dg-mt-7">Control segmentado</div>
@@ -122,7 +129,8 @@ const pageContent = `<!-- NAVBAR -->
         Selector de opción única (radio visual). Ideal para cambiar entre vistas o modos.
         Con <code class="dg-code">data-dg-segmented</code> el JS gestiona la selección automáticamente.
       </p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-stack dg-gap-4">
           <div class="dg-segmented" id="demoSeg">
             <button class="is-active">Día</button>
@@ -143,7 +151,8 @@ const pageContent = `<!-- NAVBAR -->
 &lt;/div&gt;
 
 &lt;!-- data-dg-segmented activa la lógica de selección única.
-     Sin JS: maneja tú mismo la clase .is-active en los botones. --&gt;</pre></div>`;
+     Sin JS: maneja tú mismo la clase .is-active en los botones. --&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Navegación" lead="Navbar horizontal, nav vertical, tabs y segmented control." currentHref="/componentes/nav">

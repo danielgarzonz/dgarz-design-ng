@@ -16,6 +16,8 @@ import Code from "../../components/Code.astro";
     La recomendación es usarlas en shells, cards destacadas, dashboards y CTAs, no en toda la UI.
   </p>
 
+  <div class="doc-example">
+
   <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1a1040">
     <div class="dg-cluster dg-gap-3 dg-wrap">
       <span class="dg-badge">Base minimal</span>
@@ -46,7 +48,11 @@ import Code from "../../components/Code.astro";
   </Demo>
   <Code />
 
+  </div>
+
   <div class="doc-sub">Variantes disponibles</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Cada clase define un nivel de efecto. Compáralas sobre una imagen de fondo para elegir la adecuada.</p>
+  <div class="doc-example">
   <Demo plain class="doc-stage dg-stack dg-gap-5" style="background-image:url('https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#0d1f1a">
     <div class="dg-grid dg-grid-2">
       <article class="dg-card dg-surface-glass">
@@ -84,8 +90,11 @@ import Code from "../../components/Code.astro";
     </div>
   </Demo>
   <Code />
+  </div>
 
   <div class="doc-sub">Botones y CTAs</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-btn-glass</code>, <code class="dg-code">.dg-btn-gradient</code> y <code class="dg-code">.dg-btn-gradient-warm</code> llevan las superficies a las acciones principales.</p>
+  <div class="doc-example">
   <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#12102a">
     <div class="dg-cluster dg-gap-3 dg-wrap">
       <button class="dg-btn">Base</button>
@@ -108,12 +117,14 @@ import Code from "../../components/Code.astro";
     </div>
   </Demo>
   <Code />
+  </div>
 
   <div class="doc-sub">Override de color por contenedor</div>
   <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-lg">
     Si un proyecto quiere otro acento, no necesitas rehacer clases. Puedes cambiar las variables en un wrapper
     y todas las superficies visuales usarán ese nuevo tono.
   </p>
+  <div class="doc-example">
   <Demo plain class="doc-stage" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1f0a00">
     <section class="dg-grid dg-grid-2 doc-surface-brand-cool">
       <article class="dg-card dg-surface-gradient-cool">
@@ -131,8 +142,10 @@ import Code from "../../components/Code.astro";
     </section>
   </Demo>
   <Code />
+  </div>
 
   <div class="doc-sub">Clases</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Lista completa de las clases de superficie y de botón disponibles.</p>
   <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-surface-glass
 .dg-surface-glass-strong
 .dg-surface-glass-dark

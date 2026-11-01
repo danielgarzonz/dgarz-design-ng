@@ -10,16 +10,19 @@
   text-shadow: none !important;
 }
 
-/* Functional form borders retain their component styles and validation colors. */
+/* Functional form, dropdown and table borders retain their component styles. */
 :root body,
 :root body *:not(:where(
   input, select, textarea,
+  table, th, td, caption,
+  .dg-table-card, .dg-table-rowcard, .dg-table-rowcard-row,
+  .dg-accordion, .dg-accordion-item, .dg-collapse-bordered,
   .dg-input, .dg-select, .dg-textarea,
+  .dg-menu, [data-dg-dropdown-trigger], .dg-dropdown > button,
   .dg-check-box, .dg-switch-track,
   .dg-input-addon, .dg-combobox-control, .dg-combobox-tag,
   .dg-combobox-dropdown, .dg-combobox-check,
-  .dg-dropzone, .dg-file-item, .dg-segmented,
-  .dg-btn-group .dg-btn
+  .dg-dropzone, .dg-file-item, .dg-segmented
 )),
 :root body::before,
 :root body::after,
@@ -28,7 +31,6 @@
   border: none !important;
 }
 
-.dg-btn-group .dg-btn,
 .dg-segmented {
   border: 1px solid var(--dg-field-border);
 }

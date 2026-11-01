@@ -7,7 +7,8 @@ const pageContent = `
     Úsalos de menor a mayor elevación según el contexto del elemento.
   </p>
 
-  <div class="doc-demo is-plain dg-p-0">
+  <div class="doc-example">
+<div class="doc-demo is-plain dg-p-0">
     <div class="shadow-demo-scroll">
 
       <div class="shadow-demo-card dg-shadow-inset-xs"><span class="shadow-demo-level">inset-xs</span><span class="shadow-demo-ctx">Interna</span></div>
@@ -73,6 +74,7 @@ const pageContent = `
 
 &lt;!-- Quitar sombra --&gt;
 &lt;div class="dg-shadow-none"&gt;...&lt;/div&gt;</pre></div>
+</div>
 
   <div class="doc-sub">Atajos de token</div>
   <p class="dg-muted dg-text-sm dg-mb-4">
@@ -84,6 +86,7 @@ const pageContent = `
 &lt;div class="dg-shadow-3"&gt;...&lt;/div&gt;  &lt;!-- modales, drawers --&gt;</pre></div>
 
   <div class="doc-sub">Uso en tu CSS</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Usa los tokens <code class="dg-code">--dg-shadow-1</code>, <code class="dg-code">--dg-shadow-2</code> y <code class="dg-code">--dg-shadow-3</code> en tus propios estilos.</p>
   <div class="doc-code" data-lang="css"><button class="cp">Copiar</button><pre>.mi-card   { box-shadow: var(--dg-shadow-1); }
 .flotante  { box-shadow: var(--dg-shadow-2); }
 .overlay   { box-shadow: var(--dg-shadow-3); }

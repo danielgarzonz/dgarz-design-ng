@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-avatar</code> admite los tamaños <code class="dg-code">.dg-avatar-sm</code>, <code class="dg-code">.dg-avatar-lg</code> y <code class="dg-code">.dg-avatar-xl</code>. Usa <code class="dg-code">.dg-avatar-group</code> para apilar varios y <code class="dg-code">.dg-avatar-status</code> para mostrar un indicador de estado.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster dg-gap-5 dg-items-end">
           <div class="dg-cluster dg-gap-3 dg-items-center">
             <span class="dg-avatar dg-avatar-sm">XS</span>
@@ -43,9 +45,12 @@ const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
   &lt;span class="dg-avatar"&gt;LM&lt;/span&gt;
   &lt;span class="dg-avatar-status is-online"&gt;&lt;/span&gt;   &lt;!-- is-online · is-away · is-offline --&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Barra de progreso — variantes y tamaños</div>
-      <div class="doc-demo is-plain dg-stack dg-max-w-500">
+      <p class="dg-muted dg-text-sm dg-mb-4">Define el avance con el ancho de <code class="dg-code">.dg-progress-bar</code> y ajusta el grosor con <code class="dg-code">.dg-progress-sm</code> o <code class="dg-code">.dg-progress-lg</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-500">
         <div>
           <p class="dg-text-xs dg-muted dg-mb-2">Default (solid) · 64%</p>
           <div class="dg-progress"><div class="dg-progress-bar dg-w-64p"></div></div>
@@ -78,9 +83,12 @@ const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
 &lt;div class="dg-progress dg-progress-sm"&gt;…&lt;/div&gt;  &lt;!-- 4px --&gt;
 &lt;div class="dg-progress"&gt;…&lt;/div&gt;                 &lt;!-- 8px (default) --&gt;
 &lt;div class="dg-progress dg-progress-lg"&gt;…&lt;/div&gt;  &lt;!-- 12px --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Spinner</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Indica una carga en curso. Usa <code class="dg-code">.dg-spinner-sm</code> o <code class="dg-code">.dg-spinner-lg</code> para ajustar el tamaño. También funciona dentro de un botón.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster dg-gap-5 dg-items-center">
           <div class="dg-spinner dg-spinner-sm"></div>
           <div class="dg-spinner"></div>
@@ -98,9 +106,12 @@ const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
 &lt;!-- Dentro de un botón --&gt;
 &lt;button class="dg-btn dg-btn-primary is-loading"&gt;Guardar&lt;/button&gt;
 &lt;!-- is-loading oculta el texto y muestra el spinner automáticamente --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Tooltip</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Tooltip solo con CSS: el texto va en <code class="dg-code">data-tip</code>. Aparece arriba por defecto y cambia de posición con <code class="dg-code">.dg-tooltip-bottom</code> o <code class="dg-code">.dg-tooltip-right</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster dg-gap-6 dg-py-6">
           <span class="dg-tooltip" data-tip="Aparece arriba (por defecto)">
             <button class="dg-btn dg-btn-outline dg-btn-sm">Arriba</button>
@@ -113,12 +124,6 @@ const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
           </span>
         </div>
       </div>
-      <style>
-        .doc-spinner-on-solid {
-          border-color: rgba(255, 255, 255, 0.3);
-          border-top-color: #fff;
-        }
-      </style>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Tooltip puro CSS — usa el atributo data-tip como contenido --&gt;
 &lt;span class="dg-tooltip" data-tip="Texto del tooltip"&gt;
   &lt;button class="dg-btn"&gt;Hover&lt;/button&gt;
@@ -127,7 +132,14 @@ const pageContent = `<div class="doc-sub">Avatar — tamaños y grupo</div>
 &lt;!-- Posiciones --&gt;
 &lt;span class="dg-tooltip"              data-tip="Arriba"&gt;…&lt;/span&gt;
 &lt;span class="dg-tooltip dg-tooltip-bottom" data-tip="Abajo"&gt;…&lt;/span&gt;
-&lt;span class="dg-tooltip dg-tooltip-right"  data-tip="Derecha"&gt;…&lt;/span&gt;</pre></div>`;
+&lt;span class="dg-tooltip dg-tooltip-right"  data-tip="Derecha"&gt;…&lt;/span&gt;</pre></div>
+</div>
+      <style>
+        .doc-spinner-on-solid {
+          border-color: rgba(255, 255, 255, 0.3);
+          border-top-color: #fff;
+        }
+      </style>`;
 ---
 
 <Layout title="Avatar · Progress" lead="Avatares, grupos, barras de progreso, spinner y tooltip." currentHref="/componentes/misc">

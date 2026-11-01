@@ -2,7 +2,9 @@
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `
   <div class="doc-sub">Border</div>
-  <div class="doc-demo is-plain">
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-border</code> añade borde en todos los lados. También se puede limitar a un lado o quitar con <code class="dg-code">.dg-border-0</code>.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="dg-cluster dg-gap-4 dg-wrap dg-p-5">
       <div class="border-box dg-border">dg-border</div>
       <div class="border-box dg-border-top">dg-border-top</div>
@@ -18,8 +20,10 @@ const pageContent = `
 &lt;div class="dg-border-start"&gt;...&lt;/div&gt;
 &lt;div class="dg-border-end"&gt;...&lt;/div&gt;
 &lt;div class="dg-border-0"&gt;...&lt;/div&gt;        &lt;!-- sin borde --&gt;</pre></div>
+</div>
 
   <div class="doc-sub">Color de borde</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Cambia el color con utilidades como <code class="dg-code">.dg-border-success</code> o <code class="dg-code">.dg-border-danger</code>. Se combinan con <code class="dg-code">.dg-border</code>.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-border dg-border-success"&gt;...&lt;/div&gt;
 &lt;div class="dg-border dg-border-warning"&gt;...&lt;/div&gt;
 &lt;div class="dg-border dg-border-danger"&gt;...&lt;/div&gt;
@@ -28,7 +32,9 @@ const pageContent = `
 &lt;div class="dg-border dg-border-transparent"&gt;...&lt;/div&gt;</pre></div>
 
   <div class="doc-sub">Radios</div>
-  <div class="doc-demo is-plain">
+  <p class="dg-muted dg-text-sm dg-mb-4">Controla el redondeo de las esquinas, desde <code class="dg-code">.dg-rounded-0</code> hasta <code class="dg-code">.dg-rounded-pill</code>.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="dg-cluster dg-gap-5 dg-wrap dg-p-5">
       <div class="radius-box dg-rounded-sm">sm</div>
       <div class="radius-box dg-rounded">base</div>
@@ -44,8 +50,10 @@ const pageContent = `
 &lt;div class="dg-rounded-xl"&gt;...&lt;/div&gt;     &lt;!-- 30px --&gt;
 &lt;div class="dg-rounded-pill"&gt;...&lt;/div&gt;   &lt;!-- 999px --&gt;
 &lt;div class="dg-rounded-0"&gt;...&lt;/div&gt;      &lt;!-- 0 --&gt;</pre></div>
+</div>
 
   <div class="doc-sub">Ancho y alto</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-w-full</code> y <code class="dg-code">.dg-h-full</code> ocupan todo el espacio del contenedor. <code class="dg-code">.dg-min-w-0</code> evita desbordes dentro de flex.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-w-full"&gt;...&lt;/div&gt;       &lt;!-- width: 100% --&gt;
 &lt;div class="dg-h-full"&gt;...&lt;/div&gt;       &lt;!-- height: 100% --&gt;
 &lt;div class="dg-h-screen"&gt;...&lt;/div&gt;     &lt;!-- height: 100vh --&gt;
@@ -62,6 +70,7 @@ const pageContent = `
 &lt;div class="dg-measure"&gt;...&lt;/div&gt;      &lt;!-- 60ch --&gt;</pre></div>
 
   <div class="doc-sub">Aspect ratio y object-fit</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Mantén la proporción con <code class="dg-code">.dg-aspect-video</code> o <code class="dg-code">.dg-aspect-square</code>, y ajusta la imagen con <code class="dg-code">.dg-object-cover</code> o <code class="dg-code">.dg-object-contain</code>.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-aspect-video"&gt;...&lt;/div&gt;    &lt;!-- 16/9 --&gt;
 &lt;div class="dg-aspect-square"&gt;...&lt;/div&gt;   &lt;!-- 1/1 --&gt;
 &lt;div class="dg-aspect-4-3"&gt;...&lt;/div&gt;      &lt;!-- 4/3 --&gt;

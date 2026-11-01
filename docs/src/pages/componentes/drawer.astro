@@ -1,67 +1,63 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
+import Code from "../../components/Code.astro";
+
+const rightExample = "<button class=\"dg-btn\" data-dg-open=\"#demoDrawerRight\">Drawer derecha</button>\n\n<div class=\"dg-drawer-backdrop\" id=\"demoDrawerRightBd\" data-dg-backdrop=\"\" hidden></div>\n<div class=\"dg-drawer\" id=\"demoDrawerRight\" hidden data-dg-backdrop=\"#demoDrawerRightBd\"\n     role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"drawerRightTitle\">\n  <button type=\"button\" class=\"dg-modal-close dg-drawer-close\" data-dg-close aria-label=\"Cerrar\">\n    <svg class=\"dg-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6 6 18\"/></svg>\n  </button>\n  <div class=\"dg-drawer-header\">\n    <h4 id=\"drawerRightTitle\">Panel de filtros</h4>\n  </div>\n  <div class=\"dg-drawer-body dg-stack\">\n    <div class=\"dg-field\">\n      <label class=\"dg-label\" for=\"drawerState\">Estado</label>\n      <select class=\"dg-select\" id=\"drawerState\"><option>Todos</option><option>Activo</option><option>Pendiente</option></select>\n    </div>\n    <div class=\"dg-field\">\n      <label class=\"dg-label\" for=\"drawerPrice\">Precio máximo</label>\n      <input class=\"dg-input\" id=\"drawerPrice\" type=\"number\" placeholder=\"500\" />\n    </div>\n  </div>\n  <div class=\"dg-drawer-footer\">\n    <button class=\"dg-btn dg-btn-cancel\" data-dg-close>Cancelar</button>\n    <button class=\"dg-btn\" data-dg-close>Aplicar filtros</button>\n  </div>\n</div>";
+const leftExample = "<button class=\"dg-btn dg-btn-ghost\" data-dg-open=\"#demoDrawerLeft\">Drawer izquierda</button>\n\n<div class=\"dg-drawer-backdrop\" id=\"demoDrawerLeftBd\" data-dg-backdrop=\"\" hidden></div>\n<div class=\"dg-drawer dg-drawer-left\" id=\"demoDrawerLeft\" hidden data-dg-backdrop=\"#demoDrawerLeftBd\"\n     role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"drawerLeftTitle\">\n  <button type=\"button\" class=\"dg-modal-close dg-drawer-close\" data-dg-close aria-label=\"Cerrar\">\n    <svg class=\"dg-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6 6 18\"/></svg>\n  </button>\n  <div class=\"dg-drawer-header\">\n    <h4 id=\"drawerLeftTitle\">Menú lateral</h4>\n  </div>\n  <div class=\"dg-drawer-body\">\n    <nav class=\"dg-nav-vertical\">\n      <a class=\"dg-nav-item is-active\" href=\"/\"><svg class=\"dg-icon\"><use href=\"#dg-menu\"/></svg><span>Inicio</span></a>\n      <a class=\"dg-nav-item\" href=\"/componentes/tables\"><svg class=\"dg-icon\"><use href=\"#dg-search\"/></svg><span>Buscar</span></a>\n      <a class=\"dg-nav-item\" href=\"/componentes/alerts\"><svg class=\"dg-icon\"><use href=\"#dg-bell\"/></svg><span>Notificaciones</span></a>\n    </nav>\n  </div>\n  <div class=\"dg-drawer-footer\">\n    <button class=\"dg-btn dg-btn-primary\" data-dg-close>Cerrar menú</button>\n  </div>\n</div>";
 ---
 
 <Layout
   title="Drawer"
-  lead="Panel deslizable desde el lateral con backdrop. Comparte el mismo sistema de apertura que los modales."
+  lead="Panel lateral con el acabado de los modales: glass y footer flotante, con cabecera sin fondo. Conserva su altura completa y apertura desde el borde."
   currentHref="/componentes/drawer"
 >
-  <Fragment set:html={`<div class="doc-sub">Drawer desde la derecha</div>
-      <div class="doc-demo is-plain">
-        <button class="dg-btn" data-dg-open="#demoDrawerRight">Drawer derecha</button>
-      </div>
+  <div class="dg-segmented dg-mb-5" id="drawerSurface" role="group" aria-label="Superficie del drawer">
+    <button type="button" class="is-active" data-drawer-surface="glass" aria-pressed="true">Glass</button>
+    <button type="button" data-drawer-surface="solid" aria-pressed="false">Sólido</button>
+  </div>
+  <p class="dg-muted dg-mb-4">Glass usa transparencia y <code>saturate(1.8) blur(20px)</code>. Sólido usa fondo blanco opaco. El título se alinea a la izquierda y las esquinas interiores distinguen el panel lateral del modal centrado.</p>
+  <h2 class="doc-sub">Drawer desde la derecha</h2>
+  <p class="dg-muted dg-text-sm dg-mb-4">Es la posición por defecto: el panel entra desde el borde derecho. Ábrelo con <code class="dg-code">data-dg-open</code> apuntando al id del drawer.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain">
+    <button class="dg-btn" data-dg-open="#demoDrawerRight">Drawer derecha</button>
+  </div>
+  <Code>{rightExample}</Code>
+</div>
 
-      <div class="doc-sub">Drawer desde la izquierda</div>
-      <div class="doc-demo is-plain">
-        <button class="dg-btn dg-btn-ghost" data-dg-open="#demoDrawerLeft">Drawer izquierda</button>
-      </div>
-
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Trigger --&gt;
-&lt;button data-dg-open="#mi-drawer"&gt;Abrir panel&lt;/button&gt;
-
-&lt;!-- Backdrop --&gt;
-&lt;div class="dg-drawer-backdrop" id="mi-drawer-bd" data-dg-backdrop="" hidden&gt;&lt;/div&gt;
-
-&lt;!-- Drawer derecho --&gt;
-&lt;div class="dg-drawer" id="mi-drawer" hidden data-dg-backdrop="#mi-drawer-bd"&gt;
-  &lt;div class="dg-drawer-header"&gt;
-    &lt;h4&gt;Título&lt;/h4&gt;
-    &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close&gt;…&lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-drawer-body"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-drawer-footer"&gt;
-    &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-    &lt;button class="dg-btn" data-dg-close&gt;Aplicar&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Drawer izquierdo: añade .dg-drawer-left --&gt;
-&lt;div class="dg-drawer dg-drawer-left" …&gt;…&lt;/div&gt;</pre></div>`} />
+  <h2 class="doc-sub">Drawer desde la izquierda</h2>
+  <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-drawer-left</code> para que el panel entre desde el borde izquierdo.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain">
+    <button class="dg-btn dg-btn-ghost" data-dg-open="#demoDrawerLeft">Drawer izquierda</button>
+  </div>
+  <Code>{leftExample}</Code>
+</div>
+  <p class="dg-muted dg-text-sm">Para la variante sólida, agrega <code>is-solid</code> al contenedor <code>dg-drawer</code> de cualquiera de los ejemplos.</p>
 </Layout>
 
 <!-- Drawer backdrops -->
 <div class="dg-drawer-backdrop" id="demoDrawerRightBd" data-dg-backdrop="" hidden></div>
 <div class="dg-drawer" id="demoDrawerRight" hidden data-dg-backdrop="#demoDrawerRightBd"
      role="dialog" aria-modal="true" aria-labelledby="drawerRightTitle">
+  <button type="button" class="dg-modal-close dg-drawer-close" data-dg-close aria-label="Cerrar">
+    <svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
   <div class="dg-drawer-header">
     <h4 id="drawerRightTitle">Panel de filtros</h4>
-    <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar">
-      <svg class="dg-icon"><use href="#dg-x"/></svg>
-    </button>
   </div>
   <div class="dg-drawer-body dg-stack">
     <div class="dg-field">
-      <label class="dg-label">Estado</label>
-      <select class="dg-select"><option>Todos</option><option>Activo</option><option>Pendiente</option></select>
+      <label class="dg-label" for="drawerState">Estado</label>
+      <select class="dg-select" id="drawerState"><option>Todos</option><option>Activo</option><option>Pendiente</option></select>
     </div>
     <div class="dg-field">
-      <label class="dg-label">Precio máximo</label>
-      <input class="dg-input" type="number" placeholder="500" />
+      <label class="dg-label" for="drawerPrice">Precio máximo</label>
+      <input class="dg-input" id="drawerPrice" type="number" placeholder="500" />
     </div>
   </div>
   <div class="dg-drawer-footer">
-    <button class="dg-btn dg-btn-ghost" data-dg-close>Restablecer</button>
+    <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
     <button class="dg-btn" data-dg-close>Aplicar filtros</button>
   </div>
 </div>
@@ -69,17 +65,34 @@ import Layout from "../../layouts/DocsLayout.astro";
 <div class="dg-drawer-backdrop" id="demoDrawerLeftBd" data-dg-backdrop="" hidden></div>
 <div class="dg-drawer dg-drawer-left" id="demoDrawerLeft" hidden data-dg-backdrop="#demoDrawerLeftBd"
      role="dialog" aria-modal="true" aria-labelledby="drawerLeftTitle">
+  <button type="button" class="dg-modal-close dg-drawer-close" data-dg-close aria-label="Cerrar">
+    <svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
   <div class="dg-drawer-header">
     <h4 id="drawerLeftTitle">Menú lateral</h4>
-    <button class="dg-btn dg-btn-ghost dg-btn-icon" data-dg-close aria-label="Cerrar">
-      <svg class="dg-icon"><use href="#dg-x"/></svg>
-    </button>
   </div>
   <div class="dg-drawer-body">
     <nav class="dg-nav-vertical">
-      <a class="dg-nav-item is-active"><svg class="dg-icon"><use href="#dg-menu"/></svg><span>Inicio</span></a>
-      <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-search"/></svg><span>Buscar</span></a>
-      <a class="dg-nav-item"><svg class="dg-icon"><use href="#dg-bell"/></svg><span>Notificaciones</span></a>
+      <a class="dg-nav-item is-active" href="/"><svg class="dg-icon"><use href="#dg-menu"/></svg><span>Inicio</span></a>
+      <a class="dg-nav-item" href="/componentes/tables"><svg class="dg-icon"><use href="#dg-search"/></svg><span>Buscar</span></a>
+      <a class="dg-nav-item" href="/componentes/alerts"><svg class="dg-icon"><use href="#dg-bell"/></svg><span>Notificaciones</span></a>
     </nav>
   </div>
+  <div class="dg-drawer-footer">
+    <button class="dg-btn dg-btn-primary" data-dg-close>Cerrar menú</button>
+  </div>
 </div>
+
+<script>
+  const surfaces = document.getElementById('drawerSurface');
+  surfaces?.querySelectorAll<HTMLButtonElement>('[data-drawer-surface]').forEach(button => {
+    button.addEventListener('click', () => {
+      const solid = button.dataset.drawerSurface === 'solid';
+      document.querySelectorAll('.dg-drawer').forEach(drawer => drawer.classList.toggle('is-solid', solid));
+      surfaces.querySelectorAll('button').forEach(option => {
+        option.classList.toggle('is-active', option === button);
+        option.setAttribute('aria-pressed', String(option === button));
+      });
+    });
+  });
+</script>

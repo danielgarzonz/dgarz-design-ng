@@ -2,16 +2,60 @@
    MOTION — tab panel enter · progress animate · scroll reveal
    ============================================================ */
 
-/* Tab panel fade-in when activated (JS adds .dg-is-entering) */
-@keyframes dg-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.dg-is-entering { animation: dg-panel-in .22s var(--dg-ease) both; }
+/* Text entrance. Hidden content replays it on show: display:none cancels the
+   animation, so overlays need no JS. :where() keeps specificity at zero, so a
+   component's own animation (e.g. .dg-modal-icon) always wins. */
+@keyframes dg-text-in {
+  from { opacity: 0; transform: translateY(8px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.dg-text-in,
+:where(
+  .dg-menu-item,
+  .dg-modal-backdrop:not([hidden]) :is(.dg-modal-title, .dg-modal-body > *),
+  .dg-drawer-header, .dg-drawer-body > *,
+  .dg-popover-header, .dg-popover-body,
+  .dg-accordion-item.is-open .dg-accordion-content,
+  .dg-collapse.is-open > .dg-collapse-content
+) { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
+
+@for $i from 2 through 6 {
+  :where(.dg-menu-item, .dg-modal-body > *, .dg-drawer-body > *):nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 45}ms;
+  }
+}
+
+/* Tab panel entrance when activated (JS adds .dg-is-entering) */
+.dg-is-entering { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-text-in, .dg-is-entering,
+  :where(
+    .dg-menu-item,
+    .dg-modal-backdrop:not([hidden]) :is(.dg-modal-title, .dg-modal-body > *),
+    .dg-drawer-header, .dg-drawer-body > *,
+    .dg-popover-header, .dg-popover-body,
+    .dg-accordion-item.is-open .dg-accordion-content,
+    .dg-collapse.is-open > .dg-collapse-content
+  ) { animation: none; }
+}
 
 /* Progress bar — JS animates from 0 via IntersectionObserver */
-.dg-progress-bar { transition: width .65s cubic-bezier(.2,.6,.2,1); }
+.dg-progress-bar { transition: width var(--dg-dur-motion) var(--dg-ease-motion); }
 
-/* Scroll-reveal: fade+rise (JS adds .dg-reveal, removes .dg-reveal-hidden) */
-.dg-reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s var(--dg-ease), transform .5s var(--dg-ease); }
-.dg-reveal.is-visible { opacity: 1; transform: none; }
+/* Scroll-reveal: same motion as dg-text-in. JS adds .is-visible when the element
+   enters the viewport; [data-dg-reveal-children] tags a container's children. */
+.dg-reveal {
+  opacity: 0; transform: translateY(14px); filter: blur(6px);
+  transition: opacity var(--dg-dur-motion) var(--dg-ease-motion), transform var(--dg-dur-motion) var(--dg-ease-motion), filter var(--dg-dur-motion) var(--dg-ease-motion);
+}
+.dg-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+}
+@media print {
+  .dg-reveal { opacity: 1; transform: none; filter: none; }
+}
 
 /* ============================================================
    ENTRANCE ANIMATIONS — fade-in-{up,down,left,right}, pop-in
@@ -33,4 +77,19 @@
 /* Stagger delays — 100ms increments, 16 steps */
 @for $i from 1 through 16 {
   .dg-delay-#{$i} { animation-delay: #{$i * 100}ms; }
+}
+
+/* Efectos de texto reutilizables */
+@keyframes dg-text-gradient { to { background-position: 200% center; } }
+@keyframes dg-text-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes dg-text-shimmer { to { background-position: -200% center; } }
+.dg-text-gradient { color: var(--dg-info); background: linear-gradient(100deg, var(--dg-info), var(--dg-text), var(--dg-success), var(--dg-info)); background-size: 200% auto; background-clip: text; -webkit-text-fill-color: transparent; animation: dg-text-gradient 5s linear infinite; }
+.dg-text-reveal { animation: dg-text-reveal 1.6s var(--dg-ease) both; }
+.dg-text-shimmer { color: var(--dg-text); background: linear-gradient(110deg, var(--dg-text) 30%, var(--dg-text-muted) 48%, var(--dg-text) 65%); background-size: 200% auto; background-clip: text; -webkit-text-fill-color: transparent; animation: dg-text-shimmer 3s linear infinite; }
+.dg-text-outline { color: var(--dg-text); -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-text-gradient, .dg-text-reveal, .dg-text-shimmer { animation: none; clip-path: none; }
+}
+@media (forced-colors: active) {
+  .dg-text-gradient, .dg-text-shimmer, .dg-text-outline { background: none; -webkit-text-fill-color: currentColor; -webkit-text-stroke: 0; }
 }

@@ -13,6 +13,8 @@ import Layout from "../../layouts/DocsLayout.astro";
   lead="Diálogos accesibles con header, body y footer. Variantes, posiciones y estados."
   currentHref="/componentes/modales"
 >
+  <p class="dg-muted dg-mb-4">Todos los modales usan glass por defecto: fondo al 90% de opacidad y <code>backdrop-filter: saturate(1.8) blur(20px)</code>. El header y el footer flotante comparten un fondo translúcido con <code>saturate(1.8) blur(20px)</code>. Agrega <code>is-solid</code> para un modal blanco, opaco y sin blur.</p>
+  <p class="dg-callout dg-callout-info">Los círculos de estado muestran ondas sólidas y translúcidas que se expanden suavemente. El botón de acción es negro primario. Las ondas permanecen estáticas con movimiento reducido.</p>
   <Fragment set:html={`
       <div class="dg-flex dg-items-center dg-gap-4 dg-mb-6">
         <span class="dg-text-sm dg-fw-medium">Estilo de superficie</span>
@@ -32,7 +34,9 @@ import Layout from "../../layouts/DocsLayout.astro";
       </div>
 
       <div class="doc-sub">1. Modal básico</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Estructura mínima: <code class="dg-code">.dg-modal-header</code>, <code class="dg-code">.dg-modal-body</code> y <code class="dg-code">.dg-modal-footer</code>. El botón lo abre con <code class="dg-code">data-dg-open</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn" data-dg-open="#jsModal">Abrir modal</button>
           <button class="dg-btn dg-btn-ghost" data-dg-open="#mdForm">Con formulario</button>
@@ -101,6 +105,7 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub" id="modal-size-label">2. Tamaños: chico, mediano y full</div>
       <section data-modal-size-tabs>
@@ -158,6 +163,24 @@ import Layout from "../../layouts/DocsLayout.astro";
 &lt;/div&gt;</pre></div>
         </div>
       </section>
+
+      <div class="doc-sub">Botón opcional: mediano ↔ pantalla completa</div>
+      <p class="dg-muted dg-mb-4">Agrega <code>data-dg-modal-resize</code> a un botón dentro del modal. Las flechas diagonales alternan entre 720px y pantalla completa con una transición suave, sin cerrar el diálogo ni perder los datos. Se respeta el movimiento reducido. Los controles de cerrar y cambiar tamaño usan iconos blancos sobre círculos negros pequeños.</p>
+      <div class="doc-example">
+<div class="doc-demo"><button class="dg-btn" data-dg-open="#mdResizable">Probar modal adaptable</button></div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop" id="mdResizable" data-dg-backdrop="" hidden&gt;
+  &lt;div class="dg-modal dg-modal-md" role="dialog" aria-modal="true" aria-labelledby="mdResizableTitle"&gt;
+    &lt;button type="button" class="dg-modal-resize" data-dg-modal-resize aria-label="Ampliar a pantalla completa" aria-pressed="false"&gt;&lt;svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path data-dg-modal-size-icon d="M14 10l7-7m-6 0h6v6M10 14l-7 7m0-6v6h6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;button type="button" class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;svg class="dg-icon" aria-hidden="true"&gt;&lt;use href="#dg-x"/&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;div class="dg-modal-header"&gt;&lt;h3 class="dg-modal-title" id="mdResizableTitle"&gt;Modal adaptable&lt;/h3&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;&lt;div class="dg-modal-content"&gt;
+      &lt;p class="dg-mb-4"&gt;Usa el botón junto a la X para alternar entre mediano y pantalla completa. El contenido y tus cambios se conservan.&lt;/p&gt;
+      &lt;div class="dg-field"&gt;&lt;label class="dg-label" for="resizeNotes"&gt;Notas&lt;/label&gt;&lt;textarea class="dg-textarea" id="resizeNotes" placeholder="Escribe y cambia el tamaño del modal"&gt;&lt;/textarea&gt;&lt;/div&gt;
+    &lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn" data-dg-close&gt;Listo&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub" id="modal-footer-label">3. Variantes de footer</div>
       <section data-modal-footer-tabs>
@@ -252,7 +275,9 @@ import Layout from "../../layouts/DocsLayout.astro";
       </section>
 
       <div class="doc-sub">4. Confirmación con icono</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-modal-confirm</code> destaca un icono y pide una decisión. Úsalo antes de acciones difíciles de deshacer.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <button class="dg-btn dg-btn-danger" data-dg-open="#mdConfirm">Eliminar proyecto</button>
       </div>
       <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-danger" data-dg-open="#mi-confirm"&gt;Eliminar proyecto&lt;/button&gt;
@@ -267,10 +292,11 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;
       &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
-      &lt;button class="dg-btn dg-btn-danger" data-dg-close&gt;Eliminar&lt;/button&gt;
+      &lt;button class="dg-btn dg-btn-primary" data-dg-close&gt;Eliminar&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub" id="modal-pos-label">5. Modal posicionado</div>
       <section data-modal-pos-tabs>
@@ -323,105 +349,119 @@ import Layout from "../../layouts/DocsLayout.astro";
         </div>
       </section>
 
-      <div class="doc-sub" id="modal-pos-label">6. Modal de estado (accent)</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">
-        Dos efectos opcionales para que un resultado (éxito/error) llame la atención mientras está en pantalla
-        — independientes, usa el que prefieras:<br /><br />
-        <code class="dg-code">.dg-modal-glow</code> — un halo que respira lentamente hacia adentro del modal
-        (sube y baja de intensidad todo el borde a la vez). Suma <code class="dg-code">.is-duotone</code> para
-        un segundo tono apilado.<br />
-        <code class="dg-code">.dg-modal-glow-spin</code> — un trazo fino que recorre el borde girando, en vez
-        de pulsar.<br /><br />
-        Ambas leen el mismo <code class="dg-code">.is-success/.is-warning/.is-danger/.is-info</code> que
-        <code class="dg-code">.dg-modal-accent</code>, y respetan <code class="dg-code">prefers-reduced-motion</code>
-        (quedan fijas, sin animar).<br /><br />
-        En estos modales, el <strong>footer flotante es más translúcido</strong> (con desenfoque de fondo), el icono presenta <strong>doble círculo</strong> (anillo exterior con tono sutil y círculo interior sólido), y el check se anima simulando un trazo que se dibuja.
-      </p>
-      <div class="doc-demo is-plain">
-        <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
-          <span class="dg-text-sm dg-fw-medium">Efecto</span>
-          <div class="dg-segmented" id="glowEffectSeg" data-dg-segmented>
-            <button class="is-active" data-effect="dg-modal-glow">Pulso</button>
-            <button data-effect="dg-modal-glow-spin">Giro</button>
-          </div>
+      <div class="doc-sub" id="modal-status-label">6. Modales de estado</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Éxito, aviso, error e información. Cada icono tiene una onda sólida y translúcida, y el botón de acción es negro primario.</p>
+      <section data-modal-status-tabs>
+        <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-status-label">
+          <button type="button" role="tab" id="modal-status-tab-success" aria-controls="modal-status-panel-success" aria-selected="true" tabindex="0" class="is-active">Éxito</button>
+          <button type="button" role="tab" id="modal-status-tab-warning" aria-controls="modal-status-panel-warning" aria-selected="false" tabindex="-1" class="">Aviso</button>
+          <button type="button" role="tab" id="modal-status-tab-danger" aria-controls="modal-status-panel-danger" aria-selected="false" tabindex="-1" class="">Error</button>
+          <button type="button" role="tab" id="modal-status-tab-info" aria-controls="modal-status-panel-info" aria-selected="false" tabindex="-1" class="">Información</button>
         </div>
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="success">✓ Éxito</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="warning">⚠ Aviso</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="danger">✕ Error</button>
-          <button class="dg-btn dg-btn-ghost dg-btn-sm" data-status="info">ℹ Info</button>
-        </div>
-      </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-success"&gt;✓ Éxito&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-warning"&gt;⚠ Aviso&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-danger"&gt;✕ Error&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-sm" data-dg-open="#modal-info"&gt;ℹ Info&lt;/button&gt;
-
-&lt;!-- data-dg-static: sin X, sin Escape, sin clic fuera — solo se cierra con el botón --&gt;
-
-&lt;!-- Éxito --&gt;
+        <div role="tabpanel" id="modal-status-panel-success" aria-labelledby="modal-status-tab-success" tabindex="0">
+          <p class="dg-muted dg-text-sm dg-mt-3">Todo salió bien. Puedes continuar.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="success">Ver modal de éxito</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-success"&gt;Ver modal de éxito&lt;/button&gt;
 &lt;div class="dg-modal-backdrop" id="modal-success" data-dg-backdrop="" data-dg-static hidden&gt;
-  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-success" role="dialog" aria-modal="true"&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-success" role="dialog" aria-modal="true" aria-labelledby="modal-success-title"&gt;
     &lt;div class="dg-modal-status-hero"&gt;
-      &lt;span class="dg-modal-icon is-success"&gt;
-        &lt;svg class="dg-check-animated" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path class="dg-check-path" d="m5 12 4.5 4.5L19 7"/&gt;&lt;/svg&gt;
-      &lt;/span&gt;
+      &lt;span class="dg-modal-icon is-success"&gt;&lt;svg class="dg-icon" aria-hidden="true"&gt;&lt;use href="#dg-check"/&gt;&lt;/svg&gt;&lt;/span&gt;
     &lt;/div&gt;
-    &lt;!-- Título y mensaje van juntos dentro de .dg-modal-body, sin header aparte --&gt;
     &lt;div class="dg-modal-body"&gt;
-      &lt;h3 class="dg-modal-title"&gt;Operación exitosa&lt;/h3&gt;
+      &lt;h3 class="dg-modal-title" id="modal-success-title"&gt;Operación exitosa&lt;/h3&gt;
       &lt;p&gt;Todo salió bien. Puedes continuar.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-success" data-dg-close&gt;Aceptar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Aviso --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-warning" data-dg-backdrop="" data-dg-static hidden&gt;
-  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-warning" role="dialog" aria-modal="true"&gt;
-    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-warning"&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;
-      &lt;h3 class="dg-modal-title"&gt;Atención requerida&lt;/h3&gt;
-      &lt;p&gt;Revisa los datos antes de continuar.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-warning" data-dg-close&gt;Continuar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Error --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-danger" data-dg-backdrop="" data-dg-static hidden&gt;
-  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-duotone is-danger" role="dialog" aria-modal="true"&gt;
-    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-danger"&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;
-      &lt;h3 class="dg-modal-title"&gt;Error inesperado&lt;/h3&gt;
-      &lt;p&gt;Algo salió mal. Intenta de nuevo.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-danger" data-dg-close&gt;Reintentar&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Info --&gt;
-&lt;div class="dg-modal-backdrop" id="modal-info" data-dg-backdrop="" data-dg-static hidden&gt;
-  &lt;div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow is-info" role="dialog" aria-modal="true"&gt;
-    &lt;div class="dg-modal-status-hero"&gt;&lt;span class="dg-modal-icon is-info"&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-body"&gt;
-      &lt;h3 class="dg-modal-title"&gt;Información&lt;/h3&gt;
-      &lt;p&gt;Ten en cuenta este detalle antes de seguir.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-info" data-dg-close&gt;Entendido&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn dg-btn-primary" data-dg-close&gt;Aceptar&lt;/button&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
+        </div>
+        <div role="tabpanel" id="modal-status-panel-warning" aria-labelledby="modal-status-tab-warning" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Revisa los datos antes de continuar.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="warning">Ver modal de aviso</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-warning"&gt;Ver modal de aviso&lt;/button&gt;
+&lt;div class="dg-modal-backdrop" id="modal-warning" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-warning" role="dialog" aria-modal="true" aria-labelledby="modal-warning-title"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;
+      &lt;span class="dg-modal-icon is-warning"&gt;&lt;svg class="dg-icon" aria-hidden="true"&gt;&lt;use href="#dg-alert-tri"/&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title" id="modal-warning-title"&gt;Atención requerida&lt;/h3&gt;
+      &lt;p&gt;Revisa los datos antes de continuar.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn dg-btn-primary" data-dg-close&gt;Continuar&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+        </div>
+        <div role="tabpanel" id="modal-status-panel-danger" aria-labelledby="modal-status-tab-danger" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Algo salió mal. Intenta de nuevo.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="danger">Ver modal de error</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-danger"&gt;Ver modal de error&lt;/button&gt;
+&lt;div class="dg-modal-backdrop" id="modal-danger" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-danger" role="dialog" aria-modal="true" aria-labelledby="modal-danger-title"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;
+      &lt;span class="dg-modal-icon is-danger"&gt;&lt;svg class="dg-icon" aria-hidden="true"&gt;&lt;use href="#dg-x"/&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title" id="modal-danger-title"&gt;Error inesperado&lt;/h3&gt;
+      &lt;p&gt;Algo salió mal. Intenta de nuevo.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn dg-btn-primary" data-dg-close&gt;Reintentar&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+        </div>
+        <div role="tabpanel" id="modal-status-panel-info" aria-labelledby="modal-status-tab-info" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Ten en cuenta este detalle antes de seguir.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="info">Ver modal de información</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-info"&gt;Ver modal de información&lt;/button&gt;
+&lt;div class="dg-modal-backdrop" id="modal-info" data-dg-backdrop="" data-dg-static hidden&gt;
+  &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-info" role="dialog" aria-modal="true" aria-labelledby="modal-info-title"&gt;
+    &lt;div class="dg-modal-status-hero"&gt;
+      &lt;span class="dg-modal-icon is-info"&gt;&lt;svg class="dg-icon" aria-hidden="true"&gt;&lt;use href="#dg-info"/&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-body"&gt;
+      &lt;h3 class="dg-modal-title" id="modal-info-title"&gt;Información&lt;/h3&gt;
+      &lt;p&gt;Ten en cuenta este detalle antes de seguir.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn dg-btn-primary" data-dg-close&gt;Entendido&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+        </div>
+      </section>
 
-      <div class="doc-sub">7. Onboarding</div>
-      <div class="doc-demo is-plain">
+      <div class="doc-sub" id="modal-effects-label">7. Efectos opcionales</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Aplica un efecto a cualquier modal, independientemente de su contenido o estado. <code>.dg-modal-glow</code> agrega un halo pulsante; <code>.dg-modal-glow-spin</code>, un recorrido de luz. Ambos respetan el movimiento reducido.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
+          <span class="dg-text-sm dg-fw-medium" id="glowEffectLabel">Efecto</span>
+          <div class="dg-segmented" id="glowEffectSeg" data-dg-segmented role="group" aria-labelledby="glowEffectLabel">
+            <button type="button" class="is-active" data-effect="dg-modal-glow" aria-pressed="true">Pulso</button>
+            <button type="button" data-effect="dg-modal-glow-spin" aria-pressed="false">Giro</button>
+          </div>
+        </div>
+        <button class="dg-btn" data-dg-open="#mdEffect">Probar efecto</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;!-- Agrega una clase de efecto a cualquier modal --&gt;
+&lt;div class="dg-modal dg-modal-glow" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+
+&lt;div class="dg-modal dg-modal-glow-spin" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+
+&lt;!-- Opcional: personaliza el color --&gt;
+&lt;div class="dg-modal dg-modal-glow" style="--dg-modal-glow-color: var(--dg-info)"&gt;...&lt;/div&gt;</pre></div>
+</div>
+
+      <div class="doc-sub">8. Onboarding</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-modal-onboard</code> presenta una función nueva, con una imagen en <code class="dg-code">.dg-onboard-media</code> y un indicador de paso en <code class="dg-code">.dg-onboard-step</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <button class="dg-btn" data-dg-open="#mdOnboard">Ver onboarding</button>
       </div>
       <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-onboard"&gt;Ver onboarding&lt;/button&gt;
@@ -436,80 +476,16 @@ import Layout from "../../layouts/DocsLayout.astro";
       &lt;p&gt;Descripción del paso.&lt;/p&gt;
     &lt;/div&gt;
     &lt;div class="dg-modal-footer"&gt;
-      &lt;button class="dg-btn dg-btn-ghost" data-dg-close&gt;Saltar&lt;/button&gt;
+      &lt;!-- Desactiva Anterior en el primer paso; en los demás vuelve al paso previo --&gt;
+      &lt;button type="button" class="dg-btn dg-btn-ghost" id="onboardPrev" disabled&gt;Anterior&lt;/button&gt;
       &lt;div class="dg-onboard-dots"&gt;&lt;i class="is-active"&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
       &lt;button class="dg-btn"&gt;Siguiente&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
-      <div class="doc-sub">8. Confirm, Alert y Prompt (JS)</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">
-        Diálogos generados por JavaScript — no escribes el HTML del modal a mano. Cada función retorna una
-        <code class="dg-code">Promise</code> y reutiliza el mismo motor de overlay (foco atrapado, Escape,
-        clic fuera) y la variante <code class="dg-code">.dg-modal-confirm</code>.
-      </p>
-      <div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-danger" id="jsConfirmBtn">dgConfirm()</button>
-          <button class="dg-btn" id="jsAlertBtn">dgAlert()</button>
-          <button class="dg-btn dg-btn-ghost" id="jsPromptBtn">dgPrompt()</button>
-          <button class="dg-btn dg-btn-outline" id="jsPreConfirmBtn">Con preConfirm</button>
-        </div>
-        <p class="dg-text-xs dg-faint dg-mt-3" id="jsConfirmOut">Resultado: —</p>
-      </div>
-      <div class="doc-code" data-code-source="manual" data-lang="js"><button class="cp">Copiar</button><pre>const ok = await dgarz.dgConfirm({
-  title: '¿Eliminar proyecto?',
-  text: 'Esta acción es permanente y no se puede deshacer.',
-  icon: 'danger',
-  confirmText: 'Eliminar',
-});
-// ok === true si confirmó; false si canceló, con Escape o clic fuera
-
-await dgarz.dgAlert({
-  title: 'Guardado',
-  text: 'Los cambios se guardaron correctamente.',
-  icon: 'success',
-});
-
-const nombre = await dgarz.dgPrompt({
-  title: 'Renombrar',
-  inputValue: 'Proyecto actual',
-  inputPlaceholder: 'Nuevo nombre',
-});
-// nombre === null si canceló; si no, el string escrito
-
-await dgarz.dgConfirm({
-  title: 'Guardar cambios',
-  confirmText: 'Guardar',
-  // mientras se resuelve, el botón de confirmar muestra .is-loading y se
-  // deshabilita Cancelar; si la promesa rechaza, el modal NO cierra y
-  // muestra el error inline
-  preConfirm: () => fetch('/api/guardar', { method: 'POST' }),
-});</pre></div>
-
-      <div class="dg-table-card dg-mt-5">
-        <table class="dg-table dg-table-sm">
-          <thead><tr><th>Función</th><th>Resuelve con</th><th>Uso</th></tr></thead>
-          <tbody>
-            <tr><td><code class="dg-code">dgConfirm(opts)</code></td><td><code class="dg-code">boolean</code></td><td>Confirmar una acción, potencialmente destructiva</td></tr>
-            <tr><td><code class="dg-code">dgAlert(opts)</code></td><td><code class="dg-code">undefined</code> al cerrarse</td><td>Un solo botón, informativo</td></tr>
-            <tr><td><code class="dg-code">dgPrompt(opts)</code></td><td><code class="dg-code">string | null</code></td><td>Pide un valor de texto</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="dg-callout dg-callout-info dg-mt-5 dg-measure-md">
-        <p class="dg-callout-title">Opciones comunes</p>
-        <code class="dg-code">title</code>, <code class="dg-code">text</code>,
-        <code class="dg-code">icon</code> (<code class="dg-code">success | warning | danger | info</code>),
-        <code class="dg-code">confirmText</code>, <code class="dg-code">cancelText</code>
-        (pasa <code class="dg-code">null</code> para quitar el botón de cancelar),
-        <code class="dg-code">focusCancel</code> (por defecto en <code class="dg-code">true</code> solo si
-        <code class="dg-code">icon: 'danger'</code>, para no dejar el foco en una acción destructiva) y
-        <code class="dg-code">preConfirm</code> — una función que puede devolver una
-        <code class="dg-code">Promise</code>; si rechaza, el modal se queda abierto y muestra el error.
-      </div>`} />
+`} />
 </Layout>
 
 <!-- ============================================================
@@ -597,7 +573,7 @@ await dgarz.dgConfirm({
     </div>
     <div class="dg-modal-footer">
       <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
-      <button class="dg-btn dg-btn-danger" data-dg-close>Eliminar</button>
+      <button class="dg-btn dg-btn-primary" data-dg-close>Eliminar</button>
     </div>
 
   </div>
@@ -613,7 +589,7 @@ await dgarz.dgConfirm({
 </div>
 
 <div class="dg-modal-backdrop" id="mdStatus" data-dg-backdrop="" data-dg-static hidden>
-  <div class="dg-modal dg-modal-sm dg-modal-accent dg-modal-glow" id="mdStatusCard" role="dialog" aria-modal="true">
+  <div class="dg-modal dg-modal-sm dg-modal-accent" id="mdStatusCard" role="dialog" aria-modal="true">
     <div class="dg-modal-status-hero">
       <span class="dg-modal-icon" id="mdStatusIcon"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span>
     </div>
@@ -622,7 +598,7 @@ await dgarz.dgConfirm({
       <p id="mdStatusBody">Mensaje de estatus.</p>
     </div>
     <div class="dg-modal-footer">
-      <button class="dg-btn" data-dg-close id="mdStatusAccept">Aceptar</button>
+      <button class="dg-btn dg-btn-primary" data-dg-close id="mdStatusAccept">Aceptar</button>
     </div>
   </div>
 </div>
@@ -637,7 +613,7 @@ await dgarz.dgConfirm({
       <p class="dg-mt-2" id="onboardText">dgarz design te ayuda a construir interfaces sobrias y consistentes en minutos.</p>
     </div>
     <div class="dg-modal-footer">
-      <button class="dg-btn dg-btn-ghost" data-dg-close>Saltar</button>
+      <button type="button" class="dg-btn dg-btn-ghost" id="onboardPrev" disabled>Anterior</button>
       <div class="dg-onboard-dots" id="onboardDots"><i class="is-active"></i><i></i><i></i></div>
       <button class="dg-btn" id="onboardNext">Siguiente</button>
     </div>
@@ -646,7 +622,7 @@ await dgarz.dgConfirm({
 
 <script>
 
-  document.querySelectorAll<HTMLElement>('[data-modal-size-tabs], [data-modal-footer-tabs], [data-modal-pos-tabs]').forEach((group) => {
+  document.querySelectorAll<HTMLElement>('[data-modal-size-tabs], [data-modal-footer-tabs], [data-modal-pos-tabs], [data-modal-status-tabs]').forEach((group) => {
     const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
     const panels = Array.from(group.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
     const select = (index: number) => {
@@ -711,22 +687,28 @@ await dgarz.dgConfirm({
   };
   const mdStatus = document.getElementById('mdStatus');
   const glowEffectSeg = document.getElementById('glowEffectSeg');
-  let glowEffect = 'dg-modal-glow';
   if (glowEffectSeg) {
     glowEffectSeg.addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-effect]');
       if (!btn) return;
-      glowEffectSeg.querySelectorAll('button').forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      glowEffect = btn.getAttribute('data-effect');
+      glowEffectSeg.querySelectorAll('button').forEach((b) => {
+        const selected = b === btn;
+        b.classList.toggle('is-active', selected);
+        b.setAttribute('aria-pressed', String(selected));
+      });
+      const effectCard = document.getElementById('mdEffectCard');
+      effectCard.classList.remove('dg-modal-glow', 'dg-modal-glow-spin');
+      effectCard.classList.add(btn.getAttribute('data-effect'));
     });
   }
   if (mdStatus && window.dgarz) {
     document.querySelectorAll('[data-status]').forEach(btn => {
       btn.addEventListener('click', () => {
         const s = btn.getAttribute('data-status'), c = statusMap[s];
-        document.getElementById('mdStatusCard').className = 'dg-modal dg-modal-sm dg-modal-accent ' + glowEffect + ' is-' + s;
-        document.getElementById('mdStatusAccept').className = 'dg-btn dg-btn-' + s;
+        const statusCard = document.getElementById('mdStatusCard');
+        const solid = statusCard.classList.contains('is-solid');
+        statusCard.className = 'dg-modal dg-modal-sm dg-modal-accent is-' + s + (solid ? ' is-solid' : '');
+        document.getElementById('mdStatusAccept').className = 'dg-btn dg-btn-primary';
         const ic = document.getElementById('mdStatusIcon');
         ic.className = 'dg-modal-icon is-' + s;
         if (s === 'success') {
@@ -749,54 +731,58 @@ await dgarz.dgConfirm({
   ];
   let idx = 0;
   const obNext = document.getElementById('onboardNext');
-  function renderOnboard() {
+  const obPrev = document.querySelector<HTMLButtonElement>('#onboardPrev');
+  let onboardTransition = 0;
+  let onboardBusy = false;
+  async function renderOnboard(animate = false) {
+    const version = ++onboardTransition;
+    const elements = ['onboardStep', 'onboardTitle', 'onboardText'].map(id => document.getElementById(id)!);
+    elements.forEach(el => el.getAnimations().forEach(animation => animation.cancel()));
+    const motion = animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !!elements[0].animate;
+    onboardBusy = motion;
     const s = steps[idx];
+    const stepIndex = idx;
+    const settle = (animations: Animation[]) => Promise.all(animations.map(animation => animation.finished.catch(() => {})));
+    if (motion) {
+      await settle(elements.map(el => el.animate([
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-6px)' }
+      ], { duration: 120, easing: 'ease-in', fill: 'both' })));
+      if (version !== onboardTransition) return;
+    }
     document.querySelector('#onboardIcon use').setAttribute('href', s.icon);
-    document.getElementById('onboardStep').textContent = s.step;
-    document.getElementById('onboardTitle').textContent = s.title;
-    document.getElementById('onboardText').textContent = s.text;
-    document.querySelectorAll('#onboardDots i').forEach((d, i) => d.classList.toggle('is-active', i === idx));
-    obNext.textContent = idx === steps.length - 1 ? 'Finalizar' : 'Siguiente';
+    elements[0].textContent = s.step;
+    elements[1].textContent = s.title;
+    elements[2].textContent = s.text;
+    document.querySelectorAll('#onboardDots i').forEach((d, i) => d.classList.toggle('is-active', i === stepIndex));
+    obNext.textContent = stepIndex === steps.length - 1 ? 'Finalizar' : 'Siguiente';
+    if (obPrev) obPrev.disabled = stepIndex === 0;
+    if (motion) {
+      elements.forEach(el => el.getAnimations().forEach(animation => animation.cancel()));
+      await settle(elements.map((el, i) => el.animate([
+        { opacity: 0, transform: 'translateY(10px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+      ], { duration: 280, delay: i * 35, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both' })));
+      if (version !== onboardTransition) return;
+      elements.forEach(el => el.getAnimations().forEach(animation => animation.cancel()));
+    }
+    onboardBusy = false;
   }
   if (obNext && window.dgarz) {
     document.querySelector('[data-dg-open="#mdOnboard"]')
       ?.addEventListener('click', () => { idx = 0; renderOnboard(); });
+    obPrev?.addEventListener('click', () => {
+      if (onboardBusy || idx === 0) return;
+      idx--;
+      renderOnboard(true);
+    });
     obNext.addEventListener('click', () => {
-      if (idx < steps.length - 1) { idx++; renderOnboard(); }
+      if (onboardBusy) return;
+      if (idx < steps.length - 1) { idx++; renderOnboard(true); }
       else window.dgarz.closeOverlay(document.getElementById('mdOnboard'));
     });
   }
 
-  // dgConfirm / dgAlert / dgPrompt
-  const jsOut = document.getElementById('jsConfirmOut');
-  if (jsOut && window.dgarz) {
-    document.getElementById('jsConfirmBtn')?.addEventListener('click', async () => {
-      const ok = await window.dgarz.dgConfirm({
-        title: '¿Eliminar proyecto?',
-        text: 'Esta acción es permanente y no se puede deshacer.',
-        icon: 'danger',
-        confirmText: 'Eliminar',
-      });
-      jsOut.textContent = 'Resultado: ' + ok;
-    });
-    document.getElementById('jsAlertBtn')?.addEventListener('click', async () => {
-      await window.dgarz.dgAlert({ title: 'Guardado', text: 'Los cambios se guardaron correctamente.', icon: 'success' });
-      jsOut.textContent = 'Resultado: cerrado';
-    });
-    document.getElementById('jsPromptBtn')?.addEventListener('click', async () => {
-      const nombre = await window.dgarz.dgPrompt({ title: 'Renombrar', inputValue: 'Proyecto actual', inputPlaceholder: 'Nuevo nombre' });
-      jsOut.textContent = 'Resultado: ' + JSON.stringify(nombre);
-    });
-    document.getElementById('jsPreConfirmBtn')?.addEventListener('click', async () => {
-      const ok = await window.dgarz.dgConfirm({
-        title: 'Guardar cambios',
-        text: 'Simula una llamada al servidor (900ms).',
-        confirmText: 'Guardar',
-        preConfirm: () => new Promise((resolve) => setTimeout(resolve, 900)),
-      });
-      jsOut.textContent = 'Resultado: ' + ok;
-    });
-  }
 </script>
 
 
@@ -891,3 +877,25 @@ await dgarz.dgConfirm({
   </div>
 </div>
 
+
+<div class="dg-modal-backdrop" id="mdResizable" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-md" role="dialog" aria-modal="true" aria-labelledby="mdResizableTitle">
+    <button type="button" class="dg-modal-resize" data-dg-modal-resize aria-label="Ampliar a pantalla completa" aria-pressed="false"><svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-dg-modal-size-icon d="M14 10l7-7m-6 0h6v6M10 14l-7 7m0-6v6h6"/></svg></button>
+    <button type="button" class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon" aria-hidden="true"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdResizableTitle">Modal adaptable</h3></div>
+    <div class="dg-modal-body"><div class="dg-modal-content">
+      <p class="dg-mb-4">Usa el botón junto a la X para alternar entre mediano y pantalla completa. El contenido y tus cambios se conservan.</p>
+      <div class="dg-field"><label class="dg-label" for="resizeNotes">Notas</label><textarea class="dg-textarea" id="resizeNotes" placeholder="Escribe y cambia el tamaño del modal"></textarea></div>
+    </div></div>
+    <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Listo</button></div>
+  </div>
+</div>
+
+<div class="dg-modal-backdrop" id="mdEffect" data-dg-backdrop="" hidden>
+  <div class="dg-modal dg-modal-md dg-modal-glow" id="mdEffectCard" role="dialog" aria-modal="true" aria-labelledby="mdEffectTitle">
+    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon" aria-hidden="true"><use href="#dg-x"/></svg></button>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdEffectTitle">Modal con efecto</h3></div>
+    <div class="dg-modal-body"><p>Este efecto es opcional y se puede usar en cualquier modal: formularios, contenido informativo o confirmaciones.</p></div>
+    <div class="dg-modal-footer"><button class="dg-btn dg-btn-primary" data-dg-close>Entendido</button></div>
+  </div>
+</div>

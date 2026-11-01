@@ -45,7 +45,7 @@ function buildDialog(opts) {
     ? '<button type="button" class="dg-btn dg-btn-cancel" data-dgc-cancel>' + escHtml(opts.cancelText) + '</button>'
     : '';
   var confirmHtml =
-    '<button type="button" class="dg-btn' + (opts.icon === 'danger' ? ' dg-btn-danger' : '') + '" data-dgc-confirm>' +
+    '<button type="button" class="dg-btn dg-btn-primary" data-dgc-confirm>' +
       escHtml(opts.confirmText) +
     '</button>';
 

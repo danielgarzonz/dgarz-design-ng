@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Tamaños de input</div>
-      <div class="doc-demo is-plain dg-stack">
+      <p class="dg-muted dg-text-sm dg-mb-4">Usa <code class="dg-code">.dg-input-sm</code> o <code class="dg-code">.dg-input-lg</code> para ajustar la altura del campo.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack">
         <input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" />
         <input class="dg-input" type="text" placeholder="Estándar" />
         <input class="dg-input dg-input-lg" type="text" placeholder="Grande" />
@@ -9,9 +11,12 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" /&gt;
 &lt;input class="dg-input"            type="text" placeholder="Estándar" /&gt;
 &lt;input class="dg-input dg-input-lg" type="text" placeholder="Grande" /&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Input pill (completamente redondeado)</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-input-pill</code> redondea por completo el campo. Aquí se combina con un botón dentro de <code class="dg-code">.dg-input-group</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-input-group dg-max-w-sm">
           <input class="dg-input dg-input-pill" type="search" placeholder="Buscar…" />
           <button class="dg-btn dg-btn-primary dg-rounded-end-pill">
@@ -20,9 +25,12 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
         </div>
       </div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;input class="dg-input dg-input-pill" type="search" placeholder="Buscar…" /&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Input con icono</div>
-      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-input-icon</code> reserva espacio para el icono a la izquierda. Añade <code class="dg-code">.dg-input-icon-right</code> para colocarlo a la derecha.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-sm">
         <div class="dg-input-icon">
           <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-search"/></svg>
           <input class="dg-input" type="search" placeholder="Buscar…" />
@@ -43,12 +51,14 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
   &lt;input class="dg-input" type="text" placeholder="usuario" /&gt;
   &lt;svg class="dg-icon dg-icon-sm dg-input-icon-el"&gt;&lt;use href="dgarz-icons.svg#dg-users"&gt;&lt;/use&gt;&lt;/svg&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Contraseña con mostrar/ocultar</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
         <code class="dg-code">.dg-password-wrap</code> se wirea solo — no hace falta escribir el toggle a mano.
       </p>
-      <div class="doc-demo is-plain dg-max-w-sm">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-max-w-sm">
         <div class="dg-field">
           <label class="dg-label" for="pwDemo">Contraseña</label>
           <div class="dg-password-wrap">
@@ -71,9 +81,12 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
 
 &lt;!-- dgarz.js alterna type="password"/"text", el aria-label y el ícono
      (#dg-eye ↔ #dg-eye-off) al hacer clic. No requiere configuración. --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Validación de campos</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Muestra el resultado de la validación bajo el campo con un mensaje <code class="dg-code">.dg-field-success</code> o <code class="dg-code">.dg-field-error</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-row">
           <div class="dg-col-12 dg-col-md-6">
             <div class="dg-field">
@@ -108,9 +121,12 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
 &lt;!-- También funciona en textarea y select --&gt;
 &lt;textarea class="dg-textarea is-invalid"&gt;&lt;/textarea&gt;
 &lt;select class="dg-select is-valid"&gt;…&lt;/select&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Slider de rango</div>
-      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-range</code> da estilo a un control para elegir un valor dentro de un intervalo.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-sm">
         <div class="dg-field">
           <label class="dg-label">Presupuesto: $600</label>
           <input class="dg-range" type="range" min="0" max="1000" value="600" />
@@ -119,7 +135,8 @@ const pageContent = `<div class="doc-sub">Tamaños de input</div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-field"&gt;
   &lt;label class="dg-label"&gt;Presupuesto&lt;/label&gt;
   &lt;input class="dg-range" type="range" min="0" max="1000" value="500" /&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Variantes" lead="Tamaños, estados de validación y variantes de campo." currentHref="/formularios/variants">

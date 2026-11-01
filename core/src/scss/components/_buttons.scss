@@ -57,13 +57,15 @@
 .dg-btn-cancel { background: #404040; color: #fff; border-color: transparent; }
 .dg-btn-cancel:hover { background: #525252; color: #fff; opacity: 1; box-shadow: none; }
 
-/* Outline — borde visible, fondo transparente */
-.dg-btn-outline { background: transparent; border: 1px solid var(--dg-border-strong); color: var(--dg-text); }
-.dg-btn-outline:hover { background: var(--dg-surface-2); border-color: var(--dg-text); opacity: 1; box-shadow: none; }
+/* Outline y ghost usan un tinte relativo al texto, no un gris fijo, para
+   contrastar sobre cualquier superficie en light y dark. */
+/* Outline — tinte medio, sin borde */
+.dg-btn-outline { background: color-mix(in oklab, var(--dg-text) 14%, transparent); color: var(--dg-text); }
+.dg-btn-outline:hover { background: color-mix(in oklab, var(--dg-text) 20%, transparent); opacity: 1; box-shadow: none; }
 
-/* Ghost — relleno sutil sin borde, funciona en light y dark */
-.dg-btn-ghost { background: var(--dg-surface-3); color: var(--dg-text); }
-.dg-btn-ghost:hover { background: var(--dg-border); opacity: 1; box-shadow: none; }
+/* Ghost — tinte suave, sin borde */
+.dg-btn-ghost { background: color-mix(in oklab, var(--dg-text) 10%, transparent); color: var(--dg-text); }
+.dg-btn-ghost:hover { background: color-mix(in oklab, var(--dg-text) 16%, transparent); opacity: 1; box-shadow: none; }
 
 /* Danger */
 .dg-btn-danger { background: var(--dg-danger); color: var(--dg-on-danger); border-color: transparent; }
@@ -82,11 +84,11 @@
   align-items: center;
   justify-content: center;
   color: var(--dg-text-muted);
-  background: transparent;
+  background: color-mix(in oklab, var(--dg-text) 8%, transparent);
   border: 1px solid transparent;
 }
 .dg-icon-btn:hover {
-  background: var(--dg-surface-2);
+  background: color-mix(in oklab, var(--dg-text) 14%, transparent);
   color: var(--dg-text);
   border-color: color-mix(in oklab, var(--dg-border) 60%, transparent);
   opacity: 1;
@@ -98,7 +100,7 @@
 .dg-btn-group .dg-btn:first-child { border-radius: var(--dg-radius-pill) 0 0 var(--dg-radius-pill); }
 .dg-btn-group .dg-btn:last-child { border-radius: 0 var(--dg-radius-pill) var(--dg-radius-pill) 0; }
 .dg-btn-group .dg-btn:first-child:last-child { border-radius: var(--dg-radius-pill); }
-.dg-btn-group .dg-btn + .dg-btn { margin-left: -1px; }
+.dg-btn-group .dg-btn + .dg-btn { margin-left: 1px; }
 
 /* ---- Button: loading & with-icon -------------------------- */
 .dg-btn.is-loading { color: transparent !important; pointer-events: none; position: relative; }
@@ -120,7 +122,7 @@
 
 /* ---- Button: visual variants ------------------------------ */
 .dg-btn-glass {
-  background: color-mix(in oklab, var(--dg-surface) 58%, transparent);
+  background: color-mix(in oklab, color-mix(in oklab, var(--dg-surface) 84%, var(--dg-text) 16%) 62%, transparent);
   color: var(--dg-text);
   border-color: color-mix(in oklab, var(--dg-border-strong) 42%, transparent);
   backdrop-filter: blur(14px) saturate(170%);
@@ -130,7 +132,7 @@
     0 10px 24px color-mix(in oklab, #000 8%, transparent);
 }
 .dg-btn-glass:hover {
-  background: color-mix(in oklab, var(--dg-surface) 48%, transparent);
+  background: color-mix(in oklab, color-mix(in oklab, var(--dg-surface) 76%, var(--dg-text) 24%) 62%, transparent);
   border-color: color-mix(in oklab, var(--dg-border-strong) 60%, transparent);
   opacity: 1;
 }
@@ -150,3 +152,17 @@
   box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 24%, transparent);
 }
 .dg-btn-gradient-warm:hover { opacity: .92; }
+
+/* Hover: también disponible con foco de teclado */
+.dg-btn-hover-lift, .dg-btn-hover-grow, .dg-btn-hover-glow, .dg-btn-hover-shine { transition: transform .22s var(--dg-ease), box-shadow .22s var(--dg-ease); }
+.dg-btn-hover-lift:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { transform: translateY(-4px); box-shadow: var(--dg-shadow-2); }
+.dg-btn-hover-grow:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { transform: scale(1.06); }
+.dg-btn-hover-glow:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { box-shadow: 0 0 0 5px color-mix(in oklab, var(--dg-info) 25%, transparent); }
+.dg-btn-hover-shine { position: relative; overflow: hidden; }
+.dg-btn-hover-shine::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 25%, #ffffff55 50%, transparent 75%); transform: translateX(-130%); pointer-events: none; }
+.dg-btn-hover-shine:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"])::after { transform: translateX(130%); transition: transform .65s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-btn-hover-lift, .dg-btn-hover-grow, .dg-btn-hover-glow, .dg-btn-hover-shine { transition: none; }
+  .dg-btn.dg-btn-hover-lift, .dg-btn.dg-btn-hover-grow { transform: none; }
+  .dg-btn-hover-shine::after { display: none; }
+}

@@ -2,11 +2,13 @@
 import Layout from "../../layouts/DocsLayout.astro";
 
 const pageContent = `<div class="doc-sub">Dropdown básico</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">El botón y el menú desplegado tienen por defecto el mismo borde que los inputs, en tema claro y oscuro.</p>
       <p class="dg-muted dg-text-sm dg-mb-4">
         Usa <code class="dg-code">data-dg-dropdown</code> en el wrapper, <code class="dg-code">data-dg-dropdown-trigger</code> en el botón
         y un <code class="dg-code">.dg-menu</code> con items. El JS ya resuelve apertura, cierre, click fuera y <code class="dg-code">Escape</code>.
       </p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <div class="dg-dropdown" data-dg-dropdown>
             <button class="dg-btn dg-btn-outline" data-dg-dropdown-trigger>
@@ -50,9 +52,12 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
     &lt;button class="dg-menu-item dg-menu-item-danger"&gt;Eliminar&lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Menú de acciones alineado al borde derecho</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-menu-end</code> para alinear el menú con el borde derecho del botón. Evita que se salga del contenedor cuando el botón queda al final.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-card dg-max-w-xl">
           <div class="dg-card-body">
             <div class="dg-flex dg-justify-between dg-items-center">
@@ -87,9 +92,12 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
     &lt;button class="dg-menu-item dg-menu-item-danger"&gt;Archivar&lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Uso en tablas y listados</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Agrupa las acciones de cada fila en un menú para mantener la tabla limpia.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-table-card">
           <table class="dg-table">
             <thead>
@@ -152,9 +160,11 @@ const pageContent = `<div class="doc-sub">Dropdown básico</div>
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/td&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Clases disponibles</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4">Referencia rápida de las clases que componen un dropdown.</p>
+      <div>
         <div class="dg-grid dg-grid-auto">
           <div class="dg-card">
             <div class="dg-card-body">

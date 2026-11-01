@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Demo en vivo — variantes</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Pulsa cada botón para ver un toast. Se lanzan con <code class="dg-code">data-dg-toast</code> y el tipo se elige con <code class="dg-code">data-dg-variant</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-primary dg-btn-sm" data-dg-toast="Cambios guardados correctamente." data-dg-variant="">Toast por defecto</button>
           <button class="dg-btn dg-btn-sm dg-text-success dg-border-success" data-dg-toast="¡Operación completada!" data-dg-variant="success">Success</button>
@@ -15,8 +17,10 @@ const pageContent = `<div class="doc-sub">Demo en vivo — variantes</div>
 &lt;button data-dg-toast="Eliminado." data-dg-variant="danger"&gt;Eliminar&lt;/button&gt;
 
 &lt;!-- Variantes disponibles: (vacío) · success · warning · danger · info --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">API JavaScript</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Lanza toasts desde tu código con <code class="dg-code">dgarz.toast()</code>.</p>
       <div class="doc-code"><button class="cp">Copiar</button><pre>// Toast básico
 dgarz.toast("Cambios guardados.");
 
@@ -27,7 +31,9 @@ dgarz.toast("No se pudo completar.", { variant: "danger" });
 dgarz.toast("Actualización disponible.", { variant: "info" });</pre></div>
 
       <div class="doc-sub">Estructura HTML manual (sin JS)</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Sin JavaScript, escribe el marcado directamente con <code class="dg-code">.dg-toast</code> dentro de <code class="dg-code">.dg-toast-stack</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-flex dg-col-flex dg-items-end dg-gap-3">
           <div class="dg-toast dg-anim-none">Mensaje por defecto</div>
           <div class="dg-toast dg-toast-success dg-anim-none">Guardado</div>
@@ -44,7 +50,8 @@ dgarz.toast("Actualización disponible.", { variant: "info" });</pre></div>
   &lt;div class="dg-toast dg-toast-warning"&gt;Aviso&lt;/div&gt;
   &lt;div class="dg-toast dg-toast-danger"&gt;Error&lt;/div&gt;
   &lt;div class="dg-toast dg-toast-info"&gt;Actualización&lt;/div&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Toasts" lead="Notificaciones flotantes temporales." currentHref="/componentes/toasts">

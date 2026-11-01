@@ -1,0 +1,5 @@
+/* Nombre del framework: "dgarz" recto y "design" en itálica. */
+.brand-name { font-style: normal; color: #000; }
+.brand-suffix { font-style: italic; color: #404040; }
+[data-theme="dark"] .brand-name { color: #fff; }
+[data-theme="dark"] .brand-suffix { color: #a1a1aa; }

@@ -35,10 +35,13 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
       </div>
 
       <div class="doc-sub">En vivo — el mismo formulario, con y sin .dg-auto</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Compara el mismo HTML con y sin <code class="dg-code">.dg-auto</code>: a la izquierda, los controles nativos del navegador; a la derecha, los estilos del framework.</p>
+      <div class="doc-example">
+      <div class="doc-demo is-plain">
       <div class="dg-row">
         <div class="dg-col-12 dg-col-md-6">
           <p class="dg-text-xs dg-faint dg-mb-2">Sin clases, sin <code class="dg-code">.dg-auto</code> — controles nativos del navegador</p>
-          <div class="doc-demo is-plain">
+          <div>
             <form class="dg-stack dg-gap-2">
               <label for="autoOffName">Nombre</label>
               <input id="autoOffName" name="nombre" required />
@@ -48,7 +51,7 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         </div>
         <div class="dg-col-12 dg-col-md-6">
           <p class="dg-text-xs dg-faint dg-mb-2">Mismo HTML, dentro de <code class="dg-code">.dg-auto</code></p>
-          <div class="doc-demo is-plain dg-auto">
+          <div class="dg-auto">
             <form class="dg-stack dg-gap-2">
               <label for="autoOnName">Nombre</label>
               <input id="autoOnName" name="nombre" required />
@@ -57,12 +60,14 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
           </div>
         </div>
       </div>
+      </div>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- idéntico en ambas columnas — la única diferencia es el .dg-auto del padre --&gt;
 &lt;form&gt;
   &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
   &lt;input id="nombre" name="nombre" required /&gt;
   &lt;button type="submit"&gt;Guardar&lt;/button&gt;
 &lt;/form&gt;</pre></div>
+      </div>
 
       <div class="doc-sub">Qué cubre</div>
       <div class="dg-table-card">
@@ -95,7 +100,8 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         <code class="dg-code">dg-btn-danger</code> para una acción destructiva…). Ningún estilo se infiere del
         texto del botón.
       </p>
-      <div class="doc-demo is-plain dg-auto">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-auto">
         <div class="dg-cluster">
           <button type="submit">Guardar (auto, sin clases)</button>
           <button type="button" class="dg-btn dg-btn-cancel">Cancelar (variante explícita)</button>
@@ -106,6 +112,7 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
 &lt;button type="submit"&gt;Guardar&lt;/button&gt;                        &lt;!-- look por defecto, sin clases --&gt;
 &lt;button class="dg-btn dg-btn-cancel"&gt;Cancelar&lt;/button&gt;         &lt;!-- variante explícita, igual que siempre --&gt;
 &lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;          &lt;!-- variante explícita, igual que siempre --&gt;</pre></div>
+</div>
 
       <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-5">
         <p class="dg-callout-title">Por qué es seguro combinarlo con el resto del framework</p>
@@ -123,7 +130,8 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         <code class="dg-code">aria-invalid</code> tal cual el navegador los expone — no dibuja un campo como
         erróneo solo por ser obligatorio, antes de que corresponda mostrar una validación.
       </p>
-      <div class="doc-demo is-plain dg-auto">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-auto">
         <div class="dg-cluster">
           <input placeholder="Campo normal" />
           <input placeholder="Deshabilitado" disabled />
@@ -133,7 +141,8 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
 &lt;div class="dg-cluster"&gt;
   &lt;input placeholder="Campo normal" /&gt;
   &lt;input placeholder="Deshabilitado" disabled /&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="HTML semántico (auto)" lead="button, input, select, textarea, label y table con la apariencia del framework sin escribir clases." currentHref="/fundamentos/auto">

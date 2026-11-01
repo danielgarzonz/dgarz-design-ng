@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">En vivo — toast &amp; modal accesible</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Estos controles funcionan solo con atributos en el HTML, como <code class="dg-code">data-dg-toast</code> y <code class="dg-code">data-dg-open</code>, sin escribir JavaScript propio.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-primary" data-dg-toast="Guardado correctamente" data-dg-variant="">Lanzar toast</button>
           <button class="dg-btn dg-btn-outline" data-dg-open="#jsModal">Abrir modal</button>
@@ -22,6 +24,7 @@ const pageContent = `<div class="doc-sub">En vivo — toast &amp; modal accesibl
 
 &lt;!-- o por API --&gt;
 &lt;script&gt;dgarz.toast("Hola", { variant: "success" });&lt;/script&gt;</pre></div>
+</div>
       <p class="dg-muted dg-text-sm dg-mt-4">Incluye: <code class="dg-code">data-dg-open/close</code> (modal &amp; drawer con focus-trap y Esc), <code class="dg-code">data-dg-dropdown</code>, <code class="dg-code">data-dg-tabs</code>, <code class="dg-code">data-dg-accordion</code>, <code class="dg-code">data-dg-toast</code> y <code class="dg-code">data-dg-theme-toggle</code>. Builds: UMD, <code class="dg-code">.min.js</code> y módulo ES.</p>`;
 ---
 

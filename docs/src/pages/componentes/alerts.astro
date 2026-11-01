@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Neutral</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Mensaje informativo sin color semántico. Se compone de <code class="dg-code">.dg-alert</code>, <code class="dg-code">.dg-alert-icon</code> y <code class="dg-code">.dg-alert-body</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-alert">
           <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
           <div class="dg-alert-body"><div class="dg-alert-title">Información</div>Nota general sin urgencia.</div>
@@ -14,9 +16,12 @@ const pageContent = `<div class="doc-sub">Neutral</div>
     Descripción del mensaje.
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Variantes suaves</div>
-      <div class="doc-demo is-plain dg-stack">
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-alert-info</code>, <code class="dg-code">.dg-alert-success</code>, <code class="dg-code">.dg-alert-warning</code> o <code class="dg-code">.dg-alert-danger</code> para indicar el tipo de mensaje con un fondo suave.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack">
         <div class="dg-alert dg-alert-info">
           <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
           <div class="dg-alert-body"><div class="dg-alert-title">Información</div>Nota general sin urgencia.</div>
@@ -38,10 +43,12 @@ const pageContent = `<div class="doc-sub">Neutral</div>
 &lt;div class="dg-alert dg-alert-success"&gt;…&lt;/div&gt;
 &lt;div class="dg-alert dg-alert-warning"&gt;…&lt;/div&gt;
 &lt;div class="dg-alert dg-alert-danger"&gt;…&lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Variantes sólidas</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Combina <code class="dg-code">.dg-alert</code> con las utilidades de fondo del core; <code class="dg-code">.dg-bg-*</code> ya aplica el color de texto con contraste.</p>
-      <div class="doc-demo is-plain dg-stack">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack">
         <div class="dg-alert dg-bg-info dg-border-transparent">
           <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
           <div class="dg-alert-body"><div class="dg-alert-title">Información</div>Nota general sin urgencia.</div>
@@ -63,9 +70,12 @@ const pageContent = `<div class="doc-sub">Neutral</div>
 &lt;div class="dg-alert dg-bg-success dg-border-transparent"&gt;…&lt;/div&gt;
 &lt;div class="dg-alert dg-bg-warning dg-border-transparent"&gt;…&lt;/div&gt;
 &lt;div class="dg-alert dg-bg-danger dg-border-transparent"&gt;…&lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Descartable (con botón de cierre)</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade un botón <code class="dg-code">.dg-alert-close</code> para que el mensaje se pueda cerrar.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-alert dg-bg-info dg-border-transparent" id="dismissAlert">
           <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-info"/></svg>
           <div class="dg-alert-body"><div class="dg-alert-title">Nueva versión disponible</div>Actualiza para acceder a las mejoras más recientes.</div>
@@ -80,7 +90,8 @@ const pageContent = `<div class="doc-sub">Neutral</div>
   &lt;button class="dg-alert-close" onclick="this.closest('.dg-alert').remove()"&gt;
     &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
   &lt;/button&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Alerts" lead="Mensajes de contexto con variantes de color." currentHref="/componentes/alerts">

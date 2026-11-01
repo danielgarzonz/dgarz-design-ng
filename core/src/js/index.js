@@ -1,5 +1,5 @@
 import { $all, openStack, target, trapFocus, FOCUSABLE } from './utils.js';
-import { openOverlay, closeOverlay, closestOverlay } from './overlays.js';
+import { openOverlay, closeOverlay, closestOverlay, wireModalResize } from './overlays.js';
 import { toast } from './toast.js';
 import { dgConfirm, dgAlert, dgPrompt } from './confirm.js';
 import { applySavedTheme, toggleTheme } from './theme.js';
@@ -14,6 +14,7 @@ import { wirePopover } from './popover.js';
 import { wireSegmented } from './segmented.js';
 import { wireProgressBars } from './progress.js';
 import { wireReveal } from './reveal.js';
+import { wireSteps } from './steps.js';
 import { wireDatePicker } from './datepicker.js';
 import { wireDropzone } from './fileupload.js';
 import { wireCombobox } from './combobox.js';
@@ -57,6 +58,7 @@ function init(ctx) {
   ctx = ctx || document;
   applySavedTheme();
   bindGlobal();
+  $all(".dg-modal", ctx).forEach(wireModalResize);
   $all("[data-dg-dropdown]", ctx).forEach(wireDropdown);
   $all("[data-dg-tabs]", ctx).forEach(wireTabs);
   $all("[data-dg-accordion]", ctx).forEach(wireAccordion);
@@ -70,6 +72,7 @@ function init(ctx) {
   $all(".dg-password-wrap", ctx).forEach(wirePasswordToggle);
   wireProgressBars(ctx);
   wireReveal(ctx);
+  wireSteps(ctx);
   $all('.dg-datepicker', ctx).forEach(wireDatePicker);
   $all('.dg-dropzone',   ctx).forEach(wireDropzone);
   $all('.dg-combobox',   ctx).forEach(wireCombobox);

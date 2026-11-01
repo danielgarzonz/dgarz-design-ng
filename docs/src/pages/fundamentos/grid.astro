@@ -15,7 +15,9 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
       </div>
 
       <div class="doc-sub">Grid de 12 columnas</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4">Reparte el ancho en 12 columnas dentro de <code class="dg-code">.dg-row</code>. El número de <code class="dg-code">.dg-col-*</code> indica cuántas ocupa cada elemento.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-row dg-mb-4">
           <div class="dg-col-12 dg-col-md-6"><div class="doc-grid-cell">col-12 col-md-6</div></div>
           <div class="dg-col-12 dg-col-md-6"><div class="doc-grid-cell">col-12 col-md-6</div></div>
@@ -51,9 +53,12 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
 
 &lt;!-- Columnas disponibles: 1 a 12
      .dg-col-auto — ancho automático según contenido --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Offsets — empujar columnas a la derecha</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-offset-3</code> y similares dejan columnas vacías a la izquierda para desplazar un elemento.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-row dg-mb-3">
           <div class="dg-col-12 dg-col-md-6 dg-offset-3"><div class="doc-grid-cell">col-md-6 offset-3 (centrado)</div></div>
         </div>
@@ -68,10 +73,12 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
 &lt;/div&gt;
 
 &lt;!-- Offsets disponibles: offset-1, 2, 3, 4, 6 --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Grid automático (CSS Grid)</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Para galerías, grids de tarjetas y listados donde todas las columnas son iguales.</p>
-      <div class="doc-demo">
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-grid dg-grid-4">
           <div class="doc-grid-cell">1</div>
           <div class="doc-grid-cell">2</div>
@@ -85,8 +92,10 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
 &lt;div class="dg-grid dg-grid-auto"&gt;…&lt;/div&gt; &lt;!-- auto-fill, mínimo 220px por col --&gt;
 
 &lt;!-- Nota: en mobile (≤768px) todas colapsan a 1 columna --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Contenedores</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-container</code> centra el contenido y limita su ancho. <code class="dg-code">.dg-container-narrow</code> y <code class="dg-code">.dg-container-wide</code> lo ajustan.</p>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-container"&gt;…&lt;/div&gt;          &lt;!-- max 1140px, centrado --&gt;
 &lt;div class="dg-container dg-container-narrow"&gt;…&lt;/div&gt;  &lt;!-- max 760px (artículos, prose) --&gt;
 &lt;div class="dg-container dg-container-wide"&gt;…&lt;/div&gt;    &lt;!-- max 1320px (dashboards) --&gt;</pre></div>
@@ -116,7 +125,8 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
         en vez de comprimirse o partir el texto. <code class="dg-code">.dg-actions-search</code> es el único
         hijo que sí crece para llenar el espacio restante.
       </p>
-      <div class="doc-demo">
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-actions">
           <button class="dg-btn">Alta masiva</button>
           <div class="dg-field dg-actions-search">
@@ -144,6 +154,7 @@ const pageContent = `<div class="doc-sub">Breakpoints disponibles</div>
 &lt;button class="dg-btn dg-actions-wrap"&gt;Un texto de botón excepcionalmente largo&lt;/button&gt;
 
 &lt;!-- Ajustables por token: --dg-actions-gap, --dg-actions-search-basis --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Contenedor con scroll propio</div>
       <p class="dg-muted dg-text-sm dg-mb-4">

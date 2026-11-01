@@ -1,6 +1,20 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-sub">Variantes de estilo</div>
+const pageContent = `<div class="doc-sub">Animaciones hover</div>
+<p class="dg-mb-4">Pasa el cursor o navega con Tab. Combina una clase de efecto con cualquier variante de botón. Se respeta el movimiento reducido.</p>
+<div class="doc-example">
+<div class="doc-demo"><div class="dg-cluster">
+<button class="dg-btn dg-btn-hover-lift">Elevación</button>
+<button class="dg-btn dg-btn-hover-grow">Escala</button>
+<button class="dg-btn dg-btn-hover-glow">Halo</button>
+<button class="dg-btn dg-btn-hover-shine">Destello</button>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-hover-lift"&gt;Elevación&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-hover-grow"&gt;Escala&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-hover-glow"&gt;Halo&lt;/button&gt;
+&lt;button class="dg-btn dg-btn-hover-shine"&gt;Destello&lt;/button&gt;</pre></div>
+</div>
+<div class="doc-sub">Variantes de estilo</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
         <strong>Primary</strong>: acción principal de la pantalla. Solo debe haber uno por sección visible.<br>
         <strong>Default</strong>: acciones secundarias neutras.<br>
@@ -8,7 +22,8 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
         <strong>Ghost</strong>: acciones terciarias o de toolbar.<br>
         <strong>Danger</strong>: acciones destructivas (eliminar, revocar, etc.)
       </p>
-      <div class="doc-demo">
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-primary">Guardar</button>
           <button class="dg-btn dg-btn-cancel">Cancelar</button>
@@ -36,9 +51,12 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
 
 &lt;!-- También funciona como enlace --&gt;
 &lt;a href="/ruta" class="dg-btn dg-btn-primary"&gt;Ir a página&lt;/a&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Tamaños</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Usa <code class="dg-code">.dg-btn-sm</code> y <code class="dg-code">.dg-btn-lg</code> para ajustar el tamaño, y <code class="dg-code">.dg-btn-block</code> para ocupar todo el ancho disponible.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster dg-items-center">
           <button class="dg-btn dg-btn-primary dg-btn-sm">Pequeño</button>
           <button class="dg-btn dg-btn-primary">Mediano (por defecto)</button>
@@ -51,9 +69,12 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
 
 &lt;!-- Ancho completo del contenedor --&gt;
 &lt;button class="dg-btn dg-btn-primary dg-btn-block"&gt;Ancho total&lt;/button&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Botón con icono</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Coloca un icono junto al texto. Para un botón solo con icono usa <code class="dg-code">.dg-btn-icon</code> y añade un <code class="dg-code">aria-label</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-primary">
             <svg class="dg-icon dg-icon-sm"><use href="#dg-plus"/></svg>
@@ -81,9 +102,12 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
 &lt;button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Ajustes"&gt;
   &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-settings"&gt;&lt;/use&gt;&lt;/svg&gt;
 &lt;/button&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Estados</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.is-loading</code> oculta el texto y muestra un spinner. El atributo <code class="dg-code">disabled</code> bloquea el botón.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <button class="dg-btn dg-btn-primary is-loading">Guardar</button>
           <button class="dg-btn dg-btn-primary" disabled>No disponible</button>
@@ -97,10 +121,12 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
 &lt;button class="dg-btn dg-btn-primary" disabled&gt;No disponible&lt;/button&gt;
 &lt;button class="dg-btn dg-btn-primary is-disabled" aria-disabled="true"&gt;No disponible&lt;/button&gt;
 &lt;!-- Usa is-disabled cuando necesites deshabilitar un &lt;a&gt; --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Grupo de botones</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Los botones dentro de <code class="dg-code">.dg-btn-group</code> se unen sin espacio entre ellos.</p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <div class="dg-btn-group">
             <button class="dg-btn">Copiar</button>
@@ -113,7 +139,8 @@ const pageContent = `<div class="doc-sub">Variantes de estilo</div>
   &lt;button class="dg-btn"&gt;Copiar&lt;/button&gt;
   &lt;button class="dg-btn"&gt;Editar&lt;/button&gt;
   &lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Botones" lead="Variantes, tamaños, estados, grupos e íconos." currentHref="/componentes/buttons">

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `
   <div class="doc-sub">Cursor</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Cambia el cursor para indicar qué se puede hacer con un elemento.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-cursor-pointer"&gt;...&lt;/div&gt;    &lt;!-- cursor: pointer --&gt;
 &lt;div class="dg-cursor-default"&gt;...&lt;/div&gt;    &lt;!-- cursor: default --&gt;
 &lt;div class="dg-cursor-not-allowed"&gt;...&lt;/div&gt; &lt;!-- cursor: not-allowed --&gt;
@@ -9,11 +10,14 @@ const pageContent = `
 &lt;div class="dg-cursor-text"&gt;...&lt;/div&gt;       &lt;!-- cursor: text --&gt;</pre></div>
 
   <div class="doc-sub">Pointer events</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-pointer-events-none</code> hace que un elemento ignore los clics y <code class="dg-code">.dg-pointer-events-auto</code> los recupera.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-pointer-events-none"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: none --&gt;
 &lt;div class="dg-pointer-events-auto"&gt;...&lt;/div&gt;   &lt;!-- pointer-events: auto --&gt;</pre></div>
 
   <div class="doc-sub">Opacidad</div>
-  <div class="doc-demo is-plain">
+  <p class="dg-muted dg-text-sm dg-mb-4">Ajusta la transparencia del elemento y de todo su contenido, de <code class="dg-code">.dg-opacity-0</code> a <code class="dg-code">.dg-opacity-100</code>.</p>
+  <div class="doc-example">
+<div class="doc-demo is-plain">
     <div class="dg-cluster dg-gap-5 dg-wrap dg-p-5">
       <div class="opacity-box dg-opacity-100">100%</div>
       <div class="opacity-box dg-opacity-75">75%</div>
@@ -27,13 +31,16 @@ const pageContent = `
 &lt;div class="dg-opacity-50"&gt;...&lt;/div&gt;
 &lt;div class="dg-opacity-25"&gt;...&lt;/div&gt;
 &lt;div class="dg-opacity-0"&gt;...&lt;/div&gt;</pre></div>
+</div>
 
   <div class="doc-sub">User select</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Controla si el texto se puede seleccionar y cómo.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-select-none"&gt;...&lt;/div&gt;   &lt;!-- user-select: none --&gt;
 &lt;div class="dg-select-all"&gt;...&lt;/div&gt;    &lt;!-- user-select: all --&gt;
 &lt;div class="dg-select-text"&gt;...&lt;/div&gt;   &lt;!-- user-select: text --&gt;</pre></div>
 
   <div class="doc-sub">Transición</div>
+  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-transition</code> aplica la duración y el easing del sistema. Las variantes limitan qué propiedades se animan.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-transition"&gt;...&lt;/div&gt;         &lt;!-- transition: all --dg-dur --dg-ease --&gt;
 &lt;div class="dg-transition-colors"&gt;...&lt;/div&gt;  &lt;!-- transition: color, background, border --&gt;
 &lt;div class="dg-transition-transform"&gt;...&lt;/div&gt; &lt;!-- transition: transform --&gt;
@@ -41,6 +48,7 @@ const pageContent = `
 &lt;div class="dg-transition-none"&gt;...&lt;/div&gt;    &lt;!-- transition: none --&gt;</pre></div>
 
   <div class="doc-sub">Scroll behavior</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">Activa el desplazamiento suave y el scroll snap para carruseles o listas horizontales.</p>
   <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;html class="dg-scroll-smooth"&gt;...&lt;/html&gt;   &lt;!-- scroll-behavior: smooth --&gt;
 &lt;div class="dg-scroll-snap-x"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: x mandatory (+ overflow-x: auto) --&gt;
 &lt;div class="dg-scroll-snap-y"&gt;...&lt;/div&gt;     &lt;!-- scroll-snap-type: y mandatory (+ overflow-y: auto) --&gt;

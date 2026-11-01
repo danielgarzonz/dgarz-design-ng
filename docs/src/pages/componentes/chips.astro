@@ -2,7 +2,8 @@
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Chips (etiquetas removibles)</div>
       <p class="dg-muted dg-text-sm">Para filtros activos, tags seleccionados o entradas de tipo multi-valor.</p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-cluster">
           <div class="dg-chip">
             Diseño
@@ -24,9 +25,12 @@ const pageContent = `<div class="doc-sub">Chips (etiquetas removibles)</div>
     &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
   &lt;/button&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Divider con etiqueta</div>
-      <div class="doc-demo is-plain dg-stack dg-max-w-sm">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-divider-label</code> separa secciones con un texto entre dos líneas.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-sm">
         <div class="dg-divider-label">O continúa con</div>
         <div class="dg-divider-label">Paso 2</div>
       </div>
@@ -34,9 +38,12 @@ const pageContent = `<div class="doc-sub">Chips (etiquetas removibles)</div>
 
 &lt;!-- Divider simple (sin texto) --&gt;
 &lt;hr class="dg-hr"&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Código preformateado (.dg-pre)</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-pre</code> da formato a bloques de código de varias líneas.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <pre class="dg-pre">npm install dgarz-design
 
 import "dgarz-design";
@@ -46,7 +53,8 @@ import "dgarz-design/app";</pre>
 &lt;pre class="dg-pre"&gt;npm install dgarz-design&lt;/pre&gt;
 
 &lt;!-- Inline code --&gt;
-&lt;code class="dg-code"&gt;.dg-btn-primary&lt;/code&gt;</pre></div>`;
+&lt;code class="dg-code"&gt;.dg-btn-primary&lt;/code&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Chips" lead="Etiquetas removibles y divider con label." currentHref="/componentes/chips">

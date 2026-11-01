@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo">
+const pageContent = `<div class="doc-sub">Sprite de iconos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Usa <code class="dg-code">.dg-icon</code> con un <code class="dg-code">&lt;use&gt;</code> que apunte al id del icono en el sprite, por ejemplo <code class="dg-code">#dg-home</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-cluster dg-gap-5 dg-text-2xl">
           <svg class="dg-icon"><use href="#dg-home"/></svg>
           <svg class="dg-icon"><use href="#dg-chart"/></svg>
@@ -14,7 +17,8 @@ const pageContent = `<div class="doc-demo">
           <svg class="dg-icon"><use href="#dg-inbox"/></svg>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-home"&gt;&lt;/use&gt;&lt;/svg&gt;</pre></div>`;
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-home"&gt;&lt;/use&gt;&lt;/svg&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Iconos" lead="Sprite SVG incluido con el framework." currentHref="/app-pack/icons">

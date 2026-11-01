@@ -73,38 +73,126 @@
 }
 
 /* ---- Drawer / off-canvas ---------------------------------- */
-.dg-drawer-backdrop { position: fixed; inset: 0; z-index: 48; background: color-mix(in oklab, var(--dg-950) 50%, transparent); animation: dg-fade var(--dg-dur) var(--dg-ease); }
+.dg-drawer-backdrop {
+  position: fixed; inset: 0; z-index: 48;
+  background: color-mix(in oklab, var(--dg-950) 22%, transparent);
+  animation: dg-drawer-backdrop-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+}
+@keyframes dg-drawer-backdrop-in {
+  from { background-color: transparent; }
+  to { background-color: color-mix(in oklab, var(--dg-950) 22%, transparent); }
+}
 .dg-drawer-backdrop[hidden] { display: none; }
 .dg-drawer {
-  position: fixed; top: 0; right: 0; z-index: 49; height: 100vh; width: min(420px, 92vw);
-  background: color-mix(in oklab, var(--dg-surface) 92%, transparent);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border-left: 1px solid color-mix(in oklab, var(--dg-border-strong) 40%, transparent);
-  box-shadow: var(--dg-shadow-3), inset 0 1px 0 color-mix(in oklab, #fff 12%, transparent);
+  --dg-drawer-section-bg: color-mix(in oklab, color-mix(in oklab, var(--dg-surface-3) 92%, var(--dg-text) 8%) 72%, transparent);
+  position: fixed; top: 0; right: 0; z-index: 49;
+  height: 100vh; height: 100dvh; width: min(420px, 100vw);
   display: flex; flex-direction: column;
-  animation: dg-drawer-in var(--dg-dur) var(--dg-ease);
+  background: transparent; color: var(--dg-text);
+  border-radius: var(--dg-radius-xl) 0 0 var(--dg-radius-xl);
+  overflow: hidden; isolation: isolate;
+  animation: dg-drawer-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
 }
-.dg-drawer.dg-drawer-left { left: 0; right: auto; border-left: none; border-right: 1px solid color-mix(in oklab, var(--dg-border-strong) 40%, transparent); animation: dg-drawer-in-left var(--dg-dur) var(--dg-ease); }
+.dg-drawer:not(.is-solid)::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit; pointer-events: none;
+  background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+}
+.dg-drawer.is-solid {
+  color-scheme: light;
+  --dg-paper: #fff; --dg-surface: #fff;
+  --dg-surface-2: #fafafa; --dg-surface-3: #f3f3f4;
+  --dg-text: #171719; --dg-text-muted: #57575e; --dg-text-faint: #71717a;
+  --dg-border: #e4e4e7; --dg-border-strong: #d4d4d8;
+  --dg-solid: #0b0b0c; --dg-on-solid: #fff;
+  --dg-drawer-section-bg: var(--dg-surface-3);
+  background: #fff;
+}
+.dg-drawer.dg-drawer-left {
+  left: 0; right: auto;
+  border-radius: 0 var(--dg-radius-xl) var(--dg-radius-xl) 0;
+  animation-name: dg-drawer-in-left;
+}
 .dg-drawer[hidden] { display: none; }
 @keyframes dg-drawer-in { from { transform: translateX(100%); } to { transform: none; } }
 @keyframes dg-drawer-in-left { from { transform: translateX(-100%); } to { transform: none; } }
-.dg-drawer-header { padding: var(--dg-space-5); border-bottom: 1px solid var(--dg-border); display: flex; align-items: center; justify-content: space-between; }
-.dg-drawer-body { padding: var(--dg-space-5); overflow-y: auto; flex: 1; }
-.dg-drawer-footer { padding: var(--dg-space-4) var(--dg-space-5); border-top: 1px solid var(--dg-border); display: flex; gap: var(--dg-space-3); justify-content: flex-end; }
+.dg-drawer-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  min-height: 64px; padding: var(--dg-space-4) 56px var(--dg-space-4) var(--dg-space-5);
+  display: flex; align-items: center; justify-content: flex-start;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.dg-drawer-header :is(h2, h3, h4) {
+  margin: 0; font-family: var(--dg-font-heading);
+  font-size: var(--dg-modal-title-size); font-weight: var(--dg-modal-title-weight);
+  line-height: 1.25; color: var(--dg-text);
+}
+.dg-drawer-close {
+  position: absolute; right: var(--dg-space-3); top: 11px;
+  width: 30px; height: 42px; padding: 0; border: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle, #0b0b0c 0 11px, transparent 11.5px);
+  color: #fff; cursor: pointer; z-index: 20;
+}
+.dg-drawer-close:hover { background: radial-gradient(circle, #27272a 0 11px, transparent 11.5px); }
+.dg-drawer-close .dg-icon, .dg-drawer-close svg { width: 12px; height: 12px; color: #fff; stroke: currentColor; fill: none; }
+.dg-drawer-body {
+  padding: var(--dg-space-5); min-height: 0; overflow-y: auto; flex: 1;
+  color: var(--dg-text-muted);
+  scroll-padding-top: calc(64px + var(--dg-space-5));
+}
+.dg-drawer:has(> .dg-drawer-header) > .dg-drawer-body { padding-top: calc(64px + var(--dg-space-5)); }
+.dg-drawer:has(> .dg-drawer-footer) > .dg-drawer-body { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.dg-drawer-footer {
+  position: absolute; bottom: calc(var(--dg-space-3) + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translateX(-50%); z-index: 10;
+  display: flex; align-items: center; justify-content: center; gap: var(--dg-space-3);
+  width: max-content; max-width: calc(100% - 2 * var(--dg-space-3));
+  padding: var(--dg-space-3); border-radius: var(--dg-radius-xl);
+  border: 0;
+  background: var(--dg-drawer-section-bg);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+}
+.dg-drawer-footer .dg-btn { min-width: 0; }
+.dg-drawer .dg-btn-cancel { background: #b8b8bf; color: #27272a; }
+.dg-drawer .dg-btn-cancel:hover { background: #a6a6af; color: #27272a; opacity: 1; }
+.dg-drawer.is-solid :is(.dg-drawer-header, .dg-drawer-footer) { -webkit-backdrop-filter: none; backdrop-filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-drawer, .dg-drawer.dg-drawer-left, .dg-drawer-backdrop { animation: none; }
+  .dg-drawer.is-closing, .dg-drawer.dg-drawer-left.is-closing, .dg-drawer-backdrop.is-closing { animation: dg-fade-out 160ms linear forwards; }
+}
 
 /* ---- Accordion -------------------------------------------- */
-.dg-accordion { border: 1px solid var(--dg-border); border-radius: var(--dg-radius-lg); overflow: hidden; }
-.dg-accordion-item + .dg-accordion-item { border-top: 1px solid var(--dg-border); }
+.dg-accordion { width: 100%; min-width: 0; background: var(--dg-surface); border: 1px solid var(--dg-border-strong); border-radius: var(--dg-radius-lg); overflow: hidden; }
+.dg-accordion.dg-accordion-square { border-radius: 0; }
+.dg-accordion.dg-accordion-top-borders {
+  border: 0;
+  border-top: 1px solid var(--dg-border-strong);
+  border-bottom: 1px solid var(--dg-border-strong);
+  border-radius: 0; background: transparent;
+}
+.dg-accordion-top-borders .dg-accordion.dg-accordion-muted { border: 0; background: var(--dg-surface-3); }
+.dg-accordion-muted > .dg-accordion-item + .dg-accordion-item { border: 0; }
+.dg-accordion-muted > .dg-accordion-item.is-open { background: color-mix(in oklab, var(--dg-text) 4%, transparent); }
+.dg-accordion-trigger { padding-inline: var(--dg-space-3); }
+.dg-accordion-top-borders .dg-accordion-content { padding-inline: var(--dg-space-3); }
+.dg-accordion-item { transition: background var(--dg-dur) var(--dg-ease); }
+.dg-accordion-item.is-open { background: transparent; }
+.dg-accordion-item + .dg-accordion-item { border-top: 1px solid var(--dg-border-strong); }
 .dg-accordion-trigger {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--dg-space-3);
   padding: var(--dg-space-4) var(--dg-space-5); font-size: var(--dg-text-base); font-weight: var(--dg-weight-medium);
   text-align: left; color: var(--dg-text); transition: background var(--dg-dur) var(--dg-ease);
 }
-.dg-accordion-trigger:hover { background: var(--dg-surface-2); }
-.dg-accordion-trigger .dg-accordion-chevron { transition: transform var(--dg-dur) var(--dg-ease); color: var(--dg-text-muted); }
+.dg-accordion-trigger:hover { background: color-mix(in oklab, var(--dg-text) 5%, transparent); }
+.dg-accordion-trigger .dg-accordion-chevron { transition: transform var(--dg-dur-motion) var(--dg-ease-motion); color: var(--dg-text-muted); }
 .dg-accordion-item.is-open .dg-accordion-chevron { transform: rotate(180deg); }
-.dg-accordion-panel { max-height: 0; overflow: hidden; transition: max-height .3s var(--dg-ease); }
+.dg-accordion-panel { max-height: 0; overflow: hidden; transition: max-height var(--dg-dur-motion) var(--dg-ease-motion); }
 .dg-accordion-item.is-open .dg-accordion-panel { max-height: 480px; }
 .dg-accordion-content { padding: 0 var(--dg-space-5) var(--dg-space-5); color: var(--dg-text-muted); font-size: var(--dg-text-sm); }
 
@@ -127,21 +215,62 @@
 .dg-page:disabled { opacity: .4; pointer-events: none; }
 
 /* ---- Steps / stepper -------------------------------------- */
-.dg-steps { display: flex; align-items: flex-start; gap: 0; }
+.dg-steps {
+  --dg-step-travel: 2.2s; --dg-step-wait: 0s; --dg-step-ease: cubic-bezier(.45, 0, .55, 1);
+  display: flex; align-items: flex-start; gap: 0;
+}
 .dg-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--dg-space-2); position: relative; text-align: center; }
 .dg-step:not(:last-child)::after {
   content: ""; position: absolute; top: 0.9em; left: 50%; width: 100%; height: 2px;
-  background: var(--dg-border); z-index: 0;
+  /* Una sola capa: una lista con auto no se interpola y el negro saltaría. */
+  background-color: var(--dg-border);
+  background-image: linear-gradient(var(--dg-solid), var(--dg-solid));
+  background-repeat: no-repeat; background-position: left; background-size: 0% 100%;
+  z-index: 0; transition: background-size var(--dg-step-travel) var(--dg-step-ease) var(--dg-step-wait);
 }
-.dg-step.is-done:not(:last-child)::after { background: var(--dg-solid); }
+/* Al reproducirse, la línea espera a que el círculo y el check terminen. */
+[data-dg-steps-play] { --dg-step-wait: 1.8s; }
+.dg-step.is-done:not(:last-child)::after { background-size: 100% 100%; }
+.dg-steps-reset .dg-step::after, .dg-steps-reset .dg-step-dot, .dg-steps-reset .dg-step-dot::after, .dg-steps-reset .dg-step-label { transition: none !important; }
+/* Punto que encabeza la línea mientras recorre (JS añade .is-advancing). */
+.dg-step.is-advancing:not(:last-child)::before {
+  content: ""; position: absolute; z-index: 1; top: calc(0.9em + 1px); left: 50%;
+  width: 10px; height: 10px; border-radius: 50%; background: var(--dg-solid);
+  translate: -50% -50%;
+  animation: dg-step-travel var(--dg-step-travel) var(--dg-step-ease) var(--dg-step-wait) forwards;
+}
+@keyframes dg-step-travel { to { left: 150%; } }
+@keyframes dg-step-travel-y { to { top: 100%; } }
 .dg-step-dot {
   width: 1.9em; height: 1.9em; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-  background: var(--dg-surface); border: 2px solid var(--dg-border); color: var(--dg-text-muted);
+  background: var(--dg-surface-3); border: 2px solid var(--dg-border); color: var(--dg-text-muted);
   font-size: var(--dg-text-sm); font-weight: var(--dg-weight-semi); position: relative; z-index: 1;
+  transition: background var(--dg-dur-motion) var(--dg-step-ease), color var(--dg-dur-motion) var(--dg-step-ease);
 }
 .dg-step.is-active .dg-step-dot { border-color: var(--dg-solid); color: var(--dg-text); }
+/* Aro giratorio del paso actual: arco con estela hecho con máscara, no con borde.
+   Vive en todos los círculos para desvanecerse en vez de desaparecer de golpe. */
+.dg-step.is-active .dg-step-dot::after { opacity: 1; }
+.dg-step-dot::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  opacity: 0; transition: opacity var(--dg-dur-motion) var(--dg-step-ease);
+  background: conic-gradient(from 0deg, transparent 0deg 80deg, var(--dg-solid) 360deg);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  animation: dg-spin calc(var(--dg-dur-motion) * 2) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dg-step-dot::after { animation: none; }
+  .dg-step.is-done .dg-step-dot use[href$="#dg-check"] { animation: none; }
+}
 .dg-step.is-done .dg-step-dot { background: var(--dg-solid); border-color: var(--dg-solid); color: var(--dg-on-solid); }
-.dg-step-label { font-size: var(--dg-text-sm); color: var(--dg-text-muted); }
+/* El trazo se hereda dentro del sprite; la ruta del check va de izquierda a derecha. */
+.dg-step.is-done .dg-step-dot use[href$="#dg-check"] {
+  stroke-dasharray: 20;
+  animation: dg-step-check var(--dg-dur-motion) var(--dg-step-ease) .8s backwards;
+}
+.dg-step.is-done .dg-step-dot .dg-icon { width: 1.2em; height: 1.2em; }
+@keyframes dg-step-check { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
+.dg-step-label { font-size: var(--dg-text-sm); color: var(--dg-text-muted); transition: color var(--dg-dur-motion) var(--dg-ease-motion); }
 .dg-step.is-active .dg-step-label, .dg-step.is-done .dg-step-label { color: var(--dg-text); font-weight: var(--dg-weight-medium); }
 .dg-step-desc { font-size: var(--dg-text-xs); color: var(--dg-text-faint); margin-top: 2px; }
 
@@ -153,7 +282,12 @@
 }
 .dg-steps-vertical .dg-step:last-child { padding-bottom: 0; }
 .dg-steps-vertical .dg-step:not(:last-child)::after {
-  top: 1.9em; left: 0.92em; width: 2px; height: 100%;
+  top: 1.9em; left: 0.92em; width: 2px; height: calc(100% - 1.9em);
+  background-position: top; background-size: 100% 0%;
+}
+.dg-steps-vertical .dg-step.is-done:not(:last-child)::after { background-size: 100% 100%; }
+.dg-steps-vertical .dg-step.is-advancing:not(:last-child)::before {
+  top: 1.9em; left: calc(0.92em + 1px); animation-name: dg-step-travel-y;
 }
 .dg-steps-vertical .dg-step-body { padding-top: 0.15em; }
 
@@ -254,7 +388,7 @@
   border: 1px solid color-mix(in oklab, var(--dg-border-strong) 45%, transparent);
   border-radius: var(--dg-radius);
   box-shadow: var(--dg-shadow-3), inset 0 1px 0 color-mix(in oklab, #fff 14%, transparent);
-  padding: var(--dg-space-4); font-size: var(--dg-text-sm); animation: dg-menu-in var(--dg-dur) var(--dg-ease);
+  padding: var(--dg-space-4); font-size: var(--dg-text-sm); animation: dg-menu-in var(--dg-dur-motion) var(--dg-ease-motion);
 }
 .dg-popover[hidden] { display: none; }
 

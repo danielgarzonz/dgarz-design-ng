@@ -6,7 +6,8 @@
 /* Mobile-first 12-col grid. Base `.dg-col-N` applies at all widths;
    use `.dg-col-{sm,md,lg,xl}-N` to change span per breakpoint. */
 .dg-row { display: flex; flex-wrap: wrap; gap: var(--dg-gutter); }
-[class*="dg-col"] { flex: 1 1 0%; min-width: 0; }
+/* Match column class tokens only; dg-collapse is not a grid column. */
+[class~="dg-col"], [class^="dg-col-"], [class*=" dg-col-"] { flex: 1 1 0%; min-width: 0; }
 /* Explicit rule for the bare "equal width" column — redundant with the substring
    selector above, but makes `class="dg-col"` (no -N) discoverable in the CSS. */
 .dg-col { flex: 1 1 0%; min-width: 0; }

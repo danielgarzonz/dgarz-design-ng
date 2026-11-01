@@ -9,11 +9,20 @@ export function wireCollapse(trigger) {
   var isOpen = panel.classList.contains("is-open");
   panel.style.maxHeight = isOpen ? panel.scrollHeight + "px" : "0";
   trigger.setAttribute("aria-expanded", String(isOpen));
+  panel.inert = !isOpen;
+  panel.setAttribute("aria-hidden", String(!isOpen));
+  if (typeof ResizeObserver !== 'undefined' && panel.firstElementChild) {
+    new ResizeObserver(function () {
+      if (panel.classList.contains('is-open')) panel.style.maxHeight = panel.scrollHeight + 'px';
+    }).observe(panel.firstElementChild);
+  }
   trigger.addEventListener("click", function () {
     var open = !panel.classList.contains("is-open");
     panel.classList.toggle("is-open", open);
     panel.style.maxHeight = open ? panel.scrollHeight + "px" : "0";
     trigger.setAttribute("aria-expanded", String(open));
+    panel.inert = !open;
+    panel.setAttribute("aria-hidden", String(!open));
     trigger.dispatchEvent(new CustomEvent("dg:collapse", { detail: { open: open }, bubbles: true }));
   });
 }

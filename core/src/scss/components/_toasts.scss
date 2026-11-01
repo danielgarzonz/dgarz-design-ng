@@ -5,7 +5,7 @@
   background: var(--dg-solid); color: var(--dg-on-solid);
   padding: var(--dg-space-3) var(--dg-space-4); border-radius: var(--dg-radius);
   box-shadow: var(--dg-shadow-3); font-size: var(--dg-text-sm); min-width: 240px;
-  animation: dg-toast-in var(--dg-dur) var(--dg-ease);
+  animation: dg-toast-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
 }
 @keyframes dg-toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes dg-toast-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(16px); } }

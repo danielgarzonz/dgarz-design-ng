@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain">
+const pageContent = `<div class="doc-sub">Lista con avatar y acción</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-list</code> agrupa filas <code class="dg-code">.dg-list-item</code>. Cada fila puede llevar avatar, texto y una acción.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-list dg-max-w-xl">
           <div class="dg-list-item">
             <span class="dg-avatar">AR</span>
@@ -40,7 +43,8 @@ const pageContent = `<div class="doc-demo is-plain">
     &lt;!-- .dg-list-end empuja el elemento al extremo derecho --&gt;
     &lt;svg class="dg-icon dg-icon-sm dg-list-end"&gt;…&lt;/svg&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</pre></div>`;
+&lt;/ul&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="List Group" lead="Listas con icono, título, meta y acción al final." currentHref="/app-pack/listgroup">

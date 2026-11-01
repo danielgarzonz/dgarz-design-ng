@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain dg-stack">
+const pageContent = `<div class="doc-sub">Variantes</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-callout</code> destaca información complementaria y se colorea con las utilidades del core.</p>
+      <p class="dg-muted dg-text-sm dg-mb-4">Diferencia clave: las <strong>alertas</strong> viven en la UI (formularios, dashboards). Los <strong>callouts</strong> viven dentro del contenido (docs, artículos).</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack">
         <div class="dg-callout">
           <p class="dg-callout-title">Nota</p>
           Este es un callout neutral. Úsalo para información suplementaria que no interrumpe el flujo.
@@ -33,8 +37,7 @@ const pageContent = `<div class="doc-demo is-plain dg-stack">
 &lt;div class="dg-callout dg-bg-warning dg-text-warning dg-border-warning"&gt;…&lt;/div&gt;
 &lt;div class="dg-callout dg-bg-danger dg-text-danger dg-border-danger"&gt;…&lt;/div&gt;
 &lt;div class="dg-callout dg-bg-success dg-text-success dg-border-success"&gt;…&lt;/div&gt;</pre></div>
-
-      <p class="dg-muted dg-text-sm dg-mt-3">Diferencia clave: las <strong>alertas</strong> viven en la UI (formularios, dashboards). Los <strong>callouts</strong> viven dentro del contenido (docs, artículos).</p>`;
+</div>`;
 ---
 
 <Layout title="Callouts" lead="Bloques informativos destacados." currentHref="/componentes/callouts">

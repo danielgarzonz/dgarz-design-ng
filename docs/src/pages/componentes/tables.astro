@@ -1,11 +1,144 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acciones</div>
-      <div class="doc-demo is-plain">
+const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tablas"><a class="dg-btn dg-btn-outline dg-btn-sm" href="#basica">Tabla básica</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#alternada">Filas alternadas y hover</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#sin-radio">Sin esquinas redondeadas</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#bordes">Tabla con bordes</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#responsive">Tabla con desplazamiento horizontal</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#ordenable">Ordenamiento y selección</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#compacta">Cabecera fija</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#movil">Tarjetas en móvil</a></nav>
+<h2 class="doc-sub" id="basica">Tabla básica</h2>
+<p class="dg-muted dg-mb-4">Para listados sencillos con cabeceras y valores numéricos alineados. Todas las tablas resaltan sus filas al pasar el cursor. Su contenedor incluye scroll horizontal cuando el contenido no cabe, sin clases adicionales.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card" role="region" aria-label="Tabla básica" tabindex="0">
+<table class="dg-table">
+  <caption class="dg-table-caption">Inventario de productos</caption>
+  <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Stock</th><th scope="col" class="dg-cell-num">Precio</th></tr></thead>
+  <tbody>
+    <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">24</td><td class="dg-cell-num">$180.00</td></tr>
+    <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">8</td><td class="dg-cell-num">$950.00</td></tr>
+    <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">16</td><td class="dg-cell-num">$420.00</td></tr>
+  </tbody>
+</table>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card" role="region" aria-label="Tabla básica" tabindex="0"&gt;
+&lt;table class="dg-table"&gt;
+  &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Stock&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;24&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;8&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;16&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<h2 class="doc-sub" id="alternada">Filas alternadas y hover</h2>
+<p class="dg-muted dg-mb-4">Alterna el fondo de las filas. El hover está incluido por defecto; la clase dg-table-hover se conserva por compatibilidad.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card" role="region" aria-label="Filas alternadas y hover" tabindex="0">
+<table class="dg-table dg-table-striped dg-table-hover">
+  <caption class="dg-table-caption">Inventario de productos</caption>
+  <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Stock</th><th scope="col" class="dg-cell-num">Precio</th></tr></thead>
+  <tbody>
+    <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">24</td><td class="dg-cell-num">$180.00</td></tr>
+    <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">8</td><td class="dg-cell-num">$950.00</td></tr>
+    <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">16</td><td class="dg-cell-num">$420.00</td></tr>
+  </tbody>
+</table>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card" role="region" aria-label="Filas alternadas y hover" tabindex="0"&gt;
+&lt;table class="dg-table dg-table-striped dg-table-hover"&gt;
+  &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Stock&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;24&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;8&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;16&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<h2 class="doc-sub" id="sin-radio">Sin esquinas redondeadas</h2>
+<p class="dg-muted dg-mb-4">Agrega <code>dg-table-square</code> al contenedor para usar <code>border-radius: 0</code>. Se puede combinar con las variantes compacta, con bordes o filas alternadas. Conserva el hover por defecto.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card dg-table-square" role="region" aria-label="Tabla con esquinas rectas" tabindex="0">
+  <table class="dg-table">
+    <caption class="dg-table-caption">Inventario de productos</caption>
+    <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Precio</th></tr></thead>
+    <tbody>
+      <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">$180.00</td></tr>
+      <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">$950.00</td></tr>
+      <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">$420.00</td></tr>
+    </tbody>
+  </table>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card dg-table-square" role="region" aria-label="Tabla con esquinas rectas" tabindex="0"&gt;
+  &lt;table class="dg-table"&gt;
+    &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<h2 class="doc-sub" id="bordes">Tabla con bordes</h2>
+<p class="dg-muted dg-mb-4">Separa cada celda con bordes para comparar datos.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card" role="region" aria-label="Tabla con bordes" tabindex="0">
+<table class="dg-table dg-table-bordered">
+  <caption class="dg-table-caption">Inventario de productos</caption>
+  <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Stock</th><th scope="col" class="dg-cell-num">Precio</th></tr></thead>
+  <tbody>
+    <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">24</td><td class="dg-cell-num">$180.00</td></tr>
+    <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">8</td><td class="dg-cell-num">$950.00</td></tr>
+    <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">16</td><td class="dg-cell-num">$420.00</td></tr>
+  </tbody>
+</table>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card" role="region" aria-label="Tabla con bordes" tabindex="0"&gt;
+&lt;table class="dg-table dg-table-bordered"&gt;
+  &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Stock&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;24&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;8&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;16&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<h2 class="doc-sub" id="responsive">Tabla con desplazamiento horizontal</h2>
+<p class="dg-muted dg-mb-4">Las tablas incluyen desplazamiento horizontal por defecto en su contenedor <code>dg-table-card</code> cuando no caben, sin agregar otra clase. Conserva las filas y columnas; para convertirlas en tarjetas, usa el ejemplo de tarjetas en móvil.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card" role="region" aria-label="Tabla con desplazamiento horizontal" tabindex="0">
+<table class="dg-table dg-table-wide">
+  <caption class="dg-table-caption">Inventario de productos</caption>
+  <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Stock</th><th scope="col" class="dg-cell-num">Precio</th><th scope="col">Proveedor</th><th scope="col">Actualización</th></tr></thead>
+  <tbody>
+    <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">24</td><td class="dg-cell-num">$180.00</td><td>Estudio Norte</td><td>31 oct 2026</td></tr>
+    <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">8</td><td class="dg-cell-num">$950.00</td><td>Forma Local</td><td>30 oct 2026</td></tr>
+    <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">16</td><td class="dg-cell-num">$420.00</td><td>Taller Uno</td><td>29 oct 2026</td></tr>
+  </tbody>
+</table>
+</div></div>
+<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card" role="region" aria-label="Tabla con desplazamiento horizontal" tabindex="0"&gt;
+&lt;table class="dg-table dg-table-wide"&gt;
+  &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Stock&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;th scope="col"&gt;Proveedor&lt;/th&gt;&lt;th scope="col"&gt;Actualización&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;24&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;td&gt;Estudio Norte&lt;/td&gt;&lt;td&gt;31 oct 2026&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;8&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;td&gt;Forma Local&lt;/td&gt;&lt;td&gt;30 oct 2026&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;16&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;td&gt;Taller Uno&lt;/td&gt;&lt;td&gt;29 oct 2026&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<h2 class="doc-sub" id="ordenable">Ordenable · seleccionable · con acciones</h2>
+<p class="dg-muted dg-text-sm dg-mb-4">Para tablas de gestión: <code class="dg-code">.dg-sortable</code> marca las columnas ordenables, <code class="dg-code">.dg-cell-check</code> añade la selección por fila y cada fila puede incluir sus acciones.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-table-card">
           <table class="dg-table dg-table-hover" data-dg-sortable id="ordersTable">
             <thead><tr>
-              <th class="dg-cell-check"><label class="dg-check"><input type="checkbox" id="checkAll" /><span class="dg-check-box"></span></label></th>
+              <th class="dg-cell-check"><label class="dg-check"><input type="checkbox" id="checkAll" aria-label="Seleccionar todas las filas" /><span class="dg-check-box"></span></label></th>
               <th class="dg-sortable">Cliente</th>
               <th class="dg-sortable">Estado</th>
               <th class="dg-sortable dg-cell-num">Total</th>
@@ -13,21 +146,21 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
             </tr></thead>
             <tbody>
               <tr>
-                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" aria-label="Seleccionar a Ana Rivas" /><span class="dg-check-box"></span></label></td>
                 <td><div class="dg-cell-user"><span class="dg-avatar">AR</span>Ana Rivas</div></td>
                 <td><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></td>
                 <td class="dg-cell-num" data-sort="128">$128.00</td>
                 <td class="dg-text-right"><div class="dg-cell-actions"><button class="dg-icon-btn" aria-label="Editar"><svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg></button></div></td>
               </tr>
               <tr>
-                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" aria-label="Seleccionar a Luis Mora" /><span class="dg-check-box"></span></label></td>
                 <td><div class="dg-cell-user"><span class="dg-avatar">LM</span>Luis Mora</div></td>
                 <td><span class="dg-badge dg-badge-dot dg-badge-warning">Pendiente</span></td>
                 <td class="dg-cell-num" data-sort="54.5">$54.50</td>
                 <td class="dg-text-right"><div class="dg-cell-actions"><button class="dg-icon-btn" aria-label="Editar"><svg class="dg-icon dg-icon-sm"><use href="#dg-mail"/></svg></button></div></td>
               </tr>
               <tr>
-                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" /><span class="dg-check-box"></span></label></td>
+                <td class="dg-cell-check"><label class="dg-check"><input type="checkbox" class="rowCheck" aria-label="Seleccionar a Sofía Cano" /><span class="dg-check-box"></span></label></td>
                 <td><div class="dg-cell-user"><span class="dg-avatar">SC</span>Sofía Cano</div></td>
                 <td><span class="dg-badge dg-badge-dot dg-badge-success">Pagado</span></td>
                 <td class="dg-cell-num" data-sort="312.2">$312.20</td>
@@ -74,9 +207,12 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
      Al ordenar se emite el evento "dg:sort" con { column, ascending }.
      El checkbox de .dg-cell-check en thead selecciona todas las filas,
      marca cada &lt;tr&gt; con .is-selected y emite "dg:select" con { selected, total }. --&gt;</pre></div>
+</div>
 
-      <div class="doc-sub">Compacta · striped · cabecera fija</div>
-      <div class="doc-demo is-plain">
+      <h2 class="doc-sub" id="compacta">Compacta · filas alternadas · cabecera fija</h2>
+      <p class="dg-muted dg-text-sm dg-mb-4">Para mucha información: <code class="dg-code">.dg-table-sm</code> reduce la altura de las filas, <code class="dg-code">.dg-table-striped</code> alterna su fondo y <code class="dg-code">.dg-table-sticky</code> deja fija la cabecera.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-table-card dg-table-sticky dg-scroll dg-h-200">
           <table class="dg-table dg-table-sm dg-table-striped">
             <thead><tr><th>Componente</th><th>Clase</th><th>Estado</th></tr></thead>
@@ -109,16 +245,29 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
 &lt;!-- Tamaños: dg-table-sm · (default) · dg-table-lg
      Para otra altura, añade p. ej. dg-h-200 al contenedor
      (+ dg-scroll del app pack para una scrollbar fina) --&gt;</pre></div>
+</div>
 
-      <div class="doc-sub">Tabla → cards en móvil</div>
+      <h2 class="doc-sub" id="movil">Tabla adaptada a móvil → tarjetas</h2>
       <p class="dg-muted dg-text-sm dg-mb-4">
         No confundir con <code class="dg-code">.dg-table-card</code> (la tabla completa envuelta en una tarjeta,
         arriba en esta página) — <code class="dg-code">.dg-table-rowcard</code> es lo opuesto: cada
         <strong>fila</strong> se convierte en su propia tarjeta. Útil cuando una tabla ancha no cabe en pantallas
-        chicas y prefieres cards apiladas a scroll horizontal. Redimensiona la ventana por debajo de 768px para
-        ver el cambio (o abre esta página en el inspector con el emulador de móvil).
+        chicas y prefieres cards apiladas a scroll horizontal. Usa el control de ancho para ver el cambio: hasta 768px se muestran tarjetas; por encima, una tabla. Los datos son los mismos.
       </p>
-      <div class="doc-demo is-plain">
+      <div class="dg-mb-4">
+        <p class="dg-label">Ancho de la vista previa</p>
+        <div class="dg-cluster dg-mb-3" role="group" aria-label="Anchos de ejemplo">
+          <button type="button" class="dg-btn dg-btn-outline dg-btn-sm" data-table-width="375">Móvil · 375px</button>
+          <button type="button" class="dg-btn dg-btn-outline dg-btn-sm" data-table-width="768">Tablet · 768px</button>
+          <button type="button" class="dg-btn dg-btn-outline dg-btn-sm" data-table-width="960">Escritorio · 960px</button>
+        </div>
+        <p class="dg-text-sm dg-mt-2" id="tablePreviewStatus" aria-live="polite"><output id="tablePreviewOutput">960px · Vista de tabla</output></p>
+      </div>
+      <p class="dg-muted dg-text-sm dg-mb-4" id="tablePreviewHelp">Arrastra el botón del borde derecho para cambiar el ancho. También puedes enfocarlo y usar las flechas ← y →. El botón se detiene en el límite del contenedor; puedes arrastrarlo hacia dentro para reducir el ancho y volver a ampliarlo dentro de ese límite.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain table-width-stage" role="region" aria-label="Vista previa de tabla adaptable" tabindex="0">
+        <div id="tablePreviewFrame" style="width:960px">
+        <div class="dg-table-adaptive" id="tableMobilePreview">
         <div class="dg-table-desktop">
           <div class="dg-table-card">
             <table class="dg-table">
@@ -143,13 +292,18 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
             <div class="dg-table-rowcard-actions"><button class="dg-btn dg-btn-sm dg-btn-ghost">Ver</button></div>
           </div>
         </div>
+        </div>
+        <button type="button" id="tablePreviewHandle" role="slider" aria-label="Cambiar ancho de la tabla" aria-orientation="horizontal" aria-valuemin="320" aria-valuemax="1000" aria-valuenow="960" aria-describedby="tablePreviewHelp" title="Arrastra para cambiar el ancho"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-table-resize-icon d="m8 8-4 4 4 4m8-8 4 4-4 4M4 12h16"/></svg></button>
+        </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Desktop: se oculta bajo 768px --&gt;
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;!-- El contenedor adapta la tabla según su propio ancho --&gt;
+&lt;div class="dg-table-adaptive"&gt;
+&lt;!-- Desktop: se oculta hasta 768px --&gt;
 &lt;div class="dg-table-desktop"&gt;
   &lt;table class="dg-table"&gt;…&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;!-- Móvil: se muestra bajo 768px, mismos datos --&gt;
+&lt;!-- Móvil: se muestra hasta 768px, mismos datos --&gt;
 &lt;div class="dg-table-cards"&gt;
   &lt;div class="dg-table-rowcard"&gt;
     &lt;div class="dg-table-rowcard-row"&gt;
@@ -166,10 +320,140 @@ const pageContent = `<div class="doc-sub">Ordenable · seleccionable · con acci
   &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;/div&gt;
+
 &lt;!-- Ambos bloques leen del mismo array de datos del lado del componente —
-     solo cambia el markup de presentación, no la lógica. --&gt;</pre></div>`;
+     solo cambia el markup de presentación, no la lógica. --&gt;</pre></div>
+</div>`;
 ---
 
-<Layout title="Tablas" lead="Tablas con variantes, ordenamiento y selección de filas." currentHref="/componentes/tables">
-  <Fragment set:html={pageContent} />
+<Layout title="Tablas" lead="Tablas básicas, con bordes, filas alternadas, scroll horizontal y tarjetas en móvil. Ejemplos y código en una sola sección." currentHref="/componentes/tables">
+  <section class="dg-mb-5" aria-labelledby="table-corners-label">
+    <h2 class="doc-sub" id="table-corners-label">Esquinas de las tablas</h2>
+    <p class="dg-muted dg-mb-3">Elige un acabado para probarlo en las tablas de esta página.</p>
+    <div class="dg-segmented" id="tableCorners" role="group" aria-labelledby="table-corners-label">
+      <button type="button" data-corners="default" class="is-active" aria-pressed="true">Original</button>
+      <button type="button" data-corners="rounded" aria-pressed="false">Redondeadas</button>
+      <button type="button" data-corners="square" aria-pressed="false">Rectas · sin radius</button>
+    </div>
+    <p class="dg-text-sm dg-mt-3" id="tableCornersHint" aria-live="polite">Cada ejemplo conserva su acabado original.</p>
+  </section>
+  <div id="tableExamples" data-corners="default">
+    <Fragment set:html={pageContent} />
+  </div>
 </Layout>
+
+<style is:global>
+  .table-width-stage { overflow-x: hidden; }
+  #tablePreviewFrame { position: relative; flex-shrink: 0; margin-right: 56px; max-width: calc(100% - 56px); }
+  #tableMobilePreview { width: 100%; }
+  #tablePreviewHandle {
+    position: absolute; right: -48px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 44px; padding: 0; border: 0; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: #0b0b0c; color: #fff; cursor: ew-resize;
+    touch-action: none; user-select: none; z-index: 2;
+  }
+  #tablePreviewHandle:hover, #tablePreviewHandle:active { background: #3f3f46; }
+  #tableExamples[data-corners="square"] .doc-demo :is(.dg-table-card, .dg-table-rowcard) { border-radius: 0; }
+  #tableExamples[data-corners="rounded"] .doc-demo :is(.dg-table-card, .dg-table-rowcard) { border-radius: var(--dg-radius-lg); }
+</style>
+<script>
+  const widthHandle = document.querySelector<HTMLButtonElement>('#tablePreviewHandle');
+  const previewFrame = document.getElementById('tablePreviewFrame');
+  const widthOutput = document.getElementById('tablePreviewOutput');
+  const stage = previewFrame?.closest<HTMLElement>('.table-width-stage');
+  function maximumPreviewWidth() {
+    if (!stage) return 1000;
+    const style = getComputedStyle(stage);
+    return Math.max(1, Math.min(1000, Math.floor(stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight) - 56)));
+  }
+  function updateTableWidth(value: number) {
+    const maximum = maximumPreviewWidth();
+    const minimum = Math.min(320, maximum);
+    const width = Math.round(Math.max(minimum, Math.min(maximum, value)));
+    if (!widthHandle || !previewFrame || !widthOutput) return;
+    previewFrame.style.width = width + 'px';
+    widthHandle.setAttribute('aria-valuemin', String(minimum));
+    widthHandle.setAttribute('aria-valuemax', String(maximum));
+    widthHandle.setAttribute('aria-valuenow', String(width));
+    const direction = maximum === minimum ? 'fixed' : width >= maximum ? 'shrink' : width <= minimum ? 'grow' : 'both';
+    const icon = widthHandle.querySelector('[data-table-resize-icon]');
+    const paths = {
+      shrink: 'm8 8-4 4 4 4M4 12h16',
+      grow: 'm16 8 4 4-4 4M4 12h16',
+      both: 'm8 8-4 4 4 4m8-8 4 4-4 4M4 12h16'
+    };
+    icon?.setAttribute('d', paths[direction === 'fixed' ? 'both' : direction]);
+    const label = direction === 'shrink' ? 'Reducir ancho de la tabla'
+      : direction === 'grow' ? 'Ampliar ancho de la tabla'
+      : direction === 'fixed' ? 'Sin espacio disponible para cambiar el ancho'
+      : 'Ampliar o reducir ancho de la tabla';
+    widthHandle.setAttribute('aria-label', label);
+    widthHandle.title = label;
+    widthHandle.disabled = direction === 'fixed';
+
+    widthHandle.setAttribute('aria-valuetext', width + ' píxeles, ' + (width <= 768 ? 'tarjetas' : 'tabla'));
+    widthOutput.textContent = width + 'px · ' + (width <= 768 ? 'Vista de tarjetas' : 'Vista de tabla');
+    document.querySelectorAll<HTMLButtonElement>('[data-table-width]').forEach(button => {
+      const selected = Number(button.dataset.tableWidth) === width;
+      button.classList.toggle('is-active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+  }
+  let dragStart: { pointer: number; x: number; width: number } | null = null;
+  widthHandle?.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || event.button !== 0) return;
+    dragStart = { pointer: event.pointerId, x: event.clientX, width: previewFrame!.getBoundingClientRect().width };
+    widthHandle.setPointerCapture(event.pointerId);
+  });
+  widthHandle?.addEventListener('pointermove', event => {
+    if (!dragStart || event.pointerId !== dragStart.pointer) return;
+    updateTableWidth(dragStart.width + event.clientX - dragStart.x);
+  });
+  widthHandle?.addEventListener('pointerup', () => { dragStart = null; });
+  widthHandle?.addEventListener('pointercancel', () => { dragStart = null; });
+  widthHandle?.addEventListener('lostpointercapture', () => { dragStart = null; });
+  widthHandle?.addEventListener('keydown', event => {
+    const width = Number(widthHandle.getAttribute('aria-valuenow'));
+    const step = event.shiftKey ? 50 : 10;
+    let next = width;
+    if (event.key === 'ArrowLeft') next -= step;
+    else if (event.key === 'ArrowRight') next += step;
+    else if (event.key === 'Home') next = 320;
+    else if (event.key === 'End') next = 1000;
+    else return;
+    event.preventDefault();
+    updateTableWidth(next);
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-table-width]').forEach(button => {
+    button.addEventListener('click', () => updateTableWidth(Number(button.dataset.tableWidth)));
+  });
+  updateTableWidth(Math.min(960, maximumPreviewWidth()));
+  if (stage) {
+    let previousMaximum = maximumPreviewWidth();
+    new ResizeObserver(() => {
+      const maximum = maximumPreviewWidth();
+      if (maximum === previousMaximum) return;
+      previousMaximum = maximum;
+      updateTableWidth(Number(widthHandle?.getAttribute('aria-valuenow') ?? maximum));
+    }).observe(stage);
+  }
+  const corners = document.getElementById('tableCorners');
+  const examples = document.getElementById('tableExamples');
+  const hint = document.getElementById('tableCornersHint');
+  corners?.querySelectorAll<HTMLButtonElement>('button[data-corners]').forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.dataset.corners!;
+      examples!.dataset.corners = value;
+      corners.querySelectorAll('button').forEach(option => {
+        option.classList.toggle('is-active', option === button);
+        option.setAttribute('aria-pressed', String(option === button));
+      });
+      hint!.textContent = value === 'square'
+        ? 'Esquinas rectas. Para usarlas en tu proyecto, agrega dg-table-square al contenedor.'
+        : value === 'rounded' ? 'Esquinas redondeadas con el radio del tema.'
+        : 'Cada ejemplo conserva su acabado original.';
+    });
+  });
+</script>

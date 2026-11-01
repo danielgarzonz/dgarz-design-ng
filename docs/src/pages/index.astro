@@ -1,110 +1,322 @@
 ---
-import Layout from "../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-sub">Características clave</div>
-      <div class="dg-grid dg-grid-2 dg-gap-4">
-        <div class="dg-card"><div class="dg-card-body">
-          <h5>Monocromo por diseño</h5>
-          <p class="dg-muted dg-text-sm">Una escala de grises de 12 pasos. Sin paletas complejas. Todo el sistema de color deriva de ella y funciona en claro y oscuro.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <h5>Zero dependencias</h5>
-          <p class="dg-muted dg-text-sm">Un archivo CSS, un archivo JS opcional. Sin jQuery, sin PostCSS, sin Sass requerido. Cópialo y listo.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <h5>Dark mode nativo</h5>
-          <p class="dg-muted dg-text-sm">Cambia entre temas con un solo atributo: <code class="dg-code">data-theme="dark"</code>. Todo el sistema se adapta automáticamente.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <h5>Tokens sobreescribibles</h5>
-          <p class="dg-muted dg-text-sm">Todos los valores son CSS custom properties (<code class="dg-code">--dg-*</code>). Re-skinea el framework completo con 5 líneas de CSS.</p>
-        </div></div>
-      </div>
+import { TOP_NAV } from "../data/nav";
+import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
+import "../styles/brand.css";
 
-      <div class="doc-sub">Inicio rápido</div>
-      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;!DOCTYPE html&gt;
-&lt;html data-theme="light"&gt;
-&lt;head&gt;
-  &lt;!-- Fuentes --&gt;
-  &lt;link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono&amp;family=Newsreader:ital@0;1&amp;display=swap" rel="stylesheet"&gt;
+const iconSprite = iconSpriteRaw
+  .replace(/<\?xml[^>]*\?>/, "")
+  .replace("<svg ", '<svg aria-hidden="true" ');
 
-  &lt;!-- dgarz design --&gt;
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
+const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.full.min.css";
+const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 
-  &lt;button class="dg-btn dg-btn-primary"&gt;Hola, dgarz design&lt;/button&gt;
+const features = [
+  { title: "Monocromo por diseño", text: "Una escala de grises de 12 pasos. Todo el sistema de color deriva de ella y funciona en claro y oscuro." },
+  { title: "Cero dependencias", text: "Un archivo CSS y un archivo JS opcional. Sin jQuery, sin PostCSS y sin Sass requerido." },
+  { title: "Modo oscuro nativo", text: "Cambia de tema con un solo atributo, data-theme, y todo el sistema se adapta." },
+  { title: "Tokens personalizables", text: "Todos los valores son variables CSS --dg-*, así que puedes adaptar el framework a tu marca." },
+];
 
-  &lt;script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre></div>
-
-      <div class="doc-sub">¿Qué incluye?</div>
-      <div class="dg-grid dg-grid-2 dg-gap-3">
-        <div class="dg-card"><div class="dg-card-body">
-          <code class="dg-code">dgarz-core.css</code>
-          <p class="dg-text-sm dg-muted dg-mt-2">Tokens, reset, tipografía, grid de 12 columnas y utilidades base.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <code class="dg-code">dgarz-components.css</code>
-          <p class="dg-text-sm dg-muted dg-mt-2">Botones, forms, cards, badges, alerts, modal, nav y más de 20 componentes.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <code class="dg-code">dgarz-app.css</code>
-          <p class="dg-text-sm dg-muted dg-mt-2">App shell, sidebar, accordion, steps, skeleton y stat cards.</p>
-        </div></div>
-        <div class="dg-card"><div class="dg-card-body">
-          <code class="dg-code">dgarz.js</code>
-          <p class="dg-text-sm dg-muted dg-mt-2">Behavior layer via atributos HTML. Sin dependencias, completamente opcional.</p>
-        </div></div>
-      </div>
-
-      <div class="doc-sub">Explorar la documentación</div>
-      <div class="dg-grid dg-grid-3 dg-gap-3">
-        <a href="/comenzar/install" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">Comenzar</div>
-            <h5 class="dg-text-base">Instalación</h5>
-            <p class="dg-text-sm dg-muted">CDN, npm y bundlers</p>
-          </div>
-        </a>
-        <a href="/fundamentos/color" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">Fundamentos</div>
-            <h5 class="dg-text-base">Color & tokens</h5>
-            <p class="dg-text-sm dg-muted">Sistema de diseño monocromo</p>
-          </div>
-        </a>
-        <a href="/fundamentos/grid" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">Fundamentos</div>
-            <h5 class="dg-text-base">Grid & Layout</h5>
-            <p class="dg-text-sm dg-muted">12 columnas, breakpoints sm–xl</p>
-          </div>
-        </a>
-        <a href="/componentes/buttons" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">Componentes</div>
-            <h5 class="dg-text-base">Botones</h5>
-            <p class="dg-text-sm dg-muted">Variantes, estados, grupos</p>
-          </div>
-        </a>
-        <a href="/utilidades/utilities" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">Utilidades</div>
-            <h5 class="dg-text-base">Utilidades</h5>
-            <p class="dg-text-sm dg-muted">Spacing, display, flex, text</p>
-          </div>
-        </a>
-        <a href="/app-pack/shell" class="dg-card dg-text-decoration-none">
-          <div class="dg-card-body">
-            <div class="dg-eyebrow dg-mb-2">App Pack</div>
-            <h5 class="dg-text-base">App Shell</h5>
-            <p class="dg-text-sm dg-muted">Sidebar, drawer, layout completo</p>
-          </div>
-        </a>
-      </div>`;
+const sections = [
+  { group: "Comenzar", title: "Instalación", text: "Agrega el framework a tu proyecto.", href: "/comenzar/install" },
+  { group: "Fundamentos", title: "Color y tokens", text: "El sistema de diseño monocromo.", href: "/fundamentos/color" },
+  { group: "Fundamentos", title: "Grid y layout", text: "12 columnas y breakpoints.", href: "/fundamentos/grid" },
+  { group: "Componentes", title: "Botones", text: "Variantes, estados y grupos.", href: "/componentes/buttons" },
+  { group: "Utilidades", title: "Utilidades", text: "Espaciado, display, flex y texto.", href: "/utilidades/utilities" },
+  { group: "App Pack", title: "App Shell", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
+];
 ---
 
-<Layout title="Introducción" lead="Un framework CSS moderno, monocromo y performance-first. Sin dependencias, un solo archivo, y dark mode nativo." currentHref="/">
-  <Fragment set:html={pageContent} />
-</Layout>
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dgarz design — Framework CSS monocromo</title>
+  <meta name="description" content="Framework CSS monocromo, sin dependencias y con modo oscuro nativo." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={cssHref} />
+  <style is:global>
+    body { overflow-x: hidden; padding-top: 60px; background: var(--dg-surface-2); }
+    /* Mismo ancho que el contenido del .dg-container; radio de esquina de iPhone.
+       El padding iguala al radio para que el contenido quede en la parte plana. */
+    .pub-nav {
+      --pub-nav-radius: 55px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+      flex-wrap: wrap; row-gap: 0;
+      width: calc(min(100%, var(--dg-container)) - 2 * var(--dg-space-5));
+      margin-inline: auto; padding-inline: var(--pub-nav-radius);
+      border-radius: 0 0 var(--pub-nav-radius) var(--pub-nav-radius);
+      transition: transform var(--dg-dur-motion) var(--dg-ease-motion), background var(--dg-dur-motion) var(--dg-ease-motion);
+    }
+    .pub-nav.is-hidden { transform: translateY(-100%); }
+    .pub-nav.is-open { background: var(--dg-paper); }
+
+    /* Móvil: las opciones viven dentro del header, que crece y se reduce. */
+    .pub-nav .pub-menu-btn, .pub-icon-close, .pub-nav.is-open .pub-icon-open { display: none; }
+    .pub-nav.is-open .pub-icon-close { display: block; }
+    .pub-menu {
+      display: none; flex: 0 0 100%; grid-template-rows: 0fr;
+      visibility: hidden;
+      transition: grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion), visibility var(--dg-dur-motion);
+    }
+    .pub-nav.is-open .pub-menu { grid-template-rows: 1fr; visibility: visible; }
+    .pub-menu-inner { min-height: 0; overflow: hidden; }
+    .pub-menu-list { display: flex; flex-direction: column; gap: var(--dg-space-1); padding-block: var(--dg-space-3) var(--dg-space-4); }
+    .pub-nav.is-open .pub-menu-list > * { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(2) { animation-delay: 130ms; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(3) { animation-delay: 180ms; }
+    .pub-menu-list .dg-nav-link { display: flex; align-items: center; min-height: 44px; }
+    .pub-menu-list .dg-btn { margin-top: var(--dg-space-3); min-height: 44px; }
+    .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-medium); }
+    .pub-theme-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border: 0; border-radius: var(--dg-radius-pill);
+      background: none; color: var(--dg-text-muted); cursor: pointer;
+    }
+    .pub-theme-btn:hover { background: var(--dg-surface-3); color: var(--dg-text); }
+    .pub-moon, [data-theme="dark"] .pub-sun { display: none; }
+    [data-theme="dark"] .pub-moon { display: block; }
+
+    /* El nombre queda en el centro exacto: las filas 1 y 3 miden lo mismo. */
+    .pub-hero {
+      display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center;
+      min-height: calc(100svh - 60px); padding-block: var(--dg-space-5);
+      text-align: center;
+    }
+    .pub-title {
+      grid-row: 2; margin: 0;
+      font-size: clamp(3.5rem, 13vw, 11rem); line-height: 1; letter-spacing: -0.03em;
+    }
+    /* Cada letra sale de una línea de suelo: el clip-path corta bajo los descendentes. */
+    .pub-word { display: inline-block; clip-path: inset(-.2em -.15em -.16em -.15em); }
+    .pub-letter {
+      display: inline-block;
+      animation: pub-letter-rise var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+      animation-delay: calc(var(--i) * 65ms + 120ms);
+    }
+    @keyframes pub-letter-rise {
+      from { transform: translateY(125%) rotate(7deg); }
+      to { transform: none; }
+    }
+    .pub-intro { grid-row: 3; max-width: 36rem; padding-top: var(--dg-space-5); }
+    .pub-intro .dg-cluster { justify-content: center; }
+    .pub-preview { max-width: 34rem; margin-inline: auto; }
+    .pub-main .dg-card { border: 0; }
+    .pub-link { color: inherit; text-decoration: none; }
+    .pub-link:hover { background: var(--dg-surface-3); }
+    .pub-code { margin: 0; overflow-x: auto; }
+    .pub-cta {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: var(--dg-space-5); padding: var(--dg-space-7);
+      border-radius: var(--dg-radius-xl); background: var(--dg-solid); color: var(--dg-on-solid);
+    }
+    .pub-cta h2 { color: inherit; margin: 0; }
+    .pub-cta .dg-btn { background: var(--dg-on-solid); color: var(--dg-solid); border: 0; }
+    .pub-footer { padding-block: var(--dg-space-6); color: var(--dg-text-muted); font-size: var(--dg-text-sm); }
+
+    @media (max-width: 860px) {
+      .pub-cta { padding: var(--dg-space-5); }
+    }
+    @media (max-width: 640px) {
+      .pub-docs-btn, .pub-nav .dg-navbar-nav { display: none; }
+      .pub-nav .pub-menu-btn { display: inline-flex; }
+      .pub-menu { display: grid; }
+      .pub-nav { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub-nav, .pub-menu { transition: none; }
+      .pub-letter { animation: none; }
+      .pub-nav.is-open .pub-menu-list > * { animation: none; }
+    }
+  </style>
+</head>
+<body>
+<Fragment set:html={iconSprite} />
+
+<nav class="dg-navbar pub-nav" id="pubNav" aria-label="Principal">
+  <a href="/" class="dg-navbar-brand pub-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
+  <div class="dg-navbar-nav">
+    {TOP_NAV.map((item) => (
+      <a href={item.href} class:list={["dg-nav-link", item.href === "/" && "is-active"]} aria-current={item.href === "/" ? "page" : undefined}>{item.label}</a>
+    ))}
+  </div>
+  <div class="dg-flex dg-items-center dg-gap-2 dg-ml-auto">
+    <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-sm pub-docs-btn">Documentación</a>
+    <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
+      <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
+      <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
+    </button>
+    <button class="pub-theme-btn pub-menu-btn" id="pubMenuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="pubMenu">
+      <svg class="dg-icon pub-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+      <svg class="dg-icon pub-icon-close"><use href="#dg-x"/></svg>
+    </button>
+  </div>
+  <div class="pub-menu" id="pubMenu">
+    <div class="pub-menu-inner">
+      <div class="pub-menu-list">
+        {TOP_NAV.map((item) => (
+          <a href={item.href} class:list={["dg-nav-link", item.href === "/" && "is-active"]} aria-current={item.href === "/" ? "page" : undefined}>{item.label}</a>
+        ))}
+        <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-block">Documentación</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="pub-main dg-container">
+  <section class="pub-hero">
+    <h1 class="dg-display pub-title" aria-label="dgarz design">
+      <span class="pub-word brand-name" aria-hidden="true">{[..."dgarz"].map((letter, i) => <span class="pub-letter" style={`--i: ${i}`}>{letter}</span>)}</span>{" "}
+      <span class="pub-word brand-suffix" aria-hidden="true">{[..."design"].map((letter, i) => <span class="pub-letter" style={`--i: ${i + 5}`}>{letter}</span>)}</span>
+    </h1>
+    <div class="pub-intro">
+      <p class="dg-lead dg-text-in dg-delay-8">Un framework CSS moderno y monocromo, sin dependencias y con modo oscuro nativo.</p>
+      <div class="dg-cluster dg-mt-4 dg-text-in dg-delay-9">
+        <a href="/comenzar/install" class="dg-btn dg-btn-primary">Empezar</a>
+        <a href="/componentes/buttons" class="dg-btn dg-btn-outline">Ver componentes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children>
+    <div class="pub-preview">
+    <div class="dg-card" aria-label="Ejemplo con componentes del framework" role="img">
+      <div class="dg-card-body dg-stack">
+        <div class="dg-flex dg-items-center dg-justify-between dg-gap-3">
+          <div class="dg-fw-semi">Nuevo proyecto</div>
+          <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
+        </div>
+        <div class="dg-steps" data-dg-steps-play>
+          <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><span class="dg-step-label">Cuenta</span></div>
+          <div class="dg-step is-active"><span class="dg-step-dot">2</span><span class="dg-step-label">Equipo</span></div>
+          <div class="dg-step"><span class="dg-step-dot">3</span><span class="dg-step-label">Listo</span></div>
+        </div>
+        <div class="dg-field">
+          <span class="dg-label">Nombre del equipo</span>
+          <div class="dg-input" aria-hidden="true">Estudio Norte</div>
+        </div>
+        <div class="dg-progress"><div class="dg-progress-bar" style="width: 60%"></div></div>
+        <div class="dg-cluster">
+          <span class="dg-btn dg-btn-primary dg-btn-sm">Continuar</span>
+          <span class="dg-btn dg-btn-ghost dg-btn-sm">Omitir</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-features">
+    <h2 id="pub-features" class="dg-mb-5">Pensado para ir directo al grano</h2>
+    <div class="dg-grid dg-grid-2 dg-gap-4">
+      {features.map((item) => (
+        <div class="dg-card"><div class="dg-card-body">
+          <h3 class="dg-text-lg">{item.title}</h3>
+          <p class="dg-muted dg-text-sm dg-mt-2">{item.text}</p>
+        </div></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-code">
+    <h2 id="pub-code" class="dg-mb-3">Clases claras, HTML limpio</h2>
+    <p class="dg-muted dg-mb-5">Escribe el marcado y deja que el framework se encargue del resto.</p>
+    <pre class="dg-pre pub-code"><code>&lt;html data-theme="dark"&gt;
+  &lt;button class="dg-btn dg-btn-primary"&gt;Guardar&lt;/button&gt;
+  &lt;span class="dg-badge dg-badge-success"&gt;Activo&lt;/span&gt;
+&lt;/html&gt;</code></pre>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-docs">
+    <h2 id="pub-docs" class="dg-mb-5">Explora la documentación</h2>
+    <div class="dg-grid dg-grid-3 dg-gap-3">
+      {sections.map((item) => (
+        <a href={item.href} class="dg-card pub-link">
+          <div class="dg-card-body">
+            <div class="dg-eyebrow dg-mb-2">{item.group}</div>
+            <h3 class="dg-text-base">{item.title}</h3>
+            <p class="dg-text-sm dg-muted dg-mt-1">{item.text}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children>
+    <div class="pub-cta">
+      <h2>Empieza con tu primera página.</h2>
+      <a href="/comenzar/install" class="dg-btn">Ver instalación</a>
+    </div>
+  </section>
+</main>
+
+<footer class="pub-footer dg-container">
+  <div class="dg-flex dg-items-center dg-justify-between dg-gap-3 dg-wrap">
+    <span class="pub-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></span>
+    <div class="dg-cluster">
+      <a href="/comenzar/intro" class="dg-link">Documentación</a>
+      <a href="/comenzar/changelog" class="dg-link">Changelog</a>
+    </div>
+  </div>
+</footer>
+
+<script is:inline src={jsHref} defer></script>
+<script is:inline>
+  // Oculta el menú al bajar y lo muestra al subir o al recibir foco.
+  (function () {
+    var nav = document.getElementById("pubNav");
+    var last = Math.max(window.scrollY, 0);
+    var ticking = false;
+    var toggle = document.getElementById("pubMenuToggle");
+    var desktop = window.matchMedia("(min-width: 641px)");
+
+    function setOpen(open) {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(!nav.classList.contains("is-open"));
+    });
+    document.addEventListener("click", function (event) {
+      if (!nav.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape" || !nav.classList.contains("is-open")) return;
+      setOpen(false);
+      toggle.focus();
+    });
+    desktop.addEventListener("change", function () {
+      setOpen(false);
+    });
+
+    function update() {
+      var y = Math.max(window.scrollY, 0);
+      if (nav.classList.contains("is-open")) {
+        last = y;
+        ticking = false;
+        return;
+      }
+      if (y <= nav.offsetHeight) nav.classList.remove("is-hidden");
+      else if (Math.abs(y - last) > 6) nav.classList.toggle("is-hidden", y > last);
+      if (Math.abs(y - last) > 6 || y === 0) last = y;
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+
+    nav.addEventListener("focusin", function () {
+      nav.classList.remove("is-hidden");
+    });
+  })();
+</script>
+</body>
+</html>

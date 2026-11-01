@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Estructura básica</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Una tarjeta parte de <code class="dg-code">.dg-card</code> y <code class="dg-code">.dg-card-body</code>. <code class="dg-code">.dg-card-img</code>, <code class="dg-code">.dg-card-header</code> y <code class="dg-code">.dg-card-footer</code> son opcionales.</p>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Tarjeta mínima — solo body --&gt;
 &lt;div class="dg-card"&gt;
   &lt;div class="dg-card-body"&gt;
@@ -30,7 +31,9 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
 &lt;div class="dg-card dg-card-hover"&gt;…&lt;/div&gt;</pre></div>
 
       <div class="doc-sub">Ejemplos de tarjetas</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4">Combinaciones habituales de imagen, texto y acciones. Añade <code class="dg-code">.dg-card-hover</code> para reforzar las tarjetas interactivas.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-grid dg-grid-3">
           <article class="dg-card dg-card-hover">
             <div class="dg-card-img dg-surface-gradient-cool"></div>
@@ -106,8 +109,10 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
     &lt;/div&gt;
   &lt;/article&gt;
 &lt;/div&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Cabecera con acciones (header-row)</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-card-header-row</code> coloca el título y las acciones en la misma línea.</p>
       <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card"&gt;
   &lt;!-- .dg-card-header-row pone título y acciones en la misma línea --&gt;
   &lt;div class="dg-card-header dg-card-header-row"&gt;
@@ -118,7 +123,9 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
 &lt;/div&gt;</pre></div>
 
       <div class="doc-sub">Variantes</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-card-row</code> crea una tarjeta horizontal y <code class="dg-code">.dg-card-overlay</code> pone el texto sobre la imagen.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <div class="dg-grid dg-grid-2 dg-mb-5">
           <!-- Horizontal -->
           <article class="dg-card dg-card-row dg-card-hover">
@@ -205,7 +212,8 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
 &lt;/div&gt;
 &lt;!-- .is-selected agrega borde de color --&gt;
 &lt;!-- Para manejo automático usa JS:
-     card.classList.toggle('is-selected') --&gt;</pre></div>`;
+     card.classList.toggle('is-selected') --&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Cards" lead="Contenedores versátiles con header, body, footer e imagen." currentHref="/componentes/cards">

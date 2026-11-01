@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain">
+const pageContent = `<div class="doc-sub">Tarjetas de métrica</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-stat</code> muestra una etiqueta, un valor y una variación. <code class="dg-code">.dg-stat-delta</code> con <code class="dg-code">.is-up</code> o <code class="dg-code">.is-down</code> indica si subió o bajó.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-grid dg-grid-3">
           <div class="dg-stat">
             <div class="dg-stat-label">Ingresos mensuales</div>
@@ -26,7 +29,8 @@ const pageContent = `<div class="doc-demo is-plain">
   &lt;span class="dg-stat-delta is-up"&gt;+12.4%&lt;/span&gt;
   &lt;!-- Delta a la baja --&gt;
   &lt;span class="dg-stat-delta is-down"&gt;−1.8%&lt;/span&gt;
-&lt;/div&gt;</pre></div>`;
+&lt;/div&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Stat Cards" lead="Tarjetas de métrica con valor, label y delta." currentHref="/app-pack/stats">

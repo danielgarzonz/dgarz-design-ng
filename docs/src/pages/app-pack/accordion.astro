@@ -1,7 +1,8 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-demo is-plain">
-        <div class="dg-accordion dg-max-w-xl" data-dg-accordion="single">
+const pageContent = `<div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-accordion" data-dg-accordion="single">
           <div class="dg-accordion-item is-open">
             <button class="dg-accordion-trigger">¿Qué incluye dgarz design?<svg class="dg-icon dg-accordion-chevron"><use href="#dg-chevron-down"/></svg></button>
             <div class="dg-accordion-panel"><div class="dg-accordion-content">Tokens, grid responsive, componentes, app pack, iconos y una capa de comportamiento accesible.</div></div>
@@ -41,9 +42,26 @@ const pageContent = `<div class="doc-demo is-plain">
 &lt;/div&gt;
 
 &lt;!-- Sin "single": múltiples paneles pueden estar abiertos --&gt;
-&lt;div class="dg-accordion" data-dg-accordion&gt;…&lt;/div&gt;</pre></div>`;
+&lt;div class="dg-accordion" data-dg-accordion&gt;…&lt;/div&gt;</pre></div>
+</div>`;
+const mutedContent = pageContent.replaceAll('class="dg-accordion"', 'class="dg-accordion dg-accordion-muted"');
+const squareContent = pageContent.replaceAll('class="dg-accordion"', 'class="dg-accordion dg-accordion-square"');
+const topBordersContent = pageContent.replaceAll('class="dg-accordion"', 'class="dg-accordion dg-accordion-top-borders"');
 ---
 
-<Layout title="Accordion" lead="Listas expandibles con animación de altura." currentHref="/app-pack/accordion">
+<Layout title="Acordeón" lead="Agrupa secciones relacionadas que se pueden expandir y contraer. Incluye variantes con bordes y una superficie grisácea sin borde." currentHref="/app-pack/accordion">
+  <h2 class="doc-sub">Borde completo redondeado</h2>
+  <p>El borde rodea todo el grupo con esquinas redondeadas. Al abrir una sección, se cierra la anterior.</p>
   <Fragment set:html={pageContent} />
+
+  <h2 class="doc-sub">Borde completo recto</h2>
+  <p>La variante <code>dg-accordion-square</code> mantiene el borde y los separadores con las cuatro esquinas rectas.</p>
+  <Fragment set:html={squareContent} />
+
+  <h2 class="doc-sub">Bordes superior e inferior</h2>
+  <p>La variante <code>dg-accordion-top-borders</code> delimita el grupo con un borde superior e inferior, sin bordes laterales ni esquinas redondeadas. Las líneas interiores separan cada sección.</p>
+  <Fragment set:html={topBordersContent} />
+  <h2 class="doc-sub">Fondo grisáceo sin borde</h2>
+  <p>Un fondo gris suave delimita el grupo sin marco ni líneas entre secciones. El panel abierto tiene un tono ligeramente más marcado.</p>
+  <Fragment set:html={mutedContent} />
 </Layout>

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
       <div class="doc-sub">Estilos de presentación de campos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Hay tres formas de presentar un campo. Elige una en el selector para ver el resultado y su código.</p>
 
       <!-- Selector -->
       <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
@@ -16,6 +17,7 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
       </div>
 
       <!-- Demo único que cambia -->
+      <div class="doc-example">
       <div class="doc-demo is-plain" id="fieldStyleDemo">
 
         <!-- ESTÁTICO (visible por defecto — es lo que .dg-field hace sin nada extra) -->
@@ -104,6 +106,7 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
     &lt;option&gt;Pro&lt;/option&gt;
   &lt;/select&gt;
 &lt;/div&gt;</pre></div>
+      </div><!-- /doc-example -->
 
       <!-- JS del selector -->
       <script>
@@ -187,7 +190,8 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
         <code class="dg-code">.dg-input-group</code> une el input con un elemento adicional sin espacio.
         Úsalo para prefijos de URL, dominios, botones de acción o unidades.
       </p>
-      <div class="doc-demo is-plain dg-stack dg-max-w-480">
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-480">
         <div class="dg-field">
           <label class="dg-label">Subdominio</label>
           <div class="dg-input-group">
@@ -219,6 +223,7 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
 
 &lt;!-- El botón dentro de input-group necesita el border-radius
      ajustado para unirse al input --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Checkbox y Radio</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
@@ -226,7 +231,8 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
         dentro de un <code class="dg-code">.dg-check</code>. El elemento visual es <code class="dg-code">.dg-check-box</code>;
         para el radio, añade <code class="dg-code">.dg-radio</code> al mismo elemento.
       </p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-row">
           <div class="dg-col-12 dg-col-md-6">
             <p class="dg-text-sm dg-fw-medium dg-mb-3">Checkboxes</p>
@@ -271,6 +277,7 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
   &lt;span class="dg-check-box"&gt;&lt;/span&gt;
   No disponible
 &lt;/label&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Switch / Toggle</div>
       <p class="dg-muted dg-text-sm dg-mb-4">
@@ -278,7 +285,8 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
         patrón: <code class="dg-code">&lt;input&gt;</code> oculto dentro de <code class="dg-code">.dg-switch</code>,
         y <code class="dg-code">.dg-switch-track</code> como indicador visual.
       </p>
-      <div class="doc-demo is-plain">
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <div class="dg-stack dg-gap-3">
           <label class="dg-switch"><input type="checkbox" checked /><span class="dg-switch-track"></span> Notificaciones por correo</label>
           <label class="dg-switch"><input type="checkbox" /><span class="dg-switch-track"></span> Modo compacto</label>
@@ -297,9 +305,12 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
   &lt;span class="dg-switch-track"&gt;&lt;/span&gt;
   Activo por defecto
 &lt;/label&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Formulario completo de ejemplo</div>
-      <div class="doc-demo">
+      <p class="dg-muted dg-text-sm dg-mb-4">Combina campos, texto de ayuda, select, textarea, checkbox y botones en un formulario real.</p>
+      <div class="doc-example">
+<div class="doc-demo">
         <form class="dg-stack dg-max-w-520 dg-gap-4">
           <div class="dg-row">
             <div class="dg-col-12 dg-col-md-6">
@@ -368,7 +379,8 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
     &lt;button type="button" class="dg-btn dg-btn-cancel"&gt;Cancelar&lt;/button&gt;
     &lt;button type="submit" class="dg-btn dg-btn-primary"&gt;Enviar&lt;/button&gt;
   &lt;/div&gt;
-&lt;/form&gt;</pre></div>`;
+&lt;/form&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Controles base" lead="Campos, inputs, selects y textareas con estilos coherentes." currentHref="/formularios/forms">

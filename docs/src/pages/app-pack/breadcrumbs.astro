@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
 const pageContent = `<div class="doc-sub">Breadcrumbs</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Muestra la ruta hasta la página actual. Usa <code class="dg-code">.dg-breadcrumb</code> como contenedor y <code class="dg-code">.dg-breadcrumb-sep</code> entre niveles.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <nav aria-label="Ubicación" class="dg-breadcrumb">
           <a href="#">Inicio</a><svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="#dg-chevron-right"/></svg>
           <a href="#">Productos</a><svg class="dg-icon dg-icon-sm dg-breadcrumb-sep"><use href="#dg-chevron-right"/></svg>
@@ -16,9 +18,12 @@ const pageContent = `<div class="doc-sub">Breadcrumbs</div>
   &lt;span aria-current="page"&gt;Detalle&lt;/span&gt;
 &lt;/nav&gt;
 &lt;!-- aria-current="page" resalta el ítem activo --&gt;</pre></div>
+</div>
 
       <div class="doc-sub">Paginación</div>
-      <div class="doc-demo is-plain">
+      <p class="dg-muted dg-text-sm dg-mb-4">Divide listados largos en páginas. Agrupa los botones <code class="dg-code">.dg-page</code> dentro de <code class="dg-code">.dg-pagination</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
         <nav class="dg-pagination" aria-label="Páginas">
           <button class="dg-page" disabled aria-label="Anterior">‹</button>
           <button class="dg-page">1</button>
@@ -36,7 +41,8 @@ const pageContent = `<div class="doc-sub">Breadcrumbs</div>
   &lt;button class="dg-page"&gt;3&lt;/button&gt;
   &lt;button class="dg-page"&gt;›&lt;/button&gt;
 &lt;/nav&gt;
-&lt;!-- .is-active → página actual  :disabled → botón deshabilitado --&gt;</pre></div>`;
+&lt;!-- .is-active → página actual  :disabled → botón deshabilitado --&gt;</pre></div>
+</div>`;
 ---
 
 <Layout title="Breadcrumbs" lead="Migas de pan y paginación." currentHref="/app-pack/breadcrumbs">
