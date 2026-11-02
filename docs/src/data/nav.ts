@@ -10,7 +10,7 @@ export interface NavGroup {
 }
 
 export const TOP_NAV: NavItem[] = [
-  { label: "Inicio", href: "/" },
+  { label: "Inicio", href: "/comenzar/intro" },
   { label: "Changelog", href: "/comenzar/changelog" },
 ];
 
@@ -21,6 +21,8 @@ export const NAV: NavGroup[] = [
     items: [
       { label: "Introducción",     href: "/comenzar/intro" },
       { label: "Instalación",      href: "/comenzar/install" },
+      { label: "Frameworks (Stencil)", href: "/comenzar/frameworks" },
+      { label: "Core SSR",         href: "/comenzar/core" },
       { label: "JavaScript",       href: "/comenzar/js" },
       { label: "Changelog",        href: "/comenzar/changelog" },
     ],

@@ -1,82 +1,98 @@
 # dgarz design
 
-A minimal, **monochrome**, performance-first CSS framework. Elegant serif headings (Newsreader), a clean grotesque body (Geist), pill-forward shapes, and full light/dark theming. Zero dependencies — one stylesheet.
+Component Design System (CDS) corporativo, omnicanal y agnóstico. Su misión es unificar diseño y desarrollo mediante componentes universales, accesibles y de alto rendimiento. El paquete principal es **`dgarz-design`**.
 
-**[Full documentation →](https://dgarzonz.github.io/dgarz-design)**
+**[Entrar a la documentación local →](http://192.168.100.6:4321/comenzar/intro)**.
 
-## Install
+## Estado de la migración
+
+La primera etapa incorpora un Core con **Stencil.js y TypeScript**, CSS estándar encapsulado en Shadow DOM, tokens `--dgarz-*`, el componente `dgarz-button`, pruebas con Vitest y Testing Library, e historias de Storybook.
+
+El CSS/JavaScript de la versión 1 sigue disponible como implementación heredada. Los adaptadores de React 19, Vue 3.5 y Angular 20.3 ya se generan desde Stencil en paquetes separados. Los demás componentes y la integración SSR/DSD con hidratación se incorporarán en etapas posteriores; Next.js aún requiere validación específica. Esta etapa no declara compatibilidad SSR integral ni certificación WCAG.
+
+## Uso del nuevo Core
 
 ```bash
 npm install dgarz-design
 ```
 
+Este ejemplo corresponde al código de esta rama; hasta su publicación npm puede seguir entregando la versión anterior.
+
 ```js
-// CSS — pick one
-import "dgarz-design/full";  // everything at once
-import "dgarz-design/css";   // core + components
-import "dgarz-design/app";   // optional app pack (load after css)
-
-// JS behavior layer (optional, auto-initializes)
-import dgarz from "dgarz-design";
-dgarz.toast("Hello!");
+import 'dgarz-design/tokens';
+import 'dgarz-design'; // registra los Custom Elements disponibles
 ```
-
-## CDN
-
-Siempre última versión 1.x (recomendado):
 
 ```html
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono&family=Newsreader:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css">
-<script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer></script>
+<dgarz-button>Continuar</dgarz-button>
+<dgarz-button variant="secondary">Cancelar</dgarz-button>
+<dgarz-button loading>Guardando</dgarz-button>
+<dgarz-button disabled>No disponible</dgarz-button>
 ```
 
-Versión fija 1.1.0:
+El slot contiene la etiqueta visible y accesible. `disabled` y `loading` son atributos booleanos: elimina el atributo para desactivarlo. Stencil interpreta `disabled="false"` como falso; para portabilidad usa la presencia o ausencia del atributo. El botón es de acción (`type="button"`), sin envío de formularios en esta etapa. Emite `dgarz-click` al activarse, con propagación y `composed: true` para atravesar el Shadow DOM.
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1.1.0/dist/dgarz.full.min.css">
-<script src="https://cdn.jsdelivr.net/npm/dgarz-design@1.1.0/dist/dgarz.min.js" defer></script>
+```js
+document.querySelector('dgarz-button').addEventListener('dgarz-click', () => {
+  console.log('Continuar');
+});
 ```
 
-unpkg:
+## Adaptadores generados
 
-```html
-<link rel="stylesheet" href="https://unpkg.com/dgarz-design@1.1.0/dist/dgarz.full.min.css">
-<script src="https://unpkg.com/dgarz-design@1.1.0/dist/dgarz.min.js" defer></script>
+| Ecosistema | Paquete | Evento |
+| --- | --- | --- |
+| React 19 | `dgarz-design-react` | `onDgarzClick` |
+| Vue 3.5 | `dgarz-design-vue` | `@dgarz-click` |
+| Angular 20.3 | `dgarz-design-angular` | `(dgarz-click)` |
+
+Todos siguen en versión local `2.0.0-alpha.0`, sin publicar. El Core no incorpora los frameworks a su runtime. La guía está en [Frameworks](http://192.168.100.6:4321/comenzar/frameworks), accesible desde [la entrada de documentación](http://192.168.100.6:4321/comenzar/intro).
+
+Desde la raíz: `npm run build` genera y compila Core y wrappers; `npm run verify:wrappers` instala sus tarballs en un consumidor limpio y verifica tipos, plantillas Angular y comportamiento en Chromium. Instala previamente el navegador de Playwright. La instalación del consumidor puede necesitar la red; `DGARZ_OFFLINE=1` exige una caché completa. Las carpetas temporales se conservan si hay un fallo.
+
+## Identidad
+
+```css
+:root {
+  --dgarz-color-primary: #0b0b0c;
+  --dgarz-color-on-primary: #ffffff;
+  --dgarz-spacing-md: 1rem;
+}
 ```
 
-## Quick start
+Los tokens son CSS Custom Properties heredables. El tema oscuro se activa con `data-theme="dark"` en un contenedor. Shadow DOM encapsula selectores; el contenido de slots y las propiedades heredables participan deliberadamente en la integración visual.
 
-```html
-<html data-theme="light">
-  <body>
-    <button class="dg-btn dg-btn-primary">Get started</button>
+## Compatibilidad con la versión 1
 
-    <div class="dg-row">
-      <div class="dg-col-12 dg-col-md-6">Left half</div>
-      <div class="dg-col-12 dg-col-md-6">Right half</div>
-    </div>
-  </body>
-</html>
+El punto de entrada raíz pasa al Core de Web Components (ESM), un cambio incompatible que requiere una versión mayor antes de publicar. El comportamiento anterior se importa explícitamente:
+
+```js
+import dgarz from 'dgarz-design/legacy';
+import 'dgarz-design/full';
+dgarz.toast('Hola');
 ```
 
-## Files
+Los subpaths `/css`, `/full`, `/app`, `/js`, `/esm` y `/icons`, y los archivos CDN anteriores se conservan. Los tokens `--dg-*` pertenecen al sistema heredado y no son alias de `--dgarz-*`. Los nuevos componentes no requieren el reset ni las hojas globales heredadas.
 
-| Import | File |
-|--------|------|
-| `"dgarz-design"` | `dist/dgarz.js` (UMD) / `dist/dgarz.esm.js` (ESM) |
-| `"dgarz-design/esm"` | `dist/dgarz.esm.js` |
-| `"dgarz-design/js"` / `"dgarz-design/js/min"` | `dist/dgarz.js` / `dist/dgarz.min.js` |
-| `"dgarz-design/css"` | `dist/dgarz.css` |
-| `"dgarz-design/full"` | `dist/dgarz.full.css` |
-| `"dgarz-design/app"` | `dist/dgarz-app.css` |
-| `"dgarz-design/icons"` | `dist/dgarz-icons.svg` |
+En la API CSS heredada, cada variante incluye ahora la base: `<button class="dg-btn-primary dg-btn-sm">Guardar</button>`. `dg-btn` por sí solo crea el botón primario de tamaño mediano; tamaños, ancho y efectos siguen siendo modificadores. El marcado anterior con `dg-btn` más variante sigue siendo compatible. Para una acción de menor énfasis usa `dg-btn-subtle`: fondo gris claro y texto negro en tema claro, colores adaptados en oscuro. Funciona sin `dg-btn` y admite `dg-btn-sm`/`dg-btn-lg`. Para borde semántico usa `dg-btn-subtle-primary`, `dg-btn-subtle-success`, `dg-btn-subtle-warning`, `dg-btn-subtle-danger` o `dg-btn-subtle-info`.
 
-## Browser support
 
-Chrome/Edge 111+, Firefox 113+, Safari 16.4+.
+## Desarrollo
 
-## License
+Desde la raíz del monorepositorio, consulta [la guía de contribución](https://github.com/dgarzonz/dgarz-design/blob/main/CONTRIBUTING.md) y [el plan de arquitectura](https://github.com/dgarzonz/dgarz-design/blob/main/ARCHITECTURE.md).
 
-[MIT](./LICENSE) © dgarz design
+```bash
+npm install
+npm run build
+npm test
+npm run typecheck
+npm run storybook
+npm run build:storybook
+npm run verify:package # paquete instalado, tipos y Chromium
+```
+
+## Licencia
+
+[MIT](./LICENSE).
+
+Para `verify:package`, instala Chromium previamente: `npx playwright install chromium --only-shell`. La prueba usa un consumidor temporal del tarball e inicia un servidor local; no publica el paquete.

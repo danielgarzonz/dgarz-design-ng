@@ -1,5 +1,6 @@
 ---
 import { NAV, TOP_NAV, getPrevNext, type NavItem } from "../data/nav";
+import SiteHeader from "../components/SiteHeader.astro";
 import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
 import "../styles/doc-patterns.css";
 import "../styles/brand.css";
@@ -32,8 +33,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ececee" id="docThemeColor" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" id="docThemeColor" />
   <title>{title} — dgarz design</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +42,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href={cssHref} />
   <style is:global>
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    /* Header (60px) + breadcrumb fijo (40px) + aire. */
+    html { scroll-behavior: smooth; scroll-padding-top: 116px; }
     :root {
       --doc-page-bg: #f8f8f8;
       --doc-panel-bg: #fff;
@@ -50,7 +52,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       --doc-page-bg: var(--dg-paper);
       --doc-panel-bg: var(--dg-surface);
     }
-    body { overflow-x: hidden; background: var(--doc-page-bg); }
+    body { --doc-header-offset: 60px; overflow-x: hidden; padding-top: 60px; background: var(--doc-page-bg); }
+    body:has(.pub-nav.is-hidden) { --doc-header-offset: 0px; }
 
     /* Flat presentation across the entire docs site, including live examples. */
     *:not([class*="dg-shadow-"]), *::before, *::after {
@@ -62,51 +65,6 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       outline-offset: 3px;
     }
 
-    /* ---- topbar ---- */
-    .doc-topbar {
-      position: sticky; top: 0; z-index: 30;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 var(--dg-space-5); min-height: 57px;
-      background: var(--doc-panel-bg);
-      border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
-    }
-    .doc-brand {
-      font-family: var(--dg-font-serif); font-size: var(--dg-text-lg);
-      font-weight: var(--dg-weight-medium); flex-shrink: 0;
-      text-decoration: none; color: var(--dg-text);
-    }
-    .doc-topbar-left {
-      display: flex;
-      align-items: center;
-      gap: var(--dg-space-5);
-      min-width: 0;
-    }
-    .doc-focus-nav {
-      display: flex;
-      align-items: center;
-      gap: var(--dg-space-1);
-      min-width: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .doc-focus-nav::-webkit-scrollbar { display: none; }
-    .doc-focus-nav a {
-      white-space: nowrap;
-      text-decoration: none;
-      color: var(--dg-text-muted);
-      font-size: var(--dg-text-sm);
-      padding: 0.45em 0.8em;
-      border-radius: var(--dg-radius-pill);
-      transition: color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
-    }
-    .doc-focus-nav a:hover { color: var(--dg-text); background: var(--dg-surface-2); }
-    .doc-focus-nav a.is-active {
-      color: var(--dg-text);
-      background: var(--dg-surface-3);
-      font-weight: var(--dg-weight-medium);
-    }
-    .doc-topbar-right { display: flex; align-items: center; gap: var(--dg-space-3); }
-
     /* ---- shell ---- */
     .doc-shell {
       display: grid;
@@ -116,13 +74,13 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     }
     @media (max-width: 860px) {
       .doc-shell { grid-template-columns: 1fr; }
-      .doc-focus-nav { display: none; }
     }
 
     /* ---- sidebar ---- */
     .doc-sidebar {
-      position: sticky; top: 57px; align-self: start;
-      height: calc(100vh - 57px); overflow-y: auto;
+      position: sticky; top: var(--doc-header-offset); align-self: start;
+      height: calc(100vh - var(--doc-header-offset)); overflow-y: auto;
+      transition: top var(--dg-dur-motion) var(--dg-ease-motion), height var(--dg-dur-motion) var(--dg-ease-motion);
       scroll-behavior: auto; overflow-anchor: none;
       background: var(--doc-panel-bg);
       padding: var(--dg-space-6) var(--dg-space-4) var(--dg-space-8) var(--dg-space-5);
@@ -165,9 +123,9 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 
     /* ---- breadcrumb ---- */
     .doc-breadcrumb {
-      position: sticky;
-      top: 57px;
-      z-index: 20;
+      /* Fijo bajo el header; sube al borde cuando el header se oculta. */
+      position: sticky; top: var(--doc-header-offset); z-index: 20;
+      transition: top var(--dg-dur-motion) var(--dg-ease-motion);
       display: flex; align-items: center; gap: var(--dg-space-2);
       height: 40px;
       margin-inline: calc(-1 * var(--dg-space-7));
@@ -175,6 +133,11 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       font-size: var(--dg-text-xs); color: var(--dg-text-faint);
       background: var(--doc-page-bg);
       border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 50%, transparent);
+    }
+    /* Tapa el contenido que pasaría por las esquinas curvas del header móvil. */
+    .doc-breadcrumb::before {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 100%;
+      height: 60px; background: inherit;
     }
     .doc-breadcrumb span { color: var(--dg-text-faint); }
 
@@ -382,9 +345,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     .doc-icon-xs { width: 12px; height: 12px; }
     .doc-icon-hidden { display: none; }
 
-    .doc-menu-btn { display: none; }
+    .doc-menu-btn, .doc-mobile-links { display: none; }
     @media (max-width: 860px) {
-      .doc-topbar { padding-inline: var(--dg-space-4); background: var(--dg-surface-3); }
       .doc-main { padding-inline: var(--dg-space-4); }
       .doc-prevnext { left: 50%; max-width: calc(100% - 2 * var(--dg-space-4)); }
       .doc-breadcrumb {
@@ -392,12 +354,13 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
         padding-inline: var(--dg-space-4);
       }
       .doc-menu-btn { display: inline-flex; }
+      .doc-mobile-links { display: block; margin-bottom: var(--dg-space-5); }
       .doc-sidebar {
         display: block;
         position: fixed;
-        inset: 57px 0 0;
+        inset: 60px 0 0;
         z-index: 25;
-        height: calc(100dvh - 57px);
+        height: calc(100dvh - 60px);
         padding: var(--dg-space-5) var(--dg-space-4);
         overscroll-behavior: contain;
         visibility: hidden;
@@ -416,6 +379,9 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       .doc-demo { padding: var(--dg-space-4); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .doc-sidebar, .doc-breadcrumb { transition: none; }
+    }
     @media (max-width: 860px) and (prefers-reduced-motion: reduce) {
       .doc-sidebar { transition: none; transform: none; }
       .doc-sidebar.is-open :is(.doc-nav-label, a) { animation: none; }
@@ -442,31 +408,23 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 <!-- SVG sprite -->
 <Fragment set:html={iconSprite} />
 
-<!-- Topbar -->
-<header class="doc-topbar">
-  <div class="doc-topbar-left">
-    <a href="/" class="doc-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
-    <nav class="doc-focus-nav" aria-label="Temas importantes">
-      {TOP_NAV.map((item) => (
-        <a href={item.href} class={currentHref === item.href ? "is-active" : ""}>{item.label}</a>
-      ))}
-    </nav>
-  </div>
-  <div class="doc-topbar-right">
-    <a href="/examples/dashboard.html" target="_blank" rel="noopener" class="dg-nav-link dg-hidden-mobile dg-text-sm">Dashboard ↗</a>
-    <button class="doc-theme-btn" id="themeToggle" aria-label="Cambiar tema" data-dg-theme-toggle>
-      <svg class="dg-icon" id="iconSun"><use href="#dg-sun"/></svg>
-      <svg class="dg-icon doc-icon-hidden" id="iconMoon"><use href="#dg-moon"/></svg>
+<SiteHeader currentHref={currentHref} hideOnScroll showMainMenu={false}>
+    <button slot="actions" class="doc-theme-btn doc-menu-btn" id="docMenuToggle" aria-label="Abrir índice de documentación" aria-expanded="false" aria-controls="docSidebar">
+      <svg class="dg-icon" viewBox="3 3 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path id="docMenuIcon" d="M4 6h16M4 12h16M4 18h16" /></svg>
     </button>
-    <button class="doc-theme-btn doc-menu-btn" id="docMenuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="docSidebar">
-      <svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path id="docMenuIcon" d="M4 6h16M4 12h16M4 18h16" /></svg>
-    </button>
-  </div>
-</header>
+</SiteHeader>
 
 <div class="doc-shell">
   <!-- Sidebar -->
   <aside class="doc-sidebar dg-scroll" id="docSidebar" aria-label="Navegación de documentación">
+    <div class="doc-mobile-links">
+      <div class="doc-nav-label">Navegación</div>
+      <nav class="doc-nav" aria-label="Navegación principal móvil">
+        {TOP_NAV.map((item) => (
+          <a href={item.href} aria-current={currentHref === item.href ? "page" : undefined}>{item.label}</a>
+        ))}
+      </nav>
+    </div>
     {NAV.map((group) => (
       <div>
         <div class="doc-nav-label">
@@ -571,8 +529,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     document.body.classList.toggle('doc-menu-open', open);
     if (open) restoreSidebarScroll();
     menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    document.getElementById('docMenuIcon')!.setAttribute('d', open ? 'M6 6l12 12M18 6L6 18' : 'M4 6h16M4 12h16M4 18h16');
+    menuToggle.setAttribute('aria-label', open ? 'Cerrar índice de documentación' : 'Abrir índice de documentación');
+    document.getElementById('docMenuIcon')!.setAttribute('d', open ? 'M4 4l16 16M20 4L4 20' : 'M4 6h16M4 12h16M4 18h16');
   }
   menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
   sidebar.addEventListener('click', (event) => {
@@ -669,30 +627,6 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   }
 
   syncExampleCodeBlocks();
-
-  // Theme toggle sync
-  const html = document.documentElement;
-  const sun  = document.getElementById('iconSun')!;
-  const moon = document.getElementById('iconMoon')!;
-  function syncIcons() {
-    const dark = html.dataset.theme === 'dark';
-    sun.style.display  = dark ? 'none' : '';
-    moon.style.display = dark ? ''     : 'none';
-  }
-  function syncPhoneBar() {
-    const color = getComputedStyle(html).getPropertyValue('--dg-surface-3').trim();
-    // Resolve token references to a concrete color for browser chrome.
-    const probe = document.createElement('span');
-    probe.style.color = color;
-    probe.hidden = true;
-    document.body.appendChild(probe);
-    document.getElementById('docThemeColor')!.setAttribute('content', getComputedStyle(probe).color);
-    probe.remove();
-  }
-  syncPhoneBar();
-  new MutationObserver(syncPhoneBar).observe(html, { attributes: true, attributeFilter: ['data-theme'] });
-  syncIcons();
-  document.getElementById('themeToggle')!.addEventListener('click', syncIcons);
 
   // Copy buttons
   document.querySelectorAll<HTMLButtonElement>('.cp').forEach((btn) => {

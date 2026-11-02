@@ -1,5 +1,80 @@
 import { $, $all, FOCUSABLE, DUR, openStack, target } from './utils.js';
 
+var themeColorPrev = null;
+
+function cssColorToHex(color) {
+  var value = String(color || '').trim();
+  if (!value) return '#ececee';
+  if (value.charAt(0) === '#' && (value.length === 4 || value.length === 7)) return value;
+  var match = value.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if (!match) return value;
+  return '#' + [match[1], match[2], match[3]].map(function (part) {
+    return ('0' + Number(part).toString(16)).slice(-2);
+  }).join('');
+}
+
+/** iOS Safari often ignores in-place theme-color updates — remount as hex. */
+function setThemeColor(color) {
+  var hex = cssColorToHex(color);
+  var old = document.getElementById('docThemeColor') || document.querySelector('meta[name="theme-color"]');
+  var id = old && old.id ? old.id : 'docThemeColor';
+  if (old) old.parentNode.removeChild(old);
+  var meta = document.createElement('meta');
+  meta.setAttribute('name', 'theme-color');
+  meta.setAttribute('content', hex);
+  meta.id = id;
+  document.head.appendChild(meta);
+  return meta;
+}
+
+function fullModalFrom(el) {
+  if (!el) return null;
+  if (el.classList && el.classList.contains('dg-modal-full')) return el;
+  return $('.dg-modal-full', el);
+}
+
+function activeFullModal() {
+  for (var i = openStack.length - 1; i >= 0; i--) {
+    var modal = fullModalFrom(openStack[i].el);
+    if (modal) return modal;
+  }
+  return null;
+}
+
+function headerPhoneBarColor(modal) {
+  var header = modal && $('.dg-modal-header', modal);
+  if (header) {
+    var bg = getComputedStyle(header).backgroundColor;
+    if (bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)') return bg;
+  }
+  var probe = document.createElement('span');
+  probe.style.cssText = 'position:absolute;left:-9999px;background:var(--dg-surface-3)';
+  (modal || document.body).appendChild(probe);
+  var resolved = getComputedStyle(probe).backgroundColor;
+  probe.parentNode.removeChild(probe);
+  return resolved || '#ececee';
+}
+
+/** Keep the phone status bar in sync with the full-modal header. */
+export function syncModalPhoneBar() {
+  var modal = activeFullModal();
+  if (modal) {
+    if (themeColorPrev === null) {
+      var current = document.getElementById('docThemeColor') || document.querySelector('meta[name="theme-color"]');
+      themeColorPrev = current ? current.getAttribute('content') : '#ffffff';
+    }
+    // After paint so header background is resolved (not mid-animation setup).
+    requestAnimationFrame(function () {
+      setThemeColor(headerPhoneBarColor(modal));
+    });
+    return;
+  }
+  if (themeColorPrev !== null) {
+    setThemeColor(themeColorPrev);
+    themeColorPrev = null;
+  }
+}
+
 export function openOverlay(el) {
   if (!el || !openStack.every(function (o) { return o.el !== el; })) return;
   var backdrop = target(el, "data-dg-backdrop");
@@ -18,6 +93,7 @@ export function openOverlay(el) {
   if (focusEl && focusEl.focus) focusEl.focus();
   openStack.push({ el: el, backdrop: backdrop, prevFocus: prevFocus });
   document.body.style.overflow = "hidden";
+  syncModalPhoneBar();
 }
 
 export function closeOverlay(el) {
@@ -37,6 +113,9 @@ export function closeOverlay(el) {
   if (inner) inner.classList.add("is-closing");
   o.el.classList.add("is-closing");
   if (o.backdrop) o.backdrop.classList.add("is-closing");
+  syncModalPhoneBar();
+  // Modal exit mirrors enter (--dg-dur-motion); drawers/menus use the same window.
+  var exitMs = DUR;
   o.el.__dgCloseTimer = setTimeout(function () {
     if (inner) inner.classList.remove("is-closing");
     o.el.classList.remove("is-closing");
@@ -45,7 +124,7 @@ export function closeOverlay(el) {
       o.backdrop.classList.remove("is-closing");
       o.backdrop.hidden = true;
     }
-  }, DUR);
+  }, exitMs);
 }
 
 export function indexOf(el) {
@@ -92,6 +171,7 @@ export function wireModalResize(modal) {
           animation.cancel();
         }).catch(function () { /* A repeated click or closing can interrupt resizing. */ });
       }
+      syncModalPhoneBar();
       modal.dispatchEvent(new CustomEvent('dg:modal-resize', { bubbles: true, detail: { size: full ? 'full' : 'md' } }));
     });
   });

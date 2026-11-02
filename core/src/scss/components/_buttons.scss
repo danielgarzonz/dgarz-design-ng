@@ -1,4 +1,8 @@
+@use "../abstracts/buttons" as button;
+
 /* ---- Buttons ---------------------------------------------- */
+/* dg-btn defaults to primary colors and medium size; variants override only
+   their appearance, and sm/lg explicitly opt into a different size. */
 /* Semantic auto-styling (.dg-auto contract, see _grid.scss bottom-of-file
    note): a plain, classless <button> or submit/button/reset <input> inside
    a .dg-auto scope gets the exact same declarations via :where() — zero
@@ -6,7 +10,7 @@
    class still overrides it without !important. Component-internal buttons
    (.dg-modal-close, .dg-tab, pagination, dropdown toggles…) always carry a
    dg-* class, so the :not([class]) guard keeps this from ever touching them. */
-.dg-btn,
+#{button.$selector},
 :where(.dg-auto) button:not([class]),
 :where(.dg-auto) input:not([class])[type="submit"],
 :where(.dg-auto) input:not([class])[type="button"],
@@ -14,6 +18,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: var(--dg-btn-min-width, 6rem);
   gap: var(--dg-space-2);
   font-family: var(--dg-font-sans);
   font-size: var(--dg-text-sm);
@@ -33,17 +38,17 @@
               transform var(--dg-dur) var(--dg-ease),
               box-shadow var(--dg-dur) var(--dg-ease);
 }
-.dg-btn:hover,
+#{button.$selector}:hover,
 :where(.dg-auto) button:not([class]):hover,
 :where(.dg-auto) input:not([class])[type="submit"]:hover,
 :where(.dg-auto) input:not([class])[type="button"]:hover,
 :where(.dg-auto) input:not([class])[type="reset"]:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
-.dg-btn:not(:disabled):not(.is-disabled):active,
+#{button.$selector}:not(:disabled):not(.is-disabled):active,
 :where(.dg-auto) button:not([class]):not(:disabled):active,
 :where(.dg-auto) input:not([class])[type="submit"]:not(:disabled):active,
 :where(.dg-auto) input:not([class])[type="button"]:not(:disabled):active,
 :where(.dg-auto) input:not([class])[type="reset"]:not(:disabled):active { transform: scale(0.96); transition-duration: .08s; }
-.dg-btn:disabled, .dg-btn.is-disabled,
+#{button.$selector}:disabled, #{button.$selector}.is-disabled,
 :where(.dg-auto) button:not([class]):disabled,
 :where(.dg-auto) input:not([class])[type="submit"]:disabled,
 :where(.dg-auto) input:not([class])[type="button"]:disabled,
@@ -53,29 +58,109 @@
 .dg-btn-solid, .dg-btn-primary { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; opacity: 1; }
 .dg-btn-solid:hover, .dg-btn-primary:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
 
+/* Subtle — same shape as solids, cream/light fill of each tone; label always black. */
+#{button.$subtle-selector} {
+  background: var(--dg-primary-subtle);
+  color: #000000;
+  border: 1px solid transparent;
+}
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-subtle-#{$tone} {
+    background: var(--dg-#{$tone}-subtle);
+    color: #000000;
+  }
+}
+#{button.$subtle-selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  opacity: .84;
+  box-shadow: var(--dg-shadow-1);
+}
+
 /* Cancel actions keep a dark gray fill in both themes. */
 .dg-btn-cancel { background: #404040; color: #fff; border-color: transparent; }
 .dg-btn-cancel:hover { background: #525252; color: #fff; opacity: 1; box-shadow: none; }
 
-/* Outline y ghost usan un tinte relativo al texto, no un gris fijo, para
-   contrastar sobre cualquier superficie en light y dark. */
-/* Outline — tinte medio, sin borde */
-.dg-btn-outline { background: color-mix(in oklab, var(--dg-text) 14%, transparent); color: var(--dg-text); }
-.dg-btn-outline:hover { background: color-mix(in oklab, var(--dg-text) 20%, transparent); opacity: 1; box-shadow: none; }
+/* Outline — solid colored border, no fill; subtle fill only on hover. */
+#{button.$outline-selector} {
+  background: transparent;
+  color: var(--dg-primary);
+  border-width: 1.5px;
+  border-style: solid;
+  border-color: var(--dg-primary);
+}
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-outline-#{$tone} {
+    color: var(--dg-#{$tone});
+    border-style: solid;
+    border-color: var(--dg-#{$tone});
+  }
+}
+#{button.$outline-selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  background: var(--dg-primary-subtle);
+  color: var(--dg-on-primary-subtle);
+  opacity: 1;
+  box-shadow: none;
+}
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-outline-#{$tone}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+    background: var(--dg-#{$tone}-subtle);
+    color: var(--dg-on-#{$tone}-subtle);
+  }
+}
 
-/* Ghost — tinte suave, sin borde */
-.dg-btn-ghost { background: color-mix(in oklab, var(--dg-text) 10%, transparent); color: var(--dg-text); }
+/* Text — link-like label with solid underline; no fill. */
+#{button.$text-selector} {
+  min-width: 0;
+  padding: 0.15em 0;
+  border-radius: 0;
+  background: transparent;
+  color: #000000;
+  border: none;
+  border-bottom: 1.5px solid currentColor;
+  box-shadow: none;
+}
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-text-#{$tone} {
+    color: var(--dg-#{$tone});
+    border-bottom-color: currentColor;
+  }
+}
+.dg-btn-text,
+.dg-btn-text-primary {
+  color: #000000;
+  border-bottom-color: currentColor;
+}
+#{button.$text-selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  opacity: .72;
+  box-shadow: none;
+  background: transparent;
+}
+#{button.$text-selector}.dg-btn-sm,
+#{button.$text-selector}.dg-btn-md,
+#{button.$text-selector}.dg-btn-lg {
+  min-width: 0;
+  padding-inline: 0;
+}
+
+/* Ghost — soft text tint, no border. Kept for existing consumers (modals, icons). */
+.dg-btn-ghost { background: color-mix(in oklab, var(--dg-text) 10%, transparent); color: var(--dg-text); border-color: transparent; }
 .dg-btn-ghost:hover { background: color-mix(in oklab, var(--dg-text) 16%, transparent); opacity: 1; box-shadow: none; }
 
 /* Danger */
 .dg-btn-danger { background: var(--dg-danger); color: var(--dg-on-danger); border-color: transparent; }
 .dg-btn-danger:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
 
-.dg-btn-sm { font-size: var(--dg-text-xs); padding: 0.55em 1em; }
-.dg-btn-lg { font-size: var(--dg-text-base); padding: 0.85em 1.7em; }
-.dg-btn-icon { padding: 0.6em; aspect-ratio: 1; }
+.dg-btn-sm { min-width: var(--dg-btn-min-width-sm, 5rem); font-size: var(--dg-text-xs); padding: 0.55em 1em; }
+/* Explicit medium — same metrics as the base `.dg-btn` default size. */
+.dg-btn-md { min-width: var(--dg-btn-min-width, 6rem); font-size: var(--dg-text-sm); padding: 0.72em 1.4em; }
+.dg-btn-lg { min-width: var(--dg-btn-min-width-lg, 7rem); font-size: var(--dg-text-base); padding: 0.85em 1.7em; }
+.dg-btn-icon { min-width: 0; padding: 0.6em; aspect-ratio: 1; }
 .dg-btn-block { display: flex; width: 100%; }
+/* Same mobile breakpoint as the responsive visibility utilities. */
+@media (max-width: 991px) {
+  #{button.$selector}.dg-btn-block-mobile { display: flex; width: 100%; }
+}
 .dg-icon-btn {
+  min-width: 0;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -95,22 +180,75 @@
   box-shadow: none;
 }
 
-.dg-btn-group { display: inline-flex; }
-.dg-btn-group .dg-btn { border-radius: 0; }
-.dg-btn-group .dg-btn:first-child { border-radius: var(--dg-radius-pill) 0 0 var(--dg-radius-pill); }
-.dg-btn-group .dg-btn:last-child { border-radius: 0 var(--dg-radius-pill) var(--dg-radius-pill) 0; }
-.dg-btn-group .dg-btn:first-child:last-child { border-radius: var(--dg-radius-pill); }
-.dg-btn-group .dg-btn + .dg-btn { margin-left: 1px; }
+/* Button group — same floating capsule language as `.dg-modal-footer`. */
+.dg-btn-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dg-space-3);
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--dg-space-3) var(--dg-space-4);
+  border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
+  background: color-mix(in oklab, var(--dg-surface-3) 55%, transparent);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+  border: none;
+  box-shadow: 0 2px 16px color-mix(in oklab, #000 10%, transparent),
+              inset 0 1px 0 color-mix(in oklab, #fff 30%, transparent);
+}
+.dg-btn-group #{button.$selector} {
+  flex-shrink: 0;
+  border-radius: var(--dg-radius-pill);
+  transition: transform var(--dg-dur) var(--dg-ease),
+              background var(--dg-dur) var(--dg-ease),
+              color var(--dg-dur) var(--dg-ease),
+              opacity var(--dg-dur) var(--dg-ease),
+              box-shadow var(--dg-dur) var(--dg-ease);
+}
+.dg-btn-group #{button.$selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  transform: scale(1.05);
+  transition: transform 0.5s var(--dg-ease);
+}
+.dg-btn-group #{button.$selector}:not(:disabled):not(.is-disabled):active {
+  transform: scale(0.98);
+}
+
+/* Reorderable group (src/js/reorder.js). pan-y keeps vertical page scroll
+   on touch while horizontal drags reorder the buttons. */
+[data-dg-reorder] {
+  position: relative;
+  -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+}
+[data-dg-reorder] #{button.$selector} { cursor: grab; touch-action: pan-y; }
+[data-dg-reorder].is-reordering, [data-dg-reorder].is-reordering #{button.$selector} { cursor: grabbing; }
+.dg-btn-group[data-dg-reorder] #{button.$selector}.is-dragging {
+  position: relative; z-index: 1;
+  border-radius: var(--dg-radius-pill);
+  opacity: 1;
+  box-shadow: var(--dg-shadow-2);
+  transition: none;
+}
 
 /* ---- Button: loading & with-icon -------------------------- */
-.dg-btn.is-loading { color: transparent !important; pointer-events: none; position: relative; }
-.dg-btn.is-loading::after {
+#{button.$selector}.is-loading { color: transparent !important; pointer-events: none; position: relative; }
+#{button.$selector}.is-loading::after {
   content: ""; position: absolute; width: 1.1em; height: 1.1em; border-radius: 50%;
   border: 2px solid currentColor; border-top-color: transparent; opacity: .6;
   animation: dg-spin .7s linear infinite;
   color: var(--dg-on-solid);
 }
-.dg-btn-outline.is-loading::after, .dg-btn-ghost.is-loading::after { color: var(--dg-text); }
+/* Spinner must not use currentColor: `.is-loading` forces label color to transparent. */
+#{button.$subtle-selector}.is-loading::after { color: #000000; }
+#{button.$outline-selector}.is-loading::after,
+#{button.$text-selector}.is-loading::after,
+.dg-btn-ghost.is-loading::after { color: var(--dg-primary); }
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-outline-#{$tone}.is-loading::after,
+  .dg-btn-text-#{$tone}.is-loading::after { color: var(--dg-#{$tone}); }
+}
 
 /* ---- Button: semantic variants ---------------------------- */
 .dg-btn-success { background: var(--dg-success); color: var(--dg-on-success); border-color: transparent; }
@@ -163,6 +301,6 @@
 .dg-btn-hover-shine:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"])::after { transform: translateX(130%); transition: transform .65s ease; }
 @media (prefers-reduced-motion: reduce) {
   .dg-btn-hover-lift, .dg-btn-hover-grow, .dg-btn-hover-glow, .dg-btn-hover-shine { transition: none; }
-  .dg-btn.dg-btn-hover-lift, .dg-btn.dg-btn-hover-grow { transform: none; }
+  #{button.$selector}.dg-btn-hover-lift, #{button.$selector}.dg-btn-hover-grow { transform: none; }
   .dg-btn-hover-shine::after { display: none; }
 }

@@ -1,0 +1,10 @@
+{
+  "dest": "dist",
+  "lib": {
+    "entryFile": "src/index.ts"
+  },
+  "allowedNonPeerDependencies": [
+    "dgarz-design",
+    "tslib"
+  ]
+}

@@ -1,5 +1,6 @@
 node_modules/
 core/dist/
+core/storybook-static/
 docs/dist/
 docs/public/dist/
 docs/.astro/
@@ -7,3 +8,6 @@ docs/.astro/
 *.log
 .env
 .env.local
+core/.stencil/
+packages/*/dist/
+packages/*/src/generated/

@@ -1,3 +1,5 @@
+@use "../abstracts/buttons" as button;
+
 /* ---- Forms ------------------------------------------------ */
 /* Semantic auto-styling (.dg-auto contract, see _grid.scss bottom-of-file note):
    a plain, classless input/select/textarea/label inside a .dg-auto scope
@@ -81,7 +83,7 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
   box-shadow: none;
   border-color: var(--dg-field-border);
 }
-.dg-input-group .dg-btn { border-left: none; }
+.dg-input-group #{button.$selector} { border-left: none; }
 .dg-input-group .dg-input-addon {
   display: inline-flex; align-items: center; padding: 0 1em;
   background: var(--dg-surface-3);

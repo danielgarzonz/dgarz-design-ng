@@ -10,6 +10,7 @@
     "prebuild": "npm run build --workspace=dgarz-design && node scripts/copy-core.mjs",
     "build": "astro build",
     "preview": "astro preview",
+    "verify:hydrate": "node scripts/verify-astro-hydrate.mjs",
     "astro": "astro"
   },
   "dependencies": {

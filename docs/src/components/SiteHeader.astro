@@ -1,0 +1,127 @@
+---
+import { TOP_NAV } from '../data/nav';
+import '../styles/site-header.css';
+interface Props { currentHref: string; hideOnScroll?: boolean; showMainMenu?: boolean; }
+const { currentHref, hideOnScroll = false, showMainMenu = true } = Astro.props;
+---
+<nav class="dg-navbar pub-nav" id="pubNav" aria-label="Principal" data-hide-on-scroll={hideOnScroll ? "true" : undefined}>
+  <a href="/comenzar/intro" class="dg-navbar-brand pub-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
+  <div class="dg-navbar-nav">
+    {TOP_NAV.map((item) => (
+      <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
+    ))}
+  </div>
+  <div class="pub-actions">
+    <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-sm pub-docs-btn">Documentación</a>
+    <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
+      <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
+      <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
+    </button>
+    <slot name="actions" />
+    {showMainMenu && <button class="pub-theme-btn pub-menu-btn" id="pubMenuToggle" aria-label="Abrir menú principal" aria-expanded="false" aria-controls="pubMenu">
+      <svg class="dg-icon pub-icon-open" viewBox="3 3 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+      <svg class="dg-icon pub-icon-close" viewBox="3 3 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20" /></svg>
+    </button>}
+  </div>
+  {showMainMenu && <div class="pub-menu" id="pubMenu">
+    <div class="pub-menu-inner">
+      <div class="pub-menu-list">
+        {TOP_NAV.map((item) => (
+          <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
+        ))}
+        <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-block">Documentación</a>
+      </div>
+    </div>
+  </div>}
+</nav>
+
+<script is:inline>
+  // La barra del teléfono usa el color del header, o el de la página si se oculta.
+  (function () {
+    var html = document.documentElement;
+    var nav = document.getElementById("pubNav");
+    var meta = document.getElementById("docThemeColor");
+
+    function toHex(color) {
+      var value = String(color || "").trim();
+      if (value.charAt(0) === "#") return value;
+      var match = value.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+      if (!match) return value || "#ffffff";
+      return "#" + [match[1], match[2], match[3]].map(function (part) {
+        return ("0" + Number(part).toString(16)).slice(-2);
+      }).join("");
+    }
+
+    function syncPhoneBar() {
+      // Full modal owns the status bar while open (see overlays.js).
+      if (document.querySelector(".dg-modal-backdrop:not([hidden]) .dg-modal-full")) return;
+      meta = document.getElementById("docThemeColor") || meta;
+      if (!meta) return;
+      var next = nav.classList.contains("is-hidden")
+        ? getComputedStyle(document.body).backgroundColor
+        : getComputedStyle(nav).backgroundColor;
+      meta.setAttribute("content", toHex(next));
+    }
+
+    syncPhoneBar();
+    new MutationObserver(syncPhoneBar).observe(html, { attributes: true, attributeFilter: ["data-theme"] });
+    new MutationObserver(syncPhoneBar).observe(nav, { attributes: true, attributeFilter: ["class"] });
+  })();
+</script>
+
+<script is:inline>
+  // Oculta el menú al bajar y lo muestra al subir o al recibir foco.
+  (function () {
+    var nav = document.getElementById("pubNav");
+    var last = Math.max(window.scrollY, 0);
+    var ticking = false;
+    var toggle = document.getElementById("pubMenuToggle");
+    var desktop = window.matchMedia("(min-width: 861px)");
+
+    function setOpen(open) {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Cerrar menú principal" : "Abrir menú principal");
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        setOpen(!nav.classList.contains("is-open"));
+      });
+      document.addEventListener("click", function (event) {
+        if (!nav.contains(event.target)) setOpen(false);
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape" || !nav.classList.contains("is-open")) return;
+        setOpen(false);
+        toggle.focus();
+      });
+      desktop.addEventListener("change", function () {
+        setOpen(false);
+      });
+    }
+
+    function update() {
+      var y = Math.max(window.scrollY, 0);
+      if (nav.classList.contains("is-open") || document.body.classList.contains("doc-menu-open")) {
+        last = y;
+        ticking = false;
+        return;
+      }
+      if (y <= nav.offsetHeight) nav.classList.remove("is-hidden");
+      else if (Math.abs(y - last) > 6) nav.classList.toggle("is-hidden", y > last);
+      if (Math.abs(y - last) > 6 || y === 0) last = y;
+      ticking = false;
+    }
+
+    if (nav.dataset.hideOnScroll === "true") window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+
+    nav.addEventListener("focusin", function () {
+      nav.classList.remove("is-hidden");
+    });
+  })();
+</script>

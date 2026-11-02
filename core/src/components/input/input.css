@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dgarz-spacing-sm, .5rem);
+}
+
+.label-text {
+  font-family: var(--dgarz-font-family, system-ui, sans-serif);
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--dgarz-color-text, #0b0b0c);
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  min-block-size: 2.75rem;
+  padding: .7em 1em;
+  border: 1px solid var(--dgarz-color-field-border, var(--dgarz-color-border, #bcbcc3));
+  border-radius: var(--dgarz-radius-field, .75rem);
+  font: inherit;
+  font-family: var(--dgarz-font-family, system-ui, sans-serif);
+  font-size: .875rem;
+  color: var(--dgarz-color-text, #0b0b0c);
+  background: var(--dgarz-color-field-bg, var(--dgarz-color-surface, #fff));
+}
+
+input::placeholder {
+  color: var(--dgarz-color-text-muted, #62626b);
+}
+
+input:focus-visible {
+  outline: 2px solid var(--dgarz-color-focus, #247cff);
+  outline-offset: 2px;
+  border-color: var(--dgarz-color-text, #0b0b0c);
+}
+
+input:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+  background: var(--dgarz-color-field-disabled, color-mix(in oklab, var(--dgarz-color-surface, #fff) 88%, var(--dgarz-color-text, #0b0b0c)));
+}
+
+:host([readonly]) input {
+  background: var(--dgarz-color-field-disabled, color-mix(in oklab, var(--dgarz-color-surface, #fff) 92%, var(--dgarz-color-text, #0b0b0c)));
+}
+
+:host([invalid]) input,
+input[aria-invalid='true'] {
+  border-color: var(--dgarz-color-danger, #b42318);
+}
+
+:host([invalid]) input:focus-visible {
+  outline-color: var(--dgarz-color-danger, #b42318);
+}

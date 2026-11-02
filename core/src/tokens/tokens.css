@@ -1,0 +1,37 @@
+/* Public identity API. Import once in the consuming application. */
+:root {
+  color-scheme: light;
+  --dgarz-color-primary: #0b0b0c;
+  --dgarz-color-on-primary: #ffffff;
+  --dgarz-color-surface: #ffffff;
+  --dgarz-color-text: #0b0b0c;
+  --dgarz-color-text-muted: #62626b;
+  --dgarz-color-border: #bcbcc3;
+  --dgarz-color-focus: #247cff;
+  --dgarz-color-danger: #b42318;
+  --dgarz-color-field-bg: #ffffff;
+  --dgarz-color-field-border: #bcbcc3;
+  --dgarz-color-field-disabled: #f1f1f3;
+  --dgarz-spacing-sm: .5rem;
+  --dgarz-spacing-md: 1rem;
+  --dgarz-spacing-lg: 1.5rem;
+  --dgarz-radius-button: 999px;
+  --dgarz-button-min-width: 6rem;
+  --dgarz-radius-field: .75rem;
+  --dgarz-font-family: system-ui, sans-serif;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --dgarz-color-primary: #ffffff;
+  --dgarz-color-on-primary: #0b0b0c;
+  --dgarz-color-surface: #161618;
+  --dgarz-color-text: #ffffff;
+  --dgarz-color-text-muted: #a1a1aa;
+  --dgarz-color-border: #93939c;
+  --dgarz-color-focus: #82b6ff;
+  --dgarz-color-danger: #f97066;
+  --dgarz-color-field-bg: #161618;
+  --dgarz-color-field-border: #93939c;
+  --dgarz-color-field-disabled: #242428;
+}

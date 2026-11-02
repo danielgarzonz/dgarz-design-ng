@@ -1,5 +1,5 @@
 ---
-import { TOP_NAV } from "../data/nav";
+import SiteHeader from "../components/SiteHeader.astro";
 import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
 import "../styles/brand.css";
 
@@ -31,7 +31,8 @@ const sections = [
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" id="docThemeColor" />
   <title>dgarz design — Framework CSS monocromo</title>
   <meta name="description" content="Framework CSS monocromo, sin dependencias y con modo oscuro nativo." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -41,46 +42,6 @@ const sections = [
   <link rel="stylesheet" href={cssHref} />
   <style is:global>
     body { overflow-x: hidden; padding-top: 60px; background: var(--dg-surface-2); }
-    /* Mismo ancho que el contenido del .dg-container; radio de esquina de iPhone.
-       El padding iguala al radio para que el contenido quede en la parte plana. */
-    .pub-nav {
-      --pub-nav-radius: 55px;
-      position: fixed; top: 0; left: 0; right: 0; z-index: 30;
-      flex-wrap: wrap; row-gap: 0;
-      width: calc(min(100%, var(--dg-container)) - 2 * var(--dg-space-5));
-      margin-inline: auto; padding-inline: var(--pub-nav-radius);
-      border-radius: 0 0 var(--pub-nav-radius) var(--pub-nav-radius);
-      transition: transform var(--dg-dur-motion) var(--dg-ease-motion), background var(--dg-dur-motion) var(--dg-ease-motion);
-    }
-    .pub-nav.is-hidden { transform: translateY(-100%); }
-    .pub-nav.is-open { background: var(--dg-paper); }
-
-    /* Móvil: las opciones viven dentro del header, que crece y se reduce. */
-    .pub-nav .pub-menu-btn, .pub-icon-close, .pub-nav.is-open .pub-icon-open { display: none; }
-    .pub-nav.is-open .pub-icon-close { display: block; }
-    .pub-menu {
-      display: none; flex: 0 0 100%; grid-template-rows: 0fr;
-      visibility: hidden;
-      transition: grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion), visibility var(--dg-dur-motion);
-    }
-    .pub-nav.is-open .pub-menu { grid-template-rows: 1fr; visibility: visible; }
-    .pub-menu-inner { min-height: 0; overflow: hidden; }
-    .pub-menu-list { display: flex; flex-direction: column; gap: var(--dg-space-1); padding-block: var(--dg-space-3) var(--dg-space-4); }
-    .pub-nav.is-open .pub-menu-list > * { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
-    .pub-nav.is-open .pub-menu-list > :nth-child(2) { animation-delay: 130ms; }
-    .pub-nav.is-open .pub-menu-list > :nth-child(3) { animation-delay: 180ms; }
-    .pub-menu-list .dg-nav-link { display: flex; align-items: center; min-height: 44px; }
-    .pub-menu-list .dg-btn { margin-top: var(--dg-space-3); min-height: 44px; }
-    .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-medium); }
-    .pub-theme-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border: 0; border-radius: var(--dg-radius-pill);
-      background: none; color: var(--dg-text-muted); cursor: pointer;
-    }
-    .pub-theme-btn:hover { background: var(--dg-surface-3); color: var(--dg-text); }
-    .pub-moon, [data-theme="dark"] .pub-sun { display: none; }
-    [data-theme="dark"] .pub-moon { display: block; }
-
     /* El nombre queda en el centro exacto: las filas 1 y 3 miden lo mismo. */
     .pub-hero {
       display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center;
@@ -91,10 +52,15 @@ const sections = [
       grid-row: 2; margin: 0;
       font-size: clamp(3.5rem, 13vw, 11rem); line-height: 1; letter-spacing: -0.03em;
     }
-    /* Cada letra sale de una línea de suelo: el clip-path corta bajo los descendentes. */
-    .pub-word { display: inline-block; clip-path: inset(-.2em -.15em -.16em -.15em); }
+    /* Italic glyphs extend beyond their advance width: keep their paint area open. */
+    .pub-word { display: inline-block; overflow: visible; }
     .pub-letter {
       display: inline-block;
+      /* Extra paint space prevents WebKit clipping animated italic overhangs.
+         Negative margins preserve the original letter spacing. */
+      padding-inline: .18em;
+      margin-inline: -.18em;
+      overflow: visible;
       animation: pub-letter-rise var(--dg-dur-motion) var(--dg-ease-motion) backwards;
       animation-delay: calc(var(--i) * 65ms + 120ms);
     }
@@ -121,51 +87,15 @@ const sections = [
     @media (max-width: 860px) {
       .pub-cta { padding: var(--dg-space-5); }
     }
-    @media (max-width: 640px) {
-      .pub-docs-btn, .pub-nav .dg-navbar-nav { display: none; }
-      .pub-nav .pub-menu-btn { display: inline-flex; }
-      .pub-menu { display: grid; }
-      .pub-nav { width: 100%; }
-    }
     @media (prefers-reduced-motion: reduce) {
-      .pub-nav, .pub-menu { transition: none; }
       .pub-letter { animation: none; }
-      .pub-nav.is-open .pub-menu-list > * { animation: none; }
     }
   </style>
 </head>
 <body>
 <Fragment set:html={iconSprite} />
 
-<nav class="dg-navbar pub-nav" id="pubNav" aria-label="Principal">
-  <a href="/" class="dg-navbar-brand pub-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
-  <div class="dg-navbar-nav">
-    {TOP_NAV.map((item) => (
-      <a href={item.href} class:list={["dg-nav-link", item.href === "/" && "is-active"]} aria-current={item.href === "/" ? "page" : undefined}>{item.label}</a>
-    ))}
-  </div>
-  <div class="dg-flex dg-items-center dg-gap-2 dg-ml-auto">
-    <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-sm pub-docs-btn">Documentación</a>
-    <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
-      <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
-      <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
-    </button>
-    <button class="pub-theme-btn pub-menu-btn" id="pubMenuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="pubMenu">
-      <svg class="dg-icon pub-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
-      <svg class="dg-icon pub-icon-close"><use href="#dg-x"/></svg>
-    </button>
-  </div>
-  <div class="pub-menu" id="pubMenu">
-    <div class="pub-menu-inner">
-      <div class="pub-menu-list">
-        {TOP_NAV.map((item) => (
-          <a href={item.href} class:list={["dg-nav-link", item.href === "/" && "is-active"]} aria-current={item.href === "/" ? "page" : undefined}>{item.label}</a>
-        ))}
-        <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-block">Documentación</a>
-      </div>
-    </div>
-  </div>
-</nav>
+<SiteHeader currentHref="/" hideOnScroll />
 
 <main class="pub-main dg-container">
   <section class="pub-hero">
@@ -176,7 +106,7 @@ const sections = [
     <div class="pub-intro">
       <p class="dg-lead dg-text-in dg-delay-8">Un framework CSS moderno y monocromo, sin dependencias y con modo oscuro nativo.</p>
       <div class="dg-cluster dg-mt-4 dg-text-in dg-delay-9">
-        <a href="/comenzar/install" class="dg-btn dg-btn-primary">Empezar</a>
+        <a href="/comenzar/intro" class="dg-btn dg-btn-primary">Empezar</a>
         <a href="/componentes/buttons" class="dg-btn dg-btn-outline">Ver componentes</a>
       </div>
     </div>
@@ -264,59 +194,6 @@ const sections = [
 </footer>
 
 <script is:inline src={jsHref} defer></script>
-<script is:inline>
-  // Oculta el menú al bajar y lo muestra al subir o al recibir foco.
-  (function () {
-    var nav = document.getElementById("pubNav");
-    var last = Math.max(window.scrollY, 0);
-    var ticking = false;
-    var toggle = document.getElementById("pubMenuToggle");
-    var desktop = window.matchMedia("(min-width: 641px)");
 
-    function setOpen(open) {
-      nav.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-    }
-
-    toggle.addEventListener("click", function () {
-      setOpen(!nav.classList.contains("is-open"));
-    });
-    document.addEventListener("click", function (event) {
-      if (!nav.contains(event.target)) setOpen(false);
-    });
-    document.addEventListener("keydown", function (event) {
-      if (event.key !== "Escape" || !nav.classList.contains("is-open")) return;
-      setOpen(false);
-      toggle.focus();
-    });
-    desktop.addEventListener("change", function () {
-      setOpen(false);
-    });
-
-    function update() {
-      var y = Math.max(window.scrollY, 0);
-      if (nav.classList.contains("is-open")) {
-        last = y;
-        ticking = false;
-        return;
-      }
-      if (y <= nav.offsetHeight) nav.classList.remove("is-hidden");
-      else if (Math.abs(y - last) > 6) nav.classList.toggle("is-hidden", y > last);
-      if (Math.abs(y - last) > 6 || y === 0) last = y;
-      ticking = false;
-    }
-
-    window.addEventListener("scroll", function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    }, { passive: true });
-
-    nav.addEventListener("focusin", function () {
-      nav.classList.remove("is-hidden");
-    });
-  })();
-</script>
 </body>
 </html>

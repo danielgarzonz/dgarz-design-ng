@@ -1,3 +1,5 @@
+@use "../abstracts/buttons" as button;
+
 /* ============================================================
    dgarz design — app pack
    App shell · Sidebar · Drawer · Accordion · Breadcrumbs
@@ -158,7 +160,7 @@
   -webkit-backdrop-filter: saturate(1.8) blur(20px);
   backdrop-filter: saturate(1.8) blur(20px);
 }
-.dg-drawer-footer .dg-btn { min-width: 0; }
+.dg-drawer-footer #{button.$selector} { min-width: 0; }
 .dg-drawer .dg-btn-cancel { background: #b8b8bf; color: #27272a; }
 .dg-drawer .dg-btn-cancel:hover { background: #a6a6af; color: #27272a; opacity: 1; }
 .dg-drawer.is-solid :is(.dg-drawer-header, .dg-drawer-footer) { -webkit-backdrop-filter: none; backdrop-filter: none; }

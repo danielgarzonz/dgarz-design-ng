@@ -1,148 +1,375 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="doc-sub">Animaciones hover</div>
-<p class="dg-mb-4">Pasa el cursor o navega con Tab. Combina una clase de efecto con cualquier variante de botón. Se respeta el movimiento reducido.</p>
+---
+
+<Layout title="Botones" lead="Explora cada familia por separado y combina variantes, tamaños y comportamientos." currentHref="/componentes/buttons">
+<nav class="dg-cluster dg-gap-2" aria-label="Secciones de botones">
+<a class="dg-link" href="#default">Botón por defecto</a>
+<a class="dg-link" href="#solidos">Botones sólidos</a>
+<a class="dg-link" href="#sutiles">Botones sutiles</a>
+<a class="dg-link" href="#outline">Botones outline</a>
+<a class="dg-link" href="#solo-texto">Botones solo texto</a>
+<a class="dg-link" href="#tamanos">Tamaños de botón</a>
+<a class="dg-link" href="#ancho-movil">Ancho completo en móvil</a>
+<a class="dg-link" href="#iconos">Botones con icono y texto</a>
+<a class="dg-link" href="#solo-iconos">Botones solo con icono</a>
+<a class="dg-link" href="#cargando">Botones de carga</a>
+<a class="dg-link" href="#deshabilitados">Botones deshabilitados</a>
+<a class="dg-link" href="#hover">Efectos hover</a>
+<a class="dg-link" href="#grupos">Grupos de botones</a>
+<a class="dg-link" href="#reordenables">Grupos reordenables</a>
+<a class="dg-link" href="#enlaces">Enlaces con apariencia de botón</a>
+</nav>
+<section id="default" class="button-doc-section">
+<h2 class="doc-sub">Botón por defecto</h2>
+<p><code>dg-btn</code> es el primario sólido mediano por defecto. Las demás variantes y tamaños son clases completas: no hace falta combinarlas con <code>dg-btn</code>.</p>
 <div class="doc-example">
-<div class="doc-demo"><div class="dg-cluster">
-<button class="dg-btn dg-btn-hover-lift">Elevación</button>
-<button class="dg-btn dg-btn-hover-grow">Escala</button>
-<button class="dg-btn dg-btn-hover-glow">Halo</button>
-<button class="dg-btn dg-btn-hover-shine">Destello</button>
-</div></div>
-<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-hover-lift"&gt;Elevación&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-hover-grow"&gt;Escala&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-hover-glow"&gt;Halo&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-hover-shine"&gt;Destello&lt;/button&gt;</pre></div>
+<div class="doc-demo is-plain">
+<button type="button" class="dg-btn">default</button>
 </div>
-<div class="doc-sub">Variantes de estilo</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">
-        <strong>Primary</strong>: acción principal de la pantalla. Solo debe haber uno por sección visible.<br>
-        <strong>Default</strong>: acciones secundarias neutras.<br>
-        <strong>Outline</strong>: acciones secundarias con más presencia que ghost.<br>
-        <strong>Ghost</strong>: acciones terciarias o de toolbar.<br>
-        <strong>Danger</strong>: acciones destructivas (eliminar, revocar, etc.)
-      </p>
-      <div class="doc-example">
-<div class="doc-demo">
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-primary">Guardar</button>
-          <button class="dg-btn dg-btn-cancel">Cancelar</button>
-          <button class="dg-btn dg-btn-outline">Ver más</button>
-          <button class="dg-btn dg-btn-ghost">Opciones</button>
-          <button class="dg-btn dg-btn-danger">Eliminar</button>
-        </div>
-        <div class="dg-cluster dg-mt-4">
-          <button class="dg-btn dg-btn-success">Confirmar</button>
-          <button class="dg-btn dg-btn-warning">Revisar</button>
-          <button class="dg-btn dg-btn-info">Info</button>
-        </div>
-      </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Siempre empieza con .dg-btn + variante --&gt;
-&lt;button class="dg-btn dg-btn-primary"&gt;Guardar&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-cancel"&gt;Cancelar&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-outline"&gt;Ver más&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost"&gt;Opciones&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;
-
-&lt;!-- Semánticos (igual estructura que outline pero con color) --&gt;
-&lt;button class="dg-btn dg-btn-success"&gt;Confirmar&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-warning"&gt;Revisar&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-info"&gt;Info&lt;/button&gt;
-
-&lt;!-- También funciona como enlace --&gt;
-&lt;a href="/ruta" class="dg-btn dg-btn-primary"&gt;Ir a página&lt;/a&gt;</pre></div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;button type=&quot;button&quot; class=&quot;dg-btn&quot;&gt;default&lt;/button&gt;</pre>
 </div>
-
-      <div class="doc-sub">Tamaños</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">Usa <code class="dg-code">.dg-btn-sm</code> y <code class="dg-code">.dg-btn-lg</code> para ajustar el tamaño, y <code class="dg-code">.dg-btn-block</code> para ocupar todo el ancho disponible.</p>
+</div>
+</section>
+<section id="solidos" class="button-doc-section">
+<h2 class="doc-sub">Botones sólidos</h2>
+<p>Relleno sólido para acciones de mayor énfasis. Cada variante incluye la base; no necesita <code>dg-btn</code>.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-primary">Principal</button>
+  <button type="button" class="dg-btn-success">Success</button>
+  <button type="button" class="dg-btn-warning">Warning</button>
+  <button type="button" class="dg-btn-danger">Error</button>
+  <button type="button" class="dg-btn-info">Info</button>
+  <button type="button" class="dg-btn-cancel">Cancel</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-primary&quot;&gt;Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-success&quot;&gt;Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-warning&quot;&gt;Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-danger&quot;&gt;Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-info&quot;&gt;Info&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-cancel&quot;&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="sutiles" class="button-doc-section">
+<h2 class="doc-sub">Botones sutiles</h2>
+<p>Misma forma que los sólidos, con relleno crema/claro del color semántico y texto de contraste. Usa <code>dg-btn-subtle</code> para el tono principal o las variantes por color.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-subtle">Principal</button>
+  <button type="button" class="dg-btn-subtle-success">Success</button>
+  <button type="button" class="dg-btn-subtle-warning">Warning</button>
+  <button type="button" class="dg-btn-subtle-danger">Error</button>
+  <button type="button" class="dg-btn-subtle-info">Info</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle&quot;&gt;Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-success&quot;&gt;Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-warning&quot;&gt;Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-danger&quot;&gt;Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-info&quot;&gt;Info&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="outline" class="button-doc-section">
+<h2 class="doc-sub">Botones outline</h2>
+<p>Borde sólido del color disponible, sin fondo. En hover toma el relleno sutil del mismo tono.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-outline">Principal</button>
+  <button type="button" class="dg-btn-outline-success">Success</button>
+  <button type="button" class="dg-btn-outline-warning">Warning</button>
+  <button type="button" class="dg-btn-outline-danger">Error</button>
+  <button type="button" class="dg-btn-outline-info">Info</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline&quot;&gt;Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline-success&quot;&gt;Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline-warning&quot;&gt;Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline-danger&quot;&gt;Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline-info&quot;&gt;Info&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="solo-texto" class="button-doc-section">
+<h2 class="doc-sub">Botones solo texto</h2>
+<p>Acciones tipográficas con borde inferior sólido, sin relleno. Útiles como enlaces de acción dentro de un párrafo o fila de herramientas.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-text">Principal</button>
+  <button type="button" class="dg-btn-text-success">Success</button>
+  <button type="button" class="dg-btn-text-warning">Warning</button>
+  <button type="button" class="dg-btn-text-danger">Error</button>
+  <button type="button" class="dg-btn-text-info">Info</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-text&quot;&gt;Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-success&quot;&gt;Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-warning&quot;&gt;Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-danger&quot;&gt;Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-info&quot;&gt;Info&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="tamanos" class="button-doc-section">
+<h2 class="doc-sub">Tamaños de botón</h2>
+<p>
+<code>dg-btn</code> es el default (mediano implícito). Los tamaños explícitos son clases completas: <code>dg-btn-sm</code>, <code>dg-btn-md</code> y <code>dg-btn-lg</code>. Los mínimos son 80px (5rem), 96px (6rem) y 112px (7rem); el texto largo puede ampliar el botón. Los de solo icono conservan su proporción. También se combinan con cualquier variante de color.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-sm">Pequeño</button>
+  <button type="button" class="dg-btn">default</button>
+  <button type="button" class="dg-btn-md">Mediano</button>
+  <button type="button" class="dg-btn-lg">Grande</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-sm&quot;&gt;Pequeño&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn&quot;&gt;default&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-md&quot;&gt;Mediano&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-lg&quot;&gt;Grande&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="ancho-movil" class="button-doc-section">
+<h2 class="doc-sub">Ancho completo en móvil</h2>
+<p>
+<code>dg-btn-block-mobile</code> ocupa el 100% del contenedor hasta 991px, el mismo límite de las utilidades móviles del sistema. Desde 992px conserva su ancho natural. Redimensiona la ventana para probarlo.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<button type="button" class="dg-btn dg-btn-block-mobile">Continuar en móvil</button>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;button type=&quot;button&quot; class=&quot;dg-btn dg-btn-block-mobile&quot;&gt;Continuar en móvil&lt;/button&gt;</pre>
+</div>
+</div>
+</section>
+<section id="iconos" class="button-doc-section">
+<h2 class="doc-sub">Botones con icono y texto</h2>
+<p>Combina cada color semántico con un icono acorde del sprite del sistema.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-primary">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-plus" /></svg> Principal</button>
+  <button type="button" class="dg-btn-success">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-check" /></svg> Success</button>
+  <button type="button" class="dg-btn-warning">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-alert-tri" /></svg> Warning</button>
+  <button type="button" class="dg-btn-danger">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-trash" /></svg> Error</button>
+  <button type="button" class="dg-btn-info">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-info" /></svg> Info</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-primary&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-plus&quot; /&gt;&lt;/svg&gt; Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-success&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-check&quot; /&gt;&lt;/svg&gt; Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-warning&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-alert-tri&quot; /&gt;&lt;/svg&gt; Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-danger&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-trash&quot; /&gt;&lt;/svg&gt; Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-info&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-info&quot; /&gt;&lt;/svg&gt; Info&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="solo-iconos" class="button-doc-section">
+<h2 class="doc-sub">Botones solo con icono</h2>
+<p>Añade <code>dg-btn-icon</code> y siempre proporciona una etiqueta accesible con <code>aria-label</code>. Mismos colores e iconos semánticos.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-primary dg-btn-icon" aria-label="Principal">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-plus" /></svg>
+</button>
+  <button type="button" class="dg-btn-success dg-btn-icon" aria-label="Success">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-check" /></svg>
+</button>
+  <button type="button" class="dg-btn-warning dg-btn-icon" aria-label="Warning">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-alert-tri" /></svg>
+</button>
+  <button type="button" class="dg-btn-danger dg-btn-icon" aria-label="Error">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-trash" /></svg>
+</button>
+  <button type="button" class="dg-btn-info dg-btn-icon" aria-label="Info">
+<svg class="dg-icon" aria-hidden="true"><use href="#dg-info" /></svg>
+</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-primary dg-btn-icon&quot; aria-label=&quot;Principal&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-plus&quot; /&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-success dg-btn-icon&quot; aria-label=&quot;Success&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-check&quot; /&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-warning dg-btn-icon&quot; aria-label=&quot;Warning&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-alert-tri&quot; /&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-danger dg-btn-icon&quot; aria-label=&quot;Error&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-trash&quot; /&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-info dg-btn-icon&quot; aria-label=&quot;Info&quot;&gt;&lt;svg class=&quot;dg-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#dg-info&quot; /&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="cargando" class="button-doc-section">
+<h2 class="doc-sub">Botones de carga</h2>
+<p>
+<code>is-loading</code> muestra progreso. Usa también <code>disabled</code> y <code>aria-busy="true"</code> para bloquear activación e informar del estado.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn is-loading" disabled aria-busy="true">Guardando</button>
+  <button type="button" class="dg-btn-subtle-info is-loading" disabled aria-busy="true">Cargando</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn is-loading&quot; disabled aria-busy=&quot;true&quot;&gt;Guardando&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-info is-loading&quot; disabled aria-busy=&quot;true&quot;&gt;Cargando&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="deshabilitados" class="button-doc-section">
+<h2 class="doc-sub">Botones deshabilitados</h2>
+<p>En botones nativos usa <code>disabled</code>. En enlaces, <code>is-disabled</code> es visual; <code>aria-disabled</code> comunica el estado, pero el consumidor debe bloquear su navegación y activación.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn" disabled>No disponible</button>
+  <button type="button" class="dg-btn-subtle" disabled>No disponible</button>
+  <button type="button" class="dg-btn-outline" disabled>No disponible</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn&quot; disabled&gt;No disponible&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle&quot; disabled&gt;No disponible&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline&quot; disabled&gt;No disponible&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="hover" class="button-doc-section">
+<h2 class="doc-sub">Efectos hover</h2>
+<p>Combina una clase de efecto con una variante. Pasa el cursor o navega con Tab.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn dg-btn-hover-lift">Elevación</button>
+  <button type="button" class="dg-btn dg-btn-hover-grow">Escala</button>
+  <button type="button" class="dg-btn dg-btn-hover-glow">Halo</button>
+  <button type="button" class="dg-btn dg-btn-hover-shine">Destello</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn dg-btn-hover-lift&quot;&gt;Elevación&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn dg-btn-hover-grow&quot;&gt;Escala&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn dg-btn-hover-glow&quot;&gt;Halo&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn dg-btn-hover-shine&quot;&gt;Destello&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="grupos" class="button-doc-section">
+<h2 class="doc-sub">Grupos de botones</h2>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-btn-group</code> usa la misma cápsula flotante que el footer de los modales: fondo translúcido, blur y botones separados con hueco, sin borde.</p>
       <div class="doc-example">
 <div class="doc-demo is-plain">
-        <div class="dg-cluster dg-items-center">
-          <button class="dg-btn dg-btn-primary dg-btn-sm">Pequeño</button>
-          <button class="dg-btn dg-btn-primary">Mediano (por defecto)</button>
-          <button class="dg-btn dg-btn-primary dg-btn-lg">Grande</button>
-        </div>
-      </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-primary dg-btn-sm"&gt;Pequeño&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-primary"&gt;Mediano (por defecto)&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-primary dg-btn-lg"&gt;Grande&lt;/button&gt;
-
-&lt;!-- Ancho completo del contenedor --&gt;
-&lt;button class="dg-btn dg-btn-primary dg-btn-block"&gt;Ancho total&lt;/button&gt;</pre></div>
-</div>
-
-      <div class="doc-sub">Botón con icono</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">Coloca un icono junto al texto. Para un botón solo con icono usa <code class="dg-code">.dg-btn-icon</code> y añade un <code class="dg-code">aria-label</code>.</p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
         <div class="dg-cluster">
-          <button class="dg-btn dg-btn-primary">
-            <svg class="dg-icon dg-icon-sm"><use href="#dg-plus"/></svg>
-            Nuevo proyecto
-          </button>
-          <button class="dg-btn dg-btn-outline">
-            <svg class="dg-icon dg-icon-sm"><use href="#dg-search"/></svg>
-            Buscar
-          </button>
-          <button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Configuración">
-            <svg class="dg-icon"><use href="#dg-settings"/></svg>
-          </button>
-          <button class="dg-btn dg-btn-icon" aria-label="Notificaciones">
-            <svg class="dg-icon"><use href="#dg-bell"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Botón con icono y texto --&gt;
-&lt;button class="dg-btn dg-btn-primary"&gt;
-  &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-plus"&gt;&lt;/use&gt;&lt;/svg&gt;
-  Nuevo proyecto
-&lt;/button&gt;
-
-&lt;!-- Botón solo icono (cuadrado) — siempre incluye aria-label --&gt;
-&lt;button class="dg-btn dg-btn-ghost dg-btn-icon" aria-label="Ajustes"&gt;
-  &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-settings"&gt;&lt;/use&gt;&lt;/svg&gt;
-&lt;/button&gt;</pre></div>
-</div>
-
-      <div class="doc-sub">Estados</div>
-      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.is-loading</code> oculta el texto y muestra un spinner. El atributo <code class="dg-code">disabled</code> bloquea el botón.</p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <button class="dg-btn dg-btn-primary is-loading">Guardar</button>
-          <button class="dg-btn dg-btn-primary" disabled>No disponible</button>
-          <button class="dg-btn dg-btn-outline" disabled>No disponible</button>
-        </div>
-      </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Cargando: oculta el texto y muestra un spinner --&gt;
-&lt;button class="dg-btn dg-btn-primary is-loading"&gt;Guardar&lt;/button&gt;
-
-&lt;!-- Deshabilitado: dos formas equivalentes --&gt;
-&lt;button class="dg-btn dg-btn-primary" disabled&gt;No disponible&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-primary is-disabled" aria-disabled="true"&gt;No disponible&lt;/button&gt;
-&lt;!-- Usa is-disabled cuando necesites deshabilitar un &lt;a&gt; --&gt;</pre></div>
-</div>
-
-      <div class="doc-sub">Grupo de botones</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">Los botones dentro de <code class="dg-code">.dg-btn-group</code> se unen sin espacio entre ellos.</p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <div class="dg-btn-group">
-            <button class="dg-btn">Copiar</button>
-            <button class="dg-btn">Editar</button>
-            <button class="dg-btn dg-btn-danger">Eliminar</button>
+          <div class="dg-btn-group" role="group" aria-label="Acciones">
+            <button type="button" class="dg-btn">Copiar</button>
+            <button type="button" class="dg-btn-subtle">Editar</button>
+            <button type="button" class="dg-btn-danger">Eliminar</button>
           </div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-btn-group"&gt;
-  &lt;button class="dg-btn"&gt;Copiar&lt;/button&gt;
-  &lt;button class="dg-btn"&gt;Editar&lt;/button&gt;
-  &lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;
-&lt;/div&gt;</pre></div>
-</div>`;
----
+      <div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class="dg-btn-group" role="group" aria-label="Acciones"&gt;
+  &lt;button type="button" class="dg-btn"&gt;Copiar&lt;/button&gt;
+  &lt;button type="button" class="dg-btn-subtle"&gt;Editar&lt;/button&gt;
+  &lt;button type="button" class="dg-btn-danger"&gt;Eliminar&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="reordenables" class="button-doc-section">
+<h2 class="doc-sub">Grupos reordenables</h2>
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">data-dg-reorder</code> para cambiar el orden arrastrando, con ratón o táctil. Con teclado, <code class="dg-code">Alt + ←/→</code> mueve el botón enfocado y <code class="dg-code">Esc</code> cancela un arrastre. Cada cambio emite <code class="dg-code">dg:reorder</code> con el nuevo orden.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <div class="dg-btn-group" data-dg-reorder role="group" aria-label="Acciones reordenables">
+            <button type="button" class="dg-btn">Copiar</button>
+            <button type="button" class="dg-btn-subtle">Editar</button>
+            <button type="button" class="dg-btn-outline">Compartir</button>
+            <button type="button" class="dg-btn-danger">Eliminar</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class="dg-btn-group" data-dg-reorder role="group" aria-label="Acciones"&gt;
+  &lt;button type="button" class="dg-btn"&gt;Copiar&lt;/button&gt;
+  &lt;button type="button" class="dg-btn-subtle"&gt;Editar&lt;/button&gt;
+  &lt;button type="button" class="dg-btn-outline"&gt;Compartir&lt;/button&gt;
+  &lt;button type="button" class="dg-btn-danger"&gt;Eliminar&lt;/button&gt;
+&lt;/div&gt;
 
-<Layout title="Botones" lead="Variantes, tamaños, estados, grupos e íconos." currentHref="/componentes/buttons">
-  <Fragment set:html={pageContent} />
+&lt;script&gt;
+  group.addEventListener("dg:reorder", (e) =&gt; {
+    console.log(e.detail.order); // ["Editar", "Copiar", ...]
+  });
+&lt;/script&gt;</pre>
+</div>
+</div>
+</section>
+<section id="enlaces" class="button-doc-section">
+<h2 class="doc-sub">Enlaces con apariencia de botón</h2>
+<p>Usa un enlace cuando la acción navegue a otra ubicación; conserva <code>href</code>.</p>
+<div class="doc-example">
+<div class="doc-demo is-plain">
+<a href="/comenzar/intro" class="dg-btn-subtle">Ir a la introducción</a>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;a href=&quot;/comenzar/intro&quot; class=&quot;dg-btn-subtle&quot;&gt;Ir a la introducción&lt;/a&gt;</pre>
+</div>
+</div>
+</section>
 </Layout>
+<style is:global>
+  .button-doc-section { scroll-margin-top: 80px; }
+</style>

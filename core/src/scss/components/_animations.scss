@@ -2,59 +2,241 @@
    MOTION — tab panel enter · progress animate · scroll reveal
    ============================================================ */
 
-/* Text entrance. Hidden content replays it on show: display:none cancels the
-   animation, so overlays need no JS. :where() keeps specificity at zero, so a
-   component's own animation (e.g. .dg-modal-icon) always wins. */
+/* Text entrance — elevación suave (sin fade ni blur). */
 @keyframes dg-text-in {
-  from { opacity: 0; transform: translateY(8px); filter: blur(6px); }
-  to { opacity: 1; transform: none; filter: none; }
+  from { transform: translateY(12px); }
+  to { transform: translateY(0); }
 }
+
+/* Modal textos: empiezan pronto (~35% de la elevación), fade largo y suave. */
+@keyframes dg-modal-content-in {
+  0%, 35% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+  100% { opacity: 1; }
+}
+/* Salida inversa: fade out primero, luego el modal desciende. */
+@keyframes dg-modal-content-out {
+  0% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  65%, 100% { opacity: 0; }
+}
+
+/* Header/footer glass: mismos tiempos, pero el blur acompaña al fade (sin pop). */
+@keyframes dg-modal-chrome-in {
+  0%, 35% {
+    opacity: 0;
+    -webkit-backdrop-filter: saturate(1.1) blur(0);
+    backdrop-filter: saturate(1.1) blur(0);
+    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+  100% {
+    opacity: 1;
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+  }
+}
+@keyframes dg-modal-chrome-out {
+  0% {
+    opacity: 1;
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  65%, 100% {
+    opacity: 0;
+    -webkit-backdrop-filter: saturate(1.1) blur(0);
+    backdrop-filter: saturate(1.1) blur(0);
+  }
+}
+
+/* Icono: mismo arranque, zoom + fade suave. */
+@keyframes dg-modal-icon-in {
+  0%, 35% {
+    opacity: 0;
+    transform: scale(.78);
+    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes dg-modal-icon-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  65%, 100% {
+    opacity: 0;
+    transform: scale(.78);
+  }
+}
+
 .dg-text-in,
 :where(
   .dg-menu-item,
-  .dg-modal-backdrop:not([hidden]) :is(.dg-modal-title, .dg-modal-body > *),
   .dg-drawer-header, .dg-drawer-body > *,
   .dg-popover-header, .dg-popover-body,
   .dg-accordion-item.is-open .dg-accordion-content,
   .dg-collapse.is-open > .dg-collapse-content
-) { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
+) { animation: dg-text-in var(--dg-dur-slow) var(--dg-ease-motion) both; }
+
+/* Chrome (header/footer): fade + blur; botones van dentro del footer.
+   Full-modal header stays opaque so the iPhone status bar matches. */
+:where(
+  .dg-modal-backdrop:not([hidden]) .dg-modal:not(.is-solid):not(.dg-modal-full) :is(
+    .dg-modal-header,
+    .dg-modal-footer
+  )
+) {
+  opacity: 0;
+  animation: dg-modal-chrome-in var(--dg-dur-motion) linear both;
+}
+:where(
+  .dg-modal-backdrop:not([hidden]) .dg-modal.is-solid:not(.dg-modal-full) :is(
+    .dg-modal-header,
+    .dg-modal-footer
+  )
+) {
+  opacity: 0;
+  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+}
+:where(
+  .dg-modal-backdrop:not([hidden]) .dg-modal-full :is(.dg-modal-footer)
+) {
+  opacity: 0;
+  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+}
+:where(
+  .dg-modal-backdrop:not([hidden]) .dg-modal-full .dg-modal-header .dg-modal-title
+) {
+  opacity: 0;
+  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+}
+
+:where(
+  .dg-modal-backdrop:not([hidden]) :is(
+    .dg-modal > .dg-modal-close,
+    .dg-modal > .dg-modal-resize,
+    .dg-modal-body > *,
+    .dg-modal-status-hero,
+    .dg-status-tag,
+    .dg-modal-body .dg-modal-title,
+    .dg-modal-confirm .dg-modal-title
+  )
+) {
+  opacity: 0;
+  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+}
+
+:where(.dg-modal-backdrop:not([hidden]) .dg-modal-icon) {
+  opacity: 0;
+  transform: scale(.78);
+  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+}
+
+/* Cierre: chrome, contenido e icono en sentido inverso. */
+.dg-modal-backdrop.is-closing .dg-modal:not(.is-solid):not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
+.dg-modal.is-closing:not(.is-solid):not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
+  animation: dg-modal-chrome-out var(--dg-dur-motion) linear forwards;
+}
+.dg-modal-backdrop.is-closing .dg-modal.is-solid:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
+.dg-modal.is-closing.is-solid:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
+  animation: dg-modal-content-out var(--dg-dur-motion) linear forwards;
+}
+.dg-modal-backdrop.is-closing .dg-modal-full :is(.dg-modal-footer, .dg-modal-header .dg-modal-title),
+.dg-modal-full.is-closing :is(.dg-modal-footer, .dg-modal-header .dg-modal-title) {
+  animation: dg-modal-content-out var(--dg-dur-motion) linear forwards;
+}
+
+.dg-modal-backdrop.is-closing :is(
+  .dg-modal > .dg-modal-close,
+  .dg-modal > .dg-modal-resize,
+  .dg-modal-body > *,
+  .dg-modal-status-hero,
+  .dg-status-tag,
+  .dg-modal-body .dg-modal-title,
+  .dg-modal-confirm .dg-modal-title
+),
+.dg-modal.is-closing :is(
+  .dg-modal > .dg-modal-close,
+  .dg-modal > .dg-modal-resize,
+  .dg-modal-body > *,
+  .dg-modal-status-hero,
+  .dg-status-tag,
+  .dg-modal-body .dg-modal-title,
+  .dg-modal-confirm .dg-modal-title
+) {
+  animation: dg-modal-content-out var(--dg-dur-motion) linear forwards;
+}
+
+.dg-modal-backdrop.is-closing .dg-modal-icon,
+.dg-modal.is-closing .dg-modal-icon {
+  animation: dg-modal-icon-out var(--dg-dur-motion) linear forwards;
+}
 
 @for $i from 2 through 6 {
-  :where(.dg-menu-item, .dg-modal-body > *, .dg-drawer-body > *):nth-child(#{$i}) {
-    animation-delay: #{($i - 1) * 45}ms;
+  :where(.dg-menu-item, .dg-drawer-body > *):nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 40}ms;
+  }
+  :where(.dg-modal-backdrop:not([hidden]):not(.is-closing) .dg-modal-body > *):nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 50}ms;
   }
 }
 
 /* Tab panel entrance when activated (JS adds .dg-is-entering) */
-.dg-is-entering { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) both; }
+.dg-is-entering { animation: dg-text-in var(--dg-dur-slow) var(--dg-ease-motion) both; }
 
 @media (prefers-reduced-motion: reduce) {
   .dg-text-in, .dg-is-entering,
   :where(
     .dg-menu-item,
-    .dg-modal-backdrop:not([hidden]) :is(.dg-modal-title, .dg-modal-body > *),
+    .dg-modal-backdrop:not([hidden]) :is(
+      .dg-modal-header,
+      .dg-modal-footer,
+      .dg-modal > .dg-modal-close,
+      .dg-modal > .dg-modal-resize,
+      .dg-modal-body > *,
+      .dg-modal-status-hero,
+      .dg-modal-icon,
+      .dg-status-tag,
+      .dg-modal-body .dg-modal-title,
+      .dg-modal-confirm .dg-modal-title
+    ),
     .dg-drawer-header, .dg-drawer-body > *,
     .dg-popover-header, .dg-popover-body,
     .dg-accordion-item.is-open .dg-accordion-content,
     .dg-collapse.is-open > .dg-collapse-content
-  ) { animation: none; }
+  ) {
+    animation: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  :where(.dg-modal-backdrop:not([hidden]) .dg-modal-icon) {
+    transform: none;
+  }
 }
 
 /* Progress bar — JS animates from 0 via IntersectionObserver */
 .dg-progress-bar { transition: width var(--dg-dur-motion) var(--dg-ease-motion); }
 
-/* Scroll-reveal: same motion as dg-text-in. JS adds .is-visible when the element
-   enters the viewport; [data-dg-reveal-children] tags a container's children. */
+/* Scroll-reveal: same elevation as dg-text-in (no fade/blur). */
 .dg-reveal {
-  opacity: 0; transform: translateY(14px); filter: blur(6px);
-  transition: opacity var(--dg-dur-motion) var(--dg-ease-motion), transform var(--dg-dur-motion) var(--dg-ease-motion), filter var(--dg-dur-motion) var(--dg-ease-motion);
+  transform: translateY(16px);
+  transition: transform var(--dg-dur-slow) var(--dg-ease-motion);
 }
-.dg-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+.dg-reveal.is-visible { transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .dg-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  .dg-reveal { transform: none; transition: none; }
 }
 @media print {
-  .dg-reveal { opacity: 1; transform: none; filter: none; }
+  .dg-reveal { transform: none; }
 }
 
 /* ============================================================
