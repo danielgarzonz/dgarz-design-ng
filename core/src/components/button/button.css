@@ -1,0 +1,40 @@
+
+    :host { display: inline-block; }
+    button {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--dgarz-spacing-sm, .5rem);
+      min-block-size: 2.75rem;
+      min-inline-size: var(--dgarz-button-min-width, 6rem);
+      padding: var(--dgarz-spacing-sm, .5rem) var(--dgarz-spacing-md, 1rem);
+      border: 1px solid transparent;
+      border-radius: var(--dgarz-radius-button, 999px);
+      font: inherit;
+      font-family: var(--dgarz-font-family, system-ui, sans-serif);
+      background: var(--dgarz-color-primary, #0b0b0c);
+      color: var(--dgarz-color-on-primary, #fff);
+      cursor: pointer;
+    }
+    :host([variant='secondary']) button {
+      background: var(--dgarz-color-surface, #fff);
+      color: var(--dgarz-color-text, #0b0b0c);
+      border-color: var(--dgarz-color-border, #bcbcc3);
+    }
+    button:focus-visible {
+      outline: 2px solid var(--dgarz-color-focus, #247cff);
+      outline-offset: 3px;
+    }
+    button:disabled { cursor: not-allowed; opacity: .6; }
+    .spinner {
+      inline-size: 1em;
+      block-size: 1em;
+      border: 2px solid currentColor;
+      border-inline-end-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+  

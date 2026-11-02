@@ -1,17 +1,17 @@
 {
   "name": "dgarz-design",
-  "version": "1.2.0",
-  "description": "A minimal, monochrome, performance-first CSS framework. Elegant serif headings, pill shapes, full light/dark theming. Zero dependencies, one file.",
-  "main": "dist/dgarz.js",
-  "module": "dist/dgarz.esm.js",
-  "style": "dist/dgarz.css",
+  "version": "2.0.0-alpha.0",
+  "description": "Corporate, omnichannel component design system built with Stencil.js Web Components, native CSS and design tokens.",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "style": "dist/tokens.css",
   "jsdelivr": "dist/dgarz.full.min.css",
   "unpkg": "dist/dgarz.full.min.css",
   "exports": {
     ".": {
-      "import": "./dist/dgarz.esm.js",
-      "require": "./dist/dgarz.js",
-      "default": "./dist/dgarz.js"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./esm": "./dist/dgarz.esm.js",
     "./js": "./dist/dgarz.js",
@@ -22,33 +22,74 @@
     "./full/min": "./dist/dgarz.full.min.css",
     "./app": "./dist/dgarz-app.css",
     "./app/min": "./dist/dgarz-app.min.css",
-    "./icons": "./dist/dgarz-icons.svg"
+    "./icons": "./dist/dgarz-icons.svg",
+    "./legacy": {
+      "import": "./dist/dgarz.esm.js",
+      "require": "./dist/dgarz.js",
+      "default": "./dist/dgarz.js"
+    },
+    "./tokens": "./dist/tokens.css",
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    },
+    "./component-docs.json": "./dist/component-docs.json",
+    "./hydrate": {
+      "types": "./dist/hydrate/index.d.ts",
+      "import": "./dist/hydrate/index.mjs",
+      "require": "./dist/hydrate/index.js",
+      "default": "./dist/hydrate/index.js"
+    },
+    "./components/*.js": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    }
   },
   "files": [
-    "dist",
+    "dist/**/*",
     "README.md",
     "LICENSE"
   ],
   "sideEffects": [
-    "*.css"
+    "**/*.css",
+    "./dist/index.mjs",
+    "./dist/components/**/*.js",
+    "./dist/dgarz*.js"
   ],
   "scripts": {
     "build:css": "sass src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
     "build:css:min": "npx clean-css-cli -o dist/dgarz.min.css dist/dgarz.css && npx clean-css-cli -o dist/dgarz.full.min.css dist/dgarz.full.css && npx clean-css-cli -o dist/dgarz-app.min.css dist/dgarz-app.css",
     "build:js": "vite build && npx terser dist/dgarz.js --compress --mangle -o dist/dgarz.min.js",
     "build:icons": "cp src/icons/dgarz-icons.svg dist/dgarz-icons.svg",
-    "build": "npm run build:css && npm run build:css:min && npm run build:js && npm run build:icons",
-    "dev": "sass --watch src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
-    "prepublishOnly": "npm run build"
+    "build": "npm run build:components && npm run build:legacy",
+    "dev": "npm run build:components && stencil build --watch --dev --buildDist --max-workers=2",
+    "prepublishOnly": "npm run build",
+    "build:legacy": "npm run build:css && npm run build:css:min && npm run build:js && npm run build:icons",
+    "build:components": "node scripts/build-components.mjs --clean && stencil build --prod --max-workers=2 && node scripts/build-components.mjs",
+    "dev:legacy": "sass --watch src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
+    "test": "vitest run",
+    "test:watch": "npm run build:components && vitest",
+    "typecheck": "npm run build:components && tsc -p tsconfig.check.json",
+    "storybook": "storybook dev -p 6006 --disable-telemetry",
+    "build:storybook": "storybook build --disable-telemetry",
+    "pretest": "npm run build:components",
+    "prestorybook": "npm run build:components",
+    "prebuild:storybook": "npm run build:components",
+    "prepack": "npm run build",
+    "verify:package": "node scripts/verify-package.mjs",
+    "verify:hydrate": "node scripts/verify-hydrate.mjs",
+    "verify:button-classes": "npm run build:legacy && node scripts/verify-button-classes.mjs"
   },
   "keywords": [
-    "css",
-    "css-framework",
     "design-system",
-    "ui",
-    "monochrome",
-    "minimal",
-    "dark-mode",
+    "web-components",
+    "stencil",
+    "shadow-dom",
+    "design-tokens",
     "components",
     "dgarz"
   ],
@@ -63,9 +104,26 @@
     "url": "https://github.com/dgarzonz/dgarz-design/issues"
   },
   "devDependencies": {
+    "@stencil/angular-output-target": "1.1.0",
+    "@stencil/core": "^4.45.2",
+    "@stencil/react-output-target": "^1.7.0",
+    "@stencil/vue-output-target": "^0.14.7",
+    "@storybook/html-vite": "^9.1.21",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/user-event": "^14.6.8",
     "clean-css-cli": "^5.6.3",
+    "jsdom": "^26.1.0",
+    "playwright": "^1.64.1",
     "sass": "^1.86.0",
+    "storybook": "^9.1.21",
     "terser": "^5.51.2",
-    "vite": "^6.0.0"
+    "typescript": "^5.9.3",
+    "vite": "^6.0.0",
+    "vitest": "^3.2.7"
+  },
+  "types": "dist/index.d.mts",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
   }
 }

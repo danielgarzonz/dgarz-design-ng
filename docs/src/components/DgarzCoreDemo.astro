@@ -1,0 +1,82 @@
+---
+/**
+ * Server-renders the Stencil pilot with Declarative Shadow DOM, then registers
+ * the custom elements on the client for hydration. Server-only: uses hydrate.
+ */
+import { renderToString } from 'dgarz-design/hydrate';
+import Demo from './Demo.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'dgarz-core-demo' } = Astro.props;
+
+const markup = `
+  <div class="dgarz-core-actions" style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center">
+    <dgarz-button id="${id}-primary">Continuar</dgarz-button>
+    <dgarz-button id="${id}-secondary" variant="secondary">Cancelar</dgarz-button>
+    <dgarz-button id="${id}-loading" loading>Guardando</dgarz-button>
+    <dgarz-button id="${id}-disabled" disabled>No disponible</dgarz-button>
+  </div>
+  <div style="margin-top:1rem;max-width:22rem">
+    <dgarz-input id="${id}-email" label="Correo" type="email" placeholder="nombre@empresa.com"></dgarz-input>
+  </div>
+  <p class="dg-text-sm dg-muted dg-mt-3" id="${id}-status" data-status>Sin clics</p>
+`;
+
+const { html, diagnostics, hydratedCount } = await renderToString(markup, {
+  fullDocument: false,
+  prettyHtml: false,
+  serializeShadowRoot: 'declarative-shadow-dom',
+});
+
+const errors = (diagnostics ?? []).filter((item) => item.level === 'error');
+if (errors.length) {
+  throw new Error(`dgarz hydrate failed:\n${JSON.stringify(errors, null, 2)}`);
+}
+if ((hydratedCount ?? 0) < 5) {
+  throw new Error(`dgarz hydrate expected 5 components, got ${hydratedCount}`);
+}
+
+const tokensHref = import.meta.env.DEV ? '/__core/tokens.css' : '/dist/tokens.css';
+const coreHref = import.meta.env.DEV ? '/__core/index.mjs' : '/dist/index.mjs';
+---
+<link rel="stylesheet" href={tokensHref} />
+<Demo class="dgarz-core-demo-wrap">
+  <div
+    class="dgarz-core-demo"
+    id={id}
+    data-core-entry={coreHref}
+    data-hydrated-count={String(hydratedCount ?? 0)}
+    set:html={html}
+  />
+</Demo>
+<script is:inline>
+  (function () {
+    var roots = document.querySelectorAll('.dgarz-core-demo[data-core-entry]');
+    roots.forEach(function (root) {
+      if (root.dataset.dgarzBooted) return;
+      root.dataset.dgarzBooted = '1';
+      var entry = root.getAttribute('data-core-entry');
+      var status = root.querySelector('[data-status]');
+      var primary = root.querySelector('dgarz-button');
+      import(entry).then(function (mod) {
+        if (typeof mod.defineCustomElements === 'function') mod.defineCustomElements();
+        return customElements.whenDefined('dgarz-button');
+      }).then(function () {
+        var clicks = 0;
+        primary && primary.addEventListener('dgarz-click', function () {
+          clicks += 1;
+          if (status) status.textContent = clicks === 1 ? '1 clic' : clicks + ' clics';
+          root.dataset.clicks = String(clicks);
+        });
+        root.dataset.ready = 'true';
+      }).catch(function (error) {
+        root.dataset.ready = 'error';
+        if (status) status.textContent = 'Error al hidratar';
+        console.error(error);
+      });
+    });
+  })();
+</script>

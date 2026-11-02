@@ -1,43 +1,28 @@
-# Astro Starter Kit: Minimal
+# Documentación de dgarz design
 
-```sh
-npm create astro@latest -- --template minimal
+La entrada principal es **[Introducción](http://192.168.100.6:4321/comenzar/intro)**, en la ruta `/comenzar/intro`.
+
+Desde la raíz del monorepositorio:
+
+```bash
+npm install
+npm run build
+npm run dev:docs
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Astro escucha en todas las interfaces (`0.0.0.0`) en el puerto `4321`. El puerto es estricto: si está ocupado, falla en lugar de cambiar la dirección del catálogo. La dirección `192.168.100.6` corresponde al equipo de desarrollo en la red local; el servidor debe estar ejecutándose para acceder desde otros dispositivos.
 
-## 🚀 Project Structure
+Los enlaces internos usan `/comenzar/intro`, por lo que también funcionan en localhost o en el dominio de despliegue. La portada `/` se conserva; sus accesos a documentación y el botón «Empezar» llevan a la introducción. Dentro del catálogo, el logo y «Inicio» regresan a esa misma entrada.
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm run build:docs
+npm run preview --workspace=docs
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+El catálogo Astro aún describe principalmente la implementación heredada. El avance de la migración a Stencil y sus pendientes están en [MIGRATION_STATUS.md](../MIGRATION_STATUS.md). Storybook sigue siendo el catálogo de desarrollo del nuevo Core; no sustituye esta entrada de documentación.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Regla de contenido en headers curvos
 
-Any static assets, like images, can be placed in the `public/` directory.
+En un encabezado con esquinas curvas, el borde visible del último icono debe alinearse con la tangente interior donde empieza la curva. El límite es el trazo visible, no el borde del botón. El inset móvil es `--pub-nav-radius` (55px) con áreas seguras. Los botones miden 30×36px con icono de 12px; la compensación de −9px alinea el trazo con la tangente y deja que la zona pulsable se extienda dentro del header. El modal completo usa el mismo criterio con radio e inset de 48px. Aplicar la misma alineación con el menú abierto. La variante de escritorio sin curvas usa la alineación del shell.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+El límite también se aplica al extremo izquierdo: el trazo visible inicial de la marca se alinea con la tangente izquierda. La compensación de Newsreader se limita a `.pub-nav .pub-brand` en móvil; no afecta al footer ni al escritorio. Revisarla si cambia la tipografía.

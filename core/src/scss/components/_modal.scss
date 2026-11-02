@@ -1,22 +1,14 @@
+@use "../abstracts/buttons" as button;
+
 /* ---- Modal ------------------------------------------------ */
 .dg-modal-backdrop {
   position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
   padding: var(--dg-space-5); background: color-mix(in oklab, var(--dg-950) 22%, transparent);
-  animation: dg-backdrop-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
 }
 .dg-modal-backdrop[hidden] {
-  display: flex !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  animation: none !important;
+  display: none !important;
 }
 @keyframes dg-fade       { from { opacity: 0; } to { opacity: 1; } }
-/* Animate only the dimming color. Opacity/filter on the backdrop would
-   create a backdrop root and prevent the dialog blur from sampling the page. */
-@keyframes dg-backdrop-in {
-  from { background-color: transparent; }
-  to { background-color: color-mix(in oklab, var(--dg-950) 22%, transparent); }
-}
 .dg-modal {
   --dg-modal-section-bg: color-mix(in oklab, var(--dg-surface-3) 55%, transparent);
   width: 100%; max-width: 720px;
@@ -26,14 +18,21 @@
   /* Exposed as a custom property (not just a shadow value) so .dg-modal-glow
      can layer its animated halo on top of whichever shadow is active —
      the glass default here or .is-solid below — instead of replacing it. */
+  --dg-modal-shadow-rest:
+    inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
+    0 2px 8px color-mix(in oklab, #000 5%, transparent);
   --dg-modal-shadow:
     inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
-    0 6px 28px color-mix(in oklab, #000 7%, transparent);
+    0 6px 28px color-mix(in oklab, #000 7%, transparent),
+    0 24px 48px color-mix(in oklab, #000 12%, transparent);
   box-shadow: var(--dg-modal-shadow);
-  overflow: hidden; isolation: isolate; animation: dg-modal-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+  overflow: hidden; isolation: isolate;
+  animation: dg-modal-in var(--dg-dur-motion) var(--dg-ease-motion) both;
 }
 /* The glass surface is a sibling layer of the header/body/footer. Keeping
-   backdrop-filter off their ancestor lets each control sample its backdrop. */
+   backdrop-filter off their ancestor lets each control sample its backdrop.
+   Fade the glass via background + blur — never opacity on .dg-modal, or the
+   browser flattens the layer and backdrop-filter pops in at full strength. */
 .dg-modal:not(.is-solid)::after {
   content: "";
   position: absolute; inset: 0;
@@ -41,15 +40,91 @@
   background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
   -webkit-backdrop-filter: saturate(1.8) blur(20px);
   backdrop-filter: saturate(1.8) blur(20px);
+  animation: dg-modal-glass-in var(--dg-dur-motion) var(--dg-ease-motion) both;
+}
+.dg-modal.is-closing:not(.is-solid)::after,
+.dg-modal-backdrop.is-closing .dg-modal:not(.is-solid)::after {
+  animation: dg-modal-glass-out var(--dg-dur-motion) linear forwards;
 }
 
+@keyframes dg-modal-glass-in {
+  from {
+    background: color-mix(in oklab, var(--dg-surface) 40%, transparent);
+    -webkit-backdrop-filter: saturate(1.1) blur(0);
+    backdrop-filter: saturate(1.1) blur(0);
+  }
+  to {
+    background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+  }
+}
+@keyframes dg-modal-glass-out {
+  0%, 35% {
+    background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  100% {
+    background: color-mix(in oklab, var(--dg-surface) 40%, transparent);
+    -webkit-backdrop-filter: saturate(1.1) blur(0);
+    backdrop-filter: saturate(1.1) blur(0);
+  }
+}
+
+/* Elevación del contenedor (sin opacity: rompe backdrop-filter). */
 @keyframes dg-modal-in {
-  from { opacity: 0; transform: translateY(20px) scale(.95); }
-  60%  { opacity: 1; }
-  to   { opacity: 1; transform: none; }
+  from {
+    transform: translateY(40px);
+    box-shadow: var(--dg-modal-shadow-rest);
+  }
+  to {
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+  }
 }
 
 /* ---- Modal surface variants ------------------------------- */
+/* Solid can fade with opacity — no backdrop-filter on the surface. */
+.dg-modal.is-solid {
+  animation-name: dg-modal-solid-in;
+}
+.dg-modal.is-solid.is-closing {
+  animation-name: dg-modal-solid-out;
+}
+@keyframes dg-modal-solid-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    box-shadow: var(--dg-modal-shadow-rest);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+  }
+}
+@keyframes dg-modal-solid-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+    animation-timing-function: linear;
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(40px);
+    box-shadow: var(--dg-modal-shadow-rest);
+  }
+}
+
 .dg-modal.is-solid {
   --dg-modal-section-bg: var(--dg-surface-3);
   color-scheme: light;
@@ -68,7 +143,8 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border: 1px solid var(--dg-border);
-  --dg-modal-shadow: var(--dg-shadow-2);
+  --dg-modal-shadow-rest: var(--dg-shadow-1);
+  --dg-modal-shadow: var(--dg-shadow-3);
   box-shadow: var(--dg-modal-shadow);
 }
 .dg-modal.is-solid .dg-modal-header { background: var(--dg-modal-section-bg); border-bottom-color: var(--dg-border); -webkit-backdrop-filter: none; backdrop-filter: none; }
@@ -143,8 +219,7 @@
               inset 0 1px 0 color-mix(in oklab, #fff 30%, transparent);
   border: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
 }
-.dg-modal-footer .dg-btn {
-  min-width: 96px;
+.dg-modal-footer #{button.$selector} {
   flex-shrink: 0;
   transition: transform var(--dg-dur) var(--dg-ease),
               background var(--dg-dur) var(--dg-ease),
@@ -153,11 +228,11 @@
               box-shadow var(--dg-dur) var(--dg-ease);
 
 }
-.dg-modal-footer .dg-btn:hover {
+.dg-modal-footer #{button.$selector}:hover {
   transform: scale(1.05);
   transition: 0.5s;
 }
-.dg-modal-footer .dg-btn:not(:disabled):not(.is-disabled):active {
+.dg-modal-footer #{button.$selector}:not(:disabled):not(.is-disabled):active {
   transform: scale(0.98);
 }
 
@@ -176,7 +251,7 @@
 /* Round icon-only buttons in footer */
 .dg-modal-footer .dg-btn-icon,
 .dg-modal-footer .dg-icon-btn,
-.dg-modal-footer .dg-btn.is-icon {
+.dg-modal-footer #{button.$selector}.is-icon {
   min-width: unset;
   width: 42px;
   height: 42px;
@@ -188,7 +263,7 @@
 }
 .dg-modal-footer .dg-btn-icon svg,
 .dg-modal-footer .dg-icon-btn svg,
-.dg-modal-footer .dg-btn.is-icon svg {
+.dg-modal-footer #{button.$selector}.is-icon svg {
   width: 20px;
   height: 20px;
 }
@@ -210,10 +285,10 @@
 }
 
 /* Botón sólido (primary) icon: fuerza icono blanco sobre fondo oscuro */
-.dg-modal-footer .dg-btn:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(.dg-btn-danger).dg-btn-icon {
+.dg-modal-footer #{button.$selector}:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(#{button.$subtle-selector}):not(.dg-btn-danger).dg-btn-icon {
   color: var(--dg-on-solid);
 }
-.dg-modal-footer .dg-btn:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(.dg-btn-danger).dg-btn-icon svg {
+.dg-modal-footer #{button.$selector}:not(.dg-btn-ghost):not(.dg-btn-cancel):not(.dg-btn-outline):not(#{button.$subtle-selector}):not(.dg-btn-danger).dg-btn-icon svg {
   color: var(--dg-on-solid);
   stroke: var(--dg-on-solid);
 }
@@ -285,22 +360,32 @@
 .dg-modal-close,
 .dg-modal-resize {
   position: absolute;
-  top: 8px;
+  top: 14px;
   right: var(--dg-space-4);
-  width: 30px; height: 42px; padding: 0;
+  width: 22px; height: 22px; padding: 0;
   border: 0; border-radius: 50%;
-  /* Small visible circle with a larger touch target. */
-  background: radial-gradient(circle, #0b0b0c 0 11px, transparent 11.5px);
+  background: #0b0b0c;
   display: inline-flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 1rem; cursor: pointer;
+  color: #fff; font-size: 1rem; line-height: 0;
+  cursor: pointer;
   z-index: 20;
-  transition: color var(--dg-dur) var(--dg-ease);
+  transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+}
+/* Larger touch target without shifting the visible circle / glyph. */
+.dg-modal-close::before,
+.dg-modal-resize::before {
+  content: "";
+  position: absolute;
+  inset: -10px -4px;
 }
 .dg-modal-close svg, .dg-modal-close .dg-icon,
 .dg-modal-resize svg, .dg-modal-resize .dg-icon {
-  width: 12px; height: 12px; stroke: currentColor; color: inherit;
+  display: block;
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  stroke: currentColor; color: inherit;
 }
-.dg-modal-close:hover, .dg-modal-resize:hover { color: #fff; background: radial-gradient(circle, #27272a 0 11px, transparent 11.5px); }
+.dg-modal-close:hover, .dg-modal-resize:hover { color: #fff; background: #27272a; }
 .dg-modal-resize { right: calc(var(--dg-space-4) + 30px); }
 .dg-modal:has(.dg-modal-resize) .dg-modal-header { padding-inline: 104px; }
 .dg-modal { position: relative; display: flex; flex-direction: column; max-height: calc(100vh - var(--dg-space-7)); }
@@ -315,17 +400,44 @@
   height: 100vh; height: 100dvh; max-height: none;
   border-radius: 0;
 }
+/* Header content stops at the interior tangent of the 48px corner radius.
+   Buttons are 30px with a 12px icon, so they sit 9px past the limit to align
+   the visible stroke with the tangent. The title clears the buttons. */
+.dg-modal-full {
+  --dg-modal-header-inset: max(48px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  /* Opaque header so theme-color / status bar can match exactly. */
+  --dg-modal-section-bg: var(--dg-surface-3);
+}
 .dg-modal-full .dg-modal-header {
   border-bottom-left-radius: 48px;
   border-bottom-right-radius: 48px;
   border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 40%, transparent);
   box-shadow: 0 4px 20px color-mix(in oklab, #000 6%, transparent);
-  padding-inline: calc(48px + var(--dg-space-4));
+  padding-inline: calc(var(--dg-modal-header-inset) + 22px + var(--dg-space-2));
+  padding-top: env(safe-area-inset-top, 0px);
+  min-height: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px));
+  background: var(--dg-surface-3);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.dg-modal-full:not(.is-solid) > .dg-modal-header {
+  height: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px));
+}
+.dg-modal-full:not(.is-solid):has(> .dg-modal-header) > .dg-modal-body {
+  padding-top: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px) + var(--dg-space-5));
+  scroll-padding-top: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px) + var(--dg-space-5));
+}
+.dg-modal-full:has(.dg-modal-resize) .dg-modal-header {
+  padding-inline: calc(var(--dg-modal-header-inset) + 52px + var(--dg-space-2));
+}
+.dg-modal-full .dg-modal-close,
+.dg-modal-full .dg-modal-resize {
+  top: calc(14px + env(safe-area-inset-top, 0px));
 }
 .dg-modal-full .dg-modal-close {
-  right: calc(48px + var(--dg-space-3));
+  right: calc(var(--dg-modal-header-inset) - 9px);
 }
-.dg-modal-full .dg-modal-resize { right: calc(48px + var(--dg-space-3) + 30px); }
+.dg-modal-full .dg-modal-resize { right: calc(var(--dg-modal-header-inset) - 9px + 30px); }
 .dg-modal-full .dg-modal-body {
   flex: 1; display: flex; flex-direction: column;
   padding-inline: max(var(--dg-space-5), calc((100% - 1100px) / 2));
@@ -338,9 +450,17 @@
 .dg-modal-confirm { text-align: center; }
 .dg-modal-confirm .dg-modal-body { padding-top: var(--dg-space-7); color: var(--dg-text); }
 .dg-modal-confirm .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-3); }
-.dg-modal-confirm .dg-modal-icon { width: 56px; height: 56px; margin: 0 auto var(--dg-space-3); animation: dg-icon-pop var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
+.dg-modal-confirm .dg-modal-icon {
+  width: 56px; height: 56px; margin: 0 auto var(--dg-space-3);
+  opacity: 0;
+  transform: scale(.78);
+  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+}
+.dg-modal-confirm.is-closing .dg-modal-icon,
+.dg-modal-backdrop.is-closing .dg-modal-confirm .dg-modal-icon {
+  animation: dg-modal-icon-out var(--dg-dur-motion) linear forwards;
+}
 .dg-modal-confirm .dg-modal-footer { justify-content: center; }
-@keyframes dg-icon-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
 
 /* dgConfirm/dgAlert/dgPrompt (src/js/confirm.js) — inline error shown when preConfirm rejects */
 .dg-confirm-error {
@@ -425,16 +545,25 @@
   }
 }
 
-/* prefers-reduced-motion: modal entrance/exit become simple fades */
+/* prefers-reduced-motion: sin animación de movimiento ni difuminado */
 @media (prefers-reduced-motion: reduce) {
-  .dg-modal-backdrop          { animation: none; }
-  .dg-modal-backdrop.is-closing { animation: dg-fade-out 160ms linear forwards; }
+  .dg-modal-backdrop,
+  .dg-modal-backdrop.is-closing,
   .dg-modal,
+  .dg-modal:not(.is-solid)::after,
   .dg-pos-top    .dg-modal,
   .dg-pos-bottom .dg-modal,
   .dg-pos-left   .dg-modal,
-  .dg-pos-right  .dg-modal    { animation: dg-fade 160ms linear backwards; filter: none !important; }
-  .dg-modal.is-closing        { animation: dg-fade-out 160ms linear forwards; filter: none !important; }
+  .dg-pos-right  .dg-modal,
+  .dg-modal.is-closing,
+  .dg-pos-top    .dg-modal.is-closing,
+  .dg-pos-bottom .dg-modal.is-closing,
+  .dg-pos-left   .dg-modal.is-closing,
+  .dg-pos-right  .dg-modal.is-closing {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
 }
 
 /* ---- Modal positions -------------------------------------- */
@@ -449,38 +578,78 @@
 .dg-pos-bottom .dg-modal { animation: dg-modal-up var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
 .dg-pos-left   .dg-modal { animation: dg-modal-inleft var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
 .dg-pos-right  .dg-modal { animation: dg-modal-inright var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
-@keyframes dg-modal-down    { from { opacity: 0; transform: translateY(-28px) scale(.97); } to { opacity: 1; transform: none; } }
-@keyframes dg-modal-up      { from { opacity: 0; transform: translateY(28px)  scale(.97); } to { opacity: 1; transform: none; } }
-@keyframes dg-modal-inleft  { from { opacity: 0; transform: translateX(-32px) scale(.97); } to { opacity: 1; transform: none; } }
-@keyframes dg-modal-inright { from { opacity: 0; transform: translateX(32px)  scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes dg-modal-down {
+  from { transform: translateY(-36px); box-shadow: var(--dg-modal-shadow-rest); }
+  to   { transform: translateY(0); box-shadow: var(--dg-modal-shadow); }
+}
+@keyframes dg-modal-up {
+  from { transform: translateY(36px); box-shadow: var(--dg-modal-shadow-rest); }
+  to   { transform: translateY(0); box-shadow: var(--dg-modal-shadow); }
+}
+@keyframes dg-modal-inleft {
+  from { transform: translateX(-36px); box-shadow: var(--dg-modal-shadow-rest); }
+  to   { transform: translateX(0); box-shadow: var(--dg-modal-shadow); }
+}
+@keyframes dg-modal-inright {
+  from { transform: translateX(36px); box-shadow: var(--dg-modal-shadow-rest); }
+  to   { transform: translateX(0); box-shadow: var(--dg-modal-shadow); }
+}
 
 /* ---- Exit animations (via JS .is-closing class) ----------- */
-/* ease-in cubic + duración 0.26s — más perceptible que la entrada */
-@keyframes dg-modal-out  {
-  from { opacity: 1; transform: none; filter: blur(0); }
-  to   { opacity: 0; transform: translateY(16px) scale(.95); filter: blur(3px); }
+/* Inverso de la entrada: contenido sale primero; el diálogo baja después (~35%). */
+@keyframes dg-modal-out {
+  0% {
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+    animation-timing-function: linear;
+  }
+  35% {
+    transform: translateY(0);
+    box-shadow: var(--dg-modal-shadow);
+    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
+  }
+  100% {
+    transform: translateY(40px);
+    box-shadow: var(--dg-modal-shadow-rest);
+  }
 }
 @keyframes dg-fade-out        { from { opacity: 1; }                    to { opacity: 0; } }
 @keyframes dg-drawer-out      { from { transform: none; }               to { transform: translateX(110%); } }
 @keyframes dg-drawer-out-left { from { transform: none; }               to { transform: translateX(-110%); } }
 @keyframes dg-menu-out        { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(-6px) scale(.97); } }
 
-.dg-modal.is-closing            { animation: dg-modal-out       var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
-.dg-modal-backdrop.is-closing   { animation: dg-fade-out        var(--dg-dur-motion) var(--dg-ease-exit) forwards; pointer-events: none; }
+.dg-modal.is-closing            { animation: dg-modal-out       var(--dg-dur-motion) linear forwards; }
+.dg-modal-backdrop.is-closing   { animation: none; pointer-events: none; }
 .dg-drawer.is-closing           { animation: dg-drawer-out      var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
 .dg-drawer.dg-drawer-left.is-closing { animation: dg-drawer-out-left var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
 .dg-drawer-backdrop.is-closing  { animation: dg-fade-out        var(--dg-dur-motion) var(--dg-ease-exit) forwards; pointer-events: none; }
 .dg-menu.is-closing             { animation: dg-menu-out        var(--dg-dur-motion) var(--dg-ease-exit) forwards; pointer-events: none; }
 
 /* Exit animations for position-aware modals */
-.dg-pos-top    .dg-modal.is-closing { animation: dg-modal-pos-up-out    var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
-.dg-pos-bottom .dg-modal.is-closing { animation: dg-modal-pos-down-out  var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
-.dg-pos-left   .dg-modal.is-closing { animation: dg-modal-pos-left-out  var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
-.dg-pos-right  .dg-modal.is-closing { animation: dg-modal-pos-right-out var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
-@keyframes dg-modal-pos-up-out    { to { opacity: 0; transform: translateY(-22px); } }
-@keyframes dg-modal-pos-down-out  { to { opacity: 0; transform: translateY(22px); } }
-@keyframes dg-modal-pos-left-out  { to { opacity: 0; transform: translateX(-28px); } }
-@keyframes dg-modal-pos-right-out { to { opacity: 0; transform: translateX(28px); } }
+.dg-pos-top    .dg-modal.is-closing { animation: dg-modal-pos-up-out    var(--dg-dur-motion) linear forwards; }
+.dg-pos-bottom .dg-modal.is-closing { animation: dg-modal-pos-down-out  var(--dg-dur-motion) linear forwards; }
+.dg-pos-left   .dg-modal.is-closing { animation: dg-modal-pos-left-out  var(--dg-dur-motion) linear forwards; }
+.dg-pos-right  .dg-modal.is-closing { animation: dg-modal-pos-right-out var(--dg-dur-motion) linear forwards; }
+@keyframes dg-modal-pos-up-out {
+  0% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
+  35% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { transform: translateY(-40px); box-shadow: var(--dg-modal-shadow-rest); }
+}
+@keyframes dg-modal-pos-down-out {
+  0% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
+  35% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { transform: translateY(40px); box-shadow: var(--dg-modal-shadow-rest); }
+}
+@keyframes dg-modal-pos-left-out {
+  0% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
+  35% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { transform: translateX(-40px); box-shadow: var(--dg-modal-shadow-rest); }
+}
+@keyframes dg-modal-pos-right-out {
+  0% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
+  35% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { transform: translateX(40px); box-shadow: var(--dg-modal-shadow-rest); }
+}
 
 /* Toast/snackbar-style compact modal (great for top/bottom positions) */
 .dg-modal-bar { max-width: 520px; }
@@ -619,7 +788,13 @@
 /* Bigger badge with concentric rings: subtle tint outside, solid circle inside */
 .dg-modal-status-hero .dg-modal-icon {
   width: 76px; height: 76px;
-  animation: dg-icon-pop var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+  opacity: 0;
+  transform: scale(.78);
+  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+}
+.dg-modal.is-closing .dg-modal-status-hero .dg-modal-icon,
+.dg-modal-backdrop.is-closing .dg-modal-status-hero .dg-modal-icon {
+  animation: dg-modal-icon-out var(--dg-dur-motion) linear forwards;
 }
 .dg-modal-status-hero .dg-modal-icon svg,
 .dg-modal-status-hero .dg-modal-icon .dg-icon { width: 30px; height: 30px; }

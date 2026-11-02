@@ -1,0 +1,5 @@
+// Explicit button variants: exclude group/layout/effect classes.
+$selector: ":is(.dg-btn, .dg-btn-sm, .dg-btn-md, .dg-btn-lg, .dg-btn-solid, .dg-btn-primary, .dg-btn-subtle, .dg-btn-subtle-primary, .dg-btn-subtle-success, .dg-btn-subtle-warning, .dg-btn-subtle-danger, .dg-btn-subtle-info, .dg-btn-cancel, .dg-btn-outline, .dg-btn-outline-primary, .dg-btn-outline-success, .dg-btn-outline-warning, .dg-btn-outline-danger, .dg-btn-outline-info, .dg-btn-text, .dg-btn-text-primary, .dg-btn-text-success, .dg-btn-text-warning, .dg-btn-text-danger, .dg-btn-text-info, .dg-btn-ghost, .dg-btn-danger, .dg-btn-success, .dg-btn-warning, .dg-btn-info, .dg-btn-glass, .dg-btn-gradient, .dg-btn-gradient-warm)";
+$subtle-selector: ":is(.dg-btn-subtle, .dg-btn-subtle-primary, .dg-btn-subtle-success, .dg-btn-subtle-warning, .dg-btn-subtle-danger, .dg-btn-subtle-info)";
+$outline-selector: ":is(.dg-btn-outline, .dg-btn-outline-primary, .dg-btn-outline-success, .dg-btn-outline-warning, .dg-btn-outline-danger, .dg-btn-outline-info)";
+$text-selector: ":is(.dg-btn-text, .dg-btn-text-primary, .dg-btn-text-success, .dg-btn-text-warning, .dg-btn-text-danger, .dg-btn-text-info)";

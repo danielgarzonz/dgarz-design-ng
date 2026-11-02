@@ -14,7 +14,11 @@ export default defineConfig({
 
   vite: {
     server: {
+      strictPort: true,
       fs: { allow: ['..'] },
+    },
+    ssr: {
+      external: ['dgarz-design', 'dgarz-design/hydrate'],
     },
     plugins: [
       {
@@ -25,7 +29,13 @@ export default defineConfig({
             const file = resolve(coreDist, decodeURIComponent(req.url ?? '').replace(/^\//, ''));
             if (!existsSync(file)) { next(); return; }
             const ext = file.split('.').pop()?.toLowerCase() ?? '';
-            const types = { css: 'text/css', js: 'application/javascript', svg: 'image/svg+xml' };
+            const types = {
+              css: 'text/css',
+              js: 'application/javascript',
+              mjs: 'application/javascript',
+              svg: 'image/svg+xml',
+              json: 'application/json',
+            };
             res.setHeader('Content-Type', types[ext] ?? 'application/octet-stream');
             res.setHeader('Cache-Control', 'no-cache');
             createReadStream(file).pipe(res);

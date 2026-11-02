@@ -3,7 +3,47 @@
 All notable changes to **dgarz design** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased] — 1.2.0
+## [Unreleased] — 2.0.0-alpha.0
+
+### Button documentation and responsive width
+- Split button examples into 17 navigable sections with default behavior first.
+- Added `dg-btn-block-mobile` for full container width up to 991px and intrinsic width from 992px.
+
+### Colored subtle borders
+- Added standalone subtle primary/success/warning/danger/info variants with semantic 1px borders, soft surfaces and contrasting text/loading/modal icons.
+
+### Subtle button variant
+- Added standalone `dg-btn-subtle` with a light gray surface and dark text, dark-theme adaptation and contrasting loading/modal icons.
+- The default `dg-btn` remains solid primary at medium size.
+
+### Button CSS simplification
+- Button variants such as `dg-btn-primary` now include the base styles; `dg-btn-primary dg-btn-sm` is sufficient.
+- Existing `dg-btn` markup remains compatible; groups, loading, container styles and keyboard reordering support standalone variants.
+- Added `verify:button-classes` and updated button documentation.
+
+### Added
+- Stencil.js/TypeScript Core with native Shadow DOM, the `dgarz-button` pilot and `dgarz-input` text field.
+- Public `--dgarz-*` tokens via `dgarz-design/tokens`, with light/dark themes and field tokens.
+- Vitest/Testing Library tests and Storybook stories with Controls.
+- Architecture and staged migration documentation.
+- Generated React 19, Vue 3.5 and Angular 20.3 adapter packages, with installed-consumer TypeScript/template/browser verification.
+- Generated Stencil component metadata and public component subpaths.
+- `dgarz-design/hydrate` server module with Declarative Shadow DOM for the pilot, plus `verify:hydrate`.
+- Astro docs demo at `/comenzar/core` with build-time DSD and client hydration (`verify:astro-hydrate`).
+- Next.js App Router consumer verification for Core hydrate DSD (`verify:next-hydrate`).
+- `data-dg-reorder` on `.dg-btn-group`: drag to reorder with mouse or touch, Alt + arrow keys, Esc to cancel and a `dg:reorder` event.
+- `verify:package`: isolated reproducible production builds, tarball installation, consumer types and Chromium checks.
+
+### Changed
+- **Breaking:** the root ESM entry now exports and registers Web Components. Import the previous behavior API from `dgarz-design/legacy`.
+- Stencil compiles the Core with its runtime bundled; the existing CSS, icons and browser bundles remain available for migration.
+- Production builds explicitly use `--prod`, clear generated component types and rebuild before packing.
+- Framework adapters now use official output targets; SSR/DSD integration and Next.js-specific validation remain planned work.
+- Subtle buttons use cream/light fills of each semantic tone (same structure as solids). Outline buttons use a solid colored border with no fill, and take the matching subtle fill on hover; added `dg-btn-outline-{primary,success,warning,danger,info}`.
+- Semantic solid tokens (`success`, `warning`, `danger`, `info`) are more saturated in light and dark themes; primary remains the monochrome brand solid.
+- Added text-only buttons (`dg-btn-text` / `dg-btn-text-{tone}`) with a solid underline and no fill.
+
+## [1.2.0] — cambios heredados pendientes de publicación
 
 ### Added
 - **Forms**: date/time picker (`.dg-datepicker`, `.dg-cal-*`), combobox with search and multi-select tags (`.dg-combobox`), file upload dropzone with file list and progress (`.dg-dropzone`, `.dg-file-*`), input masks (`data-mask`, `data-mask-pattern`, `data-currency`), password visibility toggle (`.dg-password-wrap`).

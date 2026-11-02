@@ -1,0 +1,101 @@
+/* Mismo ancho que el contenido del .dg-container; radio de esquina de iPhone.
+       --pub-nav-inset es el límite del contenido a cada lado, igual que en los
+       headers de modal completo. */
+    .pub-nav {
+      --pub-nav-radius: 55px;
+      /* Tangente interior de la curva: el inset coincide con el radio. */
+      --pub-nav-inset: var(--pub-nav-radius);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+      flex-wrap: wrap; row-gap: 0;
+      width: calc(min(100%, var(--dg-container)) - 2 * var(--dg-space-5));
+      margin-inline: auto; padding-inline: var(--pub-nav-inset);
+      border-radius: 0 0 var(--pub-nav-radius) var(--pub-nav-radius);
+      /* Sólido para coincidir con la barra del teléfono (theme-color). */
+      background: var(--dg-paper);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition: transform var(--dg-dur-motion) var(--dg-ease-motion), background var(--dg-dur-motion) var(--dg-ease-motion);
+    }
+    .pub-nav.is-hidden { transform: translateY(-100%); }
+
+    /* Móvil: las opciones viven dentro del header, que crece y se reduce. */
+    .pub-nav .pub-menu-btn, .pub-icon-close, .pub-nav.is-open .pub-icon-open { display: none; }
+    .pub-nav.is-open .pub-icon-close { display: block; }
+    .pub-menu {
+      display: none; flex: 0 0 100%; grid-template-rows: 0fr;
+      visibility: hidden;
+      transition: grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion), visibility var(--dg-dur-motion);
+    }
+    .pub-nav.is-open .pub-menu { grid-template-rows: 1fr; visibility: visible; }
+    .pub-menu-inner { min-height: 0; overflow: hidden; }
+    .pub-menu-list { display: flex; flex-direction: column; gap: var(--dg-space-1); padding-block: var(--dg-space-3) var(--dg-space-4); }
+    .pub-nav.is-open .pub-menu-list > * { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(2) { animation-delay: 130ms; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(3) { animation-delay: 180ms; }
+    .pub-menu-list .dg-nav-link { display: flex; align-items: center; min-height: 44px; }
+    .pub-menu-list .dg-btn { margin-top: var(--dg-space-3); min-height: 44px; }
+    .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-medium); }
+    .pub-actions {
+      display: flex; align-items: center; gap: var(--dg-space-2);
+      margin-inline-start: auto; flex-shrink: 0;
+      /* Icono 12px en caja 30px: 9px vacíos a cada lado. El margen negativo
+         alinea el trazo visible con la tangente; la zona pulsable se extiende. */
+      margin-inline-end: -9px;
+    }
+    /* Círculo visible de 22px como en el modal, con un área táctil mayor.
+       El margen negativo deja 8px visibles entre círculos. */
+    .pub-actions > button {
+      --pub-btn-bg: color-mix(in oklab, var(--dg-text) 14%, var(--dg-paper)); /* Tinte de .dg-btn-outline */
+      --pub-btn-fg: var(--dg-text);
+      flex: 0 0 30px; width: 30px; height: 36px; padding: 0;
+      background: radial-gradient(circle, var(--pub-btn-bg) 0 11px, transparent 11.5px);
+      color: var(--pub-btn-fg);
+    }
+    .pub-actions > button + button { margin-inline-start: calc(-1 * var(--dg-space-2)); }
+    .pub-actions > :is(.pub-menu-btn, .doc-menu-btn) {
+      --pub-btn-bg: var(--dg-solid);
+      --pub-btn-fg: var(--dg-on-solid);
+    }
+    .pub-actions > button:hover {
+      background: radial-gradient(circle, color-mix(in oklab, var(--pub-btn-bg) 82%, var(--dg-text)) 0 11px, transparent 11.5px);
+      color: var(--pub-btn-fg);
+    }
+    .pub-actions > :is(.pub-menu-btn, .doc-menu-btn):hover {
+      background: radial-gradient(circle, color-mix(in oklab, var(--pub-btn-bg) 82%, var(--dg-paper)) 0 11px, transparent 11.5px);
+    }
+    .pub-actions > button svg { width: 12px; height: 12px; }
+    .pub-theme-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border: 0; border-radius: var(--dg-radius-pill);
+      background: none; color: var(--dg-text-muted); cursor: pointer;
+    }
+    .pub-moon, [data-theme="dark"] .pub-sun { display: none; }
+    [data-theme="dark"] .pub-moon { display: block; }
+
+
+    .pub-nav { min-height: 60px; }
+    @media (min-width: 861px) {
+      .pub-nav {
+        width: 100%;
+        margin-inline: 0;
+        padding-inline: max(var(--dg-space-5), calc((100% - 1320px) / 2 + var(--dg-space-5)));
+        border-radius: 0;
+      }
+    }
+    @media (max-width: 860px) {
+      .pub-docs-btn, .pub-nav .dg-navbar-nav { display: none; }
+      .pub-nav .pub-menu-btn { display: inline-flex; }
+      .pub-menu { display: grid; }
+      .pub-nav {
+        width: 100%;
+        padding-left: max(var(--pub-nav-inset), env(safe-area-inset-left, 0px));
+        padding-right: max(var(--pub-nav-inset), env(safe-area-inset-right, 0px));
+      }
+      /* Newsreader's initial "d" has a small positive side bearing.
+         Align its visible ink with the left tangent, not its text box. */
+      .pub-nav .pub-brand { margin-inline-start: -.035em; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub-nav, .pub-menu { transition: none; }
+      .pub-nav.is-open .pub-menu-list > * { animation: none; }
+    }

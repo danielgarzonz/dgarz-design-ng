@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.components.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "jsx": "preserve"
+  },
+  "include": ["src/components/**/*.ts", "src/components/**/*.tsx", ".storybook/**/*.ts", "vitest.config.mts", "stencil.config.ts"],
+  "exclude": []
+}

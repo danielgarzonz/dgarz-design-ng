@@ -1,82 +1,48 @@
-# Contributing to dgarz design
+# Contribuir a dgarz design
 
-Thanks for your interest in contributing. This guide covers everything you need to get started.
+Requisitos: Node.js >=22.12 y npm >=10. Ejecuta `npm install` desde la raíz.
 
-## Prerequisites
+## Estructura
 
-- Node.js ≥ 22
-- npm ≥ 10
+- `core/src/components/`: Core Stencil, CSS estándar en Shadow DOM, pruebas y stories por componente.
+- `core/src/tokens/`: identidad pública `--dgarz-*`.
+- `core/.storybook/`: catálogo del nuevo Core.
+- `core/src/scss/` y `core/src/js/`: versión heredada, prefijos `dg-` y `--dg-*`.
+- `core/dist/`: salida generada; no editar manualmente.
+- `packages/react`, `packages/vue`, `packages/angular`: adaptadores generados y sus empaquetados.
+- `tests/consumers`, `scripts/verify-wrappers.mjs`: consumidores de tarballs para tipos y navegador.
+- `docs/`: documentación Astro existente.
 
-## Setup
-
-```bash
-git clone https://github.com/dgarzonz/dgarz-design.git
-cd dgarz-design
-npm install
-```
-
-## Project structure
-
-```
-dgarz-design/
-├── core/               # npm package — source + dist
-│   ├── src/
-│   │   ├── scss/       # SCSS source files
-│   │   ├── js/         # Behavior layer
-│   │   └── icons/      # SVG sprite source
-│   └── dist/           # Compiled output (do not edit manually)
-├── docs/               # Documentation site (Astro)
-└── examples/           # Standalone HTML examples
-```
-
-## Development
-
-Open two terminals:
+## Desarrollo
 
 ```bash
-# Terminal 1 — watch SCSS, rebuilds core/dist/ on save
 npm run dev:core
-
-# Terminal 2 — docs site at http://localhost:4321
+npm run storybook
 npm run dev:docs
 ```
 
-Or run both at once:
+Para trabajar en los estilos heredados utiliza `npm run dev:legacy --workspace=core`.
+
+Cada componente nuevo debe usar un nombre `dgarz-*`, declararse con `@Component` de Stencil, encapsular CSS estándar y consumir tokens `--dgarz-*` con valores de respaldo. Utiliza controles HTML nativos y define una etiqueta accesible. Documenta propiedades, slots, estados y eventos. Evita acceso a APIs de navegador al importar módulos para preparar el soporte SSR.
+
+Los eventos propios llevan prefijo `dgarz-`. Las historias `.stories.tsx` usan elementos HTML nativos, Controls y los estados disponibles; no incorporan React al Core. Incluye pruebas significativas con Vitest y Testing Library de renderizado, interacciones, eventos y estados. Las pruebas importan la salida compilada y `npm test` ejecuta antes el build de Stencil. Para observar cambios del componente junto con las pruebas, mantén `npm run dev:core` en otra terminal. Los wrappers se generan con los output targets oficiales; no edites `packages/*/src/generated`. Ejecuta `npm run build` desde la raíz para generar y compilar todos los paquetes.
+
+## Verificación
 
 ```bash
-npm run dev
+npm run typecheck
+npm test
+npm run build
+npm run build:storybook
+npm run verify:package # paquete instalado, tipos y Chromium
+npm run verify:wrappers # adaptadores instalados, tipos, plantillas y Chromium
+npm run build:docs
 ```
 
-## Naming conventions
+Los controles básicos de semántica no equivalen a una certificación WCAG. Al ampliar componentes, agrega comprobaciones con teclado, navegadores y tecnologías de asistencia adecuadas.
 
-- All CSS classes use the `dg-` prefix: `.dg-btn`, `.dg-card`, `.dg-input`.
-- Variants follow `dg-[component]-[variant]`: `.dg-btn-primary`, `.dg-badge-success`.
-- State classes use `.is-[state]`: `.is-active`, `.is-open`, `.is-loading`.
-- CSS custom properties live under `--dg-`: `--dg-solid`, `--dg-radius`, `--dg-space-4`.
-- JavaScript behavior is driven by `data-dg-*` attributes only — no class-based JS hooks.
+Consulta [ARCHITECTURE.md](./ARCHITECTURE.md) para las etapas de migración y las limitaciones actuales. Los cambios incompatibles del punto de entrada requieren una versión mayor y no deben publicarse como una actualización 1.x.
 
-## Before submitting a PR
+## Licencia
 
-1. Run the full build and make sure it completes without errors:
-
-   ```bash
-   npm run build
-   ```
-
-2. Test your changes against the docs site — open `http://localhost:4321` and verify visually.
-
-3. If you added a new component or variant, add a usage example in the relevant docs page under `docs/src/pages/`.
-
-4. Keep PRs focused: one feature or fix per PR. Large refactors should be discussed in an Issue first.
-
-## Reporting issues
-
-Open an issue at [github.com/dgarzonz/dgarz-design/issues](https://github.com/dgarzonz/dgarz-design/issues) and include:
-
-- A clear description of the bug or request.
-- Steps to reproduce (for bugs).
-- Browser and OS version (for visual bugs).
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the [MIT License](./LICENSE).
+Las contribuciones se distribuyen bajo [MIT](./LICENSE).
