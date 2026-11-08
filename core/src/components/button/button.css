@@ -22,6 +22,34 @@
       color: var(--dgarz-color-text, #0b0b0c);
       border-color: var(--dgarz-color-border, #bcbcc3);
     }
+    /* Opt-in glass: the variant keeps its color; the fill becomes translucent. */
+    :host([glass]) button {
+      --_fill: var(--dgarz-color-primary, #0b0b0c);
+      --_alpha: var(--dgarz-glass-alpha, 72%);
+      background: color-mix(in oklab, var(--_fill) var(--_alpha), transparent);
+      -webkit-backdrop-filter: var(--dgarz-glass-filter, blur(20px) saturate(180%));
+      backdrop-filter: var(--dgarz-glass-filter, blur(20px) saturate(180%));
+    }
+    :host([glass][variant='secondary']) button {
+      --_fill: var(--dgarz-color-surface, #fff);
+      --_alpha: var(--dgarz-glass-alpha-soft, 42%);
+      border-color: transparent;
+    }
+    :host([glass]) button:is(:hover, :focus-visible):not(:disabled) {
+      background: color-mix(in oklab, var(--_fill) min(100%, calc(var(--_alpha) + var(--dgarz-glass-alpha-hover, 14%))), transparent);
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      :host([glass]) button,
+      :host([glass][variant='secondary']) button { --_alpha: 100%; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :host([glass]) button,
+      :host([glass][variant='secondary']) button { --_alpha: 100%; }
+    }
+    /* Same hover as the CSS buttons: grows 5%. */
+    button { transition: transform .5s cubic-bezier(.22, 1, .36, 1), background .2s; }
+    button:is(:hover, :focus-visible):not(:disabled) { transform: scale(1.05); }
+    @media (prefers-reduced-motion: reduce) { button:is(:hover, :focus-visible) { transform: none; } }
     button:focus-visible {
       outline: 2px solid var(--dgarz-color-focus, #247cff);
       outline-offset: 3px;

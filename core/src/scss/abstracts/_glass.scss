@@ -1,0 +1,47 @@
+// Opt-in glass surface shared by every component's `.is-glass` modifier.
+// A component only chooses its fill (usually its solid background token);
+// translucency, blur, hover boost and the solid fallback all come from the
+// --dg-glass-* tokens in _tokens.scss, so prefers-reduced-transparency and
+// browsers without backdrop-filter get the solid color automatically.
+//
+//   .dg-badge.is-glass         { @include glass.surface(var(--dg-surface-3)); }
+//   .dg-badge-success.is-glass { @include glass.fill(var(--dg-success-bg)); }
+//   .dg-input.is-glass:focus   { @include glass.boost; }
+
+@mixin surface($fill: var(--dg-surface), $alpha: var(--dg-glass-alpha)) {
+  --dg-glass-fill: #{$fill};
+  --dg-glass-fill-alpha: #{$alpha};
+  --dg-glass-boost: 0%;
+  background-color: color-mix(in oklab, var(--dg-glass-fill) min(100%, calc(var(--dg-glass-fill-alpha) + var(--dg-glass-boost))), transparent);
+  -webkit-backdrop-filter: var(--dg-glass-filter);
+  backdrop-filter: var(--dg-glass-filter);
+}
+
+// Variant override: same surface, different fill (and optionally alpha).
+@mixin fill($fill, $alpha: null) {
+  --dg-glass-fill: #{$fill};
+  @if $alpha {
+    --dg-glass-fill-alpha: #{$alpha};
+  }
+}
+
+// Interaction state: more opaque, never more transparent.
+@mixin boost {
+  --dg-glass-boost: var(--dg-glass-alpha-hover);
+}
+
+// Selector for a component that can be glass: per element with `.is-glass`,
+// or for every floating component inside `[data-surface="glass"]` (usually
+// <html>). `.is-solid` keeps one element solid inside a glass scope.
+//
+//   #{glass.opt-in(".dg-navbar")} { @include glass.surface(var(--dg-paper)); }
+@function opt-in($selector) {
+  @return "#{$selector}.is-glass, [data-surface=\"glass\"] #{$selector}:not(.is-solid)";
+}
+
+// For glass that cannot use the tokens (hand-tuned layers such as the modal's
+// animated ::after): emits the content wherever the tokens would turn solid.
+@mixin solid-fallback {
+  @media (prefers-reduced-transparency: reduce) { @content; }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { @content; }
+}

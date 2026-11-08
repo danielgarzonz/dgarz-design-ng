@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ---- Tabs ------------------------------------------------- */
 .dg-tabs { display: flex; gap: var(--dg-space-1); border-bottom: 1px solid var(--dg-border); }
 .dg-tab {
@@ -70,3 +71,84 @@
   background: var(--dg-surface); border-color: var(--dg-border); color: var(--dg-text);
 }
 .dg-tabs-enclosed .dg-tab.is-active::after { display: none; }
+
+/* ---- Tabs & segmented: opt-in glass ----------------------- */
+/* The bar becomes a frosted capsule so labels stay legible over images.
+   The underline variant keeps its indicator; pill tabs keep their solid active pill. */
+.dg-tabs.is-glass,
+.dg-segmented.is-glass {
+  @include glass.surface(var(--dg-surface));
+  width: fit-content;
+  max-width: 100%;
+  border-bottom: none;
+  border-radius: var(--dg-radius-pill);
+}
+.dg-tabs.is-glass { padding: var(--dg-space-1); }
+.dg-segmented.is-glass { padding: 0.35em var(--dg-space-4); }
+.dg-tabs.is-glass:not(.dg-tabs-pill) .dg-tab.is-active::after { bottom: 0.15em; }
+.dg-tabs-enclosed.is-glass { gap: var(--dg-space-1); }
+.dg-tabs-enclosed.is-glass .dg-tab { border-radius: var(--dg-radius-pill); margin-bottom: 0; }
+.dg-tabs-enclosed.is-glass .dg-tab.is-active { background: var(--dg-surface); }
+
+/* ---- Sliding active indicator (js/indicator.js) ----------- */
+/* JS measures the active option and adds .has-indicator; one ::before per
+   group then slides between options. Without JS each option keeps its own
+   static active style (above). */
+.dg-tabs, .dg-segmented { position: relative; }
+.dg-tabs.has-indicator, .dg-segmented.has-indicator { isolation: isolate; }
+.dg-tabs.has-indicator::before,
+.dg-segmented.has-indicator::before {
+  content: "";
+  position: absolute; left: 0; top: 0; z-index: -1;
+  width: var(--dg-ind-w, 0); pointer-events: none;
+}
+/* Position uses the individual `translate` property and the move pulse uses
+   `scale`, so growing never shifts the indicator off its path. */
+.has-indicator.is-indicator-ready::before {
+  transition: translate var(--dg-dur-indicator) var(--dg-ease-indicator),
+              width var(--dg-dur-indicator) var(--dg-ease-indicator),
+              height var(--dg-dur-indicator) var(--dg-ease-indicator);
+}
+/* While moving to a new option it grows, then settles back on arrival. */
+.has-indicator.is-moving::before { animation: dg-indicator-grow var(--dg-dur-indicator) ease-in-out; }
+@keyframes dg-indicator-grow {
+  0%, 100% { scale: 1; }
+  45% { scale: var(--dg-ind-scale, 1.12); }
+}
+.dg-tabs.has-indicator .dg-tab,
+.dg-segmented.has-indicator button { transition: color var(--dg-dur-indicator) var(--dg-ease-indicator); }
+
+/* Pill: the solid capsule itself slides. */
+.dg-tabs-pill.has-indicator::before {
+  height: var(--dg-ind-h, 0);
+  translate: var(--dg-ind-x, 0px) var(--dg-ind-y, 0px);
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-solid);
+}
+.dg-tabs-pill.has-indicator .dg-tab.is-active { background: transparent; }
+
+/* Underline tabs: same 2px line and .6em inset as the static ::after. */
+.dg-tabs:not(.dg-tabs-pill, .dg-tabs-enclosed).has-indicator::before {
+  top: auto; bottom: 0; height: 2px; border-radius: 2px;
+  width: calc(var(--dg-ind-w, 0px) - 1.2 * var(--dg-text-sm));
+  translate: calc(var(--dg-ind-x, 0px) + .6 * var(--dg-text-sm)) 0;
+  background: var(--dg-text);
+}
+.dg-tabs.has-indicator .dg-tab.is-active::after { display: none; }
+
+/* Segmented: the 1.5px underline slides. */
+/* Segmented (may wrap to several rows): the 1.5px underline slides to the
+   bottom edge of the active option. */
+.dg-segmented.has-indicator::before {
+  height: 1.5px;
+  translate: var(--dg-ind-x, 0px) calc(var(--dg-ind-y, 0px) + var(--dg-ind-h, 0px) - 1.5px);
+  background: var(--dg-text);
+}
+.dg-segmented.has-indicator button.is-active::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .has-indicator.is-moving::before { animation: none; }
+  .has-indicator.is-indicator-ready::before,
+  .dg-tabs.has-indicator .dg-tab,
+  .dg-segmented.has-indicator button { transition: none; }
+}

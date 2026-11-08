@@ -1,3 +1,4 @@
+@use "../abstracts/glass" as glass-mixins;
 /* ============================================================
    SURFACE FX — glassmorphism · liquid glass · gradients
    Opt-in visual layer for cards, panels, buttons and shells
@@ -175,4 +176,22 @@
   box-shadow:
     inset 0 1px 0 color-mix(in oklab, #fff 24%, transparent),
     0 3px 10px color-mix(in oklab, #000 4%, transparent);
+}
+
+/* Explicit glass utilities also honor reduced transparency / no blur support. */
+@include glass-mixins.solid-fallback {
+  .dg-surface-glass, .dg-glass,
+  .dg-surface-glass-strong, .dg-glass-strong,
+  .dg-surface-liquid, .dg-liquid,
+  .dg-glass-pill {
+    background: var(--dg-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dg-surface-glass-dark, .dg-glass-dark {
+    background: #000;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dg-surface-liquid::before, .dg-liquid::before { display: none; }
 }

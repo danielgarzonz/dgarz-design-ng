@@ -67,11 +67,14 @@ export function wireCarousel(el) {
     var paused = motion.matches, hovered = false, focused = false, timer;
     var pause = document.createElement('button');
     pause.type = 'button';
-    pause.className = 'dg-btn dg-btn-sm dg-carousel-pause';
+    pause.className = 'dg-carousel-pause';
     el.appendChild(pause);
+    // Icon only, thin strokes: pause (two lines) while playing, play (outlined triangle) while paused.
+    var ICON_PAUSE = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+    var ICON_PLAY = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>';
     function syncTimer() {
       clearInterval(timer);
-      pause.textContent = paused ? 'Reanudar' : 'Pausar';
+      pause.innerHTML = paused ? ICON_PLAY : ICON_PAUSE;
       pause.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel');
       if (!paused && !hovered && !focused && !document.hidden && !motion.matches)
         timer = setInterval(function () { goTo(current + 1); }, delay);

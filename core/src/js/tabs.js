@@ -1,4 +1,5 @@
 import { $all, target } from './utils.js';
+import { syncIndicator, wireIndicator } from './indicator.js';
 
 export function wireTabs(group) {
   if (group.__dg) return; group.__dg = true;
@@ -16,9 +17,11 @@ export function wireTabs(group) {
       activateTab(tabs, next); next.focus();
     });
   });
+  if (tabs.length) wireIndicator(tabs[0].closest(".dg-tabs"));
 }
 
 export function activateTab(tabs, tab) {
+  var bar = tab.closest(".dg-tabs");
   tabs.forEach(function (t) {
     var on = t === tab;
     t.classList.toggle("is-active", on);
@@ -35,4 +38,5 @@ export function activateTab(tabs, tab) {
       }
     }
   });
+  syncIndicator(bar);
 }

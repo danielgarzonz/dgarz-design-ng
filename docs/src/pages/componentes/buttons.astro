@@ -9,6 +9,7 @@ import Layout from "../../layouts/DocsLayout.astro";
 <a class="dg-link" href="#sutiles">Botones sutiles</a>
 <a class="dg-link" href="#outline">Botones outline</a>
 <a class="dg-link" href="#solo-texto">Botones solo texto</a>
+<a class="dg-link" href="#glass">Botones glass</a>
 <a class="dg-link" href="#tamanos">Tamaños de botón</a>
 <a class="dg-link" href="#ancho-movil">Ancho completo en móvil</a>
 <a class="dg-link" href="#iconos">Botones con icono y texto</a>
@@ -132,6 +133,104 @@ import Layout from "../../layouts/DocsLayout.astro";
   &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-danger&quot;&gt;Error&lt;/button&gt;
   &lt;button type=&quot;button&quot; class=&quot;dg-btn-text-info&quot;&gt;Info&lt;/button&gt;
 &lt;/div&gt;</pre>
+</div>
+</div>
+</section>
+<section id="glass" class="button-doc-section">
+<h2 class="doc-sub">Botones glass</h2>
+<p>Los botones son sólidos por defecto. Añade <code>is-glass</code> cuando el botón esté sobre una imagen, un video o un fondo con color: conserva el color y el texto de su variante, pero el relleno se vuelve translúcido y difumina lo que hay detrás. En hover y foco el relleno se vuelve más sólido en lugar de desvanecerse.</p>
+<p>Si el usuario activa <em>reducir transparencia</em> en su sistema, o el navegador no soporta <code>backdrop-filter</code>, el botón vuelve a su color sólido automáticamente. Las variantes solo texto y con degradado no tienen relleno que difuminar e ignoran el modificador.</p>
+
+<h3 class="doc-sub">Sólidos glass</h3>
+<p>Para la acción principal sobre una imagen. El texto mantiene el contraste de cada tono.</p>
+<div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-primary is-glass">Principal</button>
+  <button type="button" class="dg-btn-success is-glass">Success</button>
+  <button type="button" class="dg-btn-warning is-glass">Warning</button>
+  <button type="button" class="dg-btn-danger is-glass">Error</button>
+  <button type="button" class="dg-btn-info is-glass">Info</button>
+  <button type="button" class="dg-btn-cancel is-glass">Cancel</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;hero&quot; style=&quot;background-image:url(hero.jpg)&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-primary is-glass&quot;&gt;Principal&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-success is-glass&quot;&gt;Success&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-warning is-glass&quot;&gt;Warning&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-danger is-glass&quot;&gt;Error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-info is-glass&quot;&gt;Info&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-cancel is-glass&quot;&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+<h3 class="doc-sub">Sutiles, outline y ghost glass</h3>
+<p>Para acciones secundarias. Sutiles usan su tono claro; outline y ghost usan una superficie más transparente para no competir con la acción principal.</p>
+<div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-subtle is-glass">Sutil</button>
+  <button type="button" class="dg-btn-subtle-info is-glass">Sutil info</button>
+  <button type="button" class="dg-btn-outline is-glass">Outline</button>
+  <button type="button" class="dg-btn-outline-danger is-glass">Outline error</button>
+  <button type="button" class="dg-btn-ghost is-glass">Ghost</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-cluster&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle is-glass&quot;&gt;Sutil&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle-info is-glass&quot;&gt;Sutil info&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline is-glass&quot;&gt;Outline&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-outline-danger is-glass&quot;&gt;Outline error&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-ghost is-glass&quot;&gt;Ghost&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+<h3 class="doc-sub">Grupo glass</h3>
+<p>El grupo también es sólido por defecto; con <code>is-glass</code> la cápsula se vuelve translúcida. Combínalo con botones glass o sólidos.</p>
+<div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-btn-group is-glass" role="group" aria-label="Acciones de la imagen">
+  <button type="button" class="dg-btn is-glass">Descargar</button>
+  <button type="button" class="dg-btn-subtle is-glass">Compartir</button>
+  <button type="button" class="dg-btn-danger is-glass">Eliminar</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>&lt;div class=&quot;dg-btn-group is-glass&quot; role=&quot;group&quot; aria-label=&quot;Acciones de la imagen&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn is-glass&quot;&gt;Descargar&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-subtle is-glass&quot;&gt;Compartir&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;dg-btn-danger is-glass&quot;&gt;Eliminar&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+<h3 class="doc-sub">Ajustar la transparencia</h3>
+<p>Los tokens controlan todos los componentes glass a la vez. Sobre fotos muy contrastadas, sube <code>--dg-glass-alpha</code> para mejorar la legibilidad.</p>
+<div class="doc-example">
+<div class="doc-demo glass-stage" style="--dg-glass-alpha: 88%; --dg-glass-alpha-soft: 64%">
+<div class="dg-cluster">
+  <button type="button" class="dg-btn-primary is-glass">Más sólido</button>
+  <button type="button" class="dg-btn-outline is-glass">Outline</button>
+</div>
+</div>
+<div class="doc-code">
+<button class="cp">Copiar</button>
+<pre is:raw>:root {
+  --dg-glass-alpha: 72%;       /* sólidos, sutiles y semánticos */
+  --dg-glass-alpha-soft: 42%;  /* outline y ghost */
+  --dg-glass-alpha-hover: 14%; /* opacidad extra en hover y foco */
+  --dg-glass-filter: blur(var(--dg-glass-blur-strong)) saturate(180%);
+}
+
+/* O solo en un contenedor */
+.hero { --dg-glass-alpha: 88%; }</pre>
 </div>
 </div>
 </section>
@@ -281,7 +380,7 @@ import Layout from "../../layouts/DocsLayout.astro";
 </section>
 <section id="hover" class="button-doc-section">
 <h2 class="doc-sub">Efectos hover</h2>
-<p>Combina una clase de efecto con una variante. Pasa el cursor o navega con Tab.</p>
+<p>Todos los botones crecen un 5% al pasar el cursor o al recibir foco con Tab (los de solo texto y los de ancho completo no, y con <em>reducir movimiento</em> tampoco). Para un efecto distinto, combina una de estas clases con una variante.</p>
 <div class="doc-example">
 <div class="doc-demo is-plain">
 <div class="dg-cluster">
@@ -304,7 +403,7 @@ import Layout from "../../layouts/DocsLayout.astro";
 </section>
 <section id="grupos" class="button-doc-section">
 <h2 class="doc-sub">Grupos de botones</h2>
-      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-btn-group</code> usa la misma cápsula flotante que el footer de los modales: fondo translúcido, blur y botones separados con hueco, sin borde.</p>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-btn-group</code> agrupa acciones en una cápsula sólida, con botones separados con hueco y sin borde. Para usarlo sobre imágenes, añade <code class="dg-code">is-glass</code> (ver <a class="dg-link" href="#glass">Botones glass</a>).</p>
       <div class="doc-example">
 <div class="doc-demo is-plain">
         <div class="dg-cluster">

@@ -380,6 +380,35 @@ const pageContent = `<!-- ── DEMO CON SELECTOR DE ESTILO ── -->
     &lt;button type="submit" class="dg-btn dg-btn-primary"&gt;Enviar&lt;/button&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre></div>
+</div>
+
+      <div class="doc-sub dg-mt-7">Campos glass</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Los campos no tienen relleno, así que sobre una imagen no se leen. <code class="dg-code">.is-glass</code> les da una superficie translúcida que se vuelve más sólida mientras escribes. Aplica a <code class="dg-code">.dg-input</code>, <code class="dg-code">.dg-textarea</code>, <code class="dg-code">.dg-select</code> y <code class="dg-code">.dg-input-group</code>. Si el usuario activa <em>reducir transparencia</em> o el navegador no soporta <code class="dg-code">backdrop-filter</code>, vuelve a su color sólido.</p>
+      <div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-stack dg-gap-3" style="max-width: 24rem">
+  <input class="dg-input is-glass" type="search" placeholder="Buscar destinos" aria-label="Buscar destinos">
+  <select class="dg-select is-glass" aria-label="Temporada">
+    <option>Verano</option>
+    <option>Invierno</option>
+  </select>
+  <div class="dg-input-group is-glass">
+    <input class="dg-input" type="text" placeholder="usuario" aria-label="Usuario">
+    <span class="dg-input-addon">@dgarz.com</span>
+  </div>
+</div>
+</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-stack dg-gap-3&quot; style=&quot;max-width: 24rem&quot;&gt;
+  &lt;input class=&quot;dg-input is-glass&quot; type=&quot;search&quot; placeholder=&quot;Buscar destinos&quot; aria-label=&quot;Buscar destinos&quot;&gt;
+  &lt;select class=&quot;dg-select is-glass&quot; aria-label=&quot;Temporada&quot;&gt;
+    &lt;option&gt;Verano&lt;/option&gt;
+    &lt;option&gt;Invierno&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div class=&quot;dg-input-group is-glass&quot;&gt;
+    &lt;input class=&quot;dg-input&quot; type=&quot;text&quot; placeholder=&quot;usuario&quot; aria-label=&quot;Usuario&quot;&gt;
+    &lt;span class=&quot;dg-input-addon&quot;&gt;@dgarz.com&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
 </div>`;
 ---
 

@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ---- Toasts ----------------------------------------------- */
 .dg-toast-stack { position: fixed; bottom: var(--dg-space-5); right: var(--dg-space-5); display: flex; flex-direction: column; gap: var(--dg-space-3); z-index: 60; }
 .dg-toast {
@@ -15,3 +16,9 @@
 .dg-toast-warning { background: var(--dg-warning); color: #fff; }
 .dg-toast-danger  { background: var(--dg-danger);  color: #fff; }
 .dg-toast-info    { background: var(--dg-info);    color: #fff; }
+
+/* ---- Toast: opt-in glass ---------------------------------- */
+.dg-toast.is-glass { @include glass.surface(var(--dg-solid)); }
+@each $tone in success, warning, danger, info {
+  .dg-toast-#{$tone}.is-glass { @include glass.fill(var(--dg-#{$tone})); }
+}

@@ -3,11 +3,11 @@
 /* Flat presentation applies to every component and interaction state.
    Keep border-radius and keyboard outlines; remove decorative strokes/elevation. */
 :root body,
-:root body *:not(:where([class*="dg-shadow-"], .dg-modal, .dg-btn-group)),
+:root body *:not(:where([class*="dg-shadow-"], .dg-modal, .dg-btn-group, .dg-navbar, .dg-app-header, .dg-dock)),
 :root body::before,
 :root body::after,
 :root body *::before,
-:root body *:not(:where(.dg-modal))::after {
+:root body *:not(:where(.dg-modal, .dg-switch-track))::after {
   box-shadow: none !important;
   text-shadow: none !important;
 }
@@ -25,7 +25,7 @@
   .dg-input-addon, .dg-combobox-control, .dg-combobox-tag,
   .dg-combobox-dropdown, .dg-combobox-check,
   .dg-dropzone, .dg-file-item, .dg-segmented,
-  .dg-btn-group,
+  .dg-btn-group, .dg-dock-bordered, .dg-navbar-bordered,
   #{button.$subtle-selector},
   #{button.$outline-selector},
   #{button.$text-selector}

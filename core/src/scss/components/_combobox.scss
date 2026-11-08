@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ---- Combobox / Multi-select ------------------------------ */
 .dg-combobox { position: relative; }
 
@@ -73,10 +74,8 @@
   left: 0;
   right: 0;
   z-index: 55;
-  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--dg-border-strong) 45%, transparent);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius);
   box-shadow: var(--dg-shadow-2);
   overflow: hidden;
@@ -138,3 +137,6 @@
   font-size: var(--dg-text-sm);
   color: var(--dg-text-muted);
 }
+
+/* ---- Combobox: opt-in glass ------------------------------- */
+#{glass.opt-in(".dg-combobox-dropdown")} { @include glass.surface(var(--dg-surface)); }

@@ -1,14 +1,151 @@
+@use "../abstracts/glass";
 /* ---- Navbar ----------------------------------------------- */
+/* Solid by default (theme surface, no shadow, no border). Options:
+   .dg-navbar-shadow · .dg-navbar-bordered · .is-glass · .dg-navbar-inverse ·
+   .dg-navbar-floating (rounded capsule with margin). They combine.
+   Mobile: .dg-navbar-toggle + .dg-navbar-collapse (data-dg-navbar-toggle). */
 .dg-navbar {
-  display: flex; align-items: center; gap: var(--dg-space-5);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--dg-space-5);
   padding: var(--dg-space-3) var(--dg-space-5);
-  background: color-mix(in oklab, var(--dg-paper) 65%, transparent);
-  backdrop-filter: blur(22px) saturate(200%);
-  -webkit-backdrop-filter: blur(22px) saturate(200%);
-  border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+  background: var(--dg-paper);
 }
-.dg-navbar-brand { font-family: var(--dg-font-serif); font-size: var(--dg-text-lg); font-weight: var(--dg-weight-medium); letter-spacing: -0.01em; }
+/* Lifted above scrolling content by the soft top-bar shadow (exempt from flat). */
+.dg-navbar-shadow { box-shadow: var(--dg-shadow-bar); }
+/* 1px bottom rule (all sides when floating); exempt from flat. */
+.dg-navbar-bordered { border-bottom: 1px solid var(--dg-border); }
+.dg-navbar-floating.dg-navbar-bordered { border: 1px solid var(--dg-border); }
+/* Dark bar in any theme (inverse pair). */
+.dg-navbar-inverse {
+  background: var(--dg-solid); color: var(--dg-on-solid);
+  --dg-nav-link-fg: color-mix(in oklab, var(--dg-on-solid) 68%, var(--dg-solid));
+  --dg-nav-link-hover: color-mix(in oklab, var(--dg-on-solid) 10%, var(--dg-solid));
+  --dg-nav-link-active: color-mix(in oklab, var(--dg-on-solid) 17%, var(--dg-solid));
+}
+/* Children see the inverse pair swapped, so primary buttons, badges, etc. read
+   light-on-dark inside the dark bar (and dark-on-light in dark mode). */
+.dg-navbar-inverse { --dg-nav-inv-solid: var(--dg-solid); --dg-nav-inv-on: var(--dg-on-solid); }
+.dg-navbar-inverse > * { --dg-solid: var(--dg-nav-inv-on); --dg-on-solid: var(--dg-nav-inv-solid); }
+.dg-navbar-inverse.dg-navbar-bordered { border-color: color-mix(in oklab, var(--dg-on-solid) 18%, var(--dg-solid)); }
+/* Floating capsule: rounded, inset from the edges. */
+.dg-navbar-floating {
+  margin: var(--dg-space-3);
+  padding: var(--dg-space-2) var(--dg-space-2) var(--dg-space-2) var(--dg-space-5);
+  border-radius: var(--dg-radius-pill);
+}
+#{glass.opt-in(".dg-navbar")} { @include glass.surface(var(--dg-paper)); }
+#{glass.opt-in(".dg-navbar-inverse")} { @include glass.fill(var(--dg-solid)); }
+.dg-navbar-brand {
+  font-family: var(--dg-font-serif); font-size: var(--dg-text-lg);
+  font-weight: var(--dg-weight-medium); letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+.dg-navbar-collapse {
+  display: flex; flex: 1 1 auto; min-width: 0;
+}
+.dg-navbar-collapse-inner {
+  display: flex; align-items: center; gap: var(--dg-space-5);
+  flex: 1 1 auto; min-width: 0; width: 100%;
+}
 .dg-navbar-nav { display: flex; align-items: center; gap: var(--dg-space-2); }
-.dg-nav-link { padding: 0.5em 0.9em; border-radius: var(--dg-radius-pill); font-size: var(--dg-text-sm); color: var(--dg-text-muted); transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease); }
-.dg-nav-link:hover { background: var(--dg-surface-2); color: var(--dg-text); }
-.dg-nav-link.is-active { color: var(--dg-text); background: var(--dg-surface-3); }
+.dg-navbar-actions {
+  display: flex; align-items: center; gap: var(--dg-space-2);
+  margin-inline-start: auto; flex-shrink: 0;
+}
+.dg-nav-link { padding: 0.5em 0.9em; border-radius: var(--dg-radius-pill); font-size: var(--dg-text-sm); color: var(--dg-nav-link-fg, var(--dg-text-muted)); transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease); }
+.dg-nav-link:hover { background: var(--dg-nav-link-hover, var(--dg-surface-2)); color: var(--dg-text); }
+.dg-nav-link.is-active { color: var(--dg-text); background: var(--dg-nav-link-active, var(--dg-surface-3)); }
+.dg-navbar-inverse .dg-nav-link:is(:hover, .is-active) { color: var(--dg-nav-inv-on); } /* unswapped: the bar's own light text */
+
+/* Hamburger — hidden on desktop; opens .dg-navbar-collapse below 640px. */
+.dg-navbar-toggle {
+  display: none;
+  margin-inline-start: auto;
+  flex: 0 0 36px; width: 36px; height: 36px; padding: 0;
+  border: 0; border-radius: 50%;
+  background: radial-gradient(circle, var(--dg-solid) 0 11px, transparent 11.5px);
+  color: var(--dg-on-solid);
+  align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.dg-navbar-toggle svg {
+  display: block;
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  /* Igual que el header del index: el panel anima 0fr→1fr y el header crece. */
+  .dg-navbar {
+    row-gap: 0;
+    column-gap: var(--dg-space-3);
+  }
+  .dg-navbar-toggle {
+    display: inline-flex;
+  }
+  .dg-navbar-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    flex: 1 0 100%;
+    /* Flex items default to min-height:auto — that keeps the closed panel
+       as tall as its padding and leaves the bar oversized. */
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion),
+      visibility var(--dg-dur-motion);
+  }
+  .dg-navbar.is-open .dg-navbar-collapse {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .dg-navbar-collapse-inner {
+    min-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--dg-space-1);
+    width: 100%;
+  }
+  .dg-navbar-nav {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--dg-space-1);
+    /* Padding lives inside the clipped inner (like .pub-menu-list), so the
+       closed 0fr track can collapse to zero. */
+    padding-block-start: var(--dg-space-3);
+  }
+  .dg-navbar-nav .dg-nav-link {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .dg-navbar-actions {
+    margin-inline-start: 0;
+    margin-top: var(--dg-space-3);
+    width: 100%;
+    flex-wrap: wrap;
+    padding-block-end: var(--dg-space-4);
+  }
+  .dg-navbar-actions .dg-btn { min-height: 44px; }
+  .dg-navbar.is-open .dg-navbar-nav .dg-nav-link,
+  .dg-navbar.is-open .dg-navbar-actions {
+    animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards;
+  }
+  .dg-navbar.is-open .dg-navbar-nav .dg-nav-link:nth-child(2) { animation-delay: 130ms; }
+  .dg-navbar.is-open .dg-navbar-nav .dg-nav-link:nth-child(3) { animation-delay: 180ms; }
+  .dg-navbar.is-open .dg-navbar-actions { animation-delay: 230ms; }
+  .dg-navbar-floating {
+    padding-inline: var(--dg-space-3) var(--dg-space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-nav-link { transition: none; }
+  .dg-navbar-collapse { transition: none; }
+  .dg-navbar.is-open .dg-navbar-nav .dg-nav-link,
+  .dg-navbar.is-open .dg-navbar-actions { animation: none; }
+}

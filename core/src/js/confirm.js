@@ -111,12 +111,12 @@ function run(opts) {
     openOverlay(backdrop);
 
     if (inputEl) {
-      inputEl.focus();
+      inputEl.focus({ preventScroll: true });
       if (inputEl.select) inputEl.select();
     } else {
       var focusCancel = opts.focusCancel != null ? opts.focusCancel : (opts.icon === 'danger');
       var focusTarget = (focusCancel && cancelBtn) ? cancelBtn : confirmBtn;
-      focusTarget.focus();
+      focusTarget.focus({ preventScroll: true });
     }
   });
 }

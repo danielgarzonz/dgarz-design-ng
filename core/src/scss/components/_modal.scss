@@ -1,23 +1,58 @@
 @use "../abstracts/buttons" as button;
+@use "../abstracts/glass";
+
+/* Solid by default (theme surface). Glass is opt-in: .dg-modal.is-glass, or any
+   modal inside [data-surface="glass"] unless it carries .is-solid.
+   g($suffix) appends a compound/descendant part to both glass selectors. */
+@function g($suffix: "") {
+  @return ".dg-modal.is-glass#{$suffix}, [data-surface=\"glass\"] .dg-modal:not(.is-solid)#{$suffix}";
+}
 
 /* ---- Modal ------------------------------------------------ */
 .dg-modal-backdrop {
   position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
   padding: var(--dg-space-5); background: color-mix(in oklab, var(--dg-950) 22%, transparent);
+  /* The dimming fades in with the modal. Animates background-color, not
+     opacity (opacity would also fade the modal inside). */
+  animation: dg-backdrop-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+}
+@keyframes dg-backdrop-in { from { background-color: transparent; } }
+/* Exit mirrors the modal: hold while its content fades, then clear. */
+@keyframes dg-backdrop-out {
+  0%, 45% { background-color: color-mix(in oklab, var(--dg-950) 22%, transparent); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { background-color: transparent; }
 }
 .dg-modal-backdrop[hidden] {
   display: none !important;
 }
 @keyframes dg-fade       { from { opacity: 0; } to { opacity: 1; } }
 .dg-modal {
-  --dg-modal-section-bg: color-mix(in oklab, var(--dg-surface-3) 55%, transparent);
+  /* Header/footer chrome — shared token (#f8f8f8 light) so it matches the iPhone status bar. */
+  --dg-modal-section-solid: var(--dg-overlay-chrome);
+  --dg-modal-section-bg: var(--dg-modal-section-solid);
   width: 100%; max-width: 720px;
-  background: transparent;
-  border: 1px solid color-mix(in oklab, var(--dg-text) 16%, transparent);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius-xl);
   /* Exposed as a custom property (not just a shadow value) so .dg-modal-glow
      can layer its animated halo on top of whichever shadow is active —
-     the glass default here or .is-solid below — instead of replacing it. */
+     solid here or glass below — instead of replacing it. */
+  --dg-modal-shadow-rest: var(--dg-shadow-1);
+  --dg-modal-shadow: var(--dg-shadow-3);
+  box-shadow: var(--dg-modal-shadow);
+  overflow: hidden; isolation: isolate;
+  /* Solid opens as a circle that grows and morphs into the rounded modal. Backwards fill only: the
+     clip exists just while animating, so the shadow is never cut off after. */
+  animation: dg-modal-solid-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+}
+/* .is-solid is the default; kept so existing markup and glass scopes can opt out. */
+
+/* ---- Modal: opt-in glass ---------------------------------- */
+
+#{g()} {
+  --dg-modal-section-bg: color-mix(in oklab, var(--dg-modal-section-solid) 55%, transparent);
+  background: transparent;
+  border-color: color-mix(in oklab, var(--dg-text) 16%, transparent);
   --dg-modal-shadow-rest:
     inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
     0 2px 8px color-mix(in oklab, #000 5%, transparent);
@@ -25,15 +60,12 @@
     inset 0 1.5px 0 color-mix(in oklab, #fff 22%, transparent),
     0 6px 28px color-mix(in oklab, #000 7%, transparent),
     0 24px 48px color-mix(in oklab, #000 12%, transparent);
-  box-shadow: var(--dg-modal-shadow);
-  overflow: hidden; isolation: isolate;
-  animation: dg-modal-in var(--dg-dur-motion) var(--dg-ease-motion) both;
 }
 /* The glass surface is a sibling layer of the header/body/footer. Keeping
    backdrop-filter off their ancestor lets each control sample its backdrop.
    Fade the glass via background + blur — never opacity on .dg-modal, or the
    browser flattens the layer and backdrop-filter pops in at full strength. */
-.dg-modal:not(.is-solid)::after {
+#{g("::after")} {
   content: "";
   position: absolute; inset: 0;
   z-index: -1; border-radius: inherit; pointer-events: none;
@@ -42,8 +74,9 @@
   backdrop-filter: saturate(1.8) blur(20px);
   animation: dg-modal-glass-in var(--dg-dur-motion) var(--dg-ease-motion) both;
 }
-.dg-modal.is-closing:not(.is-solid)::after,
-.dg-modal-backdrop.is-closing .dg-modal:not(.is-solid)::after {
+#{g(".is-closing::after")},
+.dg-modal-backdrop.is-closing .dg-modal.is-glass::after,
+[data-surface="glass"] .dg-modal-backdrop.is-closing .dg-modal:not(.is-solid)::after {
   animation: dg-modal-glass-out var(--dg-dur-motion) linear forwards;
 }
 
@@ -60,7 +93,7 @@
   }
 }
 @keyframes dg-modal-glass-out {
-  0%, 35% {
+  0%, 45% {
     background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
     -webkit-backdrop-filter: saturate(1.8) blur(20px);
     backdrop-filter: saturate(1.8) blur(20px);
@@ -86,70 +119,97 @@
 }
 
 /* ---- Modal surface variants ------------------------------- */
-/* Solid can fade with opacity — no backdrop-filter on the surface. */
-.dg-modal.is-solid {
-  animation-name: dg-modal-solid-in;
+/* Glass must not fade with opacity (it flattens backdrop-filter): it rises
+   while ::after animates the blur. :where() keeps the global scope at the
+   same specificity as .dg-pos-* so positioned modals keep their motion. */
+.dg-modal.is-glass:not(:where(.dg-modal-glow, .dg-modal-glow-spin)),
+:where([data-surface="glass"]) .dg-modal:not(.is-solid):not(:where(.dg-modal-glow, .dg-modal-glow-spin)) {
+  animation-name: dg-modal-in;
 }
-.dg-modal.is-solid.is-closing {
-  animation-name: dg-modal-solid-out;
+/* Reveal: a small circle grows from the center, then morphs into the modal's
+   rounded rectangle. inset() with px offsets from the center keeps it a true
+   circle (same width and height) until the last stretch, where the insets
+   reach 0 and the radius settles on the modal's own corners. Both ends are
+   explicit because inset() cannot interpolate to the resting "none". */
+.dg-modal { --dg-modal-reveal-radius: var(--dg-radius-xl); }
+/* Squircle container: continuous corners on the modal shell only (Chromium
+   139+; other browsers ignore corner-shape and keep the round 30px corner).
+   At the same radius a squircle reads tighter than a round arc, so it gets
+   1.5x the radius. Pseudo-layers (glass fill, glow ring) copy the shape. */
+@supports (corner-shape: squircle) {
+  .dg-modal:not(.dg-modal-full) {
+    corner-shape: squircle;
+    border-radius: calc(var(--dg-radius-xl) * 1.5);
+    /* clip-path inset() ignores corner-shape: a round clip at ~55% of the
+       radius meets the squircle at 45deg, so the corner does not pop in
+       when the entrance clip ends. */
+    --dg-modal-reveal-radius: calc(var(--dg-radius-xl) * 1.5 * .55);
+  }
+  .dg-modal:not(.dg-modal-full)::before,
+  .dg-modal:not(.dg-modal-full)::after { corner-shape: inherit; }
 }
+/* Per-segment curves are matched at the joint so the growth never stalls:
+   the first stretch accelerates and leaves at the speed the second one starts
+   with, which then eases out (the shared easing would stop at the keyframe). */
 @keyframes dg-modal-solid-in {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-    box-shadow: var(--dg-modal-shadow-rest);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: var(--dg-modal-shadow);
-  }
+  0%   { clip-path: inset(50% 50% 50% 50% round 50%); animation-timing-function: cubic-bezier(.5, 0, .75, .5); }
+  45%  { clip-path: inset(calc(50% - 90px) calc(50% - 90px) calc(50% - 90px) calc(50% - 90px) round 90px); animation-timing-function: cubic-bezier(.25, .27, .2, 1); }
+  100% { clip-path: inset(0 0 0 0 round var(--dg-modal-reveal-radius)); }
 }
+/* Exit: hold while the content fades, round back into a circle, then close. */
 @keyframes dg-modal-solid-out {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: var(--dg-modal-shadow);
-    animation-timing-function: linear;
+  0%, 45% {
+    clip-path: inset(0 0 0 0 round var(--dg-modal-reveal-radius));
+    animation-timing-function: cubic-bezier(.4, 0, .75, .75);
   }
-  35% {
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: var(--dg-modal-shadow);
-    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(40px);
-    box-shadow: var(--dg-modal-shadow-rest);
-  }
+  75%  { clip-path: inset(calc(50% - 90px) calc(50% - 90px) calc(50% - 90px) calc(50% - 90px) round 90px); animation-timing-function: cubic-bezier(.2, .4, .6, 1); }
+  100% { clip-path: inset(50% 50% 50% 50% round 50%); }
 }
 
-.dg-modal.is-solid {
-  --dg-modal-section-bg: var(--dg-surface-3);
-  color-scheme: light;
-  --dg-paper: #fff;
-  --dg-surface: #fff;
-  --dg-surface-2: #fafafa;
-  --dg-surface-3: #f3f3f4;
-  --dg-text: #171719;
-  --dg-text-muted: #57575e;
-  --dg-text-faint: #71717a;
-  --dg-border: #e4e4e7;
-  --dg-border-strong: #d4d4d8;
-  --dg-solid: #0b0b0c;
-  --dg-on-solid: #fff;
-  background: #fff;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: 1px solid var(--dg-border);
-  --dg-modal-shadow-rest: var(--dg-shadow-1);
-  --dg-modal-shadow: var(--dg-shadow-3);
-  box-shadow: var(--dg-modal-shadow);
+/* ---- Entrance effects (solid modals) ---------------------- */
+/* The circle above is the default. These modifiers swap only the keyframes;
+   duration, easing and the 45% exit hold stay shared, and nothing remains
+   applied after the entrance (backwards fill).
+   .dg-modal-zoom · .dg-modal-blur · .dg-modal-flip · .dg-modal-curtain */
+.dg-modal.dg-modal-zoom    { animation-name: dg-modal-zoom-in; }
+.dg-modal.dg-modal-blur    { animation-name: dg-modal-blur-in; }
+.dg-modal.dg-modal-flip    { animation-name: dg-modal-flip-in; transform-origin: 50% 0; }
+.dg-modal.dg-modal-curtain { animation-name: dg-modal-curtain-in; }
+.dg-modal.dg-modal-zoom.is-closing    { animation-name: dg-modal-zoom-out; }
+.dg-modal.dg-modal-blur.is-closing    { animation-name: dg-modal-blur-out; }
+.dg-modal.dg-modal-flip.is-closing    { animation-name: dg-modal-flip-out; }
+.dg-modal.dg-modal-curtain.is-closing { animation-name: dg-modal-curtain-out; }
+
+/* Zoom: grows from slightly smaller while it appears. */
+@keyframes dg-modal-zoom-in { from { opacity: 0; scale: .82; } }
+@keyframes dg-modal-zoom-out {
+  0%, 45% { opacity: 1; scale: 1; animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { opacity: 0; scale: .82; }
 }
-.dg-modal.is-solid .dg-modal-header { background: var(--dg-modal-section-bg); border-bottom-color: var(--dg-border); -webkit-backdrop-filter: none; backdrop-filter: none; }
-.dg-modal.is-solid .dg-modal-footer { border-color: var(--dg-border); background: var(--dg-modal-section-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-.dg-modal.is-solid .dg-modal-footer-flush { border-top-color: var(--dg-border); background: var(--dg-surface-3); }
+/* Blur: appears out of focus and sharpens. */
+@keyframes dg-modal-blur-in { from { opacity: 0; filter: blur(18px); scale: 1.04; } }
+@keyframes dg-modal-blur-out {
+  0%, 45% { opacity: 1; filter: blur(0); scale: 1; animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { opacity: 0; filter: blur(18px); scale: 1.04; }
+}
+/* 3D flip: tilts back from the top edge into place. */
+@keyframes dg-modal-flip-in { from { opacity: 0; transform: perspective(1200px) rotateX(-28deg); } }
+@keyframes dg-modal-flip-out {
+  0%, 45% { opacity: 1; transform: perspective(1200px) rotateX(0); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { opacity: 0; transform: perspective(1200px) rotateX(-28deg); }
+}
+/* Curtain: opens from the vertical center line outwards. */
+/* Both ends explicit: inset() cannot interpolate to the resting "none", which
+   would jump instead of animating. */
+@keyframes dg-modal-curtain-in {
+  from { clip-path: inset(0 50% 0 50% round var(--dg-modal-reveal-radius)); }
+  to   { clip-path: inset(0 0 0 0 round var(--dg-modal-reveal-radius)); }
+}
+@keyframes dg-modal-curtain-out {
+  0%, 45% { clip-path: inset(0 0 0 0 round var(--dg-modal-reveal-radius)); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  100% { clip-path: inset(0 50% 0 50% round var(--dg-modal-reveal-radius)); }
+}
+
 
 
 .dg-modal-header {
@@ -161,11 +221,14 @@
   justify-content: center;
   padding: var(--dg-space-3) 68px;
   background: var(--dg-modal-section-bg);
-  -webkit-backdrop-filter: saturate(1.8) blur(20px);
-  backdrop-filter: saturate(1.8) blur(20px);
   text-align: center;
   flex-shrink: 0;
-  border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
+  border-bottom: 1px solid var(--dg-border);
+}
+#{g(" > .dg-modal-header")} {
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+  border-bottom-color: color-mix(in oklab, var(--dg-border) 28%, transparent);
 }
 .dg-modal-title {
   font-family: var(--dg-font-heading);
@@ -175,6 +238,15 @@
   color: var(--dg-text);
   margin: 0;
   overflow-wrap: anywhere;
+}
+/* Header titles stay on one line: slightly smaller on narrow screens, then
+   truncated with an ellipsis rather than wrapping under the buttons. */
+.dg-modal-header .dg-modal-title {
+  min-width: 0; max-width: 100%;
+  font-size: min(var(--dg-modal-title-size), 5.4vw);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  overflow-wrap: normal;
+  padding-block: .08em; /* room for descenders inside overflow: hidden */
 }
 
 .dg-modal-body {
@@ -188,12 +260,12 @@
 
 /* Glass headers overlap the scroll area so backdrop-filter has content to blur,
    just like the floating footer. Initial padding keeps the first fields clear. */
-.dg-modal:not(.is-solid) > .dg-modal-header {
+#{g(" > .dg-modal-header")} {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: var(--dg-modal-header-height, 58px);
 }
-.dg-modal:not(.is-solid):has(> .dg-modal-header) > .dg-modal-body {
+#{g(":has(> .dg-modal-header) > .dg-modal-body")} {
   padding-top: calc(var(--dg-modal-header-height, 58px) + var(--dg-space-5));
   scroll-padding-top: calc(var(--dg-modal-header-height, 58px) + var(--dg-space-5));
 }
@@ -210,30 +282,20 @@
   /* --dg-surface-3 es más oscuro/contrastado que --dg-surface, así el footer
      se distingue del fondo del modal incluso en superficie glass */
   background: var(--dg-modal-section-bg);
-  -webkit-backdrop-filter: saturate(1.8) blur(20px);
-  backdrop-filter: saturate(1.8) blur(20px);
   width: fit-content;
   max-width: calc(100% - 2 * var(--dg-space-3));
   border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
   box-shadow: 0 2px 16px color-mix(in oklab, #000 10%, transparent),
               inset 0 1px 0 color-mix(in oklab, #fff 30%, transparent);
-  border: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+  border: 1px solid var(--dg-border);
+}
+#{g(" .dg-modal-footer:not(.dg-modal-footer-flush, .is-flush)")} {
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+  border-color: color-mix(in oklab, var(--dg-border) 55%, transparent);
 }
 .dg-modal-footer #{button.$selector} {
   flex-shrink: 0;
-  transition: transform var(--dg-dur) var(--dg-ease),
-              background var(--dg-dur) var(--dg-ease),
-              color var(--dg-dur) var(--dg-ease),
-              opacity var(--dg-dur) var(--dg-ease),
-              box-shadow var(--dg-dur) var(--dg-ease);
-
-}
-.dg-modal-footer #{button.$selector}:hover {
-  transform: scale(1.05);
-  transition: 0.5s;
-}
-.dg-modal-footer #{button.$selector}:not(:disabled):not(.is-disabled):active {
-  transform: scale(0.98);
 }
 
 /* Gray cancel action across all modal surfaces and themes. */
@@ -336,7 +398,7 @@
   max-width: none;
   margin: 0;
   border-radius: 0;
-  border-top: 1px solid color-mix(in oklab, var(--dg-border) 28%, transparent);
+  border-top: 1px solid var(--dg-border);
   border-left: none;
   border-right: none;
   border-bottom: none;
@@ -364,9 +426,10 @@
   right: var(--dg-space-4);
   width: 22px; height: 22px; padding: 0;
   border: 0; border-radius: 50%;
-  background: #0b0b0c;
+  /* Inversion pair: dark circle on light themes, light circle on dark. */
+  background: var(--dg-solid);
   display: inline-flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 1rem; line-height: 0;
+  color: var(--dg-on-solid); font-size: 1rem; line-height: 0;
   cursor: pointer;
   z-index: 20;
   transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
@@ -385,9 +448,15 @@
   flex-shrink: 0;
   stroke: currentColor; color: inherit;
 }
-.dg-modal-close:hover, .dg-modal-resize:hover { color: #fff; background: #27272a; }
+.dg-modal-close:hover, .dg-modal-resize:hover { color: var(--dg-on-solid); background: color-mix(in oklab, var(--dg-solid) 84%, var(--dg-surface)); }
 .dg-modal-resize { right: calc(var(--dg-space-4) + 30px); }
 .dg-modal:has(.dg-modal-resize) .dg-modal-header { padding-inline: 104px; }
+/* Narrow screens: clear the buttons (close 22px, resize 22px, 16px inset)
+   without wasting title space; still symmetric so the title stays centered. */
+@media (max-width: 480px) {
+  .dg-modal:not(.dg-modal-full) > .dg-modal-header { padding-inline: 52px; }
+  .dg-modal:not(.dg-modal-full):has(.dg-modal-resize) > .dg-modal-header { padding-inline: 80px; }
+}
 .dg-modal { position: relative; display: flex; flex-direction: column; max-height: calc(100vh - var(--dg-space-7)); }
 .dg-modal-body { min-height: 0; overflow-y: auto; }
 .dg-modal-grid { display: grid; grid-template-columns: 1fr; gap: var(--dg-space-4); }
@@ -399,31 +468,48 @@
   width: 100%; max-width: none;
   height: 100vh; height: 100dvh; max-height: none;
   border-radius: 0;
+  --dg-modal-reveal-radius: 0px;
 }
 /* Header content stops at the interior tangent of the 48px corner radius.
    Buttons are 30px with a 12px icon, so they sit 9px past the limit to align
    the visible stroke with the tangent. The title clears the buttons. */
 .dg-modal-full {
   --dg-modal-header-inset: max(48px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-  /* Opaque header so theme-color / status bar can match exactly. */
-  --dg-modal-section-bg: var(--dg-surface-3);
+  /* Full-screen shell + header share section solid so iOS theme-color and
+     Safari’s fixed-edge sampling both match the phone status bar. */
+  --dg-modal-section-bg: var(--dg-modal-section-solid);
+  background: var(--dg-modal-section-solid);
+}
+/* Glass keeps the full-screen shell opaque too (status-bar color match). */
+#{g(".dg-modal-full")} {
+  --dg-modal-section-bg: var(--dg-modal-section-solid);
+  background: var(--dg-modal-section-solid);
 }
 .dg-modal-full .dg-modal-header {
+  /* Absolute over the white body so the 48px bottom radius stays visible
+     against --dg-surface, while the shell matches the iPhone status bar. */
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  height: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px));
   border-bottom-left-radius: 48px;
   border-bottom-right-radius: 48px;
   border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 40%, transparent);
-  box-shadow: 0 4px 20px color-mix(in oklab, #000 6%, transparent);
+  box-shadow: none; /* Modal headers never cast a shadow; only top menu bars do. */
   padding-inline: calc(var(--dg-modal-header-inset) + 22px + var(--dg-space-2));
   padding-top: env(safe-area-inset-top, 0px);
   min-height: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px));
-  background: var(--dg-surface-3);
+  background: var(--dg-modal-section-solid);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-.dg-modal-full:not(.is-solid) > .dg-modal-header {
-  height: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px));
-}
-.dg-modal-full:not(.is-solid):has(> .dg-modal-header) > .dg-modal-body {
+/* Safari on iOS colors the phone status bar from a fixed, bar-shaped element
+   at the very top of the page (verified on device: theme-color, page
+   background and full-screen layers are ignored). Making the full-screen
+   header position: fixed lets it drive the bar. The modal already covers the
+   viewport, so nothing moves; skipped while the bounds animate on resize. */
+.dg-modal-full:not(.is-resizing) > .dg-modal-header { position: fixed; }
+.dg-modal-full:has(> .dg-modal-header) > .dg-modal-body {
   padding-top: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px) + var(--dg-space-5));
   scroll-padding-top: calc(var(--dg-modal-header-height, 58px) + env(safe-area-inset-top, 0px) + var(--dg-space-5));
 }
@@ -440,6 +526,7 @@
 .dg-modal-full .dg-modal-resize { right: calc(var(--dg-modal-header-inset) - 9px + 30px); }
 .dg-modal-full .dg-modal-body {
   flex: 1; display: flex; flex-direction: column;
+  background: var(--dg-surface);
   padding-inline: max(var(--dg-space-5), calc((100% - 1100px) / 2));
 }
 .dg-modal-content { width: 100%; min-width: 0; }
@@ -452,9 +539,7 @@
 .dg-modal-confirm .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-3); }
 .dg-modal-confirm .dg-modal-icon {
   width: 56px; height: 56px; margin: 0 auto var(--dg-space-3);
-  opacity: 0;
-  transform: scale(.78);
-  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-icon-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 .dg-modal-confirm.is-closing .dg-modal-icon,
 .dg-modal-backdrop.is-closing .dg-modal-confirm .dg-modal-icon {
@@ -550,7 +635,8 @@
   .dg-modal-backdrop,
   .dg-modal-backdrop.is-closing,
   .dg-modal,
-  .dg-modal:not(.is-solid)::after,
+  .dg-modal.is-glass::after,
+  [data-surface="glass"] .dg-modal:not(.is-solid)::after,
   .dg-pos-top    .dg-modal,
   .dg-pos-bottom .dg-modal,
   .dg-pos-left   .dg-modal,
@@ -596,14 +682,14 @@
 }
 
 /* ---- Exit animations (via JS .is-closing class) ----------- */
-/* Inverso de la entrada: contenido sale primero; el diálogo baja después (~35%). */
+/* Inverso de la entrada: el contenido sale primero (45%) y luego el diálogo. */
 @keyframes dg-modal-out {
   0% {
     transform: translateY(0);
     box-shadow: var(--dg-modal-shadow);
     animation-timing-function: linear;
   }
-  35% {
+  45% {
     transform: translateY(0);
     box-shadow: var(--dg-modal-shadow);
     animation-timing-function: cubic-bezier(.45, 0, .2, 1);
@@ -616,12 +702,18 @@
 @keyframes dg-fade-out        { from { opacity: 1; }                    to { opacity: 0; } }
 @keyframes dg-drawer-out      { from { transform: none; }               to { transform: translateX(110%); } }
 @keyframes dg-drawer-out-left { from { transform: none; }               to { transform: translateX(-110%); } }
+@keyframes dg-drawer-out-bottom { from { transform: none; }             to { transform: translateY(110%); } }
+@keyframes dg-drawer-out-top    { from { transform: none; }             to { transform: translateY(-110%); } }
 @keyframes dg-menu-out        { from { opacity: 1; transform: none; }  to { opacity: 0; transform: translateY(-6px) scale(.97); } }
 
-.dg-modal.is-closing            { animation: dg-modal-out       var(--dg-dur-motion) linear forwards; }
-.dg-modal-backdrop.is-closing   { animation: none; pointer-events: none; }
+.dg-modal.is-closing            { animation: dg-modal-solid-out var(--dg-dur-motion) linear forwards; }
+.dg-modal.is-glass.is-closing,
+:where([data-surface="glass"]) .dg-modal:not(.is-solid).is-closing { animation-name: dg-modal-out; }
+.dg-modal-backdrop.is-closing   { animation: dg-backdrop-out var(--dg-dur-motion) linear forwards; pointer-events: none; }
 .dg-drawer.is-closing           { animation: dg-drawer-out      var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
 .dg-drawer.dg-drawer-left.is-closing { animation: dg-drawer-out-left var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
+.dg-drawer.dg-drawer-bottom.is-closing { animation: dg-drawer-out-bottom var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
+.dg-drawer.dg-drawer-top.is-closing    { animation: dg-drawer-out-top    var(--dg-dur-motion) var(--dg-ease-exit) forwards; }
 .dg-drawer-backdrop.is-closing  { animation: dg-fade-out        var(--dg-dur-motion) var(--dg-ease-exit) forwards; pointer-events: none; }
 .dg-menu.is-closing             { animation: dg-menu-out        var(--dg-dur-motion) var(--dg-ease-exit) forwards; pointer-events: none; }
 
@@ -632,22 +724,22 @@
 .dg-pos-right  .dg-modal.is-closing { animation: dg-modal-pos-right-out var(--dg-dur-motion) linear forwards; }
 @keyframes dg-modal-pos-up-out {
   0% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
-  35% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
   100% { transform: translateY(-40px); box-shadow: var(--dg-modal-shadow-rest); }
 }
 @keyframes dg-modal-pos-down-out {
   0% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
-  35% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45% { transform: translateY(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
   100% { transform: translateY(40px); box-shadow: var(--dg-modal-shadow-rest); }
 }
 @keyframes dg-modal-pos-left-out {
   0% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
-  35% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
   100% { transform: translateX(-40px); box-shadow: var(--dg-modal-shadow-rest); }
 }
 @keyframes dg-modal-pos-right-out {
   0% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: linear; }
-  35% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45% { transform: translateX(0); box-shadow: var(--dg-modal-shadow); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
   100% { transform: translateX(40px); box-shadow: var(--dg-modal-shadow-rest); }
 }
 
@@ -788,9 +880,7 @@
 /* Bigger badge with concentric rings: subtle tint outside, solid circle inside */
 .dg-modal-status-hero .dg-modal-icon {
   width: 76px; height: 76px;
-  opacity: 0;
-  transform: scale(.78);
-  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-icon-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 .dg-modal.is-closing .dg-modal-status-hero .dg-modal-icon,
 .dg-modal-backdrop.is-closing .dg-modal-status-hero .dg-modal-icon {
@@ -814,8 +904,8 @@
 .dg-modal-status-hero + .dg-modal-body .dg-modal-title { margin-bottom: var(--dg-space-2); }
 
 /* Share the same tint and blur between header and floating footer. */
-.dg-modal:where(.dg-modal-confirm, .dg-modal-accent, .is-warning, .is-success, .is-danger, .is-info),
-.dg-modal:where(:has(> .dg-modal-status-hero)) {
+#{g(":where(.dg-modal-confirm, .dg-modal-accent, .is-warning, .is-success, .is-danger, .is-info)")},
+#{g(":where(:has(> .dg-modal-status-hero))")} {
   --dg-modal-section-bg: color-mix(in oklab, var(--dg-surface-3) 40%, transparent);
 }
 
@@ -830,8 +920,6 @@
 .dg-modal-footer.is-translucent,
 .dg-modal-footer.is-transparent {
   background: var(--dg-modal-section-bg);
-  -webkit-backdrop-filter: saturate(1.8) blur(20px);
-  backdrop-filter: saturate(1.8) blur(20px);
   justify-content: center;
 }
 
@@ -898,3 +986,27 @@
 /* Resizing must not restart the entrance animation when is-resizing is removed.
    The marker is reset on the next open; closing keeps its own animation. */
 .dg-modal.has-resized:not(.is-closing) { animation: none; transform: none; }
+
+/* ---- Modal glass: solid fallback -------------------------- */
+/* Reduced transparency or no backdrop-filter: the glass modal renders as the
+   solid default (theme surface, opaque sections, opacity fade). */
+@include glass.solid-fallback {
+  #{g("::after")} {
+    background: var(--dg-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    animation: none;
+  }
+  #{g(" > .dg-modal-header")},
+  #{g(" .dg-modal-footer")} {
+    background: var(--dg-surface-3);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dg-modal.is-glass:not(:where(.dg-modal-glow, .dg-modal-glow-spin)),
+  :where([data-surface="glass"]) .dg-modal:not(.is-solid):not(:where(.dg-modal-glow, .dg-modal-glow-spin)) {
+    animation-name: dg-modal-solid-in;
+  }
+  .dg-modal.is-glass.is-closing,
+  :where([data-surface="glass"]) .dg-modal:not(.is-solid).is-closing { animation-name: dg-modal-solid-out; }
+}

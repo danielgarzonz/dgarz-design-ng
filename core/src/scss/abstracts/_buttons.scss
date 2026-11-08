@@ -3,3 +3,8 @@ $selector: ":is(.dg-btn, .dg-btn-sm, .dg-btn-md, .dg-btn-lg, .dg-btn-solid, .dg-
 $subtle-selector: ":is(.dg-btn-subtle, .dg-btn-subtle-primary, .dg-btn-subtle-success, .dg-btn-subtle-warning, .dg-btn-subtle-danger, .dg-btn-subtle-info)";
 $outline-selector: ":is(.dg-btn-outline, .dg-btn-outline-primary, .dg-btn-outline-success, .dg-btn-outline-warning, .dg-btn-outline-danger, .dg-btn-outline-info)";
 $text-selector: ":is(.dg-btn-text, .dg-btn-text-primary, .dg-btn-text-success, .dg-btn-text-warning, .dg-btn-text-danger, .dg-btn-text-info)";
+
+// One transition for every button in every context (plain, groups, modal and
+// drawer footers, hover effects), so hover/press feel identical everywhere.
+// The hover grow uses .5s; color feedback stays quick.
+$transition: "background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease), opacity var(--dg-dur) var(--dg-ease), transform .5s var(--dg-ease), box-shadow .5s var(--dg-ease)";

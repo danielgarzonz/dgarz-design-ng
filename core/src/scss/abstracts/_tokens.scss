@@ -28,6 +28,8 @@
   /* Inversion pair (solid / on-solid) used by primary controls */
   --dg-solid:       var(--dg-950);
   --dg-on-solid:    var(--dg-0);
+  /* Label of unfilled/soft buttons (subtle, text): pure black on light, light text on dark. */
+  --dg-btn-ink:     #000000;
 
   /* Accent layer — optional visual styles (glass / gradients / liquid) */
   --dg-accent:        #247cff;
@@ -40,6 +42,14 @@
   --dg-glass-blur:        12px;
   --dg-glass-blur-strong: 20px;
   --dg-liquid-blur:       36px; /* deprecated — see .dg-surface-liquid */
+
+  /* Opt-in glass (.is-glass). Colors are solid by default; these tokens only
+     apply where a component opts in. Reduced transparency and browsers without
+     backdrop-filter reset them to solid values (see end of file). */
+  --dg-glass-alpha:       72%;  /* filled surfaces: solid/subtle/semantic */
+  --dg-glass-alpha-soft:  42%;  /* unfilled variants: outline/ghost */
+  --dg-glass-alpha-hover: 14%;  /* added on hover/focus — more solid, never more transparent */
+  --dg-glass-filter:      blur(var(--dg-glass-blur-strong)) saturate(180%);
 
   /* Semantic colors — vivid solids for clear status cues */
   --dg-success-subtle:     #e7f8ee;
@@ -110,7 +120,7 @@
   --dg-info-bg:            var(--dg-info-subtle);
 
   /* Typography */
-  --dg-font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --dg-font-serif: "Gambetta", Georgia, "Times New Roman", serif;
   --dg-font-sans:  "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --dg-font-mono:  "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
@@ -168,6 +178,9 @@
   --dg-radius-lg:   22px;
   --dg-radius-xl:   30px;
   --dg-radius-pill: 999px;
+  /* Top bars hanging from the screen edge (top menu, top drawer): bottom
+     corners follow the iPhone screen corner; 32px on ≤380px, square ≥861px. */
+  --dg-bar-radius:  55px;
 
   /* Borders */
   --dg-border-width: 1px;
@@ -200,6 +213,7 @@
   --dg-shadow-long:  4px 4px 0 rgba(11,11,12,.07), 8px 8px 0 rgba(11,11,12,.05), 12px 12px 0 rgba(11,11,12,.03);
   --dg-shadow-bevel: inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(11,11,12,.08), 0 3px 10px rgba(11,11,12,.08);
   --dg-shadow-float: 0 32px 64px rgba(11,11,12,.18), 0 8px 16px rgba(11,11,12,.06);
+  --dg-shadow-bar:   0 1px 8px rgba(11,11,12,.05); /* top menu bars: soft lift */
 
   /* Motion */
   --dg-ease:     cubic-bezier(.2, .6, .2, 1);
@@ -208,6 +222,20 @@
   --dg-dur-slow: .32s;
   /* Entradas y salidas: páginas, menús, overlays y paneles. */
   --dg-dur-motion: 1s;
+  --dg-dur-content: .6s;  /* modal content fade-in, after the entrance effect */
+  --dg-delay-content: .6s; /* entrance only: content starts once the reveal has settled into its final shape */
+  --dg-ease-content: cubic-bezier(.4, 0, .2, 1); /* even fade, clearly visible */
+  /* Header/footer chrome of modals and drawers; matches the iPhone status bar. */
+  --dg-overlay-chrome: #f8f8f8;
+  /* Cards: a flat tinted surface (no border, no shadow) that separates them from the page. */
+  --dg-card-bg: #f8f8f8;
+  --dg-dur-indicator: .45s; /* sliding active indicator in tabs / segmented */
+  --dg-ease-indicator: cubic-bezier(.4, 0, .2, 1); /* balanced glide: visible start, soft landing */
+  --dg-ind-scale: 1.12;     /* indicator grows this much mid-move, back to 1 on arrival */
+  --dg-switch-dur: .5s;
+  --dg-switch-ease: cubic-bezier(.34, 1.56, .64, 1); /* overshoot → small bounce on landing */
+  --dg-switch-on: var(--dg-solid);
+  --dg-switch-thumb-shadow: 0 1px 2px rgba(11,11,12,.18), 0 3px 8px rgba(11,11,12,.12);
   --dg-ease-motion: cubic-bezier(.22, 1, .36, 1);
   --dg-ease-exit: cubic-bezier(.45, 0, .2, 1);
 
@@ -220,8 +248,21 @@
   --dg-actions-search-basis: 16rem;
 }
 
+@media (max-width: 380px) {
+  :root { --dg-bar-radius: 32px; }
+}
+/* Desktop: edge bars span the full width with square corners. */
+@media (min-width: 861px) {
+  :root { --dg-bar-radius: 0px; }
+}
+
 /* ---- Dark theme ------------------------------------------ */
 [data-theme="dark"] {
+  --dg-overlay-chrome: var(--dg-surface-3);
+  --dg-card-bg: var(--dg-surface-2);
+  /* Switch: white thumb on a mid-gray "on" track (a white track would hide it). */
+  --dg-switch-on: var(--dg-500);
+  --dg-switch-thumb-shadow: 0 1px 3px rgba(0,0,0,.5);
   --dg-paper:       var(--dg-950);
   --dg-surface:     #0f0f11;
   --dg-surface-2:   #161618;
@@ -234,6 +275,7 @@
 
   --dg-solid:       var(--dg-0);
   --dg-on-solid:    var(--dg-950);
+  --dg-btn-ink:     var(--dg-text);
 
   --dg-accent:        #64a4ff;
   --dg-accent-2:      #9fc7ff;
@@ -319,4 +361,22 @@
   --dg-shadow-long:  4px 4px 0 rgba(0,0,0,.30), 8px 8px 0 rgba(0,0,0,.20), 12px 12px 0 rgba(0,0,0,.12);
   --dg-shadow-bevel: inset 0 1px 0 rgba(255,255,255,.08), inset 0 -1px 0 rgba(0,0,0,.40), 0 3px 10px rgba(0,0,0,.40);
   --dg-shadow-float: 0 32px 64px rgba(0,0,0,.60), 0 8px 16px rgba(0,0,0,.40);
+  --dg-shadow-bar:   0 1px 8px rgba(0,0,0,.28);
+}
+
+/* Glass falls back to solid when the user asks for less transparency or the
+   browser cannot blur the backdrop (translucency without blur hurts legibility). */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --dg-glass-alpha: 100%;
+    --dg-glass-alpha-soft: 100%;
+    --dg-glass-filter: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --dg-glass-alpha: 100%;
+    --dg-glass-alpha-soft: 100%;
+    --dg-glass-filter: none;
+  }
 }

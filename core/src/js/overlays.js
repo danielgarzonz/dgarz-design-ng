@@ -2,12 +2,24 @@ import { $, $all, FOCUSABLE, DUR, openStack, target } from './utils.js';
 
 var themeColorPrev = null;
 
+var colorCtx = null;
 function cssColorToHex(color) {
   var value = String(color || '').trim();
-  if (!value) return '#ececee';
+  if (!value) return '#f8f8f8';
   if (value.charAt(0) === '#' && (value.length === 4 || value.length === 7)) return value;
+  // Let the browser normalize any CSS color (oklab, color-mix, color()…) to sRGB.
+  if (!/^rgba?\(/i.test(value)) {
+    try {
+      colorCtx = colorCtx || document.createElement('canvas').getContext('2d');
+      colorCtx.fillStyle = '#f8f8f8';
+      colorCtx.fillStyle = value;
+      var normalized = String(colorCtx.fillStyle);
+      if (normalized.charAt(0) === '#') return normalized;
+      value = normalized;
+    } catch (e) { return '#f8f8f8'; }
+  }
   var match = value.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
-  if (!match) return value;
+  if (!match) return '#f8f8f8';
   return '#' + [match[1], match[2], match[3]].map(function (part) {
     return ('0' + Number(part).toString(16)).slice(-2);
   }).join('');
@@ -29,7 +41,8 @@ function setThemeColor(color) {
 
 function fullModalFrom(el) {
   if (!el) return null;
-  if (el.classList && el.classList.contains('dg-modal-full')) return el;
+  // Full-screen modals and the top drawer both own the top edge of the screen.
+  if (el.classList && (el.classList.contains('dg-modal-full') || el.classList.contains('dg-drawer-top'))) return el;
   return $('.dg-modal-full', el);
 }
 
@@ -42,17 +55,17 @@ function activeFullModal() {
 }
 
 function headerPhoneBarColor(modal) {
-  var header = modal && $('.dg-modal-header', modal);
+  var header = modal && $('.dg-modal-header, .dg-drawer-header', modal);
   if (header) {
     var bg = getComputedStyle(header).backgroundColor;
     if (bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)') return bg;
   }
   var probe = document.createElement('span');
-  probe.style.cssText = 'position:absolute;left:-9999px;background:var(--dg-surface-3)';
+  probe.style.cssText = 'position:absolute;left:-9999px;background:var(--dg-modal-section-solid, #f8f8f8)';
   (modal || document.body).appendChild(probe);
   var resolved = getComputedStyle(probe).backgroundColor;
   probe.parentNode.removeChild(probe);
-  return resolved || '#ececee';
+  return resolved || '#f8f8f8';
 }
 
 /** Keep the phone status bar in sync with the full-modal header. */
@@ -75,6 +88,37 @@ export function syncModalPhoneBar() {
   }
 }
 
+/* Header titles stay on one line: when a title does not fit, shrink its font
+   (down to 60% of its size, never below 14px) instead of truncating it. The
+   CSS ellipsis remains only as a last resort for extremely long titles. */
+export function fitModalTitles(root) {
+  $all('.dg-modal-header .dg-modal-title', root || document).forEach(function (title) {
+    title.style.fontSize = '';
+    if (!title.clientWidth) return;
+    var base = parseFloat(getComputedStyle(title).fontSize);
+    if (title.scrollWidth <= title.clientWidth + 0.5) return;
+    var min = Math.max(14, base * 0.6);
+    var size = Math.max(min, Math.floor(base * title.clientWidth / title.scrollWidth * 2) / 2);
+    title.style.fontSize = size + 'px';
+    while (title.scrollWidth > title.clientWidth + 0.5 && size > min) {
+      size = Math.max(min, size - 0.5);
+      title.style.fontSize = size + 'px';
+    }
+  });
+}
+
+var fitTimer = null;
+function refitOpenTitles() {
+  clearTimeout(fitTimer);
+  fitTimer = setTimeout(function () {
+    openStack.forEach(function (o) { fitModalTitles(o.el); });
+  }, 80);
+}
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', refitOpenTitles);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refitOpenTitles);
+}
+
 export function openOverlay(el) {
   if (!el || !openStack.every(function (o) { return o.el !== el; })) return;
   var backdrop = target(el, "data-dg-backdrop");
@@ -90,9 +134,11 @@ export function openOverlay(el) {
   if (backdrop) backdrop.hidden = false;
   el.setAttribute("aria-hidden", "false");
   var focusEl = $("[autofocus]", el) || $(FOCUSABLE, el) || el;
-  if (focusEl && focusEl.focus) focusEl.focus();
+  // preventScroll: focusing must never move the page behind the overlay.
+  if (focusEl && focusEl.focus) focusEl.focus({ preventScroll: true });
   openStack.push({ el: el, backdrop: backdrop, prevFocus: prevFocus });
   document.body.style.overflow = "hidden";
+  fitModalTitles(el);
   syncModalPhoneBar();
 }
 
@@ -103,7 +149,7 @@ export function closeOverlay(el) {
   o.el.setAttribute("aria-hidden", "true");
   openStack.splice(idx, 1);
   if (!openStack.length) document.body.style.overflow = "";
-  if (o.prevFocus && o.prevFocus.focus) o.prevFocus.focus();
+  if (o.prevFocus && o.prevFocus.focus) o.prevFocus.focus({ preventScroll: true });
   var inner = o.el.querySelector(".dg-modal") || null;
   if (inner && inner.__dgResizeAnimation) {
     inner.__dgResizeAnimation.cancel();
@@ -169,7 +215,10 @@ export function wireModalResize(modal) {
           modal.classList.remove('is-resizing');
           modal.__dgResizeAnimation = null;
           animation.cancel();
+          fitModalTitles(modal);
         }).catch(function () { /* A repeated click or closing can interrupt resizing. */ });
+      } else {
+        fitModalTitles(modal);
       }
       syncModalPhoneBar();
       modal.dispatchEvent(new CustomEvent('dg:modal-resize', { bubbles: true, detail: { size: full ? 'full' : 'md' } }));

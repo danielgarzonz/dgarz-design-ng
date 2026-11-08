@@ -56,6 +56,14 @@ describe('dgarz-button', () => {
     expect(button.getAttribute('aria-busy')).toBe(state === 'loading' ? 'true' : 'false');
   });
 
+  it('reflects the glass option', async () => {
+    const { element } = await fixture('glass');
+    expect(element.getAttribute('glass')).toBe('');
+    expect(element.glass).toBe(true);
+    element.glass = false;
+    await waitFor(() => expect(element.hasAttribute('glass')).toBe(false));
+  });
+
   it('restores interaction after loading completes', async () => {
     const { element, button } = await fixture('loading');
     element.loading = false;

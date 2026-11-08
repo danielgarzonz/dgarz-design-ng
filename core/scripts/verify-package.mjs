@@ -157,6 +157,11 @@ try {
     await page.locator('dgarz-button').evaluate(element => { element.loading = false; });
     await page.waitForFunction(() => !document.querySelector('dgarz-button').shadowRoot.querySelector('button').disabled);
     await page.evaluate(() => document.documentElement.style.setProperty('--dgarz-color-primary', 'rgb(12, 34, 56)'));
+    // The button eases its background (transition .2s): wait for the final color.
+    await page.waitForFunction(() => {
+      const inner = document.querySelector('dgarz-button').shadowRoot.querySelector('button');
+      return getComputedStyle(inner).backgroundColor === 'rgb(12, 34, 56)';
+    }, null, { timeout: 2000 }).catch(() => {});
     assert.equal(await button.evaluate(element => getComputedStyle(element).backgroundColor), 'rgb(12, 34, 56)', 'Tokens must cross Shadow DOM; external button selectors must not');
     assert.deepEqual(errors, [], 'Browser errors');
     console.log(`[package] Chromium ${browser.version()}: label, keyboard, events, loading, tokens, Shadow DOM and legacy OK`);

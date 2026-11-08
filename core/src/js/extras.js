@@ -27,7 +27,7 @@ export function wireGallery(gallery) {
     current = idx;
     show();
     backdrop.removeAttribute('hidden');
-    backdrop.focus();
+    backdrop.focus({ preventScroll: true });
   }
   function close() { backdrop.setAttribute('hidden', ''); }
   function show() {

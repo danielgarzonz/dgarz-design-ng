@@ -1,43 +1,116 @@
 /* Mismo ancho que el contenido del .dg-container; radio de esquina de iPhone.
        --pub-nav-inset es el límite del contenido a cada lado, igual que en los
        headers de modal completo. */
-    .pub-nav {
-      --pub-nav-radius: 55px;
+    /* .dg-navbar sets display:flex — keep pub-nav grid so mobile hamburger stays visible. */
+    .dg-navbar.pub-nav {
+      --pub-nav-radius: var(--dg-bar-radius, 55px);
       /* Tangente interior de la curva: el inset coincide con el radio. */
       --pub-nav-inset: var(--pub-nav-radius);
       position: fixed; top: 0; left: 0; right: 0; z-index: 30;
-      flex-wrap: wrap; row-gap: 0;
+      /* Marca centrada en la página; enlaces y acciones a los laterales.
+         Las columnas laterales iguales mantienen el centro aunque difieran. */
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      grid-template-areas: "nav brand actions" "menu menu menu";
+      align-items: center; row-gap: 0;
+      gap: 0;
       width: calc(min(100%, var(--dg-container)) - 2 * var(--dg-space-5));
       margin-inline: auto; padding-inline: var(--pub-nav-inset);
       border-radius: 0 0 var(--pub-nav-radius) var(--pub-nav-radius);
-      /* Sólido para coincidir con la barra del teléfono (theme-color). */
-      background: var(--dg-paper);
+      /* Same surface as the full-screen modal header in both themes
+         (#f8f8f8 / #1e1e21), so top menu, modal chrome and phone bar match. */
+      background: var(--dg-overlay-chrome);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       transition: transform var(--dg-dur-motion) var(--dg-ease-motion), background var(--dg-dur-motion) var(--dg-ease-motion);
     }
     .pub-nav.is-hidden { transform: translateY(-100%); }
 
+
     /* Móvil: las opciones viven dentro del header, que crece y se reduce. */
-    .pub-nav .pub-menu-btn, .pub-icon-close, .pub-nav.is-open .pub-icon-open { display: none; }
-    .pub-nav.is-open .pub-icon-close { display: block; }
+    .pub-nav .pub-menu-btn,
+    .pub-nav .doc-menu-btn,
+    .pub-icon-close,
+    .pub-nav.is-open .pub-icon-open,
+    .pub-nav .doc-menu-btn[aria-expanded="true"] .pub-icon-open { display: none; }
+    .pub-nav.is-open .pub-icon-close,
+    .pub-nav .doc-menu-btn[aria-expanded="true"] .pub-icon-close { display: block; }
     .pub-menu {
       display: none; flex: 0 0 100%; grid-template-rows: 0fr;
       visibility: hidden;
-      transition: grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion), visibility var(--dg-dur-motion);
+      transition:
+        grid-template-rows var(--dg-dur-motion) var(--dg-ease-motion),
+        visibility 0s var(--dg-dur-motion);
     }
-    .pub-nav.is-open .pub-menu { grid-template-rows: 1fr; visibility: visible; }
+    .pub-nav.is-open .pub-menu {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition-delay: 0s;
+    }
     .pub-menu-inner { min-height: 0; overflow: hidden; }
-    .pub-menu-list { display: flex; flex-direction: column; gap: var(--dg-space-1); padding-block: var(--dg-space-3) var(--dg-space-4); }
+    .pub-menu-list {
+      display: flex; flex-direction: column; align-items: stretch;
+      gap: 0;
+      padding-block: var(--dg-space-3) var(--dg-space-5);
+    }
     .pub-nav.is-open .pub-menu-list > * { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
     .pub-nav.is-open .pub-menu-list > :nth-child(2) { animation-delay: 130ms; }
     .pub-nav.is-open .pub-menu-list > :nth-child(3) { animation-delay: 180ms; }
-    .pub-menu-list .dg-nav-link { display: flex; align-items: center; min-height: 44px; }
-    .pub-menu-list .dg-btn { margin-top: var(--dg-space-3); min-height: 44px; }
-    .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-medium); }
+    .pub-menu-list .dg-nav-link {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 48px;
+      font-size: var(--dg-text-lg);
+      font-weight: var(--dg-weight-medium);
+      text-align: center;
+      border-radius: 0;
+      background: transparent;
+    }
+    /* Hairline via background — flat reset strips border. */
+    .pub-menu-list .dg-nav-link + .dg-nav-link::before {
+      content: "";
+      position: absolute; top: 0; left: 12%; right: 12%;
+      height: 1px;
+      background: color-mix(in oklab, var(--dg-text) 12%, transparent);
+      pointer-events: none;
+    }
+    .pub-menu-list .dg-nav-link:hover,
+    .pub-menu-list .dg-nav-link.is-active {
+      background: color-mix(in oklab, var(--dg-surface-2) 70%, transparent);
+    }
+    .pub-menu-backdrop { display: none; }
+    .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-semi); }
+    .pub-nav > .pub-brand { grid-area: brand; justify-self: center; white-space: nowrap; }
+    .pub-nav > .pub-nav-start {
+      grid-area: nav; justify-self: start;
+      display: flex; align-items: center; gap: var(--dg-space-2);
+      min-width: 0; max-width: 100%;
+      overflow: hidden;
+    }
+    .pub-version {
+      min-width: 0; max-width: 100%;
+      font-family: var(--dg-font-mono);
+      font-size: var(--dg-text-xs);
+      font-weight: var(--dg-weight-medium);
+      letter-spacing: -0.03em;
+      color: var(--dg-text-faint);
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0.35em 0.65em;
+      border-radius: var(--dg-radius-pill);
+      background: var(--dg-surface-2);
+      transition: color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+    }
+    .pub-version:hover { color: var(--dg-text); background: var(--dg-surface-3); }
+    /* El texto del primer enlace se alinea con la tangente; su píldora de hover sobresale. */
+    .pub-nav-start .dg-navbar-nav { flex-shrink: 0; margin-inline-start: -0.25em; }
+    .pub-nav > .pub-actions { grid-area: actions; justify-self: end; }
+    .pub-nav > .pub-menu { grid-area: menu; }
     .pub-actions {
       display: flex; align-items: center; gap: var(--dg-space-2);
-      margin-inline-start: auto; flex-shrink: 0;
+      flex-shrink: 0;
       /* Icono 12px en caja 30px: 9px vacíos a cada lado. El margen negativo
          alinea el trazo visible con la tangente; la zona pulsable se extiende. */
       margin-inline-end: -9px;
@@ -73,9 +146,9 @@
     [data-theme="dark"] .pub-moon { display: block; }
 
 
-    .pub-nav { min-height: 60px; }
+    .dg-navbar.pub-nav { min-height: 60px; }
     @media (min-width: 861px) {
-      .pub-nav {
+      .dg-navbar.pub-nav {
         width: 100%;
         margin-inline: 0;
         padding-inline: max(var(--dg-space-5), calc((100% - 1320px) / 2 + var(--dg-space-5)));
@@ -83,19 +156,55 @@
       }
     }
     @media (max-width: 860px) {
-      .pub-docs-btn, .pub-nav .dg-navbar-nav { display: none; }
-      .pub-nav .pub-menu-btn { display: inline-flex; }
+      .pub-docs-btn, .pub-nav-start .dg-navbar-nav { display: none; }
+      .pub-nav .pub-menu-btn,
+      .pub-nav .doc-menu-btn { display: inline-flex; }
       .pub-menu { display: grid; }
-      .pub-nav {
+      .dg-navbar.pub-nav {
         width: 100%;
         padding-left: max(var(--pub-nav-inset), env(safe-area-inset-left, 0px));
         padding-right: max(var(--pub-nav-inset), env(safe-area-inset-right, 0px));
       }
-      /* Newsreader's initial "d" has a small positive side bearing.
-         Align its visible ink with the left tangent, not its text box. */
-      .pub-nav .pub-brand { margin-inline-start: -.035em; }
+      /* Half-screen target lives on the list always; 0fr→1fr clips/reveals it
+         so the header grows smoothly instead of jumping. */
+      .pub-menu-list {
+        height: calc(50dvh - 60px);
+        box-sizing: border-box;
+      }
+      .pub-menu-list .dg-nav-link {
+        font-size: clamp(1.5rem, 6.5vw, 2rem);
+        min-height: 56px;
+        padding-inline: 0.5em;
+      }
+      .pub-menu-backdrop {
+        display: block;
+        position: fixed; inset: 0; z-index: 29;
+        border: 0; padding: 0; cursor: pointer;
+        background: transparent;
+        -webkit-backdrop-filter: blur(0);
+        backdrop-filter: blur(0);
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          background var(--dg-dur-motion) var(--dg-ease-motion),
+          backdrop-filter var(--dg-dur-motion) var(--dg-ease-motion),
+          -webkit-backdrop-filter var(--dg-dur-motion) var(--dg-ease-motion),
+          visibility 0s var(--dg-dur-motion);
+      }
+      body.pub-menu-open { overflow: hidden; }
+      body.pub-menu-open .pub-menu-backdrop {
+        background: color-mix(in oklab, var(--dg-950) 32%, transparent);
+        -webkit-backdrop-filter: saturate(1.2) blur(8px);
+        backdrop-filter: saturate(1.2) blur(8px);
+        visibility: visible;
+        pointer-events: auto;
+        transition-delay: 0s;
+      }
     }
+    /* Very narrow phones: a smaller corner radius (and inset) leaves room for the
+       centered Gambetta wordmark between the side columns. */
+    /* (El radio baja a 32px en ≤380px desde el token --dg-bar-radius.) */
     @media (prefers-reduced-motion: reduce) {
-      .pub-nav, .pub-menu { transition: none; }
+      .pub-nav, .pub-menu, .pub-menu-backdrop { transition: none; }
       .pub-nav.is-open .pub-menu-list > * { animation: none; }
     }

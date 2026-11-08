@@ -22,7 +22,8 @@
     "verify:next-hydrate": "npm run build --workspace=core && node scripts/verify-next-hydrate.mjs",
     "build:wrappers": "npm run build --workspace=dgarz-design-react && npm run build --workspace=dgarz-design-vue && npm run build --workspace=dgarz-design-angular",
     "verify:wrappers": "npm run build && node scripts/verify-wrappers.mjs",
-    "verify:button-classes": "npm run verify:button-classes --workspace=core"
+    "verify:button-classes": "npm run verify:button-classes --workspace=core",
+    "verify:glass": "npm run verify:glass --workspace=core"
   },
   "devDependencies": {
     "@angular/common": "^20.3.34",

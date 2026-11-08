@@ -1,5 +1,17 @@
-/* Collection identity, inspired by dagzup's blue, neutral panels and compact type. */
-.gallery-intro { display:flex; justify-content:space-between; align-items:end; gap:32px; padding:36px; margin-bottom:32px; background:var(--dg-surface-2); border:1px solid var(--dg-border); border-radius:12px; }
+/* Collection identity — default card (surface, no border). */
+.gallery-intro {
+  margin-bottom: 32px;
+  background: var(--doc-panel-bg, var(--dg-surface));
+  border-radius: var(--dg-radius-lg);
+  overflow: hidden;
+}
+.gallery-intro-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  padding: 36px;
+}
 .gallery-eyebrow { font:600 10px var(--dg-font-mono); letter-spacing:.12em; color:var(--dg-text-muted); }
 .gallery-intro h2 { font:600 clamp(30px,4vw,48px)/1.08 var(--dg-font-sans); letter-spacing:-.055em; margin:20px 0 16px; }
 .gallery-intro h2 span { color:#007fff; }
@@ -68,11 +80,25 @@
 
 
 @media (max-width:600px) {
-  .gallery-intro { padding:24px; gap:16px; }
+  .gallery-intro-body { padding:24px; gap:16px; }
   .gallery-count strong { font-size:54px; }
   .gallery-count span { max-width:76px; }
   .preview-stage { padding-inline:18px; }
-  
-  
 }
+/* Device tabs: multiple options in a subtle bordered capsule. */
+.gallery-device-tabs {
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px;
+  gap: 2px;
+  border-radius: var(--dg-radius-pill);
+  background: transparent;
+  /* Outline survives the flat border reset. */
+  outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+  outline-offset: 0;
+}
+.gallery-device-tabs .dg-tab {
+  border-radius: var(--dg-radius-pill);
+}
+
 @media (prefers-reduced-motion:reduce) { .doc-gallery-card.doc-gallery-link { transition:none; } }

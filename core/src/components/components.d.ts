@@ -5,20 +5,271 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DgarzInputType } from "./input/input";
+export { DgarzInputType } from "./input/input";
 export namespace Components {
+    /**
+     * Native action button. The default slot supplies the accessible label.
+     */
+    interface DgarzButton {
+        /**
+          * Prevents activation.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Translucent, blurred fill for use over images or color. Falls back to solid under prefers-reduced-transparency or without backdrop-filter support.
+          * @default false
+         */
+        "glass": boolean;
+        /**
+          * Shows progress and prevents activation.
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Visual emphasis of the action.
+          * @default 'primary'
+         */
+        "variant": 'primary' | 'secondary';
+    }
+    /**
+     * Native text field. Prefer `label` for the accessible name.
+     */
+    interface DgarzInput {
+        /**
+          * Native autocomplete hint.
+         */
+        "autocomplete"?: string;
+        /**
+          * Prevents editing.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Visual and ARIA invalid state.
+          * @default false
+         */
+        "invalid": boolean;
+        /**
+          * Visible and accessible label. Prefer this over a placeholder-only name.
+          * @default ''
+         */
+        "label": string;
+        /**
+          * Submitted name when used inside a form that reads light-DOM attributes.
+         */
+        "name"?: string;
+        /**
+          * Placeholder shown when the value is empty.
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * Allows focus without editing.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Marks the field as required.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Native input type subset for text-like fields.
+          * @default 'text'
+         */
+        "type": DgarzInputType;
+        /**
+          * Current value; mutable for two-way updates from the control.
+          * @default ''
+         */
+        "value": string;
+    }
+}
+export interface DgarzButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDgarzButtonElement;
+}
+export interface DgarzInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDgarzInputElement;
 }
 declare global {
+    interface HTMLDgarzButtonElementEventMap {
+        "dgarz-click": void;
+    }
+    /**
+     * Native action button. The default slot supplies the accessible label.
+     */
+    interface HTMLDgarzButtonElement extends Components.DgarzButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDgarzButtonElementEventMap>(type: K, listener: (this: HTMLDgarzButtonElement, ev: DgarzButtonCustomEvent<HTMLDgarzButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDgarzButtonElementEventMap>(type: K, listener: (this: HTMLDgarzButtonElement, ev: DgarzButtonCustomEvent<HTMLDgarzButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDgarzButtonElement: {
+        prototype: HTMLDgarzButtonElement;
+        new (): HTMLDgarzButtonElement;
+    };
+    interface HTMLDgarzInputElementEventMap {
+        "dgarz-input": string;
+        "dgarz-change": string;
+    }
+    /**
+     * Native text field. Prefer `label` for the accessible name.
+     */
+    interface HTMLDgarzInputElement extends Components.DgarzInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDgarzInputElementEventMap>(type: K, listener: (this: HTMLDgarzInputElement, ev: DgarzInputCustomEvent<HTMLDgarzInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDgarzInputElementEventMap>(type: K, listener: (this: HTMLDgarzInputElement, ev: DgarzInputCustomEvent<HTMLDgarzInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDgarzInputElement: {
+        prototype: HTMLDgarzInputElement;
+        new (): HTMLDgarzInputElement;
+    };
     interface HTMLElementTagNameMap {
+        "dgarz-button": HTMLDgarzButtonElement;
+        "dgarz-input": HTMLDgarzInputElement;
     }
 }
 declare namespace LocalJSX {
+    /**
+     * Native action button. The default slot supplies the accessible label.
+     */
+    interface DgarzButton {
+        /**
+          * Prevents activation.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Translucent, blurred fill for use over images or color. Falls back to solid under prefers-reduced-transparency or without backdrop-filter support.
+          * @default false
+         */
+        "glass"?: boolean;
+        /**
+          * Shows progress and prevents activation.
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Emitted on activation; crosses the shadow boundary.
+         */
+        "onDgarz-click"?: (event: DgarzButtonCustomEvent<void>) => void;
+        /**
+          * Visual emphasis of the action.
+          * @default 'primary'
+         */
+        "variant"?: 'primary' | 'secondary';
+    }
+    /**
+     * Native text field. Prefer `label` for the accessible name.
+     */
+    interface DgarzInput {
+        /**
+          * Native autocomplete hint.
+         */
+        "autocomplete"?: string;
+        /**
+          * Prevents editing.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Visual and ARIA invalid state.
+          * @default false
+         */
+        "invalid"?: boolean;
+        /**
+          * Visible and accessible label. Prefer this over a placeholder-only name.
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * Submitted name when used inside a form that reads light-DOM attributes.
+         */
+        "name"?: string;
+        /**
+          * Emitted when the control commits a change.
+         */
+        "onDgarz-change"?: (event: DgarzInputCustomEvent<string>) => void;
+        /**
+          * Emitted on every input with the current value.
+         */
+        "onDgarz-input"?: (event: DgarzInputCustomEvent<string>) => void;
+        /**
+          * Placeholder shown when the value is empty.
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * Allows focus without editing.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Marks the field as required.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Native input type subset for text-like fields.
+          * @default 'text'
+         */
+        "type"?: DgarzInputType;
+        /**
+          * Current value; mutable for two-way updates from the control.
+          * @default ''
+         */
+        "value"?: string;
+    }
+
+    interface DgarzButtonAttributes {
+        "variant": 'primary' | 'secondary';
+        "disabled": boolean;
+        "loading": boolean;
+        "glass": boolean;
+    }
+    interface DgarzInputAttributes {
+        "type": DgarzInputType;
+        "value": string;
+        "name": string;
+        "label": string;
+        "placeholder": string;
+        "disabled": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "invalid": boolean;
+        "autocomplete": string;
+    }
+
     interface IntrinsicElements {
+        "dgarz-button": Omit<DgarzButton, keyof DgarzButtonAttributes> & { [K in keyof DgarzButton & keyof DgarzButtonAttributes]?: DgarzButton[K] } & { [K in keyof DgarzButton & keyof DgarzButtonAttributes as `attr:${K}`]?: DgarzButtonAttributes[K] } & { [K in keyof DgarzButton & keyof DgarzButtonAttributes as `prop:${K}`]?: DgarzButton[K] };
+        "dgarz-input": Omit<DgarzInput, keyof DgarzInputAttributes> & { [K in keyof DgarzInput & keyof DgarzInputAttributes]?: DgarzInput[K] } & { [K in keyof DgarzInput & keyof DgarzInputAttributes as `attr:${K}`]?: DgarzInputAttributes[K] } & { [K in keyof DgarzInput & keyof DgarzInputAttributes as `prop:${K}`]?: DgarzInput[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * Native action button. The default slot supplies the accessible label.
+             */
+            "dgarz-button": LocalJSX.IntrinsicElements["dgarz-button"] & JSXBase.HTMLAttributes<HTMLDgarzButtonElement>;
+            /**
+             * Native text field. Prefer `label` for the accessible name.
+             */
+            "dgarz-input": LocalJSX.IntrinsicElements["dgarz-input"] & JSXBase.HTMLAttributes<HTMLDgarzInputElement>;
         }
     }
 }

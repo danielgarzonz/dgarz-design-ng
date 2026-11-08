@@ -51,6 +51,23 @@ dgarz.toast("Actualización disponible.", { variant: "info" });</pre></div>
   &lt;div class="dg-toast dg-toast-danger"&gt;Error&lt;/div&gt;
   &lt;div class="dg-toast dg-toast-info"&gt;Actualización&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+</div>
+
+      <div class="doc-sub dg-mt-7">Glass</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Los toasts conservan su tono con <code class="dg-code">.is-glass</code>, útil cuando aparecen sobre contenido visual. Si el usuario activa <em>reducir transparencia</em> o el navegador no soporta <code class="dg-code">backdrop-filter</code>, vuelve a su color sólido.</p>
+      <div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-stack dg-gap-3" style="max-width: 20rem">
+  <div class="dg-toast is-glass" role="status">Archivo subido</div>
+  <div class="dg-toast dg-toast-success is-glass" role="status">Cambios guardados</div>
+  <div class="dg-toast dg-toast-danger is-glass" role="alert">No se pudo conectar</div>
+</div>
+</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-stack dg-gap-3&quot; style=&quot;max-width: 20rem&quot;&gt;
+  &lt;div class=&quot;dg-toast is-glass&quot; role=&quot;status&quot;&gt;Archivo subido&lt;/div&gt;
+  &lt;div class=&quot;dg-toast dg-toast-success is-glass&quot; role=&quot;status&quot;&gt;Cambios guardados&lt;/div&gt;
+  &lt;div class=&quot;dg-toast dg-toast-danger is-glass&quot; role=&quot;alert&quot;&gt;No se pudo conectar&lt;/div&gt;
+&lt;/div&gt;</pre></div>
 </div>`;
 ---
 

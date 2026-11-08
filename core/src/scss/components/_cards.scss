@@ -1,18 +1,16 @@
+@use "../abstracts/glass";
 /* ---- Cards ------------------------------------------------ */
 .dg-card {
   color: var(--dg-text);
-  background: var(--dg-surface);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  /* Flat tinted surface: no border and no shadow (#f8f8f8 light). */
+  background: var(--dg-card-bg);
   border: none;
   border-radius: var(--dg-radius-lg);
-  box-shadow:
-    0 8px 24px color-mix(in oklab, #000 8%, transparent),
-    0 2px 8px color-mix(in oklab, #000 5%, transparent);
+  box-shadow: none;
   overflow: hidden;
   transition: box-shadow var(--dg-dur) var(--dg-ease), transform var(--dg-dur) var(--dg-ease);
 }
-.dg-card-hover:hover { box-shadow: var(--dg-shadow-2); transform: translateY(-2px); }
+.dg-card-hover:hover { transform: translateY(-2px); }
 .dg-card-body { padding: var(--dg-space-5); }
 .dg-card-header {
   padding: var(--dg-space-5);
@@ -57,3 +55,10 @@
 /* Profile card */
 .dg-card-profile { text-align: center; }
 .dg-card-profile .dg-avatar { width: 4em; height: 4em; font-size: var(--dg-text-lg); margin: 0 auto var(--dg-space-3); }
+
+/* ---- Card: opt-in glass ----------------------------------- */
+/* Solid by default (a blur behind an opaque fill only costs GPU time).
+   Over images or color, .is-glass frosts the card; hover makes it more opaque. */
+.dg-card.is-glass { @include glass.surface(var(--dg-surface)); }
+.dg-card.is-glass:is(.dg-card-hover, .dg-card-select):hover,
+.dg-card.is-glass.is-selected { @include glass.boost; }
