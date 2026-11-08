@@ -38,19 +38,61 @@ const sections = [
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,401,500,501,600,601&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href={cssHref} />
+  <script is:inline>
+    // Hold the hero entrance until the web fonts are ready (max 1.5s), so the
+    // fallback → Gambetta swap happens while the hero is still invisible.
+    (function () {
+      var root = document.documentElement;
+      if (!document.fonts || !document.fonts.load) return;
+      root.classList.add("pub-fonts-pending");
+      var done = function () { root.classList.remove("pub-fonts-pending"); };
+      // fonts.ready resolves before any font is requested; load() requests
+      // the title faces explicitly and resolves when they are usable.
+      Promise.all([
+        document.fonts.load('400 1em "Gambetta"'),
+        document.fonts.load('italic 400 1em "Gambetta"')
+      ]).then(done, done);
+      setTimeout(done, 1500);
+    })();
+  </script>
   <style is:global>
     body { overflow-x: hidden; padding-top: 60px; background: var(--dg-surface-2); }
-    /* El nombre queda en el centro exacto: las filas 1 y 3 miden lo mismo. */
+    /* Título, párrafo y botones forman un solo bloque centrado en la pantalla
+       visible bajo la barra superior (60px). */
     .pub-hero {
-      display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center;
-      min-height: calc(100svh - 60px); padding-block: var(--dg-space-5);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center;
+      /* White hero (#ffffff = --dg-paper in light; follows the theme in dark),
+         bleeding to the viewport edges from inside .dg-container. */
+      background: var(--dg-paper);
+      margin-inline: calc(50% - 50vw);
+      padding-inline: calc(50vw - 50%);
+      /* Also extends up behind the fixed 60px menu, so the gaps around its
+         rounded corners show the hero background. The extra top padding keeps
+         the content centered in the visible area below the menu. */
+      margin-top: -60px;
+      min-height: 100svh;
+      padding-block: calc(60px + var(--dg-space-5)) var(--dg-space-5);
     }
     .pub-title {
-      grid-row: 2; margin: 0;
-      font-size: clamp(3.5rem, 13vw, 11rem); line-height: 1; letter-spacing: -0.03em;
+      margin: 0;
+      font-weight: var(--dg-weight-medium); /* 500: wordmark a step heavier than body serif */
+      /* Original scale (3.5rem min, 13vw), shrunk only when "dgarz design"
+         (~4.9em wide in Gambetta) would not fit the line on narrow phones. */
+      font-size: clamp(2.5rem, min(max(3.5rem, 13vw), calc((100vw - 3rem) / 5.2)), 11rem); line-height: 1; letter-spacing: -0.03em;
+      --pub-letters: 11; /* "dgarz" + "design": the sweep starts at the last letter */
+    }
+    /* Strict sequence, one part after another: title → paragraph → button 1 → button 2.
+       --pub-step is each part's own duration; the title ends when its last-swept
+       letter ("d") finishes. */
+    .pub-hero {
+      --pub-step: var(--dg-dur-motion);
+      --pub-title-end: calc(120ms + (11 - 1) * 55ms + var(--dg-dur-motion));
     }
     /* Italic glyphs extend beyond their advance width: keep their paint area open. */
     .pub-word { display: inline-block; overflow: visible; }
@@ -61,16 +103,84 @@ const sections = [
       padding-inline: .18em;
       margin-inline: -.18em;
       overflow: visible;
-      animation: pub-letter-rise var(--dg-dur-motion) var(--dg-ease-motion) backwards;
-      animation-delay: calc(var(--i) * 65ms + 120ms);
+      /* Right-to-left sweep: the last letter enters first, each one slides in
+         from the right while it fades in and comes into focus. */
+      animation: pub-letter-sweep var(--dg-dur-motion) var(--dg-ease-motion) backwards;
+      animation-delay: calc((var(--pub-letters) - 1 - var(--i)) * 55ms + 120ms);
     }
-    @keyframes pub-letter-rise {
-      from { transform: translateY(125%) rotate(7deg); }
-      to { transform: none; }
+    @keyframes pub-letter-sweep {
+      from { opacity: 0; transform: translateX(.45em); filter: blur(12px); }
+      to { opacity: 1; transform: none; filter: blur(0); }
     }
-    .pub-intro { grid-row: 3; max-width: 36rem; padding-top: var(--dg-space-5); }
+    /* After the title: paragraph → button 1 → button 2, each fading in place. */
+    .pub-reveal {
+      animation: pub-reveal var(--pub-step) var(--dg-ease-motion) backwards;
+      animation-delay: calc(var(--pub-title-end) + var(--pub-order, 0) * var(--pub-step));
+    }
+    @keyframes pub-reveal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Paused + backwards fill keeps the hero in its hidden start state. */
+    .pub-fonts-pending :is(.pub-letter, .pub-reveal) { animation-play-state: paused; }
+    .pub-intro { max-width: 36rem; padding-top: var(--dg-space-5); }
     .pub-intro .dg-cluster { justify-content: center; }
-    .pub-preview { max-width: 34rem; margin-inline: auto; }
+    /* Editorial showcase after the hero: three staggered columns of poster-like
+       interfaces built with the framework; columns drift at different speeds
+       on scroll (parallax, transform only). */
+    .pub-showcase {
+      position: relative; overflow: hidden;
+      margin-inline: calc(50% - 50vw); padding: clamp(4rem, 9vw, 7.5rem) calc(50vw - 50%);
+      /* Always dark: the posters are fixed images, not theme-aware. */
+      background: var(--dg-950);
+    }
+    .pub-showcase-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 19rem));
+      justify-content: center; align-items: start; gap: clamp(1rem, 2.4vw, 1.75rem);
+    }
+    .pub-showcase-col { display: flex; flex-direction: column; gap: clamp(1rem, 2.4vw, 1.75rem); will-change: transform; }
+    .pub-showcase-col-mid { margin-top: -4rem; }
+    .pub-showcase-col-end { margin-top: 3rem; }
+    /* Posters are WebP renders of docs/scripts/showcase/posters.html
+       (regenerate with docs/scripts/render-showcase.mjs). */
+    .pub-poster-img { display: block; width: 100%; height: auto; }
+    /* Small screens: fixed-width posters, middle column centered; the side
+       columns run off the edges and are clipped by the band (editorial crop). */
+    @media (max-width: 860px) {
+      .pub-showcase-grid { grid-template-columns: repeat(3, 15rem); justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub-showcase-col { will-change: auto; transform: none !important; }
+    }
+
+    /* Component gallery: live framework markup, inert (preview only). */
+    .pub-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--dg-space-4); }
+    @media (max-width: 991px) { .pub-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 575px) { .pub-gallery { grid-template-columns: minmax(0, 1fr); } }
+    .pub-tile { position: relative; display: flex; flex-direction: column; }
+    .pub-tile-stage {
+      display: grid; place-items: center; min-height: 240px; flex: 1;
+      padding: var(--dg-space-5); background: var(--dg-surface);
+    }
+    .pub-tile-stage > * { max-width: 100%; }
+    .pub-tile-form { width: min(100%, 17rem); }
+    .pub-tile-modal { width: min(100%, 22rem); max-height: none; animation: none; }
+    .pub-tile-glass {
+      background:
+        radial-gradient(circle at 18% 30%, #ff7a1a 0, transparent 40%),
+        radial-gradient(circle at 82% 22%, #8e7dff 0, transparent 42%),
+        radial-gradient(circle at 60% 95%, #22c55e 0, transparent 40%),
+        linear-gradient(135deg, #0f1a2e, #247cff);
+    }
+    .pub-tile-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--dg-space-3); padding: var(--dg-space-4) var(--dg-space-5); background: var(--dg-surface); }
+    .pub-tile { overflow: hidden; }
+    .pub-tile-meta h3 { margin: 0; }
+    .pub-tile-meta > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    /* Only the arrow navigates to the docs; the components above are live.
+       It is a framework button (subtle, icon), so it shares the buttons' hover. */
+    .pub-tile-arrow { flex: none; min-width: 0; }
+    .pub-tile-arrow svg { width: 1rem; height: 1rem; transition: transform .5s var(--dg-ease); }
+    .pub-tile-arrow:is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }
     .pub-main .dg-card { border: 0; }
     .pub-link { color: inherit; text-decoration: none; }
     .pub-link:hover { background: var(--dg-surface-3); }
@@ -88,7 +198,7 @@ const sections = [
       .pub-cta { padding: var(--dg-space-5); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .pub-letter { animation: none; }
+      .pub-letter, .pub-reveal { animation: none; }
     }
   </style>
 </head>
@@ -104,38 +214,129 @@ const sections = [
       <span class="pub-word brand-suffix" aria-hidden="true">{[..."design"].map((letter, i) => <span class="pub-letter" style={`--i: ${i + 5}`}>{letter}</span>)}</span>
     </h1>
     <div class="pub-intro">
-      <p class="dg-lead dg-text-in dg-delay-8">Un framework CSS moderno y monocromo, sin dependencias y con modo oscuro nativo.</p>
-      <div class="dg-cluster dg-mt-4 dg-text-in dg-delay-9">
-        <a href="/comenzar/intro" class="dg-btn dg-btn-primary">Empezar</a>
-        <a href="/componentes/buttons" class="dg-btn dg-btn-outline">Ver componentes</a>
+      <p class="dg-lead pub-reveal" style="--pub-order: 0">Un framework CSS moderno y monocromo, sin dependencias y con modo oscuro nativo.</p>
+      <div class="dg-cluster dg-mt-4">
+        <a href="/comenzar/intro" class="dg-btn dg-btn-primary pub-reveal" style="--pub-order: 1">Empezar</a>
+        <a href="/componentes/buttons" class="dg-btn dg-btn-subtle pub-reveal" style="--pub-order: 2">Ver componentes</a>
       </div>
     </div>
   </section>
 
-  <section class="dg-section" data-dg-reveal-children>
-    <div class="pub-preview">
-    <div class="dg-card" aria-label="Ejemplo con componentes del framework" role="img">
-      <div class="dg-card-body dg-stack">
-        <div class="dg-flex dg-items-center dg-justify-between dg-gap-3">
-          <div class="dg-fw-semi">Nuevo proyecto</div>
-          <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
-        </div>
-        <div class="dg-steps" data-dg-steps-play>
-          <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><span class="dg-step-label">Cuenta</span></div>
-          <div class="dg-step is-active"><span class="dg-step-dot">2</span><span class="dg-step-label">Equipo</span></div>
-          <div class="dg-step"><span class="dg-step-dot">3</span><span class="dg-step-label">Listo</span></div>
-        </div>
-        <div class="dg-field">
-          <span class="dg-label">Nombre del equipo</span>
-          <div class="dg-input" aria-hidden="true">Estudio Norte</div>
-        </div>
-        <div class="dg-progress"><div class="dg-progress-bar" style="width: 60%"></div></div>
-        <div class="dg-cluster">
-          <span class="dg-btn dg-btn-primary dg-btn-sm">Continuar</span>
-          <span class="dg-btn dg-btn-ghost dg-btn-sm">Omitir</span>
-        </div>
+  <section class="pub-showcase" data-pub-parallax aria-labelledby="pub-showcase-title">
+    <h2 id="pub-showcase-title" class="dg-sr-only">Sitios de ejemplo hechos con dgarz design</h2>
+    <div class="pub-showcase-grid">
+      <div class="pub-showcase-col" data-speed="70">
+        <img class="pub-poster-img" src="/showcase/01-estudio.webp" alt="Sitio de ejemplo «Estudio Norte», estudio de arquitectura: titular «Espacios que respiran», ilustración de un arco y lista de proyectos." width="304" height="502" loading="lazy" decoding="async">
+        <img class="pub-poster-img" src="/showcase/06-cuaderno.webp" alt="Sitio de ejemplo «Cuaderno», newsletter: titular, campo de correo, casilla de aceptación y botón «Suscribirme»." width="304" height="278" loading="lazy" decoding="async">
+      </div>
+      <div class="pub-showcase-col pub-showcase-col-mid" data-speed="-120">
+        <img class="pub-poster-img" src="/showcase/02-evento.webp" alt="Sitio de ejemplo «Forma 26», conferencia: titular «Diseño sin ruido» y botón glass «Reservar lugar» sobre un degradado." width="304" height="454" loading="lazy" decoding="async">
+        <img class="pub-poster-img" src="/showcase/04-panel.webp" alt="Sitio de ejemplo «Pulso», panel en modo oscuro: saludo, tabs, métricas de visitas y conversión y barras de progreso." width="304" height="331" loading="lazy" decoding="async">
+      </div>
+      <div class="pub-showcase-col pub-showcase-col-end" data-speed="40">
+        <img class="pub-poster-img" src="/showcase/05-revista.webp" alt="Sitio de ejemplo «Revista Gris»: titular tipográfico «Luz y forma», entradilla del ensayo y esferas ilustradas." width="304" height="410" loading="lazy" decoding="async">
+        <img class="pub-poster-img" src="/showcase/03-tienda.webp" alt="Sitio de ejemplo «Atelier Mono», tienda: frasco de sérum, precio, selector de tamaño y botón «Añadir a la bolsa»." width="304" height="440" loading="lazy" decoding="async">
       </div>
     </div>
+  </section>
+
+  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-gallery">
+    <h2 id="pub-gallery" class="dg-mb-2">Componentes listos para usar</h2>
+    <p class="dg-muted dg-mb-5">Así se ven tal cual, con el HTML del framework. Cambia el tema para verlos en oscuro.</p>
+    <div class="pub-gallery">
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage">
+          <div class="dg-stack dg-gap-3">
+            <div class="dg-cluster">
+              <button type="button" class="dg-btn dg-btn-primary">Guardar</button>
+              <button type="button" class="dg-btn dg-btn-subtle">Cancelar</button>
+            </div>
+            <div class="dg-cluster">
+              <button type="button" class="dg-btn dg-btn-success dg-btn-sm">Publicar</button>
+              <button type="button" class="dg-btn dg-btn-subtle-info dg-btn-sm">Vista previa</button>
+              <button type="button" class="dg-btn dg-btn-primary dg-btn-icon dg-btn-sm" aria-label="Añadir"><svg class="dg-icon dg-icon-sm"><use href="#dg-plus"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Botones</h3><span class="dg-text-sm dg-muted">Variantes y tamaños</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/buttons" aria-label="Documentación de Botones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
+
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage">
+          <div class="dg-stack dg-gap-3 pub-tile-form">
+            <div class="dg-field">
+              <label class="dg-label" for="pubDemoEmail">Correo</label>
+              <input class="dg-input" id="pubDemoEmail" type="email" value="ana@estudio.com">
+            </div>
+            <label class="dg-switch"><input type="checkbox" checked><span class="dg-switch-track"></span> Notificaciones</label>
+            <label class="dg-check"><input type="checkbox" checked><span class="dg-check-box"></span> Recordarme</label>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Formularios</h3><span class="dg-text-sm dg-muted">Campos y controles</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/formularios/forms" aria-label="Documentación de Formularios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
+
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage">
+          <div class="dg-stack dg-gap-3">
+            <div class="dg-alert dg-alert-success">
+              <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-check"/></svg>
+              <div class="dg-alert-body"><div class="dg-alert-title">Guardado</div>Tus cambios están en línea.</div>
+            </div>
+            <div class="dg-cluster">
+              <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
+              <span class="dg-badge dg-badge-warning">Pendiente</span>
+              <span class="dg-badge dg-badge-solid">Pro</span>
+            </div>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Alertas y badges</h3><span class="dg-text-sm dg-muted">Estados claros</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/alerts" aria-label="Documentación de Alertas y badges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
+
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage">
+          <div class="dg-modal dg-modal-sm pub-tile-modal">
+            <button type="button" class="dg-modal-close" aria-label="Cerrar"><svg class="dg-icon"><use href="#dg-x"/></svg></button>
+            <div class="dg-modal-header"><h4 class="dg-modal-title">Invitar equipo</h4></div>
+            <div class="dg-modal-body">Enviaremos un enlace de acceso a cada correo.</div>
+            <div class="dg-modal-footer">
+              <button type="button" class="dg-btn dg-btn-cancel dg-btn-sm">Cancelar</button>
+              <button type="button" class="dg-btn dg-btn-sm">Enviar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Modales</h3><span class="dg-text-sm dg-muted">Sólido o glass</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/modales" aria-label="Documentación de Modales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
+
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage pub-tile-glass">
+          <div class="dg-stack dg-gap-3" style="align-items: center">
+            <span class="dg-badge dg-badge-info is-glass">Nuevo</span>
+            <div class="dg-cluster">
+              <button type="button" class="dg-btn dg-btn-primary is-glass">Explorar</button>
+              <button type="button" class="dg-btn dg-btn-subtle is-glass">Guardar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Glass opcional</h3><span class="dg-text-sm dg-muted">Sobre imágenes</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/fundamentos/superficies#glass-componentes" aria-label="Documentación de Glass opcional"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
+
+      <article class="dg-card pub-tile">
+        <div class="pub-tile-stage">
+          <div class="dg-stack dg-gap-4" style="align-items: center">
+            <div class="dg-tabs dg-tabs-pill" data-dg-tabs aria-label="Secciones de ejemplo">
+              <button type="button" class="dg-tab is-active" role="tab" aria-selected="true">Resumen</button>
+              <button type="button" class="dg-tab" role="tab" aria-selected="false">Equipo</button>
+              <button type="button" class="dg-tab" role="tab" aria-selected="false">Ajustes</button>
+            </div>
+            <div class="dg-segmented" data-dg-segmented role="group" aria-label="Periodo de ejemplo">
+              <button type="button" class="is-active">Día</button>
+              <button type="button">Semana</button>
+              <button type="button">Mes</button>
+            </div>
+          </div>
+        </div>
+        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Navegación</h3><span class="dg-text-sm dg-muted">Tabs y segmentado</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/nav" aria-label="Documentación de Navegación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+      </article>
     </div>
   </section>
 
@@ -193,6 +394,35 @@ const sections = [
   </div>
 </footer>
 
+<script is:inline>
+  // Showcase parallax: each column drifts by its data-speed (px) as the section
+  // crosses the viewport. Transform only, one write per frame, off when reduced motion.
+  (function () {
+    var section = document.querySelector("[data-pub-parallax]");
+    if (!section) return;
+    var cols = Array.prototype.slice.call(section.querySelectorAll("[data-speed]"));
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var queued = false;
+    function update() {
+      queued = false;
+      if (reduce.matches) { cols.forEach(function (c) { c.style.transform = ""; }); return; }
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > vh) return;
+      // -1 when the section enters from below, 0 centered, 1 as it leaves above.
+      var progress = (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
+      progress = Math.max(-1, Math.min(1, progress));
+      cols.forEach(function (c) {
+        c.style.transform = "translate3d(0," + (-progress * parseFloat(c.dataset.speed)).toFixed(1) + "px,0)";
+      });
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    if (reduce.addEventListener) reduce.addEventListener("change", queue);
+    update();
+  })();
+</script>
 <script is:inline src={jsHref} defer></script>
 
 </body>

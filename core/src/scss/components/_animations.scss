@@ -8,32 +8,32 @@
   to { transform: translateY(0); }
 }
 
-/* Modal textos: empiezan pronto (~35% de la elevación), fade largo y suave. */
+/* No fixed opacity: 0 on the content — the backwards fill keeps it hidden
+   during the delay, and if a script cancels the animation (getAnimations()
+   .cancel(), e.g. a step transition) the content stays visible instead of
+   vanishing.
+   Modal content (texts, buttons, icon, header/footer) stays hidden for the
+   whole entrance effect and fades in only once it ends: the in-animations run
+   for --dg-dur-content after --dg-delay-content, once the effect looks finished (see the shorthands
+   below). On close it fades out during the modal's 45% hold, before the exit
+   effect starts. */
 @keyframes dg-modal-content-in {
-  0%, 35% {
-    opacity: 0;
-    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
-  }
-  100% { opacity: 1; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-/* Salida inversa: fade out primero, luego el modal desciende. */
 @keyframes dg-modal-content-out {
-  0% {
-    opacity: 1;
-    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
-  }
-  65%, 100% { opacity: 0; }
+  0% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45%, 100% { opacity: 0; }
 }
 
-/* Header/footer glass: mismos tiempos, pero el blur acompaña al fade (sin pop). */
+/* Glass header/footer: same timing, the blur follows the fade (no pop). */
 @keyframes dg-modal-chrome-in {
-  0%, 35% {
+  from {
     opacity: 0;
     -webkit-backdrop-filter: saturate(1.1) blur(0);
     backdrop-filter: saturate(1.1) blur(0);
-    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
   }
-  100% {
+  to {
     opacity: 1;
     -webkit-backdrop-filter: saturate(1.8) blur(20px);
     backdrop-filter: saturate(1.8) blur(20px);
@@ -46,35 +46,21 @@
     backdrop-filter: saturate(1.8) blur(20px);
     animation-timing-function: cubic-bezier(.45, 0, .2, 1);
   }
-  65%, 100% {
+  45%, 100% {
     opacity: 0;
     -webkit-backdrop-filter: saturate(1.1) blur(0);
     backdrop-filter: saturate(1.1) blur(0);
   }
 }
 
-/* Icono: mismo arranque, zoom + fade suave. */
+/* Icon: same timing, gentle zoom + fade. */
 @keyframes dg-modal-icon-in {
-  0%, 35% {
-    opacity: 0;
-    transform: scale(.78);
-    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(.78); }
+  to   { opacity: 1; transform: scale(1); }
 }
 @keyframes dg-modal-icon-out {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-    animation-timing-function: cubic-bezier(.45, 0, .2, 1);
-  }
-  65%, 100% {
-    opacity: 0;
-    transform: scale(.78);
-  }
+  0% { opacity: 1; transform: scale(1); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  45%, 100% { opacity: 0; transform: scale(.78); }
 }
 
 .dg-text-in,
@@ -86,37 +72,34 @@
   .dg-collapse.is-open > .dg-collapse-content
 ) { animation: dg-text-in var(--dg-dur-slow) var(--dg-ease-motion) both; }
 
-/* Chrome (header/footer): fade + blur; botones van dentro del footer.
-   Full-modal header stays opaque so the iPhone status bar matches. */
+/* Header/footer: solid modals (the default) fade like text; glass modals
+   (opt-in) also bring their blur in. Same zero specificity, so the glass rule
+   below wins by order. Full-modal header stays opaque (status bar match). */
 :where(
-  .dg-modal-backdrop:not([hidden]) .dg-modal:not(.is-solid):not(.dg-modal-full) :is(
+  .dg-modal-backdrop:not([hidden]) .dg-modal:not(.dg-modal-full) :is(
     .dg-modal-header,
     .dg-modal-footer
   )
 ) {
-  opacity: 0;
-  animation: dg-modal-chrome-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-content-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 :where(
-  .dg-modal-backdrop:not([hidden]) .dg-modal.is-solid:not(.dg-modal-full) :is(
+  .dg-modal-backdrop:not([hidden]) :is(.dg-modal.is-glass, [data-surface="glass"] .dg-modal:not(.is-solid)):not(.dg-modal-full) :is(
     .dg-modal-header,
     .dg-modal-footer
   )
 ) {
-  opacity: 0;
-  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+  animation-name: dg-modal-chrome-in;
 }
 :where(
   .dg-modal-backdrop:not([hidden]) .dg-modal-full :is(.dg-modal-footer)
 ) {
-  opacity: 0;
-  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-content-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 :where(
   .dg-modal-backdrop:not([hidden]) .dg-modal-full .dg-modal-header .dg-modal-title
 ) {
-  opacity: 0;
-  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-content-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 
 :where(
@@ -124,30 +107,28 @@
     .dg-modal > .dg-modal-close,
     .dg-modal > .dg-modal-resize,
     .dg-modal-body > *,
+    .dg-modal-body:not(:has(> *)), /* plain-text body */
     .dg-modal-status-hero,
     .dg-status-tag,
     .dg-modal-body .dg-modal-title,
     .dg-modal-confirm .dg-modal-title
   )
 ) {
-  opacity: 0;
-  animation: dg-modal-content-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-content-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 
 :where(.dg-modal-backdrop:not([hidden]) .dg-modal-icon) {
-  opacity: 0;
-  transform: scale(.78);
-  animation: dg-modal-icon-in var(--dg-dur-motion) linear both;
+  animation: dg-modal-icon-in var(--dg-dur-content) var(--dg-ease-content) var(--dg-delay-content) both;
 }
 
 /* Cierre: chrome, contenido e icono en sentido inverso. */
-.dg-modal-backdrop.is-closing .dg-modal:not(.is-solid):not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
-.dg-modal.is-closing:not(.is-solid):not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
-  animation: dg-modal-chrome-out var(--dg-dur-motion) linear forwards;
-}
-.dg-modal-backdrop.is-closing .dg-modal.is-solid:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
-.dg-modal.is-closing.is-solid:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
+.dg-modal-backdrop.is-closing .dg-modal:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
+.dg-modal.is-closing:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
   animation: dg-modal-content-out var(--dg-dur-motion) linear forwards;
+}
+.dg-modal-backdrop.is-closing :is(.dg-modal.is-glass, [data-surface="glass"] .dg-modal:not(.is-solid)):not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer),
+:is(.dg-modal.is-glass, [data-surface="glass"] .dg-modal:not(.is-solid)).is-closing:not(.dg-modal-full) :is(.dg-modal-header, .dg-modal-footer) {
+  animation: dg-modal-chrome-out var(--dg-dur-motion) linear forwards;
 }
 .dg-modal-backdrop.is-closing .dg-modal-full :is(.dg-modal-footer, .dg-modal-header .dg-modal-title),
 .dg-modal-full.is-closing :is(.dg-modal-footer, .dg-modal-header .dg-modal-title) {
@@ -158,6 +139,7 @@
   .dg-modal > .dg-modal-close,
   .dg-modal > .dg-modal-resize,
   .dg-modal-body > *,
+  .dg-modal-body:not(:has(> *)),
   .dg-modal-status-hero,
   .dg-status-tag,
   .dg-modal-body .dg-modal-title,
@@ -167,6 +149,7 @@
   .dg-modal > .dg-modal-close,
   .dg-modal > .dg-modal-resize,
   .dg-modal-body > *,
+  .dg-modal-body:not(:has(> *)),
   .dg-modal-status-hero,
   .dg-status-tag,
   .dg-modal-body .dg-modal-title,
@@ -185,7 +168,7 @@
     animation-delay: #{($i - 1) * 40}ms;
   }
   :where(.dg-modal-backdrop:not([hidden]):not(.is-closing) .dg-modal-body > *):nth-child(#{$i}) {
-    animation-delay: #{($i - 1) * 50}ms;
+    animation-delay: calc(var(--dg-delay-content) + #{($i - 1) * 50}ms);
   }
 }
 
@@ -202,6 +185,7 @@
       .dg-modal > .dg-modal-close,
       .dg-modal > .dg-modal-resize,
       .dg-modal-body > *,
+  .dg-modal-body:not(:has(> *)), /* plain-text body */
       .dg-modal-status-hero,
       .dg-modal-icon,
       .dg-status-tag,

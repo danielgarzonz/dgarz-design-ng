@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import { REAL_SITES } from "../../data/sites";
+---
+
+<Layout
+  title="Sitios reales"
+  lead="Webs en producción que usan dgarz design. Referencias vivas del sistema en el mundo real."
+  currentHref="/studio/sites"
+>
+  {REAL_SITES.length === 0 ? (
+    <div class="dg-card">
+      <div class="dg-card-body dg-stack dg-gap-3" style="padding-block: 2.5rem; text-align: center;">
+        <p class="dg-text-lg dg-fw-medium" style="margin: 0;">Pronto verás sitios reales aquí</p>
+        <p class="dg-muted dg-text-sm dg-measure-md" style="margin-inline: auto;">
+          Esta sección mostrará webs en producción construidas con dgarz design.
+        </p>
+      </div>
+    </div>
+  ) : (
+    <div class="doc-showcase-grid-2">
+      {REAL_SITES.map((site) => (
+        <a class="dg-card dg-card-hover" href={site.url} target="_blank" rel="noopener noreferrer">
+          {site.image ? (
+            <img src={site.image} alt="" class="dg-w-full" style="aspect-ratio: 16 / 10; object-fit: cover; display: block;" loading="lazy" decoding="async" />
+          ) : (
+            <div style="aspect-ratio: 16 / 10; background: var(--dg-surface-2); display: grid; place-items: center;">
+              <span class="dg-muted dg-text-sm">{site.name}</span>
+            </div>
+          )}
+          <div class="dg-card-body">
+            {site.tags?.length ? (
+              <div class="dg-cluster dg-gap-2 dg-mb-2">
+                {site.tags.map((tag) => <span class="dg-badge">{tag}</span>)}
+              </div>
+            ) : null}
+            <h3 class="dg-card-title">{site.name}</h3>
+            <p class="dg-muted dg-text-sm dg-mt-2">{site.desc}</p>
+            <p class="dg-text-sm dg-mt-3" style="color: var(--dg-text-muted);">{new URL(site.url).hostname} ↗</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Layout>

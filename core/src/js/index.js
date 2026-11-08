@@ -1,5 +1,5 @@
 import { $all, openStack, target, trapFocus, FOCUSABLE } from './utils.js';
-import { openOverlay, closeOverlay, closestOverlay, wireModalResize } from './overlays.js';
+import { openOverlay, closeOverlay, closestOverlay, wireModalResize, fitModalTitles } from './overlays.js';
 import { toast } from './toast.js';
 import { dgConfirm, dgAlert, dgPrompt } from './confirm.js';
 import { applySavedTheme, toggleTheme } from './theme.js';
@@ -12,6 +12,7 @@ import { wireCollapse } from './collapse.js';
 import { wireCarousel } from './carousel.js';
 import { wirePopover } from './popover.js';
 import { wireSegmented } from './segmented.js';
+import { wireDock } from './dock.js';
 import { wireReorder } from './reorder.js';
 import { wireProgressBars } from './progress.js';
 import { wireReveal } from './reveal.js';
@@ -22,6 +23,7 @@ import { wireCombobox } from './combobox.js';
 import { wireMask, wireCurrency } from './mask.js';
 import { wireTooltip } from './tooltip.js';
 import { wireGallery, wireFAQ, wireNavToggle, wireTableEditable } from './extras.js';
+import { wireNavbars } from './navbar.js';
 
 var bound = false;
 function bindGlobal() {
@@ -64,6 +66,7 @@ function init(ctx) {
   $all("[data-dg-tabs]", ctx).forEach(wireTabs);
   $all("[data-dg-accordion]", ctx).forEach(wireAccordion);
   $all("[data-dg-segmented]", ctx).forEach(wireSegmented);
+  $all("[data-dg-dock]", ctx).forEach(wireDock);
   $all("[data-dg-reorder]", ctx).forEach(wireReorder);
   $all("[data-dg-sortable]", ctx).forEach(wireSortable);
   $all(".dg-table", ctx).forEach(wireTableSelect);
@@ -85,11 +88,12 @@ function init(ctx) {
   $all('.dg-faq',        ctx).forEach(wireFAQ);
   $all('.dg-nav-item-toggle', ctx).forEach(wireNavToggle);
   $all('.dg-table-editable',  ctx).forEach(wireTableEditable);
+  wireNavbars(ctx);
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
 else init();
 
-export { init, toast, openOverlay, closeOverlay, toggleTheme, dgConfirm, dgAlert, dgPrompt };
+export { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, dgConfirm, dgAlert, dgPrompt };
 export function goTo(carousel, n) { carousel.__dgGoTo && carousel.__dgGoTo(n); }
-export default { init, toast, openOverlay, closeOverlay, toggleTheme, goTo, dgConfirm, dgAlert, dgPrompt };
+export default { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, goTo, dgConfirm, dgAlert, dgPrompt };

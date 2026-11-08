@@ -213,6 +213,29 @@ const pageContent = `<div class="doc-sub">Estructura básica</div>
 &lt;!-- .is-selected agrega borde de color --&gt;
 &lt;!-- Para manejo automático usa JS:
      card.classList.toggle('is-selected') --&gt;</pre></div>
+</div>
+
+      <div class="doc-sub dg-mt-7">Glass</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Las cards son sólidas por defecto. Con <code class="dg-code">.is-glass</code> la superficie se vuelve translúcida; con <code class="dg-code">.dg-card-hover</code> se vuelve más sólida al pasar el cursor. Si el usuario activa <em>reducir transparencia</em> o el navegador no soporta <code class="dg-code">backdrop-filter</code>, vuelve a su color sólido.</p>
+      <div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-card dg-card-hover is-glass" style="max-width: 22rem">
+  <div class="dg-card-body">
+    <span class="dg-badge dg-badge-info is-glass">Destacado</span>
+    <h3 class="dg-card-title dg-mt-2">Sobre la imagen</h3>
+    <p class="dg-muted dg-text-sm">La card deja ver el fondo difuminado sin perder legibilidad.</p>
+    <button type="button" class="dg-btn-primary is-glass dg-mt-3">Abrir</button>
+  </div>
+</div>
+</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-card dg-card-hover is-glass&quot; style=&quot;max-width: 22rem&quot;&gt;
+  &lt;div class=&quot;dg-card-body&quot;&gt;
+    &lt;span class=&quot;dg-badge dg-badge-info is-glass&quot;&gt;Destacado&lt;/span&gt;
+    &lt;h3 class=&quot;dg-card-title dg-mt-2&quot;&gt;Sobre la imagen&lt;/h3&gt;
+    &lt;p class=&quot;dg-muted dg-text-sm&quot;&gt;La card deja ver el fondo difuminado sin perder legibilidad.&lt;/p&gt;
+    &lt;button type=&quot;button&quot; class=&quot;dg-btn-primary is-glass dg-mt-3&quot;&gt;Abrir&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
 </div>`;
 ---
 

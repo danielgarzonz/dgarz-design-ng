@@ -32,11 +32,7 @@
   color: var(--dg-on-solid);
   cursor: pointer;
   white-space: nowrap;
-  transition: background var(--dg-dur) var(--dg-ease),
-              color var(--dg-dur) var(--dg-ease),
-              opacity var(--dg-dur) var(--dg-ease),
-              transform var(--dg-dur) var(--dg-ease),
-              box-shadow var(--dg-dur) var(--dg-ease);
+  transition: #{button.$transition};
 }
 #{button.$selector}:hover,
 :where(.dg-auto) button:not([class]):hover,
@@ -54,20 +50,31 @@
 :where(.dg-auto) input:not([class])[type="button"]:disabled,
 :where(.dg-auto) input:not([class])[type="reset"]:disabled { opacity: .35; pointer-events: none; }
 
+/* Shared hover for every button (same as modal footers and groups): grows 5%.
+   Text buttons behave like links, full-width buttons would overflow their
+   container, and the lift/grow effects own their transform. :not(:active)
+   lets the pressed scale(.96) win while the pointer is down. */
+#{button.$selector}:is(:hover, :focus-visible):not(:active, :disabled, .is-disabled, .dg-btn-block, .dg-btn-block-mobile, .dg-btn-hover-lift, .dg-btn-hover-grow):not(#{button.$text-selector}) {
+  transform: scale(1.05);
+}
+@media (prefers-reduced-motion: reduce) {
+  #{button.$selector}:is(:hover, :focus-visible) { transform: none; }
+}
+
 /* Solid — alias, idéntico al base */
 .dg-btn-solid, .dg-btn-primary { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; opacity: 1; }
 .dg-btn-solid:hover, .dg-btn-primary:hover { opacity: .82; box-shadow: var(--dg-shadow-1); }
 
-/* Subtle — same shape as solids, cream/light fill of each tone; label always black. */
+/* Subtle — same shape as solids, cream/light fill of each tone; label black on light, light on dark (--dg-btn-ink). */
 #{button.$subtle-selector} {
   background: var(--dg-primary-subtle);
-  color: #000000;
+  color: var(--dg-btn-ink);
   border: 1px solid transparent;
 }
 @each $tone in primary, success, warning, danger, info {
   .dg-btn-subtle-#{$tone} {
     background: var(--dg-#{$tone}-subtle);
-    color: #000000;
+    color: var(--dg-btn-ink);
   }
 }
 #{button.$subtle-selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
@@ -113,7 +120,7 @@
   padding: 0.15em 0;
   border-radius: 0;
   background: transparent;
-  color: #000000;
+  color: var(--dg-btn-ink);
   border: none;
   border-bottom: 1.5px solid currentColor;
   box-shadow: none;
@@ -126,7 +133,7 @@
 }
 .dg-btn-text,
 .dg-btn-text-primary {
-  color: #000000;
+  color: var(--dg-btn-ink);
   border-bottom-color: currentColor;
 }
 #{button.$text-selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
@@ -191,28 +198,19 @@
   max-width: 100%;
   padding: var(--dg-space-3) var(--dg-space-4);
   border-radius: var(--dg-modal-section-radius, var(--dg-radius-xl));
-  background: color-mix(in oklab, var(--dg-surface-3) 55%, transparent);
-  -webkit-backdrop-filter: saturate(1.8) blur(20px);
-  backdrop-filter: saturate(1.8) blur(20px);
+  background: var(--dg-surface-3);
   border: none;
   box-shadow: 0 2px 16px color-mix(in oklab, #000 10%, transparent),
               inset 0 1px 0 color-mix(in oklab, #fff 30%, transparent);
 }
+.dg-btn-group.is-glass {
+  background: color-mix(in oklab, var(--dg-surface-3) var(--dg-glass-alpha), transparent);
+  -webkit-backdrop-filter: var(--dg-glass-filter);
+  backdrop-filter: var(--dg-glass-filter);
+}
 .dg-btn-group #{button.$selector} {
   flex-shrink: 0;
   border-radius: var(--dg-radius-pill);
-  transition: transform var(--dg-dur) var(--dg-ease),
-              background var(--dg-dur) var(--dg-ease),
-              color var(--dg-dur) var(--dg-ease),
-              opacity var(--dg-dur) var(--dg-ease),
-              box-shadow var(--dg-dur) var(--dg-ease);
-}
-.dg-btn-group #{button.$selector}:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
-  transform: scale(1.05);
-  transition: transform 0.5s var(--dg-ease);
-}
-.dg-btn-group #{button.$selector}:not(:disabled):not(.is-disabled):active {
-  transform: scale(0.98);
 }
 
 /* Reorderable group (src/js/reorder.js). pan-y keeps vertical page scroll
@@ -241,7 +239,7 @@
   color: var(--dg-on-solid);
 }
 /* Spinner must not use currentColor: `.is-loading` forces label color to transparent. */
-#{button.$subtle-selector}.is-loading::after { color: #000000; }
+#{button.$subtle-selector}.is-loading::after { color: var(--dg-btn-ink); }
 #{button.$outline-selector}.is-loading::after,
 #{button.$text-selector}.is-loading::after,
 .dg-btn-ghost.is-loading::after { color: var(--dg-primary); }
@@ -258,22 +256,51 @@
 .dg-btn-info    { background: var(--dg-info);    color: var(--dg-on-info); border-color: transparent; }
 .dg-btn-info:hover { opacity: .84; box-shadow: var(--dg-shadow-1); }
 
-/* ---- Button: visual variants ------------------------------ */
+/* ---- Button: opt-in glass (.is-glass) --------------------- */
+/* Solid by default. `.is-glass` keeps each variant's color and text but makes
+   the fill translucent and blurs what is behind it (images, video, heroes).
+   Variants only choose a fill; transparency and blur come from --dg-glass-*
+   tokens, which fall back to solid under prefers-reduced-transparency or
+   without backdrop-filter support. Text and gradient variants have no fill
+   to frost, so they ignore the modifier. */
+#{button.$selector}.is-glass:not(:where(#{button.$text-selector}, .dg-btn-gradient, .dg-btn-gradient-warm)),
 .dg-btn-glass {
-  background: color-mix(in oklab, color-mix(in oklab, var(--dg-surface) 84%, var(--dg-text) 16%) 62%, transparent);
-  color: var(--dg-text);
-  border-color: color-mix(in oklab, var(--dg-border-strong) 42%, transparent);
-  backdrop-filter: blur(14px) saturate(170%);
-  -webkit-backdrop-filter: blur(14px) saturate(170%);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, #fff 50%, transparent),
-    0 10px 24px color-mix(in oklab, #000 8%, transparent);
+  --dg-btn-glass-fill: var(--dg-solid);
+  --dg-btn-glass-alpha: var(--dg-glass-alpha);
+  background: color-mix(in oklab, var(--dg-btn-glass-fill) min(100%, calc(var(--dg-btn-glass-alpha) + var(--dg-btn-glass-boost, 0%))), transparent);
+  -webkit-backdrop-filter: var(--dg-glass-filter);
+  backdrop-filter: var(--dg-glass-filter);
 }
-.dg-btn-glass:hover {
-  background: color-mix(in oklab, color-mix(in oklab, var(--dg-surface) 76%, var(--dg-text) 24%) 62%, transparent);
-  border-color: color-mix(in oklab, var(--dg-border-strong) 60%, transparent);
+@each $tone in success, warning, danger, info {
+  .dg-btn-#{$tone}.is-glass { --dg-btn-glass-fill: var(--dg-#{$tone}); }
+}
+.dg-btn-cancel.is-glass { --dg-btn-glass-fill: #404040; }
+.dg-btn-subtle.is-glass { --dg-btn-glass-fill: var(--dg-primary-subtle); }
+@each $tone in primary, success, warning, danger, info {
+  .dg-btn-subtle-#{$tone}.is-glass { --dg-btn-glass-fill: var(--dg-#{$tone}-subtle); }
+}
+#{button.$outline-selector}.is-glass,
+.dg-btn-ghost.is-glass {
+  --dg-btn-glass-fill: var(--dg-surface);
+  --dg-btn-glass-alpha: var(--dg-glass-alpha-soft);
+}
+/* Standalone glass button: neutral frosted fill, always glass. */
+.dg-btn-glass,
+.dg-btn-glass.is-glass {
+  --dg-btn-glass-fill: color-mix(in oklab, var(--dg-surface) 84%, var(--dg-text) 16%);
+  color: var(--dg-text);
+  border-color: transparent;
+}
+/* Hover/focus makes glass more solid instead of fading it with opacity. */
+#{button.$selector}:is(.is-glass, .dg-btn-glass):is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  --dg-btn-glass-boost: var(--dg-glass-alpha-hover);
   opacity: 1;
 }
+#{button.$outline-selector}.is-glass:is(:hover, :focus-visible):not(:disabled):not(.is-disabled) {
+  background: color-mix(in oklab, var(--dg-btn-glass-fill) min(100%, calc(var(--dg-btn-glass-alpha) + var(--dg-btn-glass-boost, 0%))), transparent);
+}
+
+/* ---- Button: visual variants ------------------------------ */
 
 .dg-btn-gradient {
   background: linear-gradient(135deg, var(--dg-accent), color-mix(in oklab, var(--dg-accent-violet) 38%, var(--dg-accent) 62%));
@@ -292,7 +319,6 @@
 .dg-btn-gradient-warm:hover { opacity: .92; }
 
 /* Hover: también disponible con foco de teclado */
-.dg-btn-hover-lift, .dg-btn-hover-grow, .dg-btn-hover-glow, .dg-btn-hover-shine { transition: transform .22s var(--dg-ease), box-shadow .22s var(--dg-ease); }
 .dg-btn-hover-lift:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { transform: translateY(-4px); box-shadow: var(--dg-shadow-2); }
 .dg-btn-hover-grow:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { transform: scale(1.06); }
 .dg-btn-hover-glow:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) { box-shadow: 0 0 0 5px color-mix(in oklab, var(--dg-info) 25%, transparent); }

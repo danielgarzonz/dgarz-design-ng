@@ -82,7 +82,8 @@
     "prepack": "npm run build",
     "verify:package": "node scripts/verify-package.mjs",
     "verify:hydrate": "node scripts/verify-hydrate.mjs",
-    "verify:button-classes": "npm run build:legacy && node scripts/verify-button-classes.mjs"
+    "verify:button-classes": "npm run build:legacy && node scripts/verify-button-classes.mjs",
+    "verify:glass": "npm run build:legacy && node scripts/verify-glass.mjs"
   },
   "keywords": [
     "design-system",

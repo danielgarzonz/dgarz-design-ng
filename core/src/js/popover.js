@@ -14,7 +14,7 @@ export function wirePopover(trigger) {
     document.querySelectorAll(".dg-popover").forEach(function (p) { p.hidden = true; });
     pop.hidden = !willOpen;
     trigger.setAttribute("aria-expanded", String(willOpen));
-    if (willOpen) { var f = $all(FOCUSABLE, pop)[0]; if (f) f.focus(); }
+    if (willOpen) { var f = $all(FOCUSABLE, pop)[0]; if (f) f.focus({ preventScroll: true }); }
   });
   document.addEventListener("click", function () { pop.hidden = true; trigger.setAttribute("aria-expanded", "false"); });
   pop.addEventListener("click", function (e) { e.stopPropagation(); });

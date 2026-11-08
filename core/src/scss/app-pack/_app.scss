@@ -1,4 +1,5 @@
 @use "../abstracts/buttons" as button;
+@use "../abstracts/glass";
 
 /* ============================================================
    dgarz design — app pack
@@ -26,10 +27,8 @@
 .dg-app-aside {
   grid-area: aside; position: sticky; top: 0; align-self: start; height: 100vh;
   display: flex; flex-direction: column; gap: var(--dg-space-2);
-  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-right: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+  background: var(--dg-surface);
+  border-right: 1px solid var(--dg-border);
   padding: var(--dg-space-4); overflow: hidden;
   transition: width var(--dg-dur) var(--dg-ease);
 }
@@ -37,11 +36,13 @@
   grid-area: header; position: sticky; top: 0; z-index: 20;
   display: flex; align-items: center; gap: var(--dg-space-4);
   padding: var(--dg-space-3) var(--dg-space-5); min-height: 60px;
-  background: color-mix(in oklab, var(--dg-paper) 65%, transparent);
-  backdrop-filter: blur(22px) saturate(200%);
-  -webkit-backdrop-filter: blur(22px) saturate(200%);
-  border-bottom: 1px solid color-mix(in oklab, var(--dg-border) 55%, transparent);
+  background: var(--dg-paper);
+  border-bottom: 1px solid var(--dg-border);
+  /* Top menu bar lifts above scrolling content (modal headers stay flat). */
+  box-shadow: var(--dg-shadow-bar);
 }
+#{glass.opt-in(".dg-app-aside")} { @include glass.surface(var(--dg-surface)); }
+#{glass.opt-in(".dg-app-header")} { @include glass.surface(var(--dg-paper)); }
 .dg-app-main { grid-area: main; padding: var(--dg-space-6); min-width: 0; }
 
 .dg-app-brand { display: flex; align-items: center; gap: var(--dg-space-3); padding: var(--dg-space-2) var(--dg-space-2) var(--dg-space-4); font-family: var(--dg-font-serif); font-size: var(--dg-text-lg); font-weight: var(--dg-weight-medium); white-space: nowrap; }
@@ -86,47 +87,80 @@
 }
 .dg-drawer-backdrop[hidden] { display: none; }
 .dg-drawer {
-  --dg-drawer-section-bg: color-mix(in oklab, color-mix(in oklab, var(--dg-surface-3) 92%, var(--dg-text) 8%) 72%, transparent);
+  /* Same section contrast as .dg-modal: shared opaque chrome header/footer. */
+  --dg-drawer-section-bg: var(--dg-overlay-chrome);
   position: fixed; top: 0; right: 0; z-index: 49;
   height: 100vh; height: 100dvh; width: min(420px, 100vw);
   display: flex; flex-direction: column;
-  background: transparent; color: var(--dg-text);
-  border-radius: var(--dg-radius-xl) 0 0 var(--dg-radius-xl);
+  background: var(--dg-surface); color: var(--dg-text);
+  /* Full-height edge panel: square by default (token to round it). */
+  border-radius: var(--dg-drawer-radius, 0);
   overflow: hidden; isolation: isolate;
   animation: dg-drawer-in var(--dg-dur-motion) var(--dg-ease-motion) backwards;
 }
-.dg-drawer:not(.is-solid)::after {
+/* Solid by default (theme surface; .is-solid is the default and only opts out
+   of a [data-surface="glass"] scope). Glass is a sibling ::after layer so the
+   header/footer controls can still sample their own backdrop. */
+#{glass.opt-in(".dg-drawer")} {
+  --dg-drawer-section-bg: color-mix(in oklab, var(--dg-overlay-chrome) 55%, transparent);
+  background: transparent;
+}
+.dg-drawer.is-glass::after,
+[data-surface="glass"] .dg-drawer:not(.is-solid)::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
   border-radius: inherit; pointer-events: none;
   background: color-mix(in oklab, var(--dg-surface) 90%, transparent);
   -webkit-backdrop-filter: saturate(1.8) blur(20px);
   backdrop-filter: saturate(1.8) blur(20px);
 }
-.dg-drawer.is-solid {
-  color-scheme: light;
-  --dg-paper: #fff; --dg-surface: #fff;
-  --dg-surface-2: #fafafa; --dg-surface-3: #f3f3f4;
-  --dg-text: #171719; --dg-text-muted: #57575e; --dg-text-faint: #71717a;
-  --dg-border: #e4e4e7; --dg-border-strong: #d4d4d8;
-  --dg-solid: #0b0b0c; --dg-on-solid: #fff;
-  --dg-drawer-section-bg: var(--dg-surface-3);
-  background: #fff;
-}
 .dg-drawer.dg-drawer-left {
   left: 0; right: auto;
-  border-radius: 0 var(--dg-radius-xl) var(--dg-radius-xl) 0;
+  border-radius: var(--dg-drawer-radius, 0);
   animation-name: dg-drawer-in-left;
 }
 .dg-drawer[hidden] { display: none; }
 @keyframes dg-drawer-in { from { transform: translateX(100%); } to { transform: none; } }
 @keyframes dg-drawer-in-left { from { transform: translateX(-100%); } to { transform: none; } }
+/* Top / bottom edge panels: full width, height follows the content up to
+   85% of the viewport; the body scrolls past that. Same chrome as the sides. */
+.dg-drawer.dg-drawer-bottom,
+.dg-drawer.dg-drawer-top {
+  left: 0; right: 0;
+  width: 100%; height: auto;
+  max-height: 85vh; max-height: 85dvh;
+}
+.dg-drawer.dg-drawer-bottom {
+  top: auto; bottom: 0; animation-name: dg-drawer-in-bottom;
+  /* Rises from the bottom edge: rounded on top, square at the bottom. */
+  border-radius: var(--dg-drawer-bottom-radius, var(--dg-radius-xl)) var(--dg-drawer-bottom-radius, var(--dg-radius-xl)) 0 0;
+}
+.dg-drawer.dg-drawer-top {
+  top: 0; bottom: auto; animation-name: dg-drawer-in-top;
+  /* Hangs from the top edge: square on top, rounded at the bottom like the
+     top menu bar (--dg-bar-radius). */
+  border-radius: 0 0 var(--dg-drawer-top-radius, var(--dg-bar-radius)) var(--dg-drawer-top-radius, var(--dg-bar-radius));
+}
+@keyframes dg-drawer-in-bottom { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes dg-drawer-in-top    { from { transform: translateY(-100%); } to { transform: none; } }
+/* Safari on iOS paints the status bar from a fixed, bar-shaped element at the
+   very top (theme-color and tall panels are ignored), so the top drawer's
+   header is fixed there. While the panel slides, the transform makes it ride
+   along; at rest it sits exactly where the absolute header would. The header
+   also clears the notch / status bar area. */
+.dg-drawer.dg-drawer-top > .dg-drawer-header {
+  position: fixed;
+  min-height: calc(64px + env(safe-area-inset-top, 0px));
+  padding-top: calc(var(--dg-space-4) + env(safe-area-inset-top, 0px));
+}
+.dg-drawer.dg-drawer-top > .dg-drawer-close { top: calc(11px + env(safe-area-inset-top, 0px)); }
+.dg-drawer.dg-drawer-top:has(> .dg-drawer-header) > .dg-drawer-body {
+  padding-top: calc(64px + env(safe-area-inset-top, 0px) + var(--dg-space-5));
+}
 .dg-drawer-header {
   position: absolute; top: 0; left: 0; right: 0; z-index: 10;
   min-height: 64px; padding: var(--dg-space-4) 56px var(--dg-space-4) var(--dg-space-5);
   display: flex; align-items: center; justify-content: flex-start;
-  background: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  background: var(--dg-drawer-section-bg);
 }
 .dg-drawer-header :is(h2, h3, h4) {
   margin: 0; font-family: var(--dg-font-heading);
@@ -137,11 +171,11 @@
   position: absolute; right: var(--dg-space-3); top: 11px;
   width: 30px; height: 42px; padding: 0; border: 0; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle, #0b0b0c 0 11px, transparent 11.5px);
-  color: #fff; cursor: pointer; z-index: 20;
+  background: radial-gradient(circle, var(--dg-solid) 0 11px, transparent 11.5px);
+  color: var(--dg-on-solid); cursor: pointer; z-index: 20;
 }
-.dg-drawer-close:hover { background: radial-gradient(circle, #27272a 0 11px, transparent 11.5px); }
-.dg-drawer-close .dg-icon, .dg-drawer-close svg { width: 12px; height: 12px; color: #fff; stroke: currentColor; fill: none; }
+.dg-drawer-close:hover { background: radial-gradient(circle, color-mix(in oklab, var(--dg-solid) 84%, var(--dg-surface)) 0 11px, transparent 11.5px); }
+.dg-drawer-close .dg-icon, .dg-drawer-close svg { width: 12px; height: 12px; color: var(--dg-on-solid); stroke: currentColor; fill: none; }
 .dg-drawer-body {
   padding: var(--dg-space-5); min-height: 0; overflow-y: auto; flex: 1;
   color: var(--dg-text-muted);
@@ -157,16 +191,33 @@
   padding: var(--dg-space-3); border-radius: var(--dg-radius-xl);
   border: 0;
   background: var(--dg-drawer-section-bg);
+}
+.dg-drawer.is-glass :is(.dg-drawer-header, .dg-drawer-footer),
+[data-surface="glass"] .dg-drawer:not(.is-solid) :is(.dg-drawer-header, .dg-drawer-footer) {
   -webkit-backdrop-filter: saturate(1.8) blur(20px);
   backdrop-filter: saturate(1.8) blur(20px);
+}
+/* After the glass rules so it wins at equal specificity. */
+@include glass.solid-fallback {
+  #{glass.opt-in(".dg-drawer")} { --dg-drawer-section-bg: var(--dg-overlay-chrome); }
+  .dg-drawer.is-glass::after,
+  [data-surface="glass"] .dg-drawer:not(.is-solid)::after {
+    background: var(--dg-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dg-drawer.is-glass :is(.dg-drawer-header, .dg-drawer-footer),
+  [data-surface="glass"] .dg-drawer:not(.is-solid) :is(.dg-drawer-header, .dg-drawer-footer) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 .dg-drawer-footer #{button.$selector} { min-width: 0; }
 .dg-drawer .dg-btn-cancel { background: #b8b8bf; color: #27272a; }
 .dg-drawer .dg-btn-cancel:hover { background: #a6a6af; color: #27272a; opacity: 1; }
-.dg-drawer.is-solid :is(.dg-drawer-header, .dg-drawer-footer) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @media (prefers-reduced-motion: reduce) {
-  .dg-drawer, .dg-drawer.dg-drawer-left, .dg-drawer-backdrop { animation: none; }
-  .dg-drawer.is-closing, .dg-drawer.dg-drawer-left.is-closing, .dg-drawer-backdrop.is-closing { animation: dg-fade-out 160ms linear forwards; }
+  .dg-drawer, .dg-drawer:is(.dg-drawer-left, .dg-drawer-bottom, .dg-drawer-top), .dg-drawer-backdrop { animation: none; }
+  .dg-drawer.is-closing, .dg-drawer:is(.dg-drawer-left, .dg-drawer-bottom, .dg-drawer-top).is-closing, .dg-drawer-backdrop.is-closing { animation: dg-fade-out 160ms linear forwards; }
 }
 
 /* ---- Accordion -------------------------------------------- */
@@ -380,14 +431,13 @@
 .dg-chip { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.4em 0.45em 0.4em 0.85em; border-radius: var(--dg-radius-pill); background: var(--dg-surface-3); font-size: var(--dg-text-sm); border: 1px solid var(--dg-border); }
 .dg-chip button { width: 1.3em; height: 1.3em; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--dg-text-muted); transition: background var(--dg-dur) var(--dg-ease); }
 .dg-chip button:hover { background: var(--dg-border); color: var(--dg-text); }
+.dg-chip.is-glass { @include glass.surface(var(--dg-surface-3)); }
 
 /* ---- Popover ---------------------------------------------- */
 .dg-popover {
   position: absolute; z-index: 42; min-width: 220px;
-  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--dg-border-strong) 45%, transparent);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius);
   box-shadow: var(--dg-shadow-3), inset 0 1px 0 color-mix(in oklab, #fff 14%, transparent);
   padding: var(--dg-space-4); font-size: var(--dg-text-sm); animation: dg-menu-in var(--dg-dur-motion) var(--dg-ease-motion);

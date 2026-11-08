@@ -1,4 +1,5 @@
 @use "../abstracts/buttons" as button;
+@use "../abstracts/glass";
 
 /* ---- Forms ------------------------------------------------ */
 /* Semantic auto-styling (.dg-auto contract, see _grid.scss bottom-of-file note):
@@ -92,42 +93,91 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 }
 
 /* Checkbox & radio */
-.dg-check { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; font-size: var(--dg-text-sm); user-select: none; }
+/* Checkbox & radio — round, same height as the switch (1.95em) and the same 1px
+   input border. The check is an SVG stroke used as a mask; on checking it is
+   revealed left→right (drawn) and lands with the switch's small bounce. The
+   radio dot grows from the center with the same bounce. Transitions (not
+   animations) so boxes that load already checked do not animate. */
+.dg-check { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; font-size: var(--dg-text-sm); user-select: none; -webkit-tap-highlight-color: transparent; }
 .dg-check input { position: absolute; opacity: 0; width: 0; height: 0; }
 .dg-check .dg-check-box {
-  width: 1.2em; height: 1.2em; flex: none;
-  border: 1.5px solid var(--dg-border-strong);
-  border-radius: 6px;
+  --dg-check-size: 1.95em;
+  box-sizing: border-box; position: relative;
+  width: var(--dg-check-size); height: var(--dg-check-size); flex: none;
+  border: 1px solid var(--dg-field-border);
+  border-radius: 50%; /* round, iOS-style; the radio differs by its dot */
   background: var(--dg-surface-2);
   display: inline-flex; align-items: center; justify-content: center;
-  transition: background var(--dg-dur) var(--dg-ease), border-color var(--dg-dur) var(--dg-ease);
+  transition: background .3s var(--dg-ease), border-color .3s var(--dg-ease);
 }
-.dg-check .dg-check-box.dg-radio { border-radius: 50%; }
-.dg-check .dg-check-box::after { content: ""; opacity: 0; transition: opacity var(--dg-dur) var(--dg-ease); }
+.dg-check .dg-check-box::after { content: ""; }
 .dg-check .dg-check-box:not(.dg-radio)::after {
-  width: 0.34em; height: 0.62em; border: solid var(--dg-on-solid); border-width: 0 2px 2px 0;
-  transform: rotate(45deg) translateY(-1px);
+  width: 72%; height: 72%;
+  background: var(--dg-on-solid);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.25 4.25L18.5 8'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.25 4.25L18.5 8'/%3E%3C/svg%3E") center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  scale: .7;
+  transition: clip-path .35s cubic-bezier(.65, 0, .35, 1), scale var(--dg-switch-dur) var(--dg-switch-ease);
 }
-.dg-check .dg-check-box.dg-radio::after { width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--dg-on-solid); }
+.dg-check .dg-check-box.dg-radio::after {
+  width: 42%; height: 42%; border-radius: 50%; background: var(--dg-on-solid);
+  scale: 0;
+  transition: scale var(--dg-switch-dur) var(--dg-switch-ease);
+}
 .dg-check input:checked + .dg-check-box { background: var(--dg-solid); border-color: var(--dg-solid); }
-.dg-check input:checked + .dg-check-box::after { opacity: 1; }
+.dg-check input:checked + .dg-check-box:not(.dg-radio)::after { clip-path: inset(0 0 0 0); scale: 1; }
+.dg-check input:checked + .dg-check-box.dg-radio::after { scale: 1; }
 .dg-check input:focus-visible + .dg-check-box { box-shadow: var(--dg-ring); }
+.dg-check:has(input:disabled) { cursor: not-allowed; opacity: .45; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-check .dg-check-box, .dg-check .dg-check-box::after { transition: none; }
+}
 
-/* Switch */
-.dg-switch { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; user-select: none; font-size: var(--dg-text-sm); }
+/* Switch — iOS-style: larger rounded track, thumb stretches while pressed and
+   lands with a small bounce. Same markup: label.dg-switch > input + .dg-switch-track.
+   Geometry lives in custom properties so the checked offset follows the
+   (stretched) thumb width; width and translate both animate. */
+.dg-switch { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; user-select: none; font-size: var(--dg-text-sm); -webkit-tap-highlight-color: transparent; }
 .dg-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
 .dg-switch .dg-switch-track {
-  width: 2.6em; height: 1.5em; border-radius: var(--dg-radius-pill);
-  background: var(--dg-border-strong); position: relative; transition: background var(--dg-dur) var(--dg-ease);
+  --dg-switch-w: 3.2em;
+  --dg-switch-h: 1.95em;
+  --dg-switch-pad: 0px; /* flush thumb by default (keep a unit: it feeds calc()); e.g. .14em for an inset thumb */
+  --dg-switch-border: 1px; /* same edge as inputs (--dg-field-border) */
+  --dg-switch-thumb: calc(var(--dg-switch-h) - 2 * var(--dg-switch-pad) - 2 * var(--dg-switch-border));
+  --dg-switch-thumb-w: var(--dg-switch-thumb);
+  flex: none; position: relative; box-sizing: border-box;
+  width: var(--dg-switch-w); height: var(--dg-switch-h); border-radius: var(--dg-radius-pill);
+  border: var(--dg-switch-border) solid var(--dg-field-border);
+  /* Solid gray (no transparency) that reads on paper and surfaces. */
+  --dg-switch-off: color-mix(in oklab, var(--dg-text) 20%, var(--dg-paper));
+  background: var(--dg-switch-off);
+  transition: background .3s var(--dg-ease), border-color .3s var(--dg-ease);
 }
 .dg-switch .dg-switch-track::after {
-  content: ""; position: absolute; top: 0.18em; left: 0.18em;
-  width: 1.14em; height: 1.14em; border-radius: 50%; background: var(--dg-0);
-  box-shadow: var(--dg-shadow-1); transition: transform var(--dg-dur) var(--dg-ease);
+  content: ""; position: absolute; top: var(--dg-switch-pad); left: var(--dg-switch-pad);
+  width: var(--dg-switch-thumb-w); height: var(--dg-switch-thumb);
+  /* Always-white thumb; a soft shadow (not a border) defines its edge on any
+     page background, like iOS. Exempt from the flat reset in base/_flat.scss. */
+  border-radius: var(--dg-radius-pill); background: var(--dg-0);
+  box-shadow: var(--dg-switch-thumb-shadow);
+  translate: 0 0;
+  transition: translate var(--dg-switch-dur) var(--dg-switch-ease),
+              width var(--dg-switch-dur) var(--dg-switch-ease),
+              background .3s var(--dg-ease);
 }
-.dg-switch input:checked + .dg-switch-track { background: var(--dg-solid); }
-.dg-switch input:checked + .dg-switch-track::after { transform: translateX(1.1em); background: var(--dg-on-solid); }
+/* Pressing stretches the thumb toward the middle. */
+.dg-switch:active input:not(:disabled) + .dg-switch-track { --dg-switch-thumb-w: calc(var(--dg-switch-thumb) * 1.3); }
+.dg-switch input:checked + .dg-switch-track { background: var(--dg-switch-on); border-color: var(--dg-switch-on); }
+.dg-switch input:checked + .dg-switch-track::after {
+  translate: calc(var(--dg-switch-w) - var(--dg-switch-thumb-w) - 2 * var(--dg-switch-pad) - 2 * var(--dg-switch-border)) 0;
+}
 .dg-switch input:focus-visible + .dg-switch-track { box-shadow: var(--dg-ring); }
+.dg-switch:has(input:disabled) { cursor: not-allowed; opacity: .45; }
+@media (prefers-reduced-motion: reduce) {
+  .dg-switch .dg-switch-track, .dg-switch .dg-switch-track::after { transition: none; }
+}
 
 /* ---- Input / textarea size variants ----------------------- */
 .dg-input-sm, .dg-textarea-sm { font-size: var(--dg-text-xs); padding: 0.48em 0.75em; }
@@ -227,3 +277,20 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 .dg-float-field .dg-input:focus + label,
 .dg-float-field .dg-textarea:focus + label,
 .dg-float-field:focus-within label.is-floated { color: var(--dg-text); }
+
+/* ---- Fields: opt-in glass --------------------------------- */
+/* Fields have no fill by default; over an image that makes them unreadable.
+   .is-glass gives them a frosted surface that turns more opaque while typing.
+   On a group, the frost sits on the group so input and addon read as one. */
+.dg-input.is-glass,
+.dg-textarea.is-glass,
+.dg-select.is-glass,
+.dg-input-group.is-glass { @include glass.surface(var(--dg-surface)); }
+.dg-input.is-glass:focus,
+.dg-textarea.is-glass:focus,
+.dg-select.is-glass:focus,
+.dg-input-group.is-glass:focus-within { @include glass.boost; }
+.dg-input-group.is-glass .dg-input { background-color: transparent; }
+.dg-input-group.is-glass .dg-input-addon {
+  background-color: color-mix(in oklab, var(--dg-surface-3) var(--dg-glass-alpha-soft), transparent);
+}

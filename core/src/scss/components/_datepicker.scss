@@ -1,12 +1,11 @@
+@use "../abstracts/glass";
 /* ---- Date Picker ------------------------------------------ */
 .dg-cal {
   position: absolute;
   z-index: 55;
   width: 288px;
-  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--dg-border-strong) 45%, transparent);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius-lg);
   box-shadow: var(--dg-shadow-3), inset 0 1px 0 color-mix(in oklab, #fff 10%, transparent);
   padding: var(--dg-space-4);
@@ -189,3 +188,6 @@
 
 /* Trigger input visual cue */
 .dg-datepicker { cursor: pointer; }
+
+/* ---- Date picker: opt-in glass ---------------------------- */
+#{glass.opt-in(".dg-cal")} { @include glass.surface(var(--dg-surface)); }

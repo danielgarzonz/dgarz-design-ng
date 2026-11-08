@@ -59,6 +59,11 @@ for (const variant of minimumVariants) {
   }
 }
 html += '<button id="minimum-long" class="dg-btn">Una etiqueta larga que necesita más espacio</button><button id="minimum-icon" class="dg-btn dg-btn-icon" aria-label="Icono"><svg class="dg-icon" viewBox="0 0 24 24"><path d="M4 12h16" /></svg></button>';
+const glassIgnored = new Set(['dg-btn-text', 'dg-btn-text-primary', 'dg-btn-text-success', 'dg-btn-text-warning', 'dg-btn-text-danger', 'dg-btn-text-info', 'dg-btn-gradient', 'dg-btn-gradient-warm']);
+const glassVariants = ['dg-btn', ...variants].filter(name => !sizeNames.has(name) && name !== 'dg-btn-glass');
+html += '<div id="glass-cases">';
+for (const variant of glassVariants) html += `<button id="glass-solid-${variant}" class="${variant}">Acción</button><button id="glass-on-${variant}" class="${variant} is-glass">Acción</button>`;
+html += '<button id="glass-standalone" class="dg-btn-glass">Acción</button><div id="group-solid" class="dg-btn-group">G</div><div id="group-glass" class="dg-btn-group is-glass">G</div></div>';
 const css = await readFile(new URL('../dist/dgarz.full.css', import.meta.url), 'utf8');
 const browser = await chromium.launch();
 try {
@@ -85,7 +90,7 @@ try {
     results.forEach(([oldStyle, newStyle], index) => assert.deepEqual(newStyle, oldStyle, `${theme}: ${pairs[index].join(' / ')}`));
     const subtle = await page.evaluate(() => {
       const probe = document.createElement('span');
-      probe.style.cssText = 'color:var(--dg-text);background:var(--dg-surface-3)';
+      probe.style.cssText = 'color:var(--dg-btn-ink);background:var(--dg-primary-subtle)';
       document.body.append(probe);
       const tokenColor = getComputedStyle(probe).color;
       const tokenSurface = getComputedStyle(probe).backgroundColor;
@@ -101,22 +106,34 @@ try {
     assert.equal(subtle.modalIcon, subtle.tokenColor, `${theme}: modal icon contrast`);
     const colored = await page.evaluate(tones => tones.map(tone => {
       const probe = document.createElement('span');
-      probe.style.cssText = `color:var(--dg-${tone})`;
+      probe.style.cssText = `background:var(--dg-${tone}-subtle)`;
       document.body.append(probe);
-      const expectedBorder = getComputedStyle(probe).color;
+      const expectedSurface = getComputedStyle(probe).backgroundColor;
       const style = getComputedStyle(document.getElementById(`color-${tone}`));
-      const result = { tone, expectedBorder, border: style.borderTopColor, width: style.borderTopWidth, borderStyle: style.borderTopStyle, color: style.color, surface: style.backgroundColor, spinner: getComputedStyle(document.getElementById(`color-loading-${tone}`), '::after').color, modalIcon: getComputedStyle(document.getElementById(`color-modal-${tone}`)).color };
+      const result = { tone, expectedSurface, border: style.borderTopColor, width: style.borderTopWidth, borderStyle: style.borderTopStyle, color: style.color, surface: style.backgroundColor, spinner: getComputedStyle(document.getElementById(`color-loading-${tone}`), '::after').color, modalIcon: getComputedStyle(document.getElementById(`color-modal-${tone}`)).color };
       probe.remove();
       return result;
     }), coloredTones);
+    const contrast = (foreground, background) => {
+      const luminance = color => {
+        const [r, g, b] = color.match(/[\d.]+/g).slice(0, 3).map(Number).map(value => {
+          const channel = value / 255;
+          return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      };
+      const [light, dark] = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+      return (light + 0.05) / (dark + 0.05);
+    };
+    assert(contrast(subtle.color, subtle.background) >= 4.5, `${theme}: subtle text contrast ${contrast(subtle.color, subtle.background).toFixed(2)}`);
     for (const color of colored) {
-      assert.equal(color.border, color.expectedBorder, `${theme}: ${color.tone} border`);
-      assert.equal(color.width, '1px');
-      assert.equal(color.borderStyle, 'solid');
-      assert.equal(color.color, subtle.tokenColor);
-      assert.equal(color.surface, subtle.tokenSurface);
-      assert.equal(color.spinner, subtle.tokenColor);
-      assert.equal(color.modalIcon, subtle.tokenColor);
+      // Buttons carry no visible border (feedback: contrast comes from the fill).
+      assert(color.borderStyle === 'none' || color.width === '0px' || color.border === 'rgba(0, 0, 0, 0)', `${theme}: ${color.tone} has no visible border`);
+      assert.equal(color.color, subtle.tokenColor, `${theme}: ${color.tone} text`);
+      assert.equal(color.surface, color.expectedSurface, `${theme}: ${color.tone} surface`);
+      assert(contrast(color.color, color.surface) >= 4.5, `${theme}: ${color.tone} text contrast ${contrast(color.color, color.surface).toFixed(2)}`);
+      assert.equal(color.spinner, subtle.tokenColor, `${theme}: ${color.tone} loading contrast`);
+      assert.equal(color.modalIcon, subtle.tokenColor, `${theme}: ${color.tone} modal icon contrast`);
     }
     assert.equal(await page.locator('[id="new-0"]').evaluate(element => getComputedStyle(element).display), 'inline-flex');
   }
@@ -128,7 +145,9 @@ try {
   const oldHover = await page.locator('#old-0').evaluate(hoverStyle);
   await page.locator('#new-0').hover();
   assert.deepEqual(await page.locator('#new-0').evaluate(hoverStyle), oldHover, 'Standalone hover must match legacy');
-  assert.equal(await page.locator('#group-only').evaluate(element => getComputedStyle(element).borderRadius), '30px', 'Group capsule matches modal footer radius');
+  // --dg-radius-xl is 30px, or 45px where squircle corners are supported.
+  const radiusXl = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--dg-radius-xl').trim());
+  assert.equal(await page.locator('#group-only').evaluate(element => getComputedStyle(element).borderRadius), radiusXl, 'Group capsule matches modal footer radius');
   assert.equal(await page.locator('#group-only').evaluate(element => getComputedStyle(element).display), 'inline-flex', 'Group remains an inline flex capsule');
   await page.addScriptTag({ content: await readFile(new URL('../dist/dgarz.js', import.meta.url), 'utf8') });
   await page.locator('#first').focus();
@@ -147,6 +166,64 @@ try {
     if (width <= 991) assert(Math.abs(sizes.mobile - sizes.parent) < 1, `Mobile block at ${width}`);
     else assert(sizes.mobile < sizes.parent - 20, `Intrinsic desktop width at ${width}`);
   }
+  const glassState = (id, pseudo) => page.locator(`[id="${id}"]`).evaluate((element) => {
+    const style = getComputedStyle(element);
+    const color = style.backgroundColor;
+    const slash = color.match(/\/\s*([\d.]+)\s*\)$/);
+    const rgba = color.match(/^rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)$/);
+    const alpha = slash ? Number(slash[1]) : rgba ? Number(rgba[1]) : (color === 'transparent' ? 0 : 1);
+    return { alpha, filter: style.backdropFilter, color: style.color, background: color };
+  });
+  const checkGlass = async (label, expectSolid) => {
+    for (const variant of glassVariants) {
+      const solid = await glassState(`glass-solid-${variant}`);
+      const glass = await glassState(`glass-on-${variant}`);
+      if (glassIgnored.has(variant)) {
+        assert.equal(glass.filter, 'none', `${label}: ${variant} ignores glass blur`);
+        assert.equal(glass.background, solid.background, `${label}: ${variant} ignores glass fill`);
+        continue;
+      }
+      assert.equal(solid.filter, 'none', `${label}: ${variant} is solid by default`);
+      assert.equal(glass.color, solid.color, `${label}: ${variant} glass keeps its text color`);
+      if (expectSolid) {
+        assert.equal(glass.alpha, 1, `${label}: ${variant} falls back to an opaque fill`);
+        assert.equal(glass.filter, 'none', `${label}: ${variant} falls back without blur`);
+      } else {
+        assert(glass.alpha > 0.3 && glass.alpha < 1, `${label}: ${variant} glass alpha ${glass.alpha}`);
+        assert.match(glass.filter, /blur/, `${label}: ${variant} glass blur`);
+      }
+    }
+    const standalone = await glassState('glass-standalone');
+    const groupSolid = await glassState('group-solid');
+    const groupGlass = await glassState('group-glass');
+    assert.equal(groupSolid.alpha, 1, `${label}: group is solid by default`);
+    assert.equal(groupSolid.filter, 'none', `${label}: group has no blur by default`);
+    if (expectSolid) {
+      assert.equal(standalone.alpha, 1, `${label}: dg-btn-glass falls back to solid`);
+      assert.equal(groupGlass.alpha, 1, `${label}: glass group falls back to solid`);
+    } else {
+      assert(standalone.alpha < 1 && /blur/.test(standalone.filter), `${label}: dg-btn-glass stays glass`);
+      assert(groupGlass.alpha < 1 && /blur/.test(groupGlass.filter), `${label}: group opts into glass`);
+    }
+  };
+  for (const theme of ['light', 'dark']) {
+    await page.locator('html').evaluate((element, theme) => element.dataset.theme = theme, theme);
+    await checkGlass(theme, false);
+  }
+  await page.locator('[id="glass-on-dg-btn-success"]').scrollIntoViewIfNeeded();
+  const restingAlpha = (await glassState('glass-on-dg-btn-success')).alpha;
+  await page.locator('[id="glass-on-dg-btn-success"]').hover();
+  const hovered = await page.locator('[id="glass-on-dg-btn-success"]').evaluate(element => getComputedStyle(element).opacity);
+  const hoverAlpha = (await glassState('glass-on-dg-btn-success')).alpha;
+  assert(hoverAlpha > restingAlpha, `Glass hover becomes more solid (${restingAlpha} → ${hoverAlpha})`);
+  assert.equal(hovered, '1', 'Glass hover keeps full opacity');
+  await page.mouse.move(-100, -100);
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-transparency', value: 'reduce' }] });
+  assert(await page.evaluate(() => matchMedia('(prefers-reduced-transparency: reduce)').matches), 'Reduced transparency emulation is active');
+  await checkGlass('reduced-transparency', true);
+  await cdp.send('Emulation.setEmulatedMedia', { features: [] });
+
   assert.deepEqual(errors, []);
-  console.log(`PASS: ${variants.length} standalone variants, ${pairs.length} style pairs in light/dark, disabled/loading, containers and keyboard reorder`);
+  console.log(`PASS: ${variants.length} standalone variants, ${pairs.length} style pairs in light/dark, disabled/loading, containers and keyboard reorder; glass on ${glassVariants.length - glassIgnored.size} variants, hover, group and reduced-transparency fallback`);
 } finally { await browser.close(); }

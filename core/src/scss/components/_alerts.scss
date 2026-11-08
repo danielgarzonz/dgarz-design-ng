@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ---- Alerts ----------------------------------------------- */
 .dg-alert {
   display: flex; gap: var(--dg-space-3); align-items: flex-start;
@@ -38,3 +39,11 @@
 .dg-callout-danger  { border-left-color: var(--dg-danger);  background: var(--dg-danger-bg);  color: var(--dg-on-danger-subtle); }
 .dg-callout-info    { border-left-color: var(--dg-info);    background: var(--dg-info-bg);    color: var(--dg-on-info-subtle); }
 .dg-callout-title   { font-weight: var(--dg-weight-semi); margin-bottom: var(--dg-space-2); }
+
+/* ---- Alert & callout: opt-in glass ------------------------ */
+.dg-alert.is-glass,
+.dg-callout.is-glass { @include glass.surface(var(--dg-surface-2)); }
+@each $tone in success, warning, danger, info {
+  .dg-alert-#{$tone}.is-glass,
+  .dg-callout-#{$tone}.is-glass { @include glass.fill(var(--dg-#{$tone}-bg)); }
+}

@@ -17,6 +17,11 @@
   --dgarz-spacing-lg: 1.5rem;
   --dgarz-radius-button: 999px;
   --dgarz-button-min-width: 6rem;
+  /* Opt-in glass (<dgarz-button glass>); solid fallback is built into the component. */
+  --dgarz-glass-alpha: 72%;
+  --dgarz-glass-alpha-soft: 42%;
+  --dgarz-glass-alpha-hover: 14%;
+  --dgarz-glass-filter: blur(20px) saturate(180%);
   --dgarz-radius-field: .75rem;
   --dgarz-font-family: system-ui, sans-serif;
 }

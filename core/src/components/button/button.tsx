@@ -10,6 +10,9 @@ export class DgarzButton {
   @Prop({ reflect: true }) disabled = false;
   /** Shows progress and prevents activation. */
   @Prop({ reflect: true }) loading = false;
+  /** Translucent, blurred fill for use over images or color. Falls back to solid
+   *  under prefers-reduced-transparency or without backdrop-filter support. */
+  @Prop({ reflect: true }) glass = false;
 
   /** Emitted on activation; crosses the shadow boundary. */
   @Event({ eventName: 'dgarz-click', bubbles: true, composed: true, cancelable: false })

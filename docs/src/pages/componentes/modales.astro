@@ -13,14 +13,14 @@ import Layout from "../../layouts/DocsLayout.astro";
   lead="Diálogos accesibles con header, body y footer. Variantes, posiciones y estados."
   currentHref="/componentes/modales"
 >
-  <p class="dg-muted dg-mb-4">Todos los modales usan glass por defecto: fondo al 90% de opacidad y <code>backdrop-filter: saturate(1.8) blur(20px)</code>. El header y el footer flotante comparten un fondo translúcido con <code>saturate(1.8) blur(20px)</code>. Agrega <code>is-solid</code> para un modal blanco, opaco y sin blur.</p>
+  <p class="dg-muted dg-mb-4">Los modales son sólidos por defecto: usan la superficie del tema (clara u oscura), con header y footer opacos. Las esquinas del contenedor son squircle (<code>corner-shape: squircle</code>, radio 45px) en Chrome y Edge; en Safari se ve la esquina redondeada de 30px. Entran como un círculo que crece desde el centro y se transforma en el rectángulo redondeado del modal (al cerrar, vuelve a círculo y se cierra). Para glass, añade <code>is-glass</code> al modal o <code>data-surface="glass"</code> a <code>&lt;html&gt;</code>: fondo al 90% de opacidad con <code>backdrop-filter: saturate(1.8) blur(20px)</code>, header y footer translúcidos, y el blur animado al entrar y salir. Dentro de <code>data-surface="glass"</code>, <code>is-solid</code> mantiene un modal sólido. Con <em>reducir transparencia</em> activado, el glass vuelve a sólido automáticamente.</p>
   <p class="dg-callout dg-callout-info">Los círculos de estado muestran ondas sólidas y translúcidas que se expanden suavemente. El botón de acción es negro primario. Las ondas permanecen estáticas con movimiento reducido.</p>
   <Fragment set:html={`
       <div class="dg-flex dg-items-center dg-gap-4 dg-mb-6">
         <span class="dg-text-sm dg-fw-medium">Estilo de superficie</span>
         <div class="dg-segmented" id="surfaceSwitcher" data-dg-segmented>
-          <button class="is-active" data-surface="glass">Glass</button>
-          <button data-surface="solid">Sólido</button>
+          <button class="is-active" data-surface="solid">Sólido</button>
+          <button data-surface="glass">Glass</button>
         </div>
       </div>
 
@@ -33,19 +33,22 @@ import Layout from "../../layouts/DocsLayout.astro";
         Para cerrarlo, usa <code class="dg-code">data-dg-close</code> en el botón cancelar o la X.
       </div>
 
-      <div class="doc-sub">1. Modal básico</div>
+      <div class="doc-sub" id="modal-basic-label">1. Modal básico</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Estructura mínima: <code class="dg-code">.dg-modal-header</code>, <code class="dg-code">.dg-modal-body</code> y <code class="dg-code">.dg-modal-footer</code>. El botón lo abre con <code class="dg-code">data-dg-open</code>.</p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
-        <div class="dg-cluster">
-          <button class="dg-btn" data-dg-open="#jsModal">Abrir modal</button>
-          <button class="dg-btn dg-btn-ghost" data-dg-open="#mdForm">Con formulario</button>
+      <section data-modal-basic-tabs>
+        <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-basic-label">
+          <button type="button" class="is-active" role="tab" id="modal-basic-tab-0" aria-controls="modal-basic-panel-0" aria-selected="true" tabindex="0">Básico</button>
+          <button type="button" class="" role="tab" id="modal-basic-tab-1" aria-controls="modal-basic-panel-1" aria-selected="false" tabindex="-1">Con formulario</button>
         </div>
-      </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-modal"&gt;Abrir modal&lt;/button&gt;
-&lt;button class="dg-btn dg-btn-ghost" data-dg-open="#mi-form"&gt;Con formulario&lt;/button&gt;
 
-&lt;!-- Modal básico --&gt;
+        <div role="tabpanel" id="modal-basic-panel-0" aria-labelledby="modal-basic-tab-0" tabindex="0">
+          <p class="dg-muted dg-text-sm dg-mt-3">Título, contenido y footer con las acciones.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#jsModal">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-modal"&gt;Ver modal&lt;/button&gt;
+
 &lt;div class="dg-modal-backdrop" id="mi-modal" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;
     &lt;button class="dg-modal-close" data-dg-close aria-label="Cerrar"&gt;&lt;/button&gt;
@@ -58,9 +61,18 @@ import Layout from "../../layouts/DocsLayout.astro";
       &lt;button class="dg-btn" data-dg-close&gt;Confirmar&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+          </div>
+        </div>
 
-&lt;!-- Modal con formulario --&gt;
+        <div role="tabpanel" id="modal-basic-panel-1" aria-labelledby="modal-basic-tab-1" tabindex="0" hidden>
+          <p class="dg-muted dg-text-sm dg-mt-3">Formulario en dos columnas dentro de un modal amplio (<code class="dg-code">.dg-modal-xl</code>).</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdForm" aria-label="Ver modal con formulario">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-form"&gt;Ver modal&lt;/button&gt;
+
 &lt;div class="dg-modal-backdrop" id="mi-form" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-xl" role="dialog" aria-modal="true"&gt;
     &lt;div class="dg-modal-header dg-modal-header-row"&gt;
@@ -105,7 +117,9 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
-</div>
+          </div>
+        </div>
+      </section>
 
       <div class="doc-sub" id="modal-size-label">2. Tamaños: chico, mediano y full</div>
       <section data-modal-size-tabs>
@@ -116,8 +130,11 @@ import Layout from "../../layouts/DocsLayout.astro";
         </div>
         <div role="tabpanel" id="modal-size-panel-0" aria-labelledby="modal-size-tab-0" tabindex="0">
           <p class="dg-muted dg-text-sm dg-mt-3">Una columna · 360px</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdSm">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize0"&gt;Ver modal chico&lt;/button&gt;
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdSm">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize0"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploSize0" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-sm" role="dialog" aria-modal="true"&gt;
@@ -127,11 +144,15 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn" data-dg-close&gt;Entendido&lt;/button&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
         <div role="tabpanel" id="modal-size-panel-1" aria-labelledby="modal-size-tab-1" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Dos columnas · 720px; se apilan en móvil</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#jsModal">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize1"&gt;Ver modal mediano&lt;/button&gt;
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#jsModal">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize1"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploSize1" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal" role="dialog" aria-modal="true" aria-labelledby="ejemploSize1Title"&gt;
@@ -144,11 +165,15 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
         <div role="tabpanel" id="modal-size-panel-2" aria-labelledby="modal-size-tab-2" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Pantalla completa · contenido centrado</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdFull">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize2"&gt;Ver modal full&lt;/button&gt;
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdFull">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploSize2"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploSize2" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-full" role="dialog" aria-modal="true" aria-labelledby="ejemploSize2Title"&gt;
@@ -161,13 +186,14 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
       </section>
 
       <div class="doc-sub">Botón opcional: mediano ↔ pantalla completa</div>
       <p class="dg-muted dg-mb-4">Agrega <code>data-dg-modal-resize</code> a un botón dentro del modal. Las flechas diagonales alternan entre 720px y pantalla completa con una transición suave, sin cerrar el diálogo ni perder los datos. Se respeta el movimiento reducido. Los controles de cerrar y cambiar tamaño usan iconos blancos sobre círculos negros pequeños.</p>
       <div class="doc-example">
-<div class="doc-demo"><button class="dg-btn" data-dg-open="#mdResizable">Probar modal adaptable</button></div>
+<div class="doc-demo"><button class="dg-btn" data-dg-open="#mdResizable" aria-label="Ver modal adaptable">Ver modal</button></div>
       <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop" id="mdResizable" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-md" role="dialog" aria-modal="true" aria-labelledby="mdResizableTitle"&gt;
     &lt;button type="button" class="dg-modal-resize" data-dg-modal-resize aria-label="Ampliar a pantalla completa" aria-pressed="false"&gt;&lt;svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path data-dg-modal-size-icon d="M14 10l7-7m-6 0h6v6M10 14l-7 7m0-6v6h6"/&gt;&lt;/svg&gt;&lt;/button&gt;
@@ -177,7 +203,10 @@ import Layout from "../../layouts/DocsLayout.astro";
       &lt;p class="dg-mb-4"&gt;Usa el botón junto a la X para alternar entre mediano y pantalla completa. El contenido y tus cambios se conservan.&lt;/p&gt;
       &lt;div class="dg-field"&gt;&lt;label class="dg-label" for="resizeNotes"&gt;Notas&lt;/label&gt;&lt;textarea class="dg-textarea" id="resizeNotes" placeholder="Escribe y cambia el tamaño del modal"&gt;&lt;/textarea&gt;&lt;/div&gt;
     &lt;/div&gt;&lt;/div&gt;
-    &lt;div class="dg-modal-footer"&gt;&lt;button class="dg-btn" data-dg-close&gt;Listo&lt;/button&gt;&lt;/div&gt;
+    &lt;div class="dg-modal-footer"&gt;
+      &lt;button class="dg-btn dg-btn-cancel" data-dg-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="dg-btn" data-dg-close&gt;Aceptar&lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
 </div>
@@ -193,7 +222,10 @@ import Layout from "../../layouts/DocsLayout.astro";
 
         <div role="tabpanel" id="modal-footer-panel-0" aria-labelledby="modal-footer-tab-0" tabindex="0">
           <p class="dg-muted dg-text-sm dg-mt-3">Por defecto · centrado y ajustado al ancho de los botones con esquinas redondeadas</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdDefaultFooter">Ver modal</button>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdDefaultFooter">Ver modal</button>
+          </div>
           <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterDefault"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploFooterDefault" data-dg-backdrop="" hidden&gt;
@@ -207,11 +239,15 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-footer-panel-1" aria-labelledby="modal-footer-tab-1" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Flotante ampliado · <code>.dg-modal-footer-wide</code> abarca el ancho del diálogo manteniendo margen y esquinas redondeadas</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdWideFooter">Ver modal</button>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdWideFooter">Ver modal</button>
+          </div>
           <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterWide"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploFooterWide" data-dg-backdrop="" hidden&gt;
@@ -225,11 +261,15 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-footer-panel-2" aria-labelledby="modal-footer-tab-2" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Tradicional (flush) · <code>.dg-modal-footer-flush</code> adherido al fondo y a los bordes con línea divisoria</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdFlushFooter">Ver modal</button>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdFlushFooter">Ver modal</button>
+          </div>
           <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploFooterFlush"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploFooterFlush" data-dg-backdrop="" hidden&gt;
@@ -243,11 +283,15 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-footer-panel-3" aria-labelledby="modal-footer-tab-3" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Solo iconos · <code>.dg-btn-icon</code> botones circulares de 42px para acciones rápidas</p>
-          <button class="dg-btn dg-mt-3" data-dg-open="#mdIconFooter">Ver modal</button>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-dg-open="#mdIconFooter">Ver modal</button>
+          </div>
           <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#ejemploIconFooter"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="ejemploIconFooter" data-dg-backdrop="" hidden&gt;
@@ -271,6 +315,7 @@ import Layout from "../../layouts/DocsLayout.astro";
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
       </section>
 
@@ -278,9 +323,9 @@ import Layout from "../../layouts/DocsLayout.astro";
       <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-modal-confirm</code> destaca un icono y pide una decisión. Úsalo antes de acciones difíciles de deshacer.</p>
       <div class="doc-example">
 <div class="doc-demo is-plain">
-        <button class="dg-btn dg-btn-danger" data-dg-open="#mdConfirm">Eliminar proyecto</button>
+        <button class="dg-btn dg-btn-danger" data-dg-open="#mdConfirm" aria-label="Ver modal de confirmación">Ver modal</button>
       </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-danger" data-dg-open="#mi-confirm"&gt;Eliminar proyecto&lt;/button&gt;
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn dg-btn-danger" data-dg-open="#mi-confirm"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="mi-confirm" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-confirm" role="dialog" aria-modal="true" aria-labelledby="mi-confirm-title"&gt;
@@ -298,54 +343,75 @@ import Layout from "../../layouts/DocsLayout.astro";
 &lt;/div&gt;</pre></div>
 </div>
 
-      <div class="doc-sub" id="modal-pos-label">5. Modal posicionado</div>
+      <div class="doc-sub" id="modal-pos-label">5. Efectos de entrada</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Cinco formas de aparecer, todas de 1 s y con la salida inversa. El fondo oscuro se funde a la vez. Añade la clase al <code class="dg-code">.dg-modal</code>; sin clase se usa el círculo. Pensados para modales sólidos; con <em>reducir movimiento</em> no se animan.</p>
       <section data-modal-pos-tabs>
         <div class="dg-segmented doc-modal-size-tabs" role="tablist" aria-labelledby="modal-pos-label">
-          <button type="button" class="is-active" role="tab" id="modal-pos-tab-0" aria-controls="modal-pos-panel-0" aria-selected="true"  tabindex="0">Centro</button>
-          <button type="button" class=""           role="tab" id="modal-pos-tab-1" aria-controls="modal-pos-panel-1" aria-selected="false" tabindex="-1">Superior</button>
-          <button type="button" class=""           role="tab" id="modal-pos-tab-2" aria-controls="modal-pos-panel-2" aria-selected="false" tabindex="-1">Inferior</button>
-          <button type="button" class=""           role="tab" id="modal-pos-tab-3" aria-controls="modal-pos-panel-3" aria-selected="false" tabindex="-1">Izquierda</button>
-          <button type="button" class=""           role="tab" id="modal-pos-tab-4" aria-controls="modal-pos-panel-4" aria-selected="false" tabindex="-1">Derecha</button>
+          <button type="button" class="is-active" role="tab" id="modal-pos-tab-0" aria-controls="modal-pos-panel-0" aria-selected="true" tabindex="0">Círculo</button>
+          <button type="button" class="" role="tab" id="modal-pos-tab-1" aria-controls="modal-pos-panel-1" aria-selected="false" tabindex="-1">Zoom</button>
+          <button type="button" class="" role="tab" id="modal-pos-tab-2" aria-controls="modal-pos-panel-2" aria-selected="false" tabindex="-1">Desenfoque</button>
+          <button type="button" class="" role="tab" id="modal-pos-tab-3" aria-controls="modal-pos-panel-3" aria-selected="false" tabindex="-1">Giro 3D</button>
+          <button type="button" class="" role="tab" id="modal-pos-tab-4" aria-controls="modal-pos-panel-4" aria-selected="false" tabindex="-1">Cortina</button>
         </div>
 
         <div role="tabpanel" id="modal-pos-panel-0" aria-labelledby="modal-pos-tab-0" tabindex="0">
-          <p class="dg-muted dg-text-sm dg-mt-3">Por defecto · centrado en pantalla</p>
-          <button class="dg-btn dg-mt-3" data-pos="center">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop" id="modal-center" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+          <p class="dg-muted dg-text-sm dg-mt-3">Por defecto. Un círculo crece desde el centro y se transforma en el rectángulo redondeado del modal; al cerrar, vuelve a ser círculo y se cierra hacia el centro.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-effect-demo="" data-effect-label="Círculo" aria-label="Ver modal con efecto círculo">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-modal-backdrop&quot; id=&quot;mi-modal&quot; data-dg-backdrop=&quot;&quot; hidden&gt;
+  &lt;div class=&quot;dg-modal&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-pos-panel-1" aria-labelledby="modal-pos-tab-1" tabindex="0" hidden>
-          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-top</code> · anclado al borde superior</p>
-          <button class="dg-btn dg-mt-3" data-pos="top">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-top" id="modal-top" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-modal-zoom</code> · Crece desde un poco más pequeño mientras aparece; al cerrar se encoge y se desvanece.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-effect-demo="dg-modal-zoom" data-effect-label="Zoom" aria-label="Ver modal con efecto zoom">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-modal-backdrop&quot; id=&quot;mi-modal&quot; data-dg-backdrop=&quot;&quot; hidden&gt;
+  &lt;div class=&quot;dg-modal dg-modal-zoom&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-pos-panel-2" aria-labelledby="modal-pos-tab-2" tabindex="0" hidden>
-          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-bottom</code> · anclado al borde inferior</p>
-          <button class="dg-btn dg-mt-3" data-pos="bottom">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-bottom" id="modal-bottom" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-modal-blur</code> · Aparece desenfocado y se enfoca; al cerrar vuelve a desenfocarse.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-effect-demo="dg-modal-blur" data-effect-label="Desenfoque" aria-label="Ver modal con efecto desenfoque">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-modal-backdrop&quot; id=&quot;mi-modal&quot; data-dg-backdrop=&quot;&quot; hidden&gt;
+  &lt;div class=&quot;dg-modal dg-modal-blur&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-pos-panel-3" aria-labelledby="modal-pos-tab-3" tabindex="0" hidden>
-          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-left</code> · anclado al lateral izquierdo</p>
-          <button class="dg-btn dg-mt-3" data-pos="left">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-left" id="modal-left" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-modal-flip</code> · Gira hacia el frente en perspectiva desde su borde superior.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-effect-demo="dg-modal-flip" data-effect-label="Giro 3D" aria-label="Ver modal con efecto giro 3D">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-modal-backdrop&quot; id=&quot;mi-modal&quot; data-dg-backdrop=&quot;&quot; hidden&gt;
+  &lt;div class=&quot;dg-modal dg-modal-flip&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
 
         <div role="tabpanel" id="modal-pos-panel-4" aria-labelledby="modal-pos-tab-4" tabindex="0" hidden>
-          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-pos-right</code> · anclado al lateral derecho</p>
-          <button class="dg-btn dg-mt-3" data-pos="right">Ver modal</button>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class="dg-modal-backdrop dg-pos-right" id="modal-right" data-dg-backdrop="" hidden&gt;
-  &lt;div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
+          <p class="dg-muted dg-text-sm dg-mt-3"><code>.dg-modal-curtain</code> · Se abre desde la línea central hacia los lados, como una cortina.</p>
+          <div class="doc-example">
+<div class="doc-demo is-plain">
+            <button class="dg-btn" data-effect-demo="dg-modal-curtain" data-effect-label="Cortina" aria-label="Ver modal con efecto cortina">Ver modal</button>
+          </div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;div class=&quot;dg-modal-backdrop&quot; id=&quot;mi-modal&quot; data-dg-backdrop=&quot;&quot; hidden&gt;
+  &lt;div class=&quot;dg-modal dg-modal-curtain&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre></div>
+          </div>
         </div>
       </section>
 
@@ -361,8 +427,8 @@ import Layout from "../../layouts/DocsLayout.astro";
         <div role="tabpanel" id="modal-status-panel-success" aria-labelledby="modal-status-tab-success" tabindex="0">
           <p class="dg-muted dg-text-sm dg-mt-3">Todo salió bien. Puedes continuar.</p>
           <div class="doc-example">
-<div class="doc-demo is-plain"><button class="dg-btn" data-status="success">Ver modal de éxito</button></div>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-success"&gt;Ver modal de éxito&lt;/button&gt;
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="success" aria-label="Ver modal de éxito">Ver modal</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-success"&gt;Ver modal&lt;/button&gt;
 &lt;div class="dg-modal-backdrop" id="modal-success" data-dg-backdrop="" data-dg-static hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-success" role="dialog" aria-modal="true" aria-labelledby="modal-success-title"&gt;
     &lt;div class="dg-modal-status-hero"&gt;
@@ -380,8 +446,8 @@ import Layout from "../../layouts/DocsLayout.astro";
         <div role="tabpanel" id="modal-status-panel-warning" aria-labelledby="modal-status-tab-warning" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Revisa los datos antes de continuar.</p>
           <div class="doc-example">
-<div class="doc-demo is-plain"><button class="dg-btn" data-status="warning">Ver modal de aviso</button></div>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-warning"&gt;Ver modal de aviso&lt;/button&gt;
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="warning" aria-label="Ver modal de aviso">Ver modal</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-warning"&gt;Ver modal&lt;/button&gt;
 &lt;div class="dg-modal-backdrop" id="modal-warning" data-dg-backdrop="" data-dg-static hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-warning" role="dialog" aria-modal="true" aria-labelledby="modal-warning-title"&gt;
     &lt;div class="dg-modal-status-hero"&gt;
@@ -399,8 +465,8 @@ import Layout from "../../layouts/DocsLayout.astro";
         <div role="tabpanel" id="modal-status-panel-danger" aria-labelledby="modal-status-tab-danger" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Algo salió mal. Intenta de nuevo.</p>
           <div class="doc-example">
-<div class="doc-demo is-plain"><button class="dg-btn" data-status="danger">Ver modal de error</button></div>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-danger"&gt;Ver modal de error&lt;/button&gt;
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="danger" aria-label="Ver modal de error">Ver modal</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-danger"&gt;Ver modal&lt;/button&gt;
 &lt;div class="dg-modal-backdrop" id="modal-danger" data-dg-backdrop="" data-dg-static hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-danger" role="dialog" aria-modal="true" aria-labelledby="modal-danger-title"&gt;
     &lt;div class="dg-modal-status-hero"&gt;
@@ -418,8 +484,8 @@ import Layout from "../../layouts/DocsLayout.astro";
         <div role="tabpanel" id="modal-status-panel-info" aria-labelledby="modal-status-tab-info" tabindex="0" hidden>
           <p class="dg-muted dg-text-sm dg-mt-3">Ten en cuenta este detalle antes de seguir.</p>
           <div class="doc-example">
-<div class="doc-demo is-plain"><button class="dg-btn" data-status="info">Ver modal de información</button></div>
-          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-info"&gt;Ver modal de información&lt;/button&gt;
+<div class="doc-demo is-plain"><button class="dg-btn" data-status="info" aria-label="Ver modal de información">Ver modal</button></div>
+          <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#modal-info"&gt;Ver modal&lt;/button&gt;
 &lt;div class="dg-modal-backdrop" id="modal-info" data-dg-backdrop="" data-dg-static hidden&gt;
   &lt;div class="dg-modal dg-modal-sm dg-modal-accent is-info" role="dialog" aria-modal="true" aria-labelledby="modal-info-title"&gt;
     &lt;div class="dg-modal-status-hero"&gt;
@@ -436,35 +502,13 @@ import Layout from "../../layouts/DocsLayout.astro";
         </div>
       </section>
 
-      <div class="doc-sub" id="modal-effects-label">7. Efectos opcionales</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">Aplica un efecto a cualquier modal, independientemente de su contenido o estado. <code>.dg-modal-glow</code> agrega un halo pulsante; <code>.dg-modal-glow-spin</code>, un recorrido de luz. Ambos respetan el movimiento reducido.</p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
-        <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
-          <span class="dg-text-sm dg-fw-medium" id="glowEffectLabel">Efecto</span>
-          <div class="dg-segmented" id="glowEffectSeg" data-dg-segmented role="group" aria-labelledby="glowEffectLabel">
-            <button type="button" class="is-active" data-effect="dg-modal-glow" aria-pressed="true">Pulso</button>
-            <button type="button" data-effect="dg-modal-glow-spin" aria-pressed="false">Giro</button>
-          </div>
-        </div>
-        <button class="dg-btn" data-dg-open="#mdEffect">Probar efecto</button>
-      </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;!-- Agrega una clase de efecto a cualquier modal --&gt;
-&lt;div class="dg-modal dg-modal-glow" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
-
-&lt;div class="dg-modal dg-modal-glow-spin" role="dialog" aria-modal="true"&gt;...&lt;/div&gt;
-
-&lt;!-- Opcional: personaliza el color --&gt;
-&lt;div class="dg-modal dg-modal-glow" style="--dg-modal-glow-color: var(--dg-info)"&gt;...&lt;/div&gt;</pre></div>
-</div>
-
-      <div class="doc-sub">8. Onboarding</div>
+      <div class="doc-sub">7. Onboarding</div>
       <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-modal-onboard</code> presenta una función nueva, con una imagen en <code class="dg-code">.dg-onboard-media</code> y un indicador de paso en <code class="dg-code">.dg-onboard-step</code>.</p>
       <div class="doc-example">
 <div class="doc-demo is-plain">
-        <button class="dg-btn" data-dg-open="#mdOnboard">Ver onboarding</button>
+        <button class="dg-btn" data-dg-open="#mdOnboard" aria-label="Ver modal de onboarding">Ver modal</button>
       </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-onboard"&gt;Ver onboarding&lt;/button&gt;
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;button class="dg-btn" data-dg-open="#mi-onboard"&gt;Ver modal&lt;/button&gt;
 
 &lt;div class="dg-modal-backdrop" id="mi-onboard" data-dg-backdrop="" hidden&gt;
   &lt;div class="dg-modal dg-modal-onboard" role="dialog" aria-modal="true"&gt;
@@ -580,10 +624,10 @@ import Layout from "../../layouts/DocsLayout.astro";
 </div>
 
 <div class="dg-modal-backdrop" id="mdPos" data-dg-backdrop="" hidden>
-  <div class="dg-modal dg-modal-bar" role="dialog" aria-modal="true">
+  <div class="dg-modal dg-modal-sm" id="mdPosCard" role="dialog" aria-modal="true" aria-labelledby="mdPosTitle">
     <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon dg-icon-sm"><use href="#dg-x"/></svg></button>
-    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdPosTitle">Modal posicionado</h3></div>
-    <div class="dg-modal-body" id="mdPosBody">Este diálogo se ancla al borde elegido y entra deslizándose desde ahí.</div>
+    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdPosTitle">Efecto de entrada</h3></div>
+    <div class="dg-modal-body" id="mdPosBody">Ciérralo para ver también la salida.</div>
     <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Entendido</button></div>
   </div>
 </div>
@@ -622,7 +666,7 @@ import Layout from "../../layouts/DocsLayout.astro";
 
 <script>
 
-  document.querySelectorAll<HTMLElement>('[data-modal-size-tabs], [data-modal-footer-tabs], [data-modal-pos-tabs], [data-modal-status-tabs]').forEach((group) => {
+  document.querySelectorAll<HTMLElement>('[data-modal-basic-tabs], [data-modal-size-tabs], [data-modal-footer-tabs], [data-modal-pos-tabs], [data-modal-status-tabs]').forEach((group) => {
     const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
     const panels = Array.from(group.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
     const select = (index: number) => {
@@ -658,21 +702,21 @@ import Layout from "../../layouts/DocsLayout.astro";
       if (!btn) return;
       const surface = btn.dataset.surface;
       document.querySelectorAll('.dg-modal').forEach(modal => {
-        modal.classList.remove('is-solid');
-        if (surface === 'solid') modal.classList.add('is-solid');
+        modal.classList.toggle('is-glass', surface === 'glass');
       });
     });
   }
 
-  // Positioned modal
+  // Entrance effects
   const mdPos = document.getElementById('mdPos');
   if (mdPos && window.dgarz) {
-    document.querySelectorAll('[data-pos]').forEach(btn => {
+    document.querySelectorAll<HTMLElement>('[data-effect-demo]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const pos = btn.getAttribute('data-pos');
-        mdPos.className = 'dg-modal-backdrop' + (pos !== 'center' ? ' dg-pos-' + pos : '');
-        document.getElementById('mdPosTitle').textContent =
-          'Modal ' + ({center:'centrado',top:'superior',bottom:'inferior',left:'a la izquierda',right:'a la derecha'}[pos]);
+        const effect = btn.dataset.effectDemo || '';
+        const card = document.getElementById('mdPosCard');
+        if (card) card.className = 'dg-modal dg-modal-sm' + (effect ? ' ' + effect : '');
+        const title = document.getElementById('mdPosTitle');
+        if (title) title.textContent = btn.dataset.effectLabel || 'Efecto de entrada';
         window.dgarz.openOverlay(mdPos);
       });
     });
@@ -686,28 +730,13 @@ import Layout from "../../layouts/DocsLayout.astro";
     info:    { title: 'Buenas noticias',   body: 'Una actualización con mejoras está disponible.',use: '#dg-info' }
   };
   const mdStatus = document.getElementById('mdStatus');
-  const glowEffectSeg = document.getElementById('glowEffectSeg');
-  if (glowEffectSeg) {
-    glowEffectSeg.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-effect]');
-      if (!btn) return;
-      glowEffectSeg.querySelectorAll('button').forEach((b) => {
-        const selected = b === btn;
-        b.classList.toggle('is-active', selected);
-        b.setAttribute('aria-pressed', String(selected));
-      });
-      const effectCard = document.getElementById('mdEffectCard');
-      effectCard.classList.remove('dg-modal-glow', 'dg-modal-glow-spin');
-      effectCard.classList.add(btn.getAttribute('data-effect'));
-    });
-  }
   if (mdStatus && window.dgarz) {
     document.querySelectorAll('[data-status]').forEach(btn => {
       btn.addEventListener('click', () => {
         const s = btn.getAttribute('data-status'), c = statusMap[s];
         const statusCard = document.getElementById('mdStatusCard');
-        const solid = statusCard.classList.contains('is-solid');
-        statusCard.className = 'dg-modal dg-modal-sm dg-modal-accent is-' + s + (solid ? ' is-solid' : '');
+        const glass = statusCard.classList.contains('is-glass');
+        statusCard.className = 'dg-modal dg-modal-sm dg-modal-accent is-' + s + (glass ? ' is-glass' : '');
         document.getElementById('mdStatusAccept').className = 'dg-btn dg-btn-primary';
         const ic = document.getElementById('mdStatusIcon');
         ic.className = 'dg-modal-icon is-' + s;
@@ -887,15 +916,9 @@ import Layout from "../../layouts/DocsLayout.astro";
       <p class="dg-mb-4">Usa el botón junto a la X para alternar entre mediano y pantalla completa. El contenido y tus cambios se conservan.</p>
       <div class="dg-field"><label class="dg-label" for="resizeNotes">Notas</label><textarea class="dg-textarea" id="resizeNotes" placeholder="Escribe y cambia el tamaño del modal"></textarea></div>
     </div></div>
-    <div class="dg-modal-footer"><button class="dg-btn" data-dg-close>Listo</button></div>
-  </div>
-</div>
-
-<div class="dg-modal-backdrop" id="mdEffect" data-dg-backdrop="" hidden>
-  <div class="dg-modal dg-modal-md dg-modal-glow" id="mdEffectCard" role="dialog" aria-modal="true" aria-labelledby="mdEffectTitle">
-    <button class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon" aria-hidden="true"><use href="#dg-x"/></svg></button>
-    <div class="dg-modal-header"><h3 class="dg-modal-title" id="mdEffectTitle">Modal con efecto</h3></div>
-    <div class="dg-modal-body"><p>Este efecto es opcional y se puede usar en cualquier modal: formularios, contenido informativo o confirmaciones.</p></div>
-    <div class="dg-modal-footer"><button class="dg-btn dg-btn-primary" data-dg-close>Entendido</button></div>
+    <div class="dg-modal-footer">
+      <button class="dg-btn dg-btn-cancel" data-dg-close>Cancelar</button>
+      <button class="dg-btn" data-dg-close>Aceptar</button>
+    </div>
   </div>
 </div>

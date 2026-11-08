@@ -1,0 +1,141 @@
+@use "../abstracts/glass";
+
+/* ---- Dock (floating bottom icon menu) --------------------- */
+/* A floating bottom menu, usually at the bottom of mobile screens. Solid by
+   default: a light gray fill with the active item on the page surface (no
+   shadow, no border). Options: .dg-dock-shadow, .dg-dock-bordered, .is-glass,
+   .dg-dock-inverse (dark capsule). Items adapt to their content:
+     icon only            → round button (needs aria-label)
+     icon + .dg-dock-label → icon above a short label (iOS tab bar)
+     text only            → text pill
+   Glass is opt-in like every floating component. With data-dg-dock the
+   active highlight slides between items and grows while it moves
+   (shared js/indicator.js).
+
+   <nav class="dg-dock dg-dock-fixed" data-dg-dock aria-label="Vista">
+     <button class="dg-dock-item is-active" aria-label="Claro">…svg…</button>
+     …
+   </nav> */
+.dg-dock {
+  --dg-dock-item: 3.25rem;
+  --dg-dock-pad: .375rem;
+  --dg-dock-icon: 1.35rem;
+  --dg-dock-bg: var(--dg-surface-3);
+  --dg-dock-fg: var(--dg-text-muted);
+  --dg-dock-fg-active: var(--dg-text);
+  --dg-dock-active: var(--dg-paper);
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; gap: .25rem;
+  padding: var(--dg-dock-pad);
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-dock-bg);
+  color: var(--dg-dock-fg);
+}
+/* Elevated: white surface lifted by a soft shadow (exempt from flat). */
+.dg-dock-shadow {
+  --dg-dock-bg: var(--dg-surface);
+  --dg-dock-active: var(--dg-surface-3);
+  box-shadow: var(--dg-shadow-sm);
+}
+/* Outlined: white surface with the same 1px edge as inputs (exempt from flat). */
+.dg-dock-bordered {
+  --dg-dock-bg: var(--dg-surface);
+  --dg-dock-active: var(--dg-surface-3);
+  border: 1px solid var(--dg-field-border);
+}
+/* Dark capsule (the inverse pair), in any theme. */
+.dg-dock-inverse {
+  --dg-dock-bg: var(--dg-solid);
+  --dg-dock-fg: color-mix(in oklab, var(--dg-on-solid) 68%, var(--dg-solid));
+  --dg-dock-fg-active: var(--dg-on-solid);
+  --dg-dock-active: color-mix(in oklab, var(--dg-on-solid) 17%, var(--dg-solid));
+}
+.dg-dock-item {
+  display: inline-grid; place-items: center; flex: none;
+  width: var(--dg-dock-item); height: var(--dg-dock-item);
+  padding: 0; border: 0; border-radius: 50%;
+  background: transparent; color: inherit; cursor: pointer; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dg-dur-indicator) var(--dg-ease-indicator),
+              background var(--dg-dur) var(--dg-ease),
+              scale var(--dg-dur) var(--dg-ease);
+}
+.dg-dock-item :is(svg, .dg-icon) { width: var(--dg-dock-icon); height: var(--dg-dock-icon); flex: none; }
+
+/* Icon + label (iOS tab bar): icon above a short label. */
+.dg-dock-label { font-size: .6875rem; font-weight: var(--dg-weight-medium); line-height: 1; letter-spacing: .01em; white-space: nowrap; }
+.dg-dock-item:has(.dg-dock-label) {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem;
+  width: auto; min-width: 4.5rem; height: auto; min-height: var(--dg-dock-item);
+  padding: .5rem .75rem; border-radius: 1.4rem;
+}
+/* Text only: text pills. */
+.dg-dock-item:not(:has(svg, .dg-icon)) {
+  width: auto; height: calc(var(--dg-dock-item) * .85);
+  padding-inline: 1.1rem; border-radius: var(--dg-radius-pill);
+  font-size: var(--dg-text-sm); font-weight: var(--dg-weight-medium); white-space: nowrap;
+}
+.dg-dock-item:hover,
+.dg-dock-item.is-active { color: var(--dg-dock-fg-active); }
+/* Static active circle (no JS); replaced by the sliding indicator below. */
+.dg-dock-item.is-active { background: var(--dg-dock-active); }
+.dg-dock-item:active { scale: .92; }
+
+/* Sliding active circle (js/indicator.js sets --dg-ind-*). */
+.dg-dock.has-indicator .dg-dock-item.is-active { background: transparent; }
+.dg-dock.has-indicator::before {
+  content: "";
+  position: absolute; left: 0; top: 0; z-index: -1; pointer-events: none;
+  width: var(--dg-ind-w, 0); height: var(--dg-ind-h, 0);
+  translate: var(--dg-ind-x, 0px) var(--dg-ind-y, 0px);
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-dock-active);
+}
+.dg-dock.has-indicator:has(.dg-dock-label)::before { border-radius: 1.4rem; }
+
+/* Fixed to the bottom center of the viewport, above the home indicator. */
+.dg-dock-fixed {
+  position: fixed; left: 50%; bottom: calc(var(--dg-space-4) + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0; z-index: 40;
+}
+.dg-dock-sm { --dg-dock-item: 2.75rem; --dg-dock-icon: 1.15rem; --dg-dock-pad: .3rem; }
+
+/* Full-width bottom bar: edge to edge, items spread evenly, safe-area aware.
+   Icon-only items become wide pills so the active highlight reads as a pill. */
+.dg-dock-bar {
+  display: flex; width: 100%; justify-content: space-around;
+  padding: var(--dg-dock-pad) var(--dg-space-3) calc(var(--dg-dock-pad) + env(safe-area-inset-bottom, 0px));
+  border-radius: 0;
+}
+.dg-dock-bar .dg-dock-item:not(:has(.dg-dock-label)):has(svg, .dg-icon) {
+  /* Wide pill when there is room; shrinks to fit narrow phones, never below a circle. */
+  width: auto; flex: 0 1 calc(var(--dg-dock-item) * 1.6); min-width: var(--dg-dock-item);
+  border-radius: var(--dg-radius-pill);
+}
+
+/* Depth ("not flat"): inside .dg-dock-layout the content (first child) rounds
+   its bottom corners and overlaps the bar, which extends underneath them.
+   <div class="dg-dock-layout">
+     <main>…</main>
+     <nav class="dg-dock dg-dock-bar" data-dg-dock>…</nav>
+   </div> */
+.dg-dock-layout { --dg-dock-tuck: 2rem; display: flex; flex-direction: column; }
+.dg-dock-layout > :first-child {
+  position: relative; z-index: 1;
+  background: var(--dg-paper);
+  border-radius: 0 0 var(--dg-dock-tuck) var(--dg-dock-tuck);
+  margin-bottom: calc(-1 * var(--dg-dock-tuck));
+}
+.dg-dock-layout > .dg-dock-bar {
+  padding-top: calc(var(--dg-dock-tuck) + var(--dg-dock-pad));
+  box-shadow: none;
+}
+
+/* Opt-in glass: per dock or inside [data-surface="glass"]. */
+#{glass.opt-in(".dg-dock")} { @include glass.surface(var(--dg-surface)); }
+#{glass.opt-in(".dg-dock-inverse")} { @include glass.fill(var(--dg-solid)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-dock-item { transition: none; }
+  .dg-dock-item:active { scale: 1; }
+}

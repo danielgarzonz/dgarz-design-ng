@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ============================================================
    POPOVER — tooltip enriquecido con contenido HTML
    ============================================================ */
@@ -13,6 +14,7 @@
   font-size: var(--dg-text-sm);
   animation: dg-menu-in var(--dg-dur) var(--dg-ease);
 }
+#{glass.opt-in(".dg-popover")} { @include glass.surface(var(--dg-surface)); }
 .dg-popover[hidden] { display: none; }
 .dg-popover-header {
   padding: var(--dg-space-3) var(--dg-space-4) 0;

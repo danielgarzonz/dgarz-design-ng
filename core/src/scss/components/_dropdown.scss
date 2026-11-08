@@ -1,3 +1,4 @@
+@use "../abstracts/glass";
 /* ---- Dropdown --------------------------------------------- */
 .dg-dropdown { position: relative; display: inline-block; }
 .dg-dropdown > button,
@@ -7,9 +8,7 @@
 [data-dg-dropdown-trigger][aria-expanded="true"] { border-color: var(--dg-text); }
 .dg-menu {
   position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; z-index: 40;
-  background: color-mix(in oklab, var(--dg-surface) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: var(--dg-surface);
   border: 1px solid var(--dg-field-border);
   border-radius: var(--dg-radius);
   box-shadow:
@@ -37,3 +36,6 @@
   overflow: auto; overscroll-behavior: contain;
 }
 .dg-menu[popover]::backdrop { background: transparent; pointer-events: none; }
+
+/* ---- Menu: opt-in glass ----------------------------------- */
+#{glass.opt-in(".dg-menu")} { @include glass.surface(var(--dg-surface)); }

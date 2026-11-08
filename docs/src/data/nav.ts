@@ -96,23 +96,11 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    title: "Ejemplos",
-    color: "#a855f7",
-    items: [
-      { label: "Galería",           href: "/examples" },
-      { label: "Series visuales",   href: "/examples/series" },
-      { label: "Dashboard",         href: "/examples/dashboard.html" },
-      { label: "Workspace PC",      href: "/examples/desktop.html" },
-      { label: "Wallet móvil",      href: "/examples/mobile.html" },
-    ],
-  },
-  {
     title: "Studio",
     color: "#ef4444",
     items: [
-      { label: "Alertas",           href: "/studio/alerts" },
-      { label: "Temas",             href: "/studio/themes" },
-      { label: "Animaciones",       href: "/studio/animations" },
+      { label: "Galería", href: "/examples" },
+      { label: "Sitios reales", href: "/studio/sites" },
     ],
   },
 ];

@@ -11,7 +11,7 @@ import Code from "../../components/Code.astro";
 >
   <div class="doc-sub">Idea del sistema</div>
   <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
-    Estas variantes no cambian el look base de <code class="dg-code">dgarz</code>. Se aplican por clase,
+    Estas variantes no cambian el look base de <code class="dg-code">dgarz</code>, que es sólido. Se aplican por clase,
     así el usuario decide si quiere una interfaz plana, con glass, con gradientes o con una mezcla.
     La recomendación es usarlas en shells, cards destacadas, dashboards y CTAs, no en toda la UI.
   </p>
@@ -144,9 +144,62 @@ import Code from "../../components/Code.astro";
   <Code />
   </div>
 
+  <div class="doc-sub" id="glass-componentes">Glass en componentes</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Todos los componentes son <strong>sólidos por defecto</strong>. El glass es la segunda opción y se activa de dos formas.
+    Conserva el color y el texto de cada variante, se vuelve más opaco en hover y foco, y vuelve a sólido si el usuario activa
+    <em>reducir transparencia</em> o si el navegador no soporta <code class="dg-code">backdrop-filter</code>.
+  </p>
+
+  <div class="doc-sub">Por componente: <code class="dg-code">.is-glass</code></div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Para un elemento concreto, por ejemplo un botón o una card sobre una imagen. Disponible en botones y grupos, badges, alertas, callouts, cards, tabs, segmentado, toasts, chips, campos de formulario y en todos los componentes flotantes.</p>
+  <div class="doc-example">
+<div class="doc-demo glass-stage">
+  <div class="dg-cluster">
+    <button type="button" class="dg-btn-primary is-glass">Explorar</button>
+    <span class="dg-badge dg-badge-info is-glass">Nuevo</span>
+    <input class="dg-input is-glass" style="max-width: 14rem" placeholder="Buscar" aria-label="Buscar">
+  </div>
+</div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>&lt;button type="button" class="dg-btn-primary is-glass"&gt;Explorar&lt;/button&gt;
+&lt;span class="dg-badge dg-badge-info is-glass"&gt;Nuevo&lt;/span&gt;
+&lt;input class="dg-input is-glass" placeholder="Buscar" aria-label="Buscar"&gt;</pre></div>
+  </div>
+
+  <div class="doc-sub">Para todo el sitio: <code class="dg-code">data-surface="glass"</code></div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">En <code class="dg-code">&lt;html&gt;</code> o en cualquier contenedor, activa el glass en los componentes flotantes: navbar, header y sidebar de app, modal, drawer, menús, popover, combobox, datepicker y menú inferior (dock). Los demás componentes siguen sólidos salvo que lleven <code class="dg-code">.is-glass</code>. Excepción: los controles del carrusel (flechas e indicadores) son glass por defecto para leerse sobre cualquier imagen; <code class="dg-code">.is-solid</code> en el carrusel los vuelve opacos. Añade <code class="dg-code">.is-solid</code> a un flotante para mantenerlo sólido dentro de ese ámbito.</p>
+  <div class="doc-example">
+<div class="doc-demo glass-stage" data-surface="glass">
+  <nav class="dg-navbar" style="border-radius: var(--dg-radius-lg)">
+    <span class="dg-navbar-brand">dgarz</span>
+    <div class="dg-navbar-nav"><a class="dg-nav-link is-active" href="#glass-componentes">Inicio</a><a class="dg-nav-link" href="#glass-componentes">Docs</a></div>
+  </nav>
+  <div class="dg-cluster dg-mt-4" style="align-items: flex-start">
+    <div class="dg-popover" style="position: static">Popover glass dentro del ámbito.</div>
+    <div class="dg-popover is-solid" style="position: static">Popover con <code>is-solid</code>.</div>
+  </div>
+</div>
+  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>&lt;html data-surface="glass"&gt;
+  …
+  &lt;nav class="dg-navbar"&gt;…&lt;/nav&gt;            &lt;!-- glass --&gt;
+  &lt;div class="dg-popover"&gt;…&lt;/div&gt;           &lt;!-- glass --&gt;
+  &lt;div class="dg-popover is-solid"&gt;…&lt;/div&gt;  &lt;!-- sólido --&gt;
+  &lt;div class="dg-card"&gt;…&lt;/div&gt;              &lt;!-- sólido: no es flotante --&gt;
+&lt;/html&gt;</pre></div>
+  </div>
+
+  <div class="doc-sub">Tokens de glass</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Ajustan todos los componentes glass a la vez; también puedes redefinirlos en un contenedor.</p>
+  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>:root {
+  --dg-glass-alpha: 72%;       /* rellenos: sólidos, sutiles, superficies */
+  --dg-glass-alpha-soft: 42%;  /* outline, ghost */
+  --dg-glass-alpha-hover: 14%; /* opacidad extra en hover y foco */
+  --dg-glass-filter: blur(var(--dg-glass-blur-strong)) saturate(180%);
+}</pre></div>
+
   <div class="doc-sub">Clases</div>
   <p class="dg-muted dg-text-sm dg-mb-4">Lista completa de las clases de superficie y de botón disponibles.</p>
-  <div class="doc-code"><button class="cp">Copiar</button><pre>.dg-surface-glass
+  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>.dg-surface-glass
 .dg-surface-glass-strong
 .dg-surface-glass-dark
 .dg-surface-gradient
@@ -159,7 +212,11 @@ import Code from "../../components/Code.astro";
 
 .dg-btn-glass
 .dg-btn-gradient
-.dg-btn-gradient-warm</pre></div>
+.dg-btn-gradient-warm
+
+.is-glass                /* modificador por componente */
+.is-solid                /* excluye un flotante de data-surface="glass" */
+[data-surface="glass"]   /* glass en los flotantes del ámbito */</pre></div>
 
   <style>
     .doc-surface-brand-cool {
