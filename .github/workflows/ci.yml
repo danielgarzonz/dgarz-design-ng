@@ -70,8 +70,9 @@ jobs:
                    ../base/core/src/scss/dgarz-full.scss:../base-css/dgarz.full.css \
                    ../base/core/src/scss/dgarz-app.scss:../base-css/dgarz-app.css --no-source-map
       - name: Build this branch and the docs
+        # Full build: the docs also import the Stencil core (dgarz-design/hydrate).
         run: |
-          npm run build:legacy --workspace=core
+          npm run build --workspace=core
           node docs/scripts/copy-core.mjs
           npm run build:docs:only
         env:
