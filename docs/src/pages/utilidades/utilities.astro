@@ -37,26 +37,22 @@ const pageContent = `<div class="doc-sub">Display</div>
 /* Gap */
 .dg-gap-1 → gap: 4px     .dg-gap-2 → gap: 8px
 .dg-gap-3 → gap: 12px    .dg-gap-4 → gap: 16px
-.dg-gap-5 → gap: 24px    .dg-gap-6 → gap: 32px</pre></div>
+.dg-gap-5 → gap: 24px    .dg-gap-6 → gap: 32px
+.dg-gap-7 → gap: 48px    .dg-gap-8 → gap: 64px    .dg-gap-9 → gap: 96px
+.dg-gap-x-* / .dg-gap-y-* → solo columnas / solo filas</pre></div>
 
       <div class="doc-sub">Espaciado (margin y padding)</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Margin y padding basados en la escala de espaciado.</p>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Margin */
-.dg-mt-{0-8}   → margin-top
-.dg-mb-{0-8}   → margin-bottom
-.dg-mx-auto    → margin-inline: auto
-.dg-ml-auto    → margin-left: auto
-.dg-mr-auto    → margin-right: auto
-.dg-my-{4-6}   → margin-block
+      <div class="doc-code"><button class="cp">Copiar</button><pre>/* Margin: todos los lados, 0–9, auto y negativos (n1–n9) */
+.dg-m-{0-9}  .dg-mt-  .dg-mr-  .dg-mb-  .dg-ml-  .dg-mx-  .dg-my-
+.dg-mx-auto  → margin-inline: auto
+.dg-mt-n4    → margin-top: -16px
 
-/* Padding */
-.dg-p-{0-6}    → padding (todos lados)
-.dg-px-{2-6}   → padding-inline (izquierda + derecha)
-.dg-py-{1-6}   → padding-block (arriba + abajo)
-.dg-pt-{4-6}   → padding-top
-.dg-pb-{4-6}   → padding-bottom
+/* Padding: todos los lados, 0–9 */
+.dg-p-{0-9}  .dg-pt-  .dg-pr-  .dg-pb-  .dg-pl-  .dg-px-  .dg-py-
 
-/* Escala: 1=4px · 2=8px · 3=12px · 4=16px · 5=24px · 6=32px · 7=48px · 8=64px */</pre></div>
+/* Responsivo: dg-md-p-6, dg-lg-mt-8… (ver Fundamentos › Escalas) */
+/* Escala: 1=4px · 2=8px · 3=12px · 4=16px · 5=24px · 6=32px · 7=48px · 8=64px · 9=96px */</pre></div>
 
       <div class="doc-sub">Tipografía</div>
       <p class="dg-muted dg-text-sm dg-mb-4">Tamaños, pesos y estilos de texto.</p>

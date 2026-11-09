@@ -1,3 +1,5 @@
+@use '../abstracts/scales';
+
 /* ---- Utilities ------------------------------------------- */
 .dg-block        { display: block; }
 .dg-inline       { display: inline; }
@@ -62,12 +64,6 @@
 .dg-order-4     { order: 4; }
 .dg-order-5     { order: 5; }
 .dg-order-last  { order: 999; }
-.dg-gap-1 { gap: var(--dg-space-1); }
-.dg-gap-2 { gap: var(--dg-space-2); }
-.dg-gap-3 { gap: var(--dg-space-3); }
-.dg-gap-4 { gap: var(--dg-space-4); }
-.dg-gap-5 { gap: var(--dg-space-5); }
-.dg-gap-6 { gap: var(--dg-space-6); }
 
 /* Text alignment */
 .dg-text-center { text-align: center; }
@@ -88,7 +84,9 @@
 .dg-fw-semi { font-weight: var(--dg-weight-semi); }
 .dg-fw-bold { font-weight: var(--dg-weight-bold); }
 .dg-italic { font-style: italic; }
-.dg-uppercase { text-transform: uppercase; letter-spacing: 0.08em; }
+/* Only the case: spacing is separate (.dg-tracking-*), so condensed or
+   poster titles stay as wide as their letters. */
+.dg-uppercase { text-transform: uppercase; }
 
 .dg-leading-tight  { line-height: var(--dg-leading-tight); }
 .dg-leading-snug   { line-height: var(--dg-leading-snug); }
@@ -96,6 +94,8 @@
 .dg-tracking-tight  { letter-spacing: -0.02em; }
 .dg-tracking-normal { letter-spacing: 0; }
 .dg-tracking-wide   { letter-spacing: 0.08em; }
+.dg-tracking-wider  { letter-spacing: 0.12em; }
+.dg-tracking-widest { letter-spacing: 0.2em; }
 
 .dg-underline    { text-decoration: underline; text-underline-offset: 3px; }
 .dg-line-through { text-decoration: line-through; }
@@ -249,108 +249,11 @@
 }
 
 /* Spacing */
-.dg-mt-0 { margin-top: 0; }
-.dg-mt-1 { margin-top: var(--dg-space-1); }
-.dg-mt-2 { margin-top: var(--dg-space-2); }
-.dg-mt-3 { margin-top: var(--dg-space-3); }
-.dg-mt-4 { margin-top: var(--dg-space-4); }
-.dg-mt-5 { margin-top: var(--dg-space-5); }
-.dg-mt-6 { margin-top: var(--dg-space-6); }
-.dg-mt-7 { margin-top: var(--dg-space-7); }
-.dg-mt-8 { margin-top: var(--dg-space-8); }
-.dg-mt-auto { margin-top: auto; }
-.dg-mb-0 { margin-bottom: 0; }
-.dg-mb-1 { margin-bottom: var(--dg-space-1); }
-.dg-mb-2 { margin-bottom: var(--dg-space-2); }
-.dg-mb-3 { margin-bottom: var(--dg-space-3); }
-.dg-mb-4 { margin-bottom: var(--dg-space-4); }
-.dg-mb-5 { margin-bottom: var(--dg-space-5); }
-.dg-mb-6 { margin-bottom: var(--dg-space-6); }
-.dg-mb-7 { margin-bottom: var(--dg-space-7); }
-.dg-mb-8 { margin-bottom: var(--dg-space-8); }
-.dg-mb-auto { margin-bottom: auto; }
-.dg-mx-0 { margin-inline: 0; }
-.dg-mx-1 { margin-inline: var(--dg-space-1); }
-.dg-mx-2 { margin-inline: var(--dg-space-2); }
-.dg-mx-3 { margin-inline: var(--dg-space-3); }
-.dg-mx-4 { margin-inline: var(--dg-space-4); }
-.dg-mx-5 { margin-inline: var(--dg-space-5); }
-.dg-mx-6 { margin-inline: var(--dg-space-6); }
-.dg-mx-auto { margin-inline: auto; }
-.dg-my-0 { margin-block: 0; }
-.dg-my-1 { margin-block: var(--dg-space-1); }
-.dg-my-2 { margin-block: var(--dg-space-2); }
-.dg-my-3 { margin-block: var(--dg-space-3); }
-.dg-my-4 { margin-block: var(--dg-space-4); }
-.dg-my-5 { margin-block: var(--dg-space-5); }
-.dg-my-6 { margin-block: var(--dg-space-6); }
-.dg-ml-0 { margin-left: 0; }
-.dg-ml-1 { margin-left: var(--dg-space-1); }
-.dg-ml-2 { margin-left: var(--dg-space-2); }
-.dg-ml-3 { margin-left: var(--dg-space-3); }
-.dg-ml-4 { margin-left: var(--dg-space-4); }
-.dg-ml-5 { margin-left: var(--dg-space-5); }
-.dg-ml-6 { margin-left: var(--dg-space-6); }
-.dg-ml-auto { margin-left: auto; }
-.dg-mr-0 { margin-right: 0; }
-.dg-mr-1 { margin-right: var(--dg-space-1); }
-.dg-mr-2 { margin-right: var(--dg-space-2); }
-.dg-mr-3 { margin-right: var(--dg-space-3); }
-.dg-mr-4 { margin-right: var(--dg-space-4); }
-.dg-mr-5 { margin-right: var(--dg-space-5); }
-.dg-mr-6 { margin-right: var(--dg-space-6); }
-.dg-mr-auto { margin-right: auto; }
+/* Spacing, sizes, offsets, grid, rounded sides and more: generated
+   from the scales in abstracts/_scales.scss (every side, every step). */
+@include scales.base;
 .dg-mt-px-2 { margin-top: 2px; }
 
-.dg-p-0 { padding: 0; }
-.dg-p-1 { padding: var(--dg-space-1); }
-.dg-p-2 { padding: var(--dg-space-2); }
-.dg-p-3 { padding: var(--dg-space-3); }
-.dg-p-4 { padding: var(--dg-space-4); }
-.dg-p-5 { padding: var(--dg-space-5); }
-.dg-p-6 { padding: var(--dg-space-6); }
-.dg-px-0 { padding-inline: 0; }
-.dg-px-1 { padding-inline: var(--dg-space-1); }
-.dg-px-2 { padding-inline: var(--dg-space-2); }
-.dg-px-3 { padding-inline: var(--dg-space-3); }
-.dg-px-4 { padding-inline: var(--dg-space-4); }
-.dg-px-5 { padding-inline: var(--dg-space-5); }
-.dg-px-6 { padding-inline: var(--dg-space-6); }
-.dg-py-0 { padding-block: 0; }
-.dg-py-1 { padding-block: var(--dg-space-1); }
-.dg-py-2 { padding-block: var(--dg-space-2); }
-.dg-py-3 { padding-block: var(--dg-space-3); }
-.dg-py-4 { padding-block: var(--dg-space-4); }
-.dg-py-5 { padding-block: var(--dg-space-5); }
-.dg-py-6 { padding-block: var(--dg-space-6); }
-.dg-pt-0 { padding-top: 0; }
-.dg-pt-1 { padding-top: var(--dg-space-1); }
-.dg-pt-2 { padding-top: var(--dg-space-2); }
-.dg-pt-3 { padding-top: var(--dg-space-3); }
-.dg-pt-4 { padding-top: var(--dg-space-4); }
-.dg-pt-5 { padding-top: var(--dg-space-5); }
-.dg-pt-6 { padding-top: var(--dg-space-6); }
-.dg-pb-0 { padding-bottom: 0; }
-.dg-pb-1 { padding-bottom: var(--dg-space-1); }
-.dg-pb-2 { padding-bottom: var(--dg-space-2); }
-.dg-pb-3 { padding-bottom: var(--dg-space-3); }
-.dg-pb-4 { padding-bottom: var(--dg-space-4); }
-.dg-pb-5 { padding-bottom: var(--dg-space-5); }
-.dg-pb-6 { padding-bottom: var(--dg-space-6); }
-.dg-pl-0 { padding-left: 0; }
-.dg-pl-1 { padding-left: var(--dg-space-1); }
-.dg-pl-2 { padding-left: var(--dg-space-2); }
-.dg-pl-3 { padding-left: var(--dg-space-3); }
-.dg-pl-4 { padding-left: var(--dg-space-4); }
-.dg-pl-5 { padding-left: var(--dg-space-5); }
-.dg-pl-6 { padding-left: var(--dg-space-6); }
-.dg-pr-0 { padding-right: 0; }
-.dg-pr-1 { padding-right: var(--dg-space-1); }
-.dg-pr-2 { padding-right: var(--dg-space-2); }
-.dg-pr-3 { padding-right: var(--dg-space-3); }
-.dg-pr-4 { padding-right: var(--dg-space-4); }
-.dg-pr-5 { padding-right: var(--dg-space-5); }
-.dg-pr-6 { padding-right: var(--dg-space-6); }
 
 /* Sizing */
 .dg-w-full { width: 100%; }
@@ -442,7 +345,7 @@
 .dg-border-primary   { border-color: var(--dg-primary); }
 .dg-border-secondary { border-color: var(--dg-secondary); }
 .dg-border-transparent { border-color: transparent; }
-.dg-border-0   { border: none !important; }
+.dg-border-0   { border: none; }
 .dg-border-top { border-top: 1px solid var(--dg-border); }
 .dg-border-bottom { border-bottom: 1px solid var(--dg-border); }
 .dg-border-start { border-left: 1px solid var(--dg-border); }
@@ -486,6 +389,8 @@
 
 /* Overflow / position / z-index */
 .dg-overflow-hidden  { overflow: hidden; }
+/* Clips like hidden but is not a scroll container, so position: sticky inside still works. */
+.dg-overflow-clip { overflow: clip; }
 .dg-overflow-auto    { overflow: auto; }
 .dg-overflow-scroll  { overflow: scroll; }
 .dg-overflow-x-auto  { overflow-x: auto; }
@@ -493,14 +398,11 @@
 .dg-relative { position: relative; }
 .dg-absolute { position: absolute; }
 .dg-fixed    { position: fixed; }
-.dg-sticky   { position: sticky; top: 0; }
+.dg-sticky   { position: sticky; }
+/* Default offset at zero specificity, so .dg-top-* on the same element wins. */
+:where(.dg-sticky) { top: 0; }
 .dg-static   { position: static; }
 .dg-inset-0  { inset: 0; }
-.dg-left-auto { left: auto; }
-.dg-top-0 { top: 0; }
-.dg-left-0 { left: 0; }
-.dg-right-0 { right: 0; }
-.dg-bottom-0 { bottom: 0; }
 .dg-columns-200-1fr { grid-template-columns: 200px 1fr; }
 .dg-menu-end { right: 0; left: auto; }
 .dg-z-10 { z-index: 10; }
@@ -542,28 +444,28 @@
 .dg-anim-none { animation: none !important; }
 
 /* Float */
-.dg-float-start { float: left !important; }
-.dg-float-end   { float: right !important; }
-.dg-float-none  { float: none !important; }
+.dg-float-start { float: left; }
+.dg-float-end   { float: right; }
+.dg-float-none  { float: none; }
 
 /* Vertical align */
-.dg-align-baseline    { vertical-align: baseline !important; }
-.dg-align-top         { vertical-align: top !important; }
-.dg-align-middle      { vertical-align: middle !important; }
-.dg-align-bottom      { vertical-align: bottom !important; }
-.dg-align-text-top    { vertical-align: text-top !important; }
-.dg-align-text-bottom { vertical-align: text-bottom !important; }
+.dg-align-baseline    { vertical-align: baseline; }
+.dg-align-top         { vertical-align: top; }
+.dg-align-middle      { vertical-align: middle; }
+.dg-align-bottom      { vertical-align: bottom; }
+.dg-align-text-top    { vertical-align: text-top; }
+.dg-align-text-bottom { vertical-align: text-bottom; }
 
 /* Visibility */
-.dg-visible   { visibility: visible !important; }
-.dg-invisible { visibility: hidden !important; }
+.dg-visible   { visibility: visible; }
+.dg-invisible { visibility: hidden; }
 
 /* Font family */
-.dg-font-mono { font-family: var(--dg-font-mono) !important; }
-.dg-font-serif { font-family: var(--dg-font-serif) !important; }
-.dg-font-sans { font-family: var(--dg-font-sans) !important; }
-.dg-text-decoration-none { text-decoration: none !important; }
-.dg-lh-1 { line-height: 1 !important; }
+.dg-font-mono { font-family: var(--dg-font-mono); }
+.dg-font-serif { font-family: var(--dg-font-serif); }
+.dg-font-sans { font-family: var(--dg-font-sans); }
+.dg-text-decoration-none { text-decoration: none; }
+.dg-lh-1 { line-height: 1; }
 .dg-leading-12 { line-height: 1.2; }
 .dg-fs-2xl { font-size: var(--dg-text-2xl); }
 .dg-size-12 { width: 12px; height: 12px; }
@@ -593,3 +495,151 @@
     transition-duration: .001ms !important;
   }
 }
+
+/* ============================================================
+   COMPOSICIÓN — utilities for editorial / full-screen layouts
+   (added after building the Studio heroes so they need no inline
+   styles). Clear aliases keep the old names working.
+   ============================================================ */
+
+/* ---- Flex & gaps ---- */
+.dg-flex-col  { flex-direction: column; }
+.dg-flex-row  { flex-direction: row; }
+/* Basis 0 (not 0%): a percentage against an indefinite height (e.g. a column
+   that only has min-height) falls back to the content size and stops growing. */
+.dg-flex-1    { flex: 1 1 0; min-width: 0; }
+/* min-height 0 lets a column child shrink; zero specificity so any
+   .dg-min-h-* on the same element still wins. */
+:where(.dg-flex-1) { min-height: 0; }
+.dg-shrink-0  { flex-shrink: 0; }
+/* .dg-row / .dg-col-* without gutter (columns touch). */
+.dg-g-0 { --dg-gutter: 0px; gap: 0; }
+
+/* ---- Full screen (svh: stable on mobile browser bars). The 25/50/75/100
+   vh and vw steps come from the generated scales. ---- */
+.dg-min-h-screen { min-height: 100vh; min-height: 100svh; }
+.dg-h-screen { height: 100vh; height: 100svh; }
+/* Taller than the screen (room to scroll a parallax or sticky section). */
+.dg-min-h-150vh { min-height: 150vh; min-height: 150svh; }
+.dg-h-px   { height: 1px; }
+
+/* ---- Media ---- */
+.dg-aspect-3-4   { aspect-ratio: 3 / 4; }
+.dg-aspect-2-3   { aspect-ratio: 2 / 3; }
+.dg-aspect-16-10 { aspect-ratio: 16 / 10; }
+.dg-object-top    { object-position: center top; }
+.dg-object-center { object-position: center; }
+.dg-object-bottom { object-position: center bottom; }
+/* Zoomed crop inside an overflow-hidden frame. */
+.dg-scale-150 { transform: scale(1.5); }
+.dg-scale-200 { transform: scale(2); }
+.dg-origin-top    { transform-origin: center top; }
+.dg-origin-center { transform-origin: center; }
+.dg-origin-bottom { transform-origin: center bottom; }
+
+/* ---- Radius ---- */
+.dg-rounded-full { border-radius: 50%; }
+/* One corner fully rounded (50%: an arch on tall cards). */
+.dg-rounded-tl-full { border-top-left-radius: 50%; }
+.dg-rounded-tr-full { border-top-right-radius: 50%; }
+.dg-rounded-bl-full { border-bottom-left-radius: 50%; }
+.dg-rounded-br-full { border-bottom-right-radius: 50%; }
+
+/* ---- Typography ---- */
+.dg-font-condensed { font-family: var(--dg-font-condensed); font-weight: var(--dg-weight-normal); }
+.dg-fw-normal { font-weight: var(--dg-weight-normal); }
+.dg-leading-none    { line-height: 1; }
+.dg-leading-display { line-height: .84; }
+/* Size relative to the parent text (marks like ™, ®, ★ next to a title). */
+.dg-em-25 { font-size: .25em; }
+.dg-em-50 { font-size: .5em; }
+.dg-em-75 { font-size: .75em; }
+.dg-align-top    { vertical-align: top; }
+.dg-align-middle { vertical-align: middle; }
+.dg-vertical     { display: inline-block; writing-mode: vertical-rl; }
+/* Vertical, read bottom to top (side labels). */
+.dg-vertical-up  { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); }
+
+/* Text that fills the width of its container: mark the container with
+   .dg-cq, then size the text with .dg-fit-{characters}. The ratio is the
+   average letter width (≈ .45em for condensed uppercase, set by
+   .dg-font-condensed; .6em otherwise). .dg-fit-cap-* also limits the size by
+   the viewport height on wide, short screens. */
+.dg-cq { container-type: inline-size; }
+.dg-font-condensed { --dg-fit-ratio: .45; }
+/* A count of letters, not a size: consecutive where words usually fall. */
+@each $n in (4, 5, 6, 7, 8, 9, 10, 12, 16, 20) {
+  .dg-fit-#{$n} {
+    font-size: min(calc(100cqi / (#{$n} * var(--dg-fit-ratio, .6))), var(--dg-fit-cap, 100vh));
+    white-space: nowrap;
+  }
+}
+@each $n in (20, 30, 40, 50) {
+  .dg-fit-cap-#{$n} { --dg-fit-cap: #{$n}svh; }
+}
+
+/* ---- Overlap: the next element rises over this text, by a share of its
+   font size (scales with the title). Give the element on top .dg-relative
+   .dg-z-10. To pull an element up over the one above, use .dg-mt-n*. ---- */
+@each $n in (10, 20, 30, 40, 50) {
+  .dg-overlap-#{$n} { margin-bottom: -#{$n * .01}em; }
+}
+
+/* ---- Lines & rings (the flat reset removes borders; these survive) ---- */
+.dg-bg-current { background-color: currentColor; }
+.dg-ring   { outline: 1px solid color-mix(in oklab, currentColor 55%, transparent); outline-offset: -1px; }
+
+/* ---- Editorial surfaces & ink (fixed in both themes) ----
+   A surface sets the background and the text colors for everything inside
+   (headings, links, muted text). .dg-ink-* only changes the text color of the
+   whole subtree, also for headings and .dg-link (they use --dg-text). */
+.dg-bg-sand.dg-bg-sand, .dg-bg-sand-deep.dg-bg-sand-deep, .dg-bg-cream.dg-bg-cream {
+  --dg-text: #1c1c1c; --dg-text-muted: #55555c; --dg-text-faint: #6b6b72;
+  color: var(--dg-text);
+}
+.dg-bg-sand.dg-bg-sand           { background: var(--dg-sand); }
+.dg-bg-sand-deep.dg-bg-sand-deep { background: var(--dg-sand-deep); }
+.dg-bg-cream.dg-bg-cream         { background: var(--dg-cream); }
+.dg-bg-graphite.dg-bg-graphite {
+  background: var(--dg-graphite);
+  --dg-text: #ffffff; --dg-text-muted: #a1a1a8; --dg-text-faint: #8a8a91;
+  color: var(--dg-text);
+}
+.dg-ink-danger.dg-ink-danger { --dg-text: var(--dg-danger-dark); color: var(--dg-text); }
+.dg-ink-black.dg-ink-black   { --dg-text: #0b0b0c; color: var(--dg-text); }
+.dg-ink-white.dg-ink-white   { --dg-text: #ffffff; color: var(--dg-text); }
+
+/* ---- Layers: every child shares the same grid cell, so they stack in place
+   (a title over a photo) and each one aligns on its own with
+   .dg-self-* / .dg-justify-self-*. ---- */
+/* One track as wide as the container (not as the widest child), so an
+   oversized title overflows centered instead of widening the stack. */
+.dg-layers { display: grid; grid-template-columns: minmax(0, 1fr); }
+.dg-layers > * { grid-area: 1 / 1; }
+.dg-justify-self-start  { justify-self: start; }
+/* unsafe: an item wider than its cell still centers (overflows both sides). */
+.dg-justify-self-center { justify-self: unsafe center; }
+.dg-justify-self-end    { justify-self: end; }
+
+/* ---- Masks: fade the content out at the edges ---- */
+.dg-mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+.dg-mask-fade-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* ---- Animation speed: slow down a dg-fade-in-* / dg-pop-in entrance. ---- */
+.dg-anim-slow   { animation-duration: 1.2s; }
+.dg-anim-slower { animation-duration: 1.8s; }
+
+/* ---- Filters ---- */
+.dg-grayscale { filter: grayscale(1); }
+/* Darken a photo under light text. */
+.dg-brightness-50 { filter: brightness(.5); }
+.dg-brightness-75 { filter: brightness(.75); }
+
+/* ---- Responsive copies (.dg-md-*, .dg-lg-*, .dg-xl-*), last so they win. ---- */
+@include scales.responsive;

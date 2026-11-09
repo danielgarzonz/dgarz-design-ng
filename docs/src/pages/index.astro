@@ -1,4 +1,6 @@
 ---
+import Code from "../components/Code.astro";
+import "../styles/doc-code.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
 import "../styles/brand.css";
@@ -11,19 +13,19 @@ const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.fu
 const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 
 const features = [
-  { title: "Monocromo por diseño", text: "Una escala de grises de 12 pasos. Todo el sistema de color deriva de ella y funciona en claro y oscuro." },
-  { title: "Cero dependencias", text: "Un archivo CSS y un archivo JS opcional. Sin jQuery, sin PostCSS y sin Sass requerido." },
-  { title: "Modo oscuro nativo", text: "Cambia de tema con un solo atributo, data-theme, y todo el sistema se adapta." },
-  { title: "Tokens personalizables", text: "Todos los valores son variables CSS --dg-*, así que puedes adaptar el framework a tu marca." },
+  { title: "Monocromo por diseño", icon: "dg-sun", text: "Una escala de grises de 12 pasos. Todo el sistema de color deriva de ella y funciona en claro y oscuro." },
+  { title: "Cero dependencias", icon: "dg-check", text: "Un archivo CSS y un archivo JS opcional. Sin jQuery, sin PostCSS y sin Sass requerido." },
+  { title: "Modo oscuro nativo", icon: "dg-moon", text: "Cambia de tema con un solo atributo, data-theme, y todo el sistema se adapta." },
+  { title: "Tokens personalizables", icon: "dg-settings", text: "Todos los valores son variables CSS --dg-*, así que puedes adaptar el framework a tu marca." },
 ];
 
 const sections = [
-  { group: "Comenzar", title: "Instalación", text: "Agrega el framework a tu proyecto.", href: "/comenzar/install" },
-  { group: "Fundamentos", title: "Color y tokens", text: "El sistema de diseño monocromo.", href: "/fundamentos/color" },
-  { group: "Fundamentos", title: "Grid y layout", text: "12 columnas y breakpoints.", href: "/fundamentos/grid" },
-  { group: "Componentes", title: "Botones", text: "Variantes, estados y grupos.", href: "/componentes/buttons" },
-  { group: "Utilidades", title: "Utilidades", text: "Espaciado, display, flex y texto.", href: "/utilidades/utilities" },
-  { group: "App Pack", title: "App Shell", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
+  { group: "Comenzar", title: "Instalación", icon: '<path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19h14"/>', tint: "#6366f1", text: "Agrega el framework a tu proyecto.", href: "/comenzar/install" },
+  { group: "Fundamentos", title: "Color y tokens", icon: '<path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/>', tint: "#ec4899", text: "El sistema de diseño monocromo.", href: "/fundamentos/color" },
+  { group: "Formularios", title: "Controles base", icon: '<rect x="3" y="7" width="18" height="10" rx="3"/><path d="M7 10.5v3"/>', tint: "#3b82f6", text: "Inputs, selects, switches y validación.", href: "/formularios/forms" },
+  { group: "Componentes", title: "Botones", icon: '<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M9 12h6"/>', tint: "#06b6d4", text: "Variantes, estados y grupos.", href: "/componentes/buttons" },
+  { group: "App Pack", title: "App Shell", icon: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M9 4.5v15"/>', tint: "#22c55e", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
+  { group: "Studio", title: "Galería", icon: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m21 15.5-4.5-4.5L7 19.5"/>', tint: "#ef4444", text: "Ejemplos, heroes y sitios completos.", href: "/examples" },
 ];
 ---
 
@@ -182,9 +184,30 @@ const sections = [
     .pub-tile-arrow svg { width: 1rem; height: 1rem; transition: transform .5s var(--dg-ease); }
     .pub-tile-arrow:is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }
     .pub-main .dg-card { border: 0; }
-    .pub-link { color: inherit; text-decoration: none; }
+    .pub-features, .pub-code-section {
+      background: #ffffff;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: calc(50vw - 50%);
+    }
+    [data-theme="dark"] :is(.pub-features, .pub-code-section) { background: var(--dg-paper); }
+    .pub-feature { background: #f8f8f8; color: var(--dg-text); }
+    .pub-feature h3 { color: inherit; }
+    .pub-feature .dg-muted { color: var(--dg-text-muted); }
+    [data-theme="dark"] .pub-feature { background: var(--dg-surface-3); }
+    .pub-link { background: #ffffff; color: inherit; text-decoration: none; }
+    [data-theme="dark"] .pub-link { background: var(--dg-surface-3); }
+    [data-theme="dark"] .pub-link:hover { background: var(--dg-border); }
+    .pub-doc-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; margin-bottom: var(--dg-space-3);
+      background: color-mix(in srgb, var(--doc-icon-tint) 14%, var(--dg-card-bg));
+      border-radius: var(--dg-radius); color: var(--dg-text);
+    }
+    .pub-doc-icon svg { display: block; width: 22px; height: 22px; }
+    [data-theme="dark"] .pub-doc-icon {
+      background: color-mix(in srgb, var(--doc-icon-tint) 20%, var(--dg-card-bg));
+    }
     .pub-link:hover { background: var(--dg-surface-3); }
-    .pub-code { margin: 0; overflow-x: auto; }
     .pub-cta {
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
       gap: var(--dg-space-5); padding: var(--dg-space-7);
@@ -340,11 +363,12 @@ const sections = [
     </div>
   </section>
 
-  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-features">
+  <section class="dg-section pub-features" data-dg-reveal-children aria-labelledby="pub-features">
     <h2 id="pub-features" class="dg-mb-5">Pensado para ir directo al grano</h2>
     <div class="dg-grid dg-grid-2 dg-gap-4">
       {features.map((item) => (
-        <div class="dg-card"><div class="dg-card-body">
+        <div class="dg-card pub-feature"><div class="dg-card-body">
+          <svg class="dg-icon dg-icon-lg dg-mb-3" aria-hidden="true" focusable="false"><use href={`#${item.icon}`} /></svg>
           <h3 class="dg-text-lg">{item.title}</h3>
           <p class="dg-muted dg-text-sm dg-mt-2">{item.text}</p>
         </div></div>
@@ -352,13 +376,13 @@ const sections = [
     </div>
   </section>
 
-  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-code">
+  <section class="dg-section pub-code-section" data-dg-reveal-children aria-labelledby="pub-code">
     <h2 id="pub-code" class="dg-mb-3">Clases claras, HTML limpio</h2>
     <p class="dg-muted dg-mb-5">Escribe el marcado y deja que el framework se encargue del resto.</p>
-    <pre class="dg-pre pub-code"><code>&lt;html data-theme="dark"&gt;
+    <Code lang="html"><code class="language-html">&lt;html data-theme="dark"&gt;
   &lt;button class="dg-btn dg-btn-primary"&gt;Guardar&lt;/button&gt;
   &lt;span class="dg-badge dg-badge-success"&gt;Activo&lt;/span&gt;
-&lt;/html&gt;</code></pre>
+&lt;/html&gt;</code></Code>
   </section>
 
   <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-docs">
@@ -367,6 +391,9 @@ const sections = [
       {sections.map((item) => (
         <a href={item.href} class="dg-card pub-link">
           <div class="dg-card-body">
+            <span class="pub-doc-icon" style={`--doc-icon-tint: ${item.tint};`} aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={item.icon} />
+            </span>
             <div class="dg-eyebrow dg-mb-2">{item.group}</div>
             <h3 class="dg-text-base">{item.title}</h3>
             <p class="dg-text-sm dg-muted dg-mt-1">{item.text}</p>
@@ -427,3 +454,40 @@ const sections = [
 
 </body>
 </html>
+
+<script>
+  import Prism from "prismjs";
+  import "prismjs/components/prism-markup";
+  document.querySelectorAll<HTMLElement>(".doc-code code").forEach((code) => Prism.highlightElement(code));
+  function copyWithTextarea(text: string): boolean {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px;';
+    document.body.appendChild(area);
+    area.focus();
+    area.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    area.remove();
+    return ok;
+  }
+  async function copyText(text: string): Promise<boolean> {
+    if (window.isSecureContext && navigator.clipboard?.writeText) {
+      try { await navigator.clipboard.writeText(text); return true; } catch { /* fall back below */ }
+    }
+    return copyWithTextarea(text);
+  }
+  document.querySelectorAll<HTMLButtonElement>('.cp').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const pre = btn.closest('.doc-code')?.querySelector('pre');
+      const ok = await copyText(pre?.textContent ?? '');
+      btn.textContent = ok ? '✓ Copiado' : 'No se pudo copiar';
+      btn.classList.toggle('is-copied', ok);
+      setTimeout(() => {
+        btn.textContent = 'Copiar';
+        btn.classList.remove('is-copied');
+      }, 1800);
+    });
+  });
+</script>

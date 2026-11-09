@@ -3,7 +3,17 @@
 All notable changes to **dgarz design** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased] — 2.0.0-alpha.0
+## [1.2.0] — 2026-11-08
+
+### Compatibility
+- **Nothing breaks on upgrade from 1.1.0:** the package root (`import 'dgarz-design'`, `require('dgarz-design')`) still delivers the classic JS (`dgarz.esm.js` / `dgarz.js`) and every 1.1.0 CSS path is unchanged. The root types expose only component types (`dist/root.d.mts`).
+- **New:** the Stencil component core is published at `dgarz-design/core` (with `/components`, `/hydrate`, `/tokens`, `/legacy`). Switching the root to it is planned for 2.0.
+- **Changed — cascade layers:** the CSS now uses `@layer` (`dg.reset → dg.base → dg.layout → dg.components → dg.utilities → dg.flat`). Utilities always win over components, and your own CSS (outside any layer) always wins over the framework without `!important`. If your site relied on the framework beating a less specific rule of yours, check it after upgrading. `!important` went from 55 to 35 (only intentional state overrides remain).
+- **Fixed:** CSS-only tooltips (`.dg-tooltip[data-tip]`) showed a second bubble from the JS tooltip; the JS tooltip now skips them.
+- **Layers in detail:** all framework layers are nested under one `dg` layer (`dg.reset`, `dg.base`, `dg.layout`, `dg.components`, `dg.utilities`, `dg.flat`), so your own layers can be ordered around the whole framework (`@layer dg, my-app;`), and a sublayer like `dg.docs` declared before the CSS (`@layer dg.reset, dg.base, dg.layout, dg.components, dg.docs, dg.utilities, dg.flat;`) sits between components and utilities. The app pack joins `dg.components` (after the core components); surface FX (`dg-surface-glass`, `-liquid`, `-gradient-*`) load at the start of `dg.utilities`, so they beat the component and an explicit utility still wins. Rules that style a component inside a layout moved to `components/_contexts.scss`.
+- **Changed:** `.dg-link` inherits the color of its text (what browsers already showed, because the reset won before); `.dg-menu` always aligns its items to the start; `dg-sticky` and `dg-flex-1` defaults use `:where()` so `dg-top-*` / `dg-min-h-*` win.
+- **Verified:** computed styles of every docs page and Studio hero, before vs after layers: only intended changes remain (utilities that now win: `dg-text-right` in table cells, `dg-menu-end`, `dg-rounded-0` on skeletons, `dg-pb-3` on the app brand).
+
 
 ### Opt-in glass for buttons
 - Colors are solid by default; `.is-glass` makes any filled button variant translucent with backdrop blur while keeping its color and text (solid, semantic, cancel, subtle, outline, ghost). Text and gradient variants ignore it.
@@ -12,6 +22,50 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 - **Changed:** `.dg-btn-group` is now a solid capsule by default; add `.is-glass` for the previous translucent look. `.dg-btn-glass` stays glass and now follows the shared tokens.
 - `verify:button-classes` covers glass on every variant, hover, group and the reduced-transparency fallback.
 - `<dgarz-button glass>`: new reflected `glass` prop (React/Vue/Angular adapters included) with `--dgarz-glass-*` tokens and the same solid fallback.
+
+### Focus carousel
+
+- `.dg-carousel-focus` (with `data-dg-carousel`): the active slide sits in the center at full size and the others scale down with their distance (70%, 50%, 40%), looping; slides three or more steps away fade out so none is seen crossing the screen. On load the slides start stacked in the center and spread out to their places (1.6s, `.is-entering`). Works with `data-dg-carousel-autoplay`, the pause button, keyboard and swipe. Sizes: `dg-focus-sm`, default, `dg-focus-lg`; custom with `--dg-focus-w` and `--dg-focus-gap`.
+
+### Two-line menu icon
+
+- New `#dg-menu-2` (two lines, as used by the top menu and navbars) and `#dg-globe` in the icon sprite; 38 icons.
+
+### Complete utility scales and responsive utilities
+
+- **Generated scales** (`abstracts/_scales.scss`): every family now has every step, from one source.
+  - Margin, padding and gap on every side (`m/p` + `t r b l x y`, `gap-x/-y`) with the space scale 0–9 (new `9` = 96px); margins also `auto` and negatives `n1–n9` (`dg-mt-n4`). New `dg-m-*`.
+  - Sizes: one px series (16 → 720, `max-w` up to 1440) for `w`, `h`, `min-w`, `min-h`, `max-w`, `max-h`; percentages `dg-w-{10…100}p` (33 and 66 included); viewport `25/50/75/100` vw/vh; `auto`, `fit`, `min`, `max`, `full`, `none`; `dg-size-*` (width and height).
+  - Offsets `dg-top/right/bottom/left-{0…9}`, `-{25,50,75,100}p`, `-auto`, `dg-inset-x-0`, `dg-inset-y-0`.
+  - Grid: `dg-grid-cols-{1…12}` (includes `display: grid`), `dg-span-{1…12}`, `dg-span-full`, `dg-grid-rows-{1…6}`, `dg-row-span-{1…6}`, `dg-grid-flow-*`, `dg-place-items/self-*`, `dg-justify-items-*`.
+  - Rounded sides `dg-rounded-{t,b,l,r}[-0|-sm|-lg|-xl|-pill]`; type `dg-text-justify/start/end`, `dg-lowercase`, `dg-capitalize`, `dg-normal-case`, `dg-not-italic`, `dg-line-clamp-{1…5}`, `dg-leading-relaxed`, lists `dg-list-none/disc/decimal/inside`; `dg-contents`, `dg-flow-root`, `dg-inline-grid`, `dg-flex-auto`, `dg-flex-none`, `dg-justify-evenly`; `dg-overflow-visible/-x-hidden/-y-hidden`, `dg-overscroll-contain`, `dg-z-0`, `dg-z-auto`, `dg-opacity-{10…90}`, `dg-aspect-3-2/9-16/21-9`, `dg-object-left/right/fill/none`.
+- **More families for any kind of page:** gray scale `dg-text-gray-*` / `dg-bg-gray-*` (0–950), `dg-text-current/inherit`, `dg-bg-transparent`; big and fluid type `dg-text-6xl…9xl`, `dg-text-fluid-sm/md/lg/xl`; `dg-fw-thin/light/black`, `dg-leading-loose`, `dg-tracking-tighter`, `dg-text-pretty`, `dg-tabular-nums`, `dg-hyphens-auto`, `dg-whitespace-pre`, `dg-underline-offset-*`; text columns `dg-columns-1…4` + `dg-break-inside-avoid`; transforms with individual properties so they combine (`dg-rotate-*`, `dg-scale-50…125`, `dg-translate-center/-x-n50/-y-n50`, `dg-center-abs`, `dg-flip-x/y`); filters `dg-blur-*`, `dg-brightness-110/125`, `dg-contrast-125`, `dg-invert`, `dg-sepia`, `dg-backdrop-blur-*`, blend `dg-mix-*`, `dg-isolate`; photo scrims `dg-scrim-b/t/full/light-b`; children `dg-space-y-*`, `dg-space-x-*`, `dg-divide-y/x` (1px background lines, unaffected by the flat reset); hover `dg-hover-lift/scale-105/opacity-*/underline/bg-surface-*` and group hover `dg-group` + `dg-group-hover-scale-105/110/opacity-*/underline/nudge/x/lift` (reduced motion respected); `dg-scroll-mt-*`, `dg-scrollbar-none`, `dg-overscroll-none`, `dg-touch-*`, `dg-appearance-none`, `dg-resize-*`, more cursors; `dg-z-n1/60/100/max`, `dg-aspect-4-5/5-4/2-1`, `dg-ring-2`; theme `dg-only-light/dark`; print `dg-print-hidden/only/break-*`. Responsive copies also for big type and columns.
+- **Fix:** `dg-sticky` sets its `top: 0` at zero specificity, so `dg-sticky dg-top-6` keeps the offset.
+- **Responsive utilities, mobile first:** `dg-md-*` (≥768px), `dg-lg-*` (≥992px), `dg-xl-*` (≥1200px) for display, position, flex (direction, wrap, justify, items, self, content, `flex-1`, `grow`, order), grid, gap, margin and padding (no negatives), text align and size, and fluid widths/heights. They load last, so they win over base utilities.
+- Docs: new page Fundamentos › Escalas (scale reference + examples); Utilidades updated.
+- Size: `dgarz.min.css` 30 → 41 KB gzip (201 → 269 KB minified; 2,836 classes).
+- Fixes found by comparing computed styles on every docs page and hero (old vs new CSS): generated sides are emitted all → x/y → single side, so `dg-py-2 dg-pb-6` keeps bottom 6; the `min-height: 0` of `dg-flex-1` now has zero specificity (`:where`), so a `dg-min-h-*` on the same element wins.
+
+### Utilities always win, and composition utilities
+
+- **Load order:** utilities now load after layout and components (still before the flat reset), so a utility on an element applies even when the component sets the same property (`dg-pb-0` on `dg-section`, `dg-gap-0` on `dg-stack`, `dg-text-lg` on `dg-card-title`, `dg-max-w-*` on tables). Docs fix: the toast demo buttons use `dg-btn-subtle-*` instead of `dg-text-*` on a dark button.
+- **Changed:** `dg-uppercase` only changes the case; the 0.08em spacing moved to `dg-tracking-wide`. New `dg-tracking-wider` and `dg-tracking-widest`.
+- **New utilities** (Fundamentos › Composición). The scales are short and closed on purpose: quarters of the screen and of the container, the page edges. A new design fits these steps instead of adding one of its own.
+  - Flex: `dg-flex-col`, `dg-flex-row`, `dg-flex-1` (basis 0), `dg-shrink-0`, `dg-g-0` (row without gutter).
+  - Viewport sizes (svh): `dg-min-h-screen`, `dg-h-screen`, `dg-h-/min-h-/max-h-{25,50,75}vh`, `dg-w-{25,50,75}vw`, `dg-min-h-150vh` (room to scroll a parallax), `dg-h-px`.
+  - Media: `dg-aspect-3-4/2-3/16-10`, `dg-object-top/center/bottom`, `dg-scale-150/200`, `dg-origin-top/center/bottom`.
+  - Radius: `dg-rounded-full`, `dg-rounded-t-xl/b-xl`, one corner `dg-rounded-{tl,tr,bl,br}-full` (an arch).
+  - Position: `dg-top/right/bottom/left-{0,4,5}` (page edges), `dg-top-/left-{25,50,75,100}p` (quarters of the parent), `dg-mt-n{4,6,8}`.
+  - Type: `dg-font-condensed` (new `--dg-font-condensed` token, Anton first), `dg-fw-normal`, `dg-leading-none/display`, `dg-em-{25,50,75}`, `dg-align-top/middle`, `dg-vertical`, `dg-vertical-up`.
+  - Text that fills its container: `dg-cq` + `dg-fit-{4…10,12,16,20}` (a count of letters, so the steps are consecutive) + `dg-fit-cap-{20,30,40,50}`.
+  - Overlap: `dg-overlap-{10,20,30,40,50}` (the next element rises by that share of the font size).
+  - Slower entrances: `dg-anim-slow` (1.2s) and `dg-anim-slower` (1.8s) for `dg-fade-in-*` / `dg-pop-in`.
+  - CSS-only parallax: `dg-parallax-slow/-mid/-fast` (scroll-driven; static where unsupported, off with reduced motion) and `dg-overflow-clip` (clips without breaking `position: sticky`).
+  - Lines and rings (survive the flat reset): `dg-ring`, `dg-bg-current`.
+  - Layers: `dg-layers` (children share one cell, one track as wide as the container) with `dg-justify-self-start/center/end` (center is `unsafe`, so an oversized title overflows evenly).
+  - Filters and masks: `dg-grayscale`, `dg-brightness-50/75`, `dg-mask-fade-x/-y`.
+  - Motion: `dg-marquee` + `dg-marquee-track` (looping row, or column with `dg-marquee-y`; repeat the items once for a seamless loop; pauses on hover/focus, static with reduced motion; `-slow`, `-fast`, `-reverse`, `dg-marquee-gap-2/-4`).
+  - Editorial surfaces, fixed in both themes and setting text colors inside: `dg-bg-sand`, `dg-bg-sand-deep`, `dg-bg-cream`, `dg-bg-graphite` (tokens `--dg-sand`, `--dg-sand-deep`, `--dg-cream`, `--dg-graphite`). Ink for a whole subtree: `dg-ink-danger/black/white`.
 
 ### Flat cards
 

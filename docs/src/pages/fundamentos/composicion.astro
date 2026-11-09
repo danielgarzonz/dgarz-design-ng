@@ -1,0 +1,178 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import Code from "../../components/Code.astro";
+
+// Each example is the same HTML for the live demo and the code block; demos
+// use only framework classes (no style attributes).
+const portrait = "https://images.pexels.com/photos/16245933/pexels-photo-16245933.jpeg?auto=compress&w=600";
+const interior = "https://images.pexels.com/photos/6615804/pexels-photo-6615804.jpeg?auto=compress&cs=tinysrgb&w=600";
+
+const examples = [
+  {
+    id: "flex",
+    title: "Columnas flexibles y alto de pantalla",
+    desc: "dg-flex dg-flex-col apila en columna y dg-flex-1 hace que un hijo llene el espacio libre (base 0, también dentro de contenedores que solo tienen alto mínimo). Para secciones a pantalla completa usa dg-min-h-screen o dg-h-screen; para alturas relativas a la ventana, cuartos de pantalla: dg-h-{25, 50, 75}vh, dg-min-h-{25, 50, 75}vh y dg-max-h-{25, 50, 75}vh (en svh, estables con las barras del navegador móvil). La escala es cerrada a propósito: si un diseño necesita otra medida, combina dg-flex-1 para llenar el espacio que queda.",
+    html: `<div class="dg-flex dg-flex-col dg-h-25vh dg-bg-sand dg-rounded-lg dg-overflow-hidden">
+  <header class="dg-p-4 dg-fw-bold">Cabecera</header>
+  <div class="dg-flex-1 dg-bg-sand-deep dg-p-4">dg-flex-1 llena el resto del alto</div>
+</div>`,
+  },
+  {
+    id: "fit",
+    title: "Texto que llena el ancho",
+    desc: "Marca el contenedor con dg-cq y elige dg-fit-{n} según el número de caracteres (del 4 al 10, y 12, 16 y 20; es un conteo de letras, por eso los pasos son seguidos): el texto ocupa justo el ancho del contenedor. dg-font-condensed usa la fuente condensada del framework (carga Anton con el link) y ajusta la proporción; dg-fit-cap-{20, 30, 40, 50} limita el tamaño por la altura de la ventana en pantallas anchas y bajas.",
+    html: `<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<div class="dg-cq dg-bg-sand dg-p-4 dg-rounded-lg">
+  <p class="dg-font-condensed dg-fit-7 dg-leading-display dg-mb-0">SOLENNE</p>
+</div>`,
+  },
+  {
+    id: "overlap",
+    title: "Encimar elementos",
+    desc: "dg-overlap-{10, 20, 30, 40, 50} hace que el elemento siguiente suba sobre el texto ese porcentaje de su tamaño de letra, así el encimado escala con el título. Para subir un elemento sobre el de arriba usa dg-mt-n{4, 6, 8}. Al elemento que va encima dale dg-relative dg-z-10.",
+    html: `<div class="dg-cq dg-flex dg-flex-col dg-items-center dg-bg-sand dg-px-4 dg-pt-4 dg-rounded-lg dg-overflow-hidden">
+  <p class="dg-font-condensed dg-fit-7 dg-leading-display dg-overlap-40 dg-mb-0">SOLENNE</p>
+  <img class="dg-relative dg-z-10 dg-w-50p dg-aspect-4-3 dg-object-cover dg-object-top dg-rounded-t-xl" src="${portrait}" alt="Retrato de una modelo" loading="lazy">
+</div>`,
+  },
+  {
+    id: "superficies",
+    title: "Superficies editoriales y tinta",
+    desc: "dg-bg-sand, dg-bg-sand-deep, dg-bg-cream y dg-bg-graphite son superficies fijas (no cambian con el tema) que ajustan el color de todo el texto de su interior, incluidos títulos, texto atenuado y enlaces. dg-ink-danger, dg-ink-black y dg-ink-white cambian solo el color del texto de toda la sección.",
+    html: `<div class="dg-grid dg-grid-3 dg-gap-3">
+  <div class="dg-bg-sand dg-p-5 dg-rounded-lg"><h4 class="dg-mb-1">Sand</h4><p class="dg-muted dg-mb-0">Texto atenuado y <a class="dg-link" href="#">enlace</a>.</p></div>
+  <div class="dg-bg-cream dg-ink-danger dg-p-5 dg-rounded-lg"><h4 class="dg-mb-1">Cream + ink</h4><p class="dg-mb-0">Todo en rojo, también el <a class="dg-link" href="#">enlace</a>.</p></div>
+  <div class="dg-bg-graphite dg-p-5 dg-rounded-lg"><h4 class="dg-mb-1">Graphite</h4><p class="dg-muted dg-mb-0">Texto claro y <a class="dg-link" href="#">enlace</a>.</p></div>
+</div>`,
+  },
+  {
+    id: "posicion",
+    title: "Posición",
+    desc: "Con dg-relative, dg-absolute o dg-fixed, ubica el elemento con dg-top-0 / dg-right-0 / dg-bottom-0 / dg-left-0, con la escala de espacio dg-top-{0…9} (y right, bottom, left) o en cuartos del contenedor con dg-top-{25, 50, 75, 100}p (y los otros lados).",
+    html: `<div class="dg-relative dg-h-25vh dg-bg-sand dg-rounded-lg">
+  <span class="dg-absolute dg-top-4 dg-left-4 dg-badge">top-4 · left-4</span>
+  <span class="dg-absolute dg-bottom-4 dg-right-4 dg-badge">bottom-4 · right-4</span>
+  <span class="dg-absolute dg-top-50p dg-left-50p dg-badge dg-badge-solid">top-50p · left-50p</span>
+</div>`,
+  },
+  {
+    id: "medios",
+    title: "Proporciones, encuadre y zoom",
+    desc: "Nuevas proporciones dg-aspect-3-4, 2-3 y 16-10. dg-object-top, -center y -bottom eligen qué parte de la foto se ve con dg-object-cover. Para un primer plano, dentro de un marco con dg-overflow-hidden, dg-scale-{150, 200} amplía la foto y dg-origin-{top, center, bottom} elige desde dónde.",
+    html: `<div class="dg-grid dg-grid-3 dg-gap-3">
+  <img class="dg-w-full dg-aspect-3-4 dg-object-cover dg-object-top dg-rounded-lg" src="${portrait}" alt="Retrato 3:4" loading="lazy">
+  <img class="dg-w-full dg-aspect-3-4 dg-object-cover dg-rounded-lg" src="${interior}" alt="Interior 3:4" loading="lazy">
+  <div class="dg-aspect-3-4 dg-overflow-hidden dg-rounded-lg">
+    <img class="dg-w-full dg-h-full dg-object-cover dg-object-top dg-scale-200 dg-origin-top" src="${portrait}" alt="Primer plano con zoom" loading="lazy">
+  </div>
+</div>`,
+  },
+  {
+    id: "formas",
+    title: "Formas, contornos y líneas",
+    desc: "dg-rounded-full hace un círculo; dg-rounded-t-xl y dg-rounded-b-xl redondean solo arriba o abajo, y dg-rounded-{tl, tr, bl, br}-full una sola esquina (hace un arco). Como el reset del framework quita los bordes, dg-ring (1px, color del texto atenuado) dibuja un contorno con outline. Para líneas finas: dg-h-px con dg-bg-current y una opacidad.",
+    html: `<div class="dg-flex dg-wrap dg-items-center dg-gap-5">
+  <a class="dg-flex dg-items-center dg-justify-center dg-w-140 dg-h-140 dg-rounded-full dg-ring dg-no-underline dg-text-xs dg-uppercase dg-tracking-wide" href="#">Buscar</a>
+  <div class="dg-w-160 dg-h-140 dg-bg-sand dg-rounded-t-xl"></div>
+  <div class="dg-w-200">
+    <p class="dg-text-sm dg-mb-2">Línea fina</p>
+    <div class="dg-h-px dg-bg-current dg-opacity-25"></div>
+  </div>
+</div>`,
+  },
+  {
+    id: "marcas",
+    title: "Texto vertical y marcas",
+    desc: "dg-vertical gira el texto en vertical; dg-em-{25, 50, 75} lo dimensiona relativo al texto que lo rodea, ideal para ™ o ★ junto a un título grande, con dg-align-top o dg-align-middle.",
+    html: `<p class="dg-font-condensed dg-text-5xl dg-leading-none dg-mb-0">MAREVO<span class="dg-vertical dg-em-25 dg-align-top dg-ml-2">TM</span></p>`,
+  },
+  {
+    id: "mayusculas",
+    title: "Mayúsculas y espaciado",
+    desc: "dg-uppercase ahora solo cambia a mayúsculas (antes también añadía espaciado y ensanchaba los títulos condensados). El espaciado va aparte: dg-tracking-tight, -normal, -wide, -wider y -widest.",
+    html: `<p class="dg-uppercase dg-mb-2">Solo mayúsculas</p>
+<p class="dg-uppercase dg-tracking-wide dg-mb-2">Mayúsculas · tracking-wide</p>
+<p class="dg-uppercase dg-tracking-widest dg-text-xs dg-mb-0">Mayúsculas · tracking-widest</p>`,
+  },
+  {
+    id: "capas",
+    title: "Capas, blanco y negro y márgenes negativos",
+    desc: "dg-layers pone a todos sus hijos en la misma celda para apilarlos (un título sobre una foto); cada uno se alinea con dg-self-* (vertical) y dg-justify-self-start / center / end (horizontal). Su columna mide lo que el contenedor, así un título más ancho se desborda centrado. dg-grayscale pasa la foto a blanco y negro (dg-brightness-75 y -50 la oscurecen bajo un texto claro), dg-max-h-{25, 50, 75}vh limita su alto en pantallas bajas y dg-mt-n{4, 6, 8} sube el elemento siguiente sobre ella.",
+    html: `<div class="dg-cq dg-flex dg-flex-col dg-items-center dg-overflow-hidden dg-pb-4">
+  <div class="dg-layers dg-w-full">
+    <img class="dg-w-70p dg-mx-auto dg-aspect-16-10 dg-max-h-50vh dg-object-cover dg-grayscale" src="${portrait}" alt="Retrato en blanco y negro" loading="lazy">
+    <p class="dg-self-center dg-justify-self-center dg-relative dg-z-10 dg-fw-normal dg-tracking-tight dg-leading-none dg-text-danger dg-fit-10 dg-mb-0">VANO STUDIO*</p>
+  </div>
+  <div class="dg-relative dg-z-10 dg-w-40p dg-mt-n6 dg-bg-danger dg-ink-black dg-p-4 dg-text-sm">dg-mt-n6 sube el bloque sobre la foto.</div>
+</div>`,
+  },
+  {
+    id: "marquee",
+    title: "Tira en movimiento, arcos y bordes desvanecidos",
+    desc: "dg-marquee con un dg-marquee-track adentro desplaza la fila en bucle; repite los elementos una vez (con aria-hidden) para que el bucle sea continuo. Se pausa al pasar el cursor y queda quieta con reducir movimiento; dg-marquee-slow, -fast y -reverse cambian la velocidad y el sentido (varias tiras con sentidos alternos forman un mosaico en movimiento), y dg-marquee-gap-2 y -4 la separación (más junta o más abierta). Para que los elementos midan lo mismo en cualquier pantalla, dales un ancho de ventana: dg-w-{25, 50, 75}vw. Con dg-marquee-y la tira es vertical (dale un alto al contenedor, por ejemplo dg-h-140, y dg-mask-fade-y). dg-mask-fade-x (o -y) desvanece los bordes,. Para etiquetas laterales, dg-vertical-up escribe de abajo arriba.",
+    html: `<div class="dg-flex dg-items-center dg-gap-3">
+  <span class="dg-vertical-up dg-font-mono dg-text-xs dg-uppercase">( Trabajo )</span>
+  <div class="dg-marquee dg-mask-fade-x dg-flex-1">
+    <div class="dg-marquee-track">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tl-full" src="${portrait}" alt="Retrato" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tr-full" src="${interior}" alt="Interior" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tl-full" src="${portrait}" alt="Retrato" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tr-full" src="${interior}" alt="Interior" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tl-full" src="${portrait}" alt="" aria-hidden="true" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tr-full" src="${interior}" alt="" aria-hidden="true" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tl-full" src="${portrait}" alt="" aria-hidden="true" loading="lazy">
+      <img class="dg-w-140 dg-h-160 dg-object-cover dg-rounded-tr-full" src="${interior}" alt="" aria-hidden="true" loading="lazy">
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "focus",
+    title: "Slider con foto central",
+    desc: "Variante del carrusel: con dg-carousel-focus la diapositiva activa queda al centro a tamaño completo y las demás se achican según su distancia (70%, 50% y 40%); las que quedan a tres pasos o más se ocultan para que el bucle nunca muestre una cruzando. Al cargar, las diapositivas salen juntas del centro y se abren hacia sus lugares. Con data-dg-carousel-autoplay avanza sola (se pausa al pasar el cursor y con su botón, y respeta reducir movimiento). Tamaños: dg-focus-sm (tira dentro de un layout), el mediano por defecto y dg-focus-lg (escenario completo); para medidas propias, --dg-focus-w y --dg-focus-gap.",
+    html: `<div class="dg-carousel dg-carousel-focus" data-dg-carousel data-dg-carousel-autoplay="2500" aria-label="Galería">
+  <div class="dg-carousel-inner">
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover dg-grayscale" src="${portrait}" alt="Retrato" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover" src="${interior}" alt="Interior" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover dg-object-top" src="${portrait}" alt="Retrato a color" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover dg-grayscale" src="${interior}" alt="Interior en blanco y negro" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover" src="${portrait}" alt="Retrato" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover" src="${interior}" alt="Interior" loading="lazy"></div>
+    <div class="dg-carousel-item"><img class="dg-absolute dg-inset-0 dg-w-full dg-h-full dg-object-cover dg-grayscale dg-object-top" src="${portrait}" alt="Retrato en blanco y negro" loading="lazy"></div>
+  </div>
+</div>`,
+  },
+  {
+    id: "nombres",
+    title: "Columnas pegadas y nombres claros",
+    desc: "dg-g-0 quita el espacio entre columnas de dg-row (las dg-col-* quedan pegadas); los anchos de columna se recalculan, así que siempre encajan. Ojo con los dos «sin salto»: dg-nowrap evita que los elementos flex bajen de línea y dg-no-wrap evita que el texto se parta.",
+    html: `<div class="dg-row dg-g-0 dg-rounded-lg dg-overflow-hidden">
+  <div class="dg-col-4 dg-bg-graphite dg-p-4">dg-col-4</div>
+  <div class="dg-col-5 dg-bg-sand dg-p-4">dg-col-5</div>
+  <div class="dg-col-3 dg-bg-sand-deep dg-p-4 dg-no-wrap">dg-col-3 sin salto</div>
+</div>`,
+  },
+];
+---
+
+<Layout
+  title="Composición"
+  lead="Utilidades para layouts editoriales y a pantalla completa: columnas flexibles, alturas de ventana, texto que llena el ancho, encimados, posición, superficies, formas y medios. Con ellas los diseños se arman solo con clases, sin atributos style."
+  currentHref="/fundamentos/composicion"
+>
+  <div class="dg-callout dg-callout-info dg-mb-5">
+    <p class="dg-callout-title">Las utilidades siempre ganan</p>
+    El CSS del framework usa capas de cascada (<code class="dg-code">@layer</code>: reset → base → layout → componentes (núcleo y app) → utilidades → plano). Una utilidad sobre un elemento se aplica aunque el componente defina lo mismo, y tu propio CSS, fuera de cualquier capa, siempre gana sobre el framework sin <code class="dg-code">!important</code> (por ejemplo <code class="dg-code">dg-pb-0</code> sobre <code class="dg-code">dg-section</code> o <code class="dg-code">dg-g-0</code> sobre <code class="dg-code">dg-row</code>). Espaciado, tamaños, posición, grid y sus versiones responsivas tienen escalas completas: ver <a class="dg-link" href="/fundamentos/escalas">Escalas</a>. Un diseño nuevo usa esos pasos en vez de agregar uno para sí mismo.
+  </div>
+
+  {examples.map((example) => (
+    <>
+      <div class="doc-sub" id={example.id}>{example.title}</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">{example.desc}</p>
+      <div class="doc-example">
+        <div class="doc-demo is-plain"><Fragment set:html={example.html} /></div>
+        <Code>{example.html}</Code>
+      </div>
+    </>
+  ))}
+</Layout>

@@ -46,3 +46,21 @@ Consulta [ARCHITECTURE.md](./ARCHITECTURE.md) para las etapas de migración y la
 ## Licencia
 
 Las contribuciones se distribuyen bajo [MIT](./LICENSE).
+
+## Checks (CI)
+
+Every push and pull request runs `.github/workflows/ci.yml`. Run the same locally with `npm run ci`:
+
+- `npm run build --workspace=core`, unit tests (`vitest`), and the package, hydration, glass and button verifiers.
+- `npm run check:size`: gzip budget per bundle and a budget for `!important` (only intentional state overrides). Raising a budget is a conscious decision in the same pull request.
+- `npm run verify:classes`: every `dg-*` class used in the docs exists in the framework, and Studio designs and Composición/Escalas examples have no `style=""`.
+- Pull requests also run `verify:styles`: every docs page and Studio hero is rendered with the base branch CSS and with the new CSS, and the computed styles of every element are compared. Intended visual changes: add the `style-change` label. Locally: build reference CSS into a folder and run `node docs/scripts/verify-styles.mjs --base <folder> --detail` with the docs dev server running.
+
+## CSS architecture
+
+The CSS uses cascade layers: `dg.reset → dg.base → dg.layout → dg.components → dg.utilities → dg.flat`. A later layer always wins, whatever the specificity, so:
+
+- A rule that styles a component class goes in the components layer (for a component inside a layout, `components/_contexts.scss`), never in `layout/` or `base/`.
+- Utilities need no `!important`. Defaults that a utility must be able to change use `:where()` (zero specificity).
+- New utility scales go in `abstracts/_scales.scss` (generated, with responsive copies), not by hand.
+

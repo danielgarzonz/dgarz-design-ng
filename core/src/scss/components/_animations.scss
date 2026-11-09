@@ -259,3 +259,64 @@
 @media (forced-colors: active) {
   .dg-text-gradient, .dg-text-shimmer, .dg-text-outline { background: none; -webkit-text-fill-color: currentColor; -webkit-text-stroke: 0; }
 }
+
+/* ============================================================
+   MARQUEE — a row that scrolls on its own, in a loop.
+   <div class="dg-marquee"><div class="dg-marquee-track">
+     …items… …the same items again (aria-hidden)…
+   </div></div>
+   The track moves half its width, so repeating the items once makes the
+   loop seamless. Pauses on hover/focus; static with reduced motion.
+   .dg-marquee-slow / -fast change the speed; .dg-marquee-reverse the way.
+   ============================================================ */
+.dg-marquee { overflow: hidden; }
+/* The gap also closes the track (padding-right), so moving it by half its
+   width lands exactly on the repeated first item: no jump in the loop. */
+.dg-marquee-track {
+  display: flex; width: max-content;
+  gap: var(--dg-marquee-gap, var(--dg-space-3));
+  padding-right: var(--dg-marquee-gap, var(--dg-space-3));
+  animation: dg-marquee var(--dg-marquee-dur, 40s) linear infinite;
+}
+.dg-marquee-slow { --dg-marquee-dur: 70s; }
+/* Gap: tighter or looser than the default (space 3). */
+.dg-marquee-gap-2 { --dg-marquee-gap: var(--dg-space-2); }
+.dg-marquee-gap-4 { --dg-marquee-gap: var(--dg-space-4); }
+.dg-marquee-fast { --dg-marquee-dur: 22s; }
+.dg-marquee-reverse .dg-marquee-track { animation-direction: reverse; }
+.dg-marquee:is(:hover, :focus-within) .dg-marquee-track { animation-play-state: paused; }
+@keyframes dg-marquee { to { transform: translateX(-50%); } }
+/* Vertical: the track stacks the items and moves up half its height
+   (give the .dg-marquee a height, e.g. dg-h-160, and dg-mask-fade-y). */
+.dg-marquee-y .dg-marquee-track {
+  flex-direction: column; width: auto; height: max-content;
+  padding-right: 0; padding-bottom: var(--dg-marquee-gap, var(--dg-space-3));
+  animation-name: dg-marquee-y;
+}
+@keyframes dg-marquee-y { to { transform: translateY(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .dg-marquee-track { animation: none; }
+}
+
+/* ============================================================
+   PARALLAX — CSS only, driven by the page scroll.
+   .dg-parallax-slow / -mid / -fast move the element up by 10 / 25 / 45%
+   of the viewport height over the whole page scroll, so layers at
+   different speeds separate as you scroll. Browsers without scroll-driven
+   animations keep the element still; reduced motion turns it off.
+   Use it on a wrapper if the element already has a dg-fade-in-* entrance.
+   ============================================================ */
+@supports (animation-timeline: scroll()) {
+  .dg-parallax-slow, .dg-parallax-mid, .dg-parallax-fast {
+    animation: dg-parallax linear both;
+    animation-timeline: scroll(root);
+  }
+  .dg-parallax-slow { --dg-parallax: -10vh; }
+  .dg-parallax-mid  { --dg-parallax: -25vh; }
+  .dg-parallax-fast { --dg-parallax: -45vh; }
+}
+@keyframes dg-parallax { to { transform: translateY(var(--dg-parallax, -20vh)); } }
+@media (prefers-reduced-motion: reduce) {
+  .dg-parallax-slow, .dg-parallax-mid, .dg-parallax-fast { animation: none; }
+}
+

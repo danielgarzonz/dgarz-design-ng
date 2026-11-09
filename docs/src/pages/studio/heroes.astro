@@ -1,0 +1,37 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+import { heroesNewestFirst } from "../../data/heroes";
+---
+
+<Layout
+  title="Heroes"
+  lead="Diseños de hero hechos solo con dgarz design, del más reciente al más antiguo. Abre uno para verlo a pantalla completa como una web real y copiar su código."
+  currentHref="/studio/heroes"
+>
+  <div class="dg-grid dg-grid-2 dg-gap-6 dg-mt-5">
+    {heroesNewestFirst.map(({ hero, number }, index) => (
+      <a class="dg-card-hover dg-text-decoration-none dg-mb-7 doc-hero-card" href={`/studio/heroes/${hero.id}`}>
+        <img class="dg-w-full dg-rounded-0 dg-object-cover doc-hero-thumb" src={`/showcase/heroes/${hero.id}.webp`} alt={`Vista previa del hero ${hero.title}`} width="1280" height="800" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+        <div class="dg-flex dg-justify-between dg-items-end dg-gap-3 dg-pt-3">
+          <div>
+            <p class="dg-eyebrow dg-mb-1">{String(number).padStart(2, "0")}</p>
+            <h3 class="dg-text-lg dg-mb-1">{hero.title}</h3>
+            <p class="dg-text-sm dg-muted dg-mb-0">{hero.summary}</p>
+          </div>
+          <span class="dg-btn-subtle dg-btn-icon doc-hero-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>
+
+<style is:global>
+  /* Gallery thumbnails: screenshots of each full-screen view (1280×800). */
+  /* height:auto so the 1280×800 attributes only reserve the ratio. */
+  .doc-hero-thumb { height: auto; aspect-ratio: 16 / 10; background: var(--dg-surface-3); }
+  .doc-hero-card { display: block; color: var(--dg-text); }
+  /* Diagonal arrow, like the landing tiles: nudges up-right on hover/focus. */
+  .doc-hero-arrow { flex: none; }
+  .doc-hero-arrow svg { width: 1rem; height: 1rem; transition: transform .5s var(--dg-ease); }
+  .doc-hero-card:is(:hover, :focus-visible) .doc-hero-arrow svg { transform: translate(2px, -2px); }
+</style>

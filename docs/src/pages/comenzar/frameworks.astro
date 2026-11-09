@@ -34,7 +34,7 @@ export class Actions {
 }`;
 ---
 <Layout title="Adaptadores de frameworks" lead="Componentes de React, Vue y Angular generados desde el mismo Core de Stencil.js." currentHref="/comenzar/frameworks">
-  <p>La versión <code>2.0.0-alpha.0</code> está en desarrollo local y aún no se ha publicado. Componentes disponibles: <code>dgarz-button</code> y <code>dgarz-input</code>. Los adaptadores no duplican su lógica.</p>
+  <p>Los adaptadores están en desarrollo local y aún no se han publicado; el Core que usan viene en <code>dgarz-design/core</code> desde la versión <code>1.2.0</code>. Componentes disponibles: <code>dgarz-button</code> y <code>dgarz-input</code>. Los adaptadores no duplican su lógica.</p>
   <h2>React 19 y cliente de Next.js</h2>
   <Code lang="tsx">{react}</Code>
   <p>El evento nativo <code>dgarz-click</code> se expone como <code>onDgarzClick</code>. El ejemplo del adaptador es cliente. SSR con DSD del Core está verificado en Astro (<a href="/comenzar/core">Core SSR</a>) y en un consumidor Next.js App Router vía <code>dgarz-design/hydrate</code> + registro cliente (<code>npm run verify:next-hydrate</code>). El adaptador React aún no declara SSR propio.</p>

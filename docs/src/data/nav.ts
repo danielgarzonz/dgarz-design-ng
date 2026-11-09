@@ -10,8 +10,7 @@ export interface NavGroup {
 }
 
 export const TOP_NAV: NavItem[] = [
-  { label: "Inicio", href: "/comenzar/intro" },
-  { label: "Changelog", href: "/comenzar/changelog" },
+  { label: "Inicio", href: "/" },
 ];
 
 export const NAV: NavGroup[] = [
@@ -39,6 +38,8 @@ export const NAV: NavGroup[] = [
       { label: "Sombras",          href: "/fundamentos/sombras" },
       { label: "Animaciones",      href: "/fundamentos/animaciones" },
       { label: "Superficies",      href: "/fundamentos/superficies" },
+      { label: "Composición",      href: "/fundamentos/composicion" },
+      { label: "Escalas",          href: "/fundamentos/escalas" },
       { label: "Grid & Layout",    href: "/fundamentos/grid" },
       { label: "Display",          href: "/fundamentos/display" },
       { label: "Flex",             href: "/fundamentos/flex" },
@@ -100,6 +101,7 @@ export const NAV: NavGroup[] = [
     color: "#ef4444",
     items: [
       { label: "Galería", href: "/examples" },
+      { label: "Heroes", href: "/studio/heroes" },
       { label: "Sitios reales", href: "/studio/sites" },
     ],
   },

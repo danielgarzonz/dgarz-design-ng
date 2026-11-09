@@ -1,6 +1,8 @@
 @use "../abstracts/buttons" as button;
 
 /* Flat presentation applies to every component and interaction state.
+   It lives in the last framework layer (dg.flat), so it wins over every
+   framework rule without !important, and your own CSS still wins over it.
    Keep border-radius and keyboard outlines; remove decorative strokes/elevation. */
 :root body,
 :root body *:not(:where([class*="dg-shadow-"], .dg-modal, .dg-btn-group, .dg-navbar, .dg-app-header, .dg-dock)),
@@ -8,8 +10,8 @@
 :root body::after,
 :root body *::before,
 :root body *:not(:where(.dg-modal, .dg-switch-track))::after {
-  box-shadow: none !important;
-  text-shadow: none !important;
+  box-shadow: none;
+  text-shadow: none;
 }
 
 /* Functional borders and explicitly requested subtle/outline borders remain. */
@@ -34,7 +36,7 @@
 :root body::after,
 :root body *::before,
 :root body *:not(:where(.dg-check-box, .dg-combobox-check))::after {
-  border: none !important;
+  border: none;
 }
 
 .dg-segmented {
@@ -49,7 +51,7 @@
 }
 
 :root body :focus-visible {
-  outline: 2px solid var(--dg-accent) !important;
+  outline: 2px solid var(--dg-accent);
   outline-offset: 3px;
 }
 

@@ -11,14 +11,15 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
   <a href="/" class="dg-navbar-brand pub-brand" aria-label="dgarz design, inicio"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
   <div class="pub-nav-start">
     <a href="/comenzar/changelog" class="pub-version" title={`Versión ${version}`}>v{version}</a>
-    <div class="dg-navbar-nav">
+
+  </div>
+  <div class="pub-actions">
+    <div class="dg-navbar-nav pub-desktop-links">
       {TOP_NAV.map((item) => (
         <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
       ))}
     </div>
-  </div>
-  <div class="pub-actions">
-    <a href="/comenzar/intro" class="dg-btn dg-btn-primary dg-btn-sm pub-docs-btn">Documentación</a>
+    <a href="/comenzar/intro" class="dg-nav-link pub-docs-btn" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
     <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
       <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
       <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
@@ -35,7 +36,7 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
         {TOP_NAV.map((item) => (
           <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
         ))}
-        <a href="/comenzar/intro" class:list={["dg-nav-link", currentHref.startsWith("/comenzar") && "is-active"]}>Documentación</a>
+        <a href="/comenzar/intro" class="dg-nav-link" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
       </div>
     </div>
   </div>}

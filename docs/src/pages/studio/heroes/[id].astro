@@ -1,0 +1,143 @@
+---
+// Full-screen view of one hero: the design alone in the viewport, as a real
+// page, with a small floating bar (gallery, previous/next, code) that is not
+// part of the copied HTML.
+import { heroesNewestFirst, type Hero } from "../../../data/heroes";
+import "../../../styles/doc-code.css";
+import iconSpriteRaw from "../../../../../core/src/icons/dgarz-icons.svg?raw";
+
+// Previous/next follow the gallery order (newest first).
+export function getStaticPaths() {
+  const list = heroesNewestFirst;
+  return list.map(({ hero, number }, index) => ({
+    params: { id: hero.id },
+    props: {
+      hero,
+      number,
+      prev: list[(index - 1 + list.length) % list.length].hero,
+      next: list[(index + 1) % list.length].hero,
+    },
+  }));
+}
+
+interface Props { hero: Hero; number: number; prev: Hero; next: Hero; }
+const { hero, number, prev, next } = Astro.props;
+const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.full.min.css";
+const jsHref = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
+// The framework icon sprite, inline (hidden) so <use href="#dg-…"> works in the designs.
+const iconSprite = iconSpriteRaw.replace("<svg ", '<svg aria-hidden="true" style="display:none" ');
+---
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{hero.title} · Heroes · dgarz design</title>
+  <meta name="description" content={hero.summary} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,401,500,501,600,601&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={cssHref} />
+  <style is:inline define:vars={{ pageBg: hero.pageBg ?? "var(--dg-paper)" }}>
+    body { margin: 0; background: var(--pageBg); }
+    /* Viewer chrome (not part of the design): floating bar at the bottom. */
+    .hv-bar {
+      position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 45;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 6px;
+      max-width: calc(100vw - 24px);
+      padding: 6px; border-radius: 999px;
+      background: color-mix(in oklab, #0b0b0c 82%, transparent);
+      -webkit-backdrop-filter: saturate(1.6) blur(16px); backdrop-filter: saturate(1.6) blur(16px);
+      color: #fff; font: 500 14px/1 var(--dg-font-sans);
+    }
+    .hv-bar a, .hv-bar button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      height: 36px; min-width: 36px; padding: 0 14px; border: 0; border-radius: 999px;
+      background: transparent; color: inherit; font: inherit; text-decoration: none; cursor: pointer;
+      white-space: nowrap;
+    }
+    .hv-bar a:hover, .hv-bar button:hover { background: rgba(255, 255, 255, .14); }
+    .hv-bar .hv-code-btn { background: #fff; color: #0b0b0c; }
+    .hv-bar .hv-code-btn:hover { background: #e4e4e7; }
+    .hv-bar .hv-step { padding: 0; }
+    .hv-title { padding: 0 8px; opacity: .8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    @media (max-width: 520px) { .hv-title { display: none; } }
+    /* Code modal: the framework's full-screen modal (header, body, floating
+       footer); the body only holds the shared .doc-code block. */
+    /* The code scrolls inside its block, which ends above the floating
+       footer: the body does not scroll; the block shrinks to the space
+       between header and footer (natural height when the code is short)
+       and its <pre> scrolls both ways. */
+    .hv-code-modal > .dg-modal-body { overflow: hidden; display: flex; flex-direction: column; }
+    .hv-code-modal .doc-code { margin: 0; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    .hv-code-modal .doc-code pre { flex: 1 1 auto; min-height: 0; overflow: auto; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <Fragment set:html={iconSprite} />
+  <Fragment set:html={hero.html} />
+
+  <nav class="hv-bar" aria-label="Vista de hero">
+    <a href="/studio/heroes">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+      Galería
+    </a>
+    <a class="hv-step" href={`/studio/heroes/${prev.id}`} aria-label={`Anterior: ${prev.title}`} title={prev.title}>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+    </a>
+    <span class="hv-title">{String(number).padStart(2, "0")} · {hero.title}</span>
+    <a class="hv-step" href={`/studio/heroes/${next.id}`} aria-label={`Siguiente: ${next.title}`} title={next.title}>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+    <button type="button" class="hv-code-btn" data-dg-open="#hvCode">Ver código</button>
+  </nav>
+
+  <div class="dg-modal-backdrop" id="hvCode" data-dg-backdrop hidden>
+    <div class="dg-modal dg-modal-full hv-code-modal" role="dialog" aria-modal="true" aria-labelledby="hvCodeTitle">
+      <button type="button" class="dg-modal-close" data-dg-close aria-label="Cerrar"><svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="dg-modal-header"><h3 class="dg-modal-title" id="hvCodeTitle">Código</h3></div>
+      <div class="dg-modal-body">
+        <div class="doc-code" data-lang="html">
+          <pre><code class="language-html" id="hvCodeText">{hero.html}</code></pre>
+        </div>
+      </div>
+      <div class="dg-modal-footer">
+        <button type="button" class="dg-btn dg-btn-cancel" data-dg-close>Cerrar</button>
+        <button type="button" class="dg-btn" id="hvCopy">Copiar código</button>
+      </div>
+    </div>
+  </div>
+
+  <script src={jsHref} is:inline></script>
+  <script is:inline>
+    // Copy works on the LAN dev URL too (no clipboard API outside secure contexts).
+    (function () {
+      var button = document.getElementById('hvCopy');
+      var source = document.getElementById('hvCodeText');
+      if (!button || !source) return;
+      function fallback(text) {
+        var area = document.createElement('textarea');
+        area.value = text; area.setAttribute('readonly', ''); area.style.position = 'fixed'; area.style.opacity = '0';
+        document.body.appendChild(area); area.select();
+        var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+        area.remove(); return ok;
+      }
+      button.addEventListener('click', function () {
+        var text = source.textContent || '';
+        var done = function (ok) {
+          button.textContent = ok ? '✓ Copiado' : 'No se pudo copiar';
+          setTimeout(function () { button.textContent = 'Copiar código'; }, 1600);
+        };
+        if (window.isSecureContext && navigator.clipboard) navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallback(text)); });
+        else done(fallback(text));
+      });
+    })();
+  </script>
+  <script>
+    import Prism from 'prismjs';
+    import 'prismjs/components/prism-markup';
+    Prism.highlightAll();
+  </script>
+</body>
+</html>

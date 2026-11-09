@@ -4,39 +4,61 @@
  * https://github.com/dgarzonz/dgarz-design
  * MIT License
  */
+@use 'sass:meta';
 
-// ── Abstracts (tokens, dark theme)
-@use 'abstracts/tokens';
+// Cascade layers, in order of priority (later wins, whatever the specificity):
+//   reset → base (tokens, typography) → layout → components (core, then the
+//   app pack) → utilities → flat (the no-border / no-shadow presentation).
+// Your own CSS, outside any layer, always wins over all of them, so it never
+// needs !important to override the framework.
+@layer dg.reset, dg.base, dg.layout, dg.components, dg.utilities, dg.flat;
 
-// ── Base
-@use 'base/reset';
-@use 'base/typography';
-@use 'base/utilities';
+@layer dg.reset {
+  @include meta.load-css('base/reset');
+}
 
-// ── Layout
-@use 'layout/grid';
+@layer dg.base {
+  @include meta.load-css('abstracts/tokens');
+  @include meta.load-css('base/typography');
+}
 
-// ── Components
-@use 'components/buttons';
-@use 'components/forms';
-@use 'components/cards';
-@use 'components/badges';
-@use 'components/alerts';
-@use 'components/toasts';
-@use 'components/navbar';
-@use 'components/tabs';
-@use 'components/dock';
-@use 'components/tables';
-@use 'components/dropdown';
-@use 'components/modal';
-@use 'components/misc';
-@use 'components/collapse';
-@use 'components/carousel';
-@use 'components/popover';
-@use 'components/glass';
-@use 'components/animations';
-@use 'components/datepicker';
-@use 'components/fileupload';
-@use 'components/combobox';
-@use 'components/extras';
-@use 'base/flat';
+@layer dg.layout {
+  @include meta.load-css('layout/grid');
+}
+
+@layer dg.components {
+  @include meta.load-css('components/buttons');
+  @include meta.load-css('components/forms');
+  @include meta.load-css('components/cards');
+  @include meta.load-css('components/badges');
+  @include meta.load-css('components/alerts');
+  @include meta.load-css('components/toasts');
+  @include meta.load-css('components/navbar');
+  @include meta.load-css('components/tabs');
+  @include meta.load-css('components/dock');
+  @include meta.load-css('components/tables');
+  @include meta.load-css('components/dropdown');
+  @include meta.load-css('components/modal');
+  @include meta.load-css('components/misc');
+  @include meta.load-css('components/collapse');
+  @include meta.load-css('components/carousel');
+  @include meta.load-css('components/popover');
+  @include meta.load-css('components/animations');
+  @include meta.load-css('components/datepicker');
+  @include meta.load-css('components/fileupload');
+  @include meta.load-css('components/combobox');
+  @include meta.load-css('components/extras');
+  @include meta.load-css('components/contexts');
+}
+
+@layer dg.utilities {
+  // Surface FX (glass, liquid, gradients) are opt-in looks laid over a
+  // component, so they sit with the utilities: they beat the component,
+  // and an explicit utility after them still wins.
+  @include meta.load-css('components/glass');
+  @include meta.load-css('base/utilities');
+}
+
+@layer dg.flat {
+  @include meta.load-css('base/flat');
+}

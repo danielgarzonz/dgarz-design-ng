@@ -3,6 +3,12 @@
  * Core + Components + App Pack — all-in-one build.
  * MIT License
  */
-
+@use 'sass:meta';
 @use 'dgarz';
-@use 'app-pack/app';
+
+// The app pack joins the components layer, after the core components: between
+// them specificity decides as usual (e.g. the dock sizing an app .dg-icon), and
+// a utility on an app component wins, like on any other component.
+@layer dg.components {
+  @include meta.load-css('app-pack/app');
+}

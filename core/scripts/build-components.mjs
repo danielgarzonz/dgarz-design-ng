@@ -20,6 +20,11 @@ export function defineCustomElements() {
 if (typeof customElements !== 'undefined') defineCustomElements();
 `);
 await writeFile(new URL('index.d.mts', dist), "export * from './components/index.js';\nexport type { Components, JSX } from './types/components.js';\nexport declare function defineCustomElements(): void;\n");
+// The package root keeps the classic JS (dgarz.js / dgarz.esm.js, as in 1.1.0);
+// its types expose only the component types (events, props), never values, so
+// `import { defineCustomElements } from 'dgarz-design'` fails at compile time
+// instead of at run time. The components themselves live in dgarz-design/core.
+await writeFile(new URL('root.d.mts', dist), "export type * from './index.mjs';\n");
 await copyFile(new URL('../src/tokens/tokens.css', import.meta.url), new URL('tokens.css', dist));
 
 // Stencil docs contain a wall-clock timestamp; omit it for reproducible packages.

@@ -1,0 +1,26 @@
+/* ============================================================
+   CONTEXTS — a component inside a layout (grid, action bar).
+   These rules style component classes, so they live in the components
+   layer, after every component: in the layout layer the component's own
+   rule would win (a later layer beats any specificity).
+   ============================================================ */
+
+/* Auto-fit grids of cards on small screens (module/home menus). */
+@media (max-width: 640px) {
+  .dg-grid.dg-grid-auto .dg-card { min-height: 150px; }
+  .dg-grid.dg-grid-auto .dg-card-body { padding: var(--dg-space-3); }
+  .dg-grid.dg-grid-auto .dg-avatar { width: 36px; height: 36px; font-size: 1rem; }
+}
+
+/* Action bar: each button keeps the width of its own label. */
+.dg-actions > :is(button, .dg-btn) {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+}
+/* Escape hatch for a label too long to fit any viewport on one line. */
+.dg-actions > .dg-actions-wrap { white-space: normal; }
+
+/* A menu never inherits the alignment of where it is placed (e.g. a table
+   cell with .dg-text-right): its items always read from the start. */
+.dg-menu { text-align: start; }
