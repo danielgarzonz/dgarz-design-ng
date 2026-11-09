@@ -1,0 +1,373 @@
+// ============================================================
+// SCALES — the complete utility system, generated from a few
+// scales so every family has every step (no class per design).
+//
+//   base        → classes that did not exist before (spacing 0–9 on
+//                 every side, sizes, grid, offsets, extra type…)
+//   responsive  → a copy of the layout families behind a breakpoint
+//                 prefix, mobile first: .dg-md-flex-row applies from
+//                 768px, .dg-lg-p-8 from 992px, .dg-xl-grid-cols-4
+//                 from 1200px (same breakpoints as .dg-col-md-*).
+//
+// Every group is a map of class name → declarations, so the base and
+// the responsive copies come from the same source and always match.
+// ============================================================
+@use 'sass:map';
+@use 'sass:list';
+
+$breakpoints: (md: 768px, lg: 992px, xl: 1200px);
+
+// ---- Scales ------------------------------------------------
+$space: (0: 0);
+@for $i from 1 through 9 { $space: map.merge($space, ($i: var(--dg-space-#{$i}))); }
+
+$px: (16, 24, 32, 40, 48, 64, 80, 96, 128, 160, 200, 240, 320, 400, 480, 560, 640, 720);
+$px-wide: (800, 960, 1080, 1200, 1440);
+$pct: (10, 20, 25, 30, 33, 40, 50, 60, 66, 70, 75, 80, 90, 100);
+$quarters: (25, 50, 75, 100);
+
+@function pct($n) {
+  @if $n == 33 { @return 33.3333%; }
+  @if $n == 66 { @return 66.6667%; }
+  @return $n * 1%;
+}
+
+// ---- Builders ----------------------------------------------
+// Sides: '' all, t r b l, x (inline), y (block).
+// Order matters: all sides, then x/y, then single sides, so the most
+// specific one wins (dg-py-2 dg-pb-6 → bottom 6).
+$dirs: ('': null, x: inline, y: block, t: top, r: right, b: bottom, l: left);
+
+@function spacing($short, $prop, $auto: false, $negative: false) {
+  $out: ();
+  @each $d, $side in $dirs {
+    $p: $prop;
+    @if $side { $p: '#{$prop}-#{$side}'; }
+    @each $k, $v in $space { $out: map.merge($out, ('#{$short}#{$d}-#{$k}': ($p: $v))); }
+    @if $auto { $out: map.merge($out, ('#{$short}#{$d}-auto': ($p: auto))); }
+    @if $negative {
+      @for $i from 1 through 9 {
+        $out: map.merge($out, ('#{$short}#{$d}-n#{$i}': ($p: calc(var(--dg-space-#{$i}) * -1))));
+      }
+    }
+  }
+  @return $out;
+}
+
+@function sizes($name, $prop, $with-px: true, $with-pct: (), $with-view: (), $view-unit: vh, $keywords: ()) {
+  $out: ();
+  @if $with-px { @each $n in $px { $out: map.merge($out, ('#{$name}-#{$n}': ($prop: $n * 1px))); } }
+  @each $n in $with-pct { $out: map.merge($out, ('#{$name}-#{$n}p': ($prop: pct($n)))); }
+  @each $n in $with-view {
+    $unit: vw;
+    @if $view-unit == vh { $unit: svh; }
+    $out: map.merge($out, ('#{$name}-#{$n}#{$view-unit}': ($prop: #{$n}#{$unit})));
+  }
+  @each $k, $v in $keywords { $out: map.merge($out, ('#{$name}-#{$k}': ($prop: $v))); }
+  @return $out;
+}
+
+@function only-fluid($group) {
+  // Responsive copies skip the px steps (a fixed size rarely changes per screen).
+  $out: ();
+  @each $name, $decls in $group {
+    @if not list.index($px, _px-of($name)) { $out: map.merge($out, ($name: $decls)); }
+  }
+  @return $out;
+}
+@function _px-of($name) {
+  @each $n in $px { @if $name == 'w-#{$n}' or $name == 'h-#{$n}' or $name == 'min-h-#{$n}' or $name == 'max-w-#{$n}' or $name == 'max-h-#{$n}' or $name == 'min-w-#{$n}' { @return $n; } }
+  @return null;
+}
+
+// ---- Groups: spacing ----------------------------------------
+$margin: spacing('m', margin, $auto: true, $negative: true);
+$padding: spacing('p', padding);
+// Negative margins stay out of the responsive copies (rarely change per screen).
+$margin-responsive: spacing('m', margin, $auto: true);
+$gap: ();
+@each $k, $v in $space {
+  $gap: map.merge($gap, ('gap-#{$k}': (gap: $v), 'gap-x-#{$k}': (column-gap: $v), 'gap-y-#{$k}': (row-gap: $v)));
+}
+
+// ---- Groups: sizes ------------------------------------------
+$fit: (auto: auto, fit: fit-content, min: min-content, max: max-content);
+$width: sizes('w', width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: $fit);
+$min-width: sizes('min-w', min-width, $with-pct: (), $keywords: (full: 100%, fit: fit-content));
+$max-width: map.merge(sizes('max-w', max-width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: (none: none)), ());
+@each $n in $px-wide { $max-width: map.merge($max-width, ('max-w-#{$n}': (max-width: $n * 1px))); }
+$height: sizes('h', height, $with-pct: $quarters, $with-view: $quarters, $keywords: (auto: auto, fit: fit-content));
+$min-height: sizes('min-h', min-height, $with-view: $quarters, $keywords: (full: 100%));
+$max-height: sizes('max-h', max-height, $with-view: $quarters, $keywords: (full: 100%, none: none));
+$square: ();
+@each $n in (16, 24, 32, 40, 48, 64, 80, 96, 128, 160, 200, 240) {
+  $square: map.merge($square, ('size-#{$n}': (width: $n * 1px, height: $n * 1px)));
+}
+
+// ---- Groups: position offsets --------------------------------
+$offsets: (inset-x-0: (inset-inline: 0), inset-y-0: (inset-block: 0), inset-auto: (inset: auto));
+@each $side in (top, right, bottom, left) {
+  @each $k, $v in $space { $offsets: map.merge($offsets, ('#{$side}-#{$k}': ($side: $v))); }
+  @each $n in $quarters { $offsets: map.merge($offsets, ('#{$side}-#{$n}p': ($side: pct($n)))); }
+  $offsets: map.merge($offsets, ('#{$side}-auto': ($side: auto)));
+}
+
+// ---- Groups: grid -------------------------------------------
+$grid: (span-full: (grid-column: list.slash(1, -1)), grid-flow-row: (grid-auto-flow: row), grid-flow-col: (grid-auto-flow: column), grid-flow-dense: (grid-auto-flow: dense));
+@for $i from 1 through 12 {
+  $grid: map.merge($grid, (
+    'grid-cols-#{$i}': (display: grid, grid-template-columns: repeat($i, minmax(0, 1fr))),
+    'span-#{$i}': (grid-column: list.slash(span $i, span $i)),
+  ));
+}
+@for $i from 1 through 6 {
+  $grid: map.merge($grid, (
+    'grid-rows-#{$i}': (grid-template-rows: repeat($i, minmax(0, 1fr))),
+    'row-span-#{$i}': (grid-row: list.slash(span $i, span $i)),
+  ));
+}
+@each $k, $v in (start: start, center: center, end: end, stretch: stretch) {
+  $grid: map.merge($grid, ('justify-items-#{$k}': (justify-items: $v), 'place-items-#{$k}': (place-items: $v), 'place-self-#{$k}': (place-self: $v)));
+}
+
+// ---- Groups: rounded sides (the corner radius tokens on one side) ----
+$rounded: ();
+$radii: ('': var(--dg-radius), '-0': 0, '-sm': var(--dg-radius-sm), '-lg': var(--dg-radius-lg), '-xl': var(--dg-radius-xl), '-pill': var(--dg-radius-pill));
+$sides: (t: (border-top-left-radius, border-top-right-radius), b: (border-bottom-left-radius, border-bottom-right-radius), l: (border-top-left-radius, border-bottom-left-radius), r: (border-top-right-radius, border-bottom-right-radius));
+@each $s, $props in $sides {
+  @each $k, $v in $radii {
+    $decls: ();
+    @each $p in $props { $decls: map.merge($decls, ($p: $v)); }
+    $rounded: map.merge($rounded, ('rounded-#{$s}#{$k}': $decls));
+  }
+}
+
+// ---- Groups: everything else a page needs --------------------
+$extra: (
+  // display
+  contents: (display: contents), flow-root: (display: flow-root), inline-grid: (display: inline-grid),
+  // flex
+  flex-auto: (flex: 1 1 auto), flex-none: (flex: none), justify-evenly: (justify-content: space-evenly),
+  // type
+  text-justify: (text-align: justify), text-start: (text-align: start), text-end: (text-align: end),
+  lowercase: (text-transform: lowercase), capitalize: (text-transform: capitalize), normal-case: (text-transform: none),
+  not-italic: (font-style: normal), whitespace-normal: (white-space: normal), pre-line: (white-space: pre-line),
+  break-all: (word-break: break-all), leading-relaxed: (line-height: 1.75),
+  list-none: (list-style: none, padding-left: 0), list-disc: (list-style-type: disc), list-decimal: (list-style-type: decimal), list-inside: (list-style-position: inside),
+  // overflow & layering
+  overflow-visible: (overflow: visible), overflow-x-hidden: (overflow-x: hidden), overflow-y-hidden: (overflow-y: hidden),
+  overscroll-contain: (overscroll-behavior: contain), z-0: (z-index: 0), z-auto: (z-index: auto),
+  // media
+  aspect-3-2: (aspect-ratio: list.slash(3, 2)), aspect-9-16: (aspect-ratio: list.slash(9, 16)), aspect-21-9: (aspect-ratio: list.slash(21, 9)),
+  object-left: (object-position: left center), object-right: (object-position: right center), object-fill: (object-fit: fill), object-none: (object-fit: none),
+);
+@for $i from 1 through 5 {
+  $extra: map.merge($extra, ('line-clamp-#{$i}': (display: -webkit-box, -webkit-line-clamp: $i, -webkit-box-orient: vertical, overflow: hidden)));
+}
+@each $n in (10, 20, 30, 40, 60, 70, 80, 90) {
+  $extra: map.merge($extra, ('opacity-#{$n}': (opacity: $n * .01)));
+}
+
+// ---- Groups: color (the monochrome gray scale, fixed in both themes) ----
+$grays: (0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950);
+$color: (text-current: (color: currentColor), text-inherit: (color: inherit), bg-transparent: (background-color: transparent));
+@each $g in $grays {
+  $color: map.merge($color, ('text-gray-#{$g}': (color: var(--dg-#{$g})), 'bg-gray-#{$g}': (background-color: var(--dg-#{$g}))));
+}
+
+// ---- Groups: big and fluid type, editorial text --------------
+$type-big: (
+  text-6xl: (font-size: 5rem), text-7xl: (font-size: 6rem), text-8xl: (font-size: 8rem), text-9xl: (font-size: 10rem),
+  // Fluid: grows with the window between a minimum and a maximum.
+  text-fluid-sm: (font-size: clamp(2rem, 5vw, 3.5rem)), text-fluid-md: (font-size: clamp(2.5rem, 8vw, 6rem)),
+  text-fluid-lg: (font-size: clamp(3rem, 12vw, 9rem)), text-fluid-xl: (font-size: clamp(3.5rem, 16vw, 13rem)),
+);
+$type-extra: (
+  fw-thin: (font-weight: 200), fw-light: (font-weight: 300), fw-black: (font-weight: 900),
+  leading-loose: (line-height: 2), tracking-tighter: (letter-spacing: -0.04em),
+  text-pretty: (text-wrap: pretty), tabular-nums: (font-variant-numeric: tabular-nums), hyphens-auto: (hyphens: auto),
+  whitespace-pre: (white-space: pre), break-inside-avoid: (break-inside: avoid),
+  underline-offset-2: (text-underline-offset: 2px), underline-offset-4: (text-underline-offset: 4px), underline-offset-8: (text-underline-offset: 8px),
+);
+$columns: ();
+@each $n in (1, 2, 3, 4) { $columns: map.merge($columns, ('columns-#{$n}': (column-count: $n))); }
+
+// ---- Groups: transforms (individual properties, so they combine) ----
+$transform: (
+  translate-center: (translate: -50% -50%), translate-x-n50: (translate: -50% 0), translate-y-n50: (translate: 0 -50%),
+  center-abs: (position: absolute, top: 50%, left: 50%, translate: -50% -50%),
+  flip-x: (scale: -1 1), flip-y: (scale: 1 -1),
+);
+@each $n in (1, 3, 6, 12, 45, 90, 180) {
+  $transform: map.merge($transform, ('rotate-#{$n}': (rotate: $n * 1deg), 'rotate-n#{$n}': (rotate: $n * -1deg)));
+}
+@each $n in (50, 75, 90, 95, 100, 105, 110, 125) {
+  $transform: map.merge($transform, ('scale-#{$n}': (scale: $n * .01)));
+}
+
+// ---- Groups: filters, blend and overlays ----------------------
+$effects: (
+  blur-sm: (filter: blur(4px)), blur-md: (filter: blur(8px)), blur-lg: (filter: blur(16px)),
+  brightness-110: (filter: brightness(1.1)), brightness-125: (filter: brightness(1.25)), contrast-125: (filter: contrast(1.25)),
+  grayscale-0: (filter: none), invert: (filter: invert(1)), sepia: (filter: sepia(1)),
+  backdrop-blur-sm: (-webkit-backdrop-filter: blur(4px), backdrop-filter: blur(4px)),
+  backdrop-blur-md: (-webkit-backdrop-filter: blur(12px), backdrop-filter: blur(12px)),
+  backdrop-blur-lg: (-webkit-backdrop-filter: blur(24px), backdrop-filter: blur(24px)),
+  mix-multiply: (mix-blend-mode: multiply), mix-screen: (mix-blend-mode: screen), mix-difference: (mix-blend-mode: difference), mix-overlay: (mix-blend-mode: overlay),
+  isolate: (isolation: isolate),
+  // Scrims: put on an absolute inset-0 layer over a photo so text stays readable.
+  scrim-b: (background-image: linear-gradient(to top, rgb(0 0 0 / .72), rgb(0 0 0 / 0) 65%)),
+  scrim-t: (background-image: linear-gradient(to bottom, rgb(0 0 0 / .6), rgb(0 0 0 / 0) 50%)),
+  scrim-full: (background-color: rgb(0 0 0 / .45)),
+  scrim-light-b: (background-image: linear-gradient(to top, rgb(255 255 255 / .9), rgb(255 255 255 / 0) 65%)),
+);
+
+// ---- Groups: scroll, touch and cursor --------------------------
+$interaction: (
+  scrollbar-none: (scrollbar-width: none), overscroll-none: (overscroll-behavior: none),
+  touch-none: (touch-action: none), touch-pan-x: (touch-action: pan-x), touch-pan-y: (touch-action: pan-y),
+  appearance-none: (appearance: none, -webkit-appearance: none), resize-none: (resize: none), resize-y: (resize: vertical),
+  cursor-zoom-in: (cursor: zoom-in), cursor-move: (cursor: move), cursor-help: (cursor: help), cursor-wait: (cursor: wait),
+  z-n1: (z-index: -1), z-60: (z-index: 60), z-100: (z-index: 100), z-max: (z-index: 2147483000),
+  aspect-4-5: (aspect-ratio: list.slash(4, 5)), aspect-5-4: (aspect-ratio: list.slash(5, 4)), aspect-2-1: (aspect-ratio: list.slash(2, 1)),
+  object-scale-down: (object-fit: scale-down),
+  ring-2: (outline: 2px solid currentColor, outline-offset: -2px),
+);
+@each $k, $v in $space { $interaction: map.merge($interaction, ('scroll-mt-#{$k}': (scroll-margin-top: $v))); }
+
+// ---- Families that already exist by hand (only their responsive copies) ----
+$display: (block: (display: block), inline: (display: inline), inline-block: (display: inline-block), flex: (display: flex), inline-flex: (display: inline-flex), grid-d: (display: grid), hidden: (display: none), contents: (display: contents));
+$position: (static: (position: static), relative: (position: relative), absolute: (position: absolute), fixed: (position: fixed), sticky: (position: sticky));
+$flex: (
+  flex-row: (flex-direction: row), flex-col: (flex-direction: column), flex-row-reverse: (flex-direction: row-reverse), flex-col-reverse: (flex-direction: column-reverse),
+  wrap: (flex-wrap: wrap), nowrap: (flex-wrap: nowrap),
+  justify-start: (justify-content: flex-start), justify-center: (justify-content: center), justify-end: (justify-content: flex-end), justify-between: (justify-content: space-between), justify-around: (justify-content: space-around), justify-evenly: (justify-content: space-evenly),
+  items-start: (align-items: flex-start), items-center: (align-items: center), items-end: (align-items: flex-end), items-stretch: (align-items: stretch), items-baseline: (align-items: baseline),
+  self-start: (align-self: flex-start), self-center: (align-self: center), self-end: (align-self: flex-end), self-stretch: (align-self: stretch),
+  content-start: (align-content: flex-start), content-center: (align-content: center), content-end: (align-content: flex-end), content-between: (align-content: space-between),
+  flex-1: (flex: 1 1 0, min-width: 0), grow: (flex: 1 1 auto), shrink-0: (flex-shrink: 0), flex-none: (flex: none),
+  order-first: (order: -1), order-0: (order: 0), order-1: (order: 1), order-2: (order: 2), order-3: (order: 3), order-last: (order: 999),
+);
+$type: (
+  text-left: (text-align: left), text-center: (text-align: center), text-right: (text-align: right), text-justify: (text-align: justify),
+  text-xs: (font-size: var(--dg-text-xs)), text-sm: (font-size: var(--dg-text-sm)), text-base: (font-size: var(--dg-text-base)), text-lg: (font-size: var(--dg-text-lg)),
+  text-xl: (font-size: var(--dg-text-xl)), text-2xl: (font-size: var(--dg-text-2xl)), text-3xl: (font-size: var(--dg-text-3xl)), text-4xl: (font-size: var(--dg-text-4xl)), text-5xl: (font-size: var(--dg-text-5xl)),
+);
+
+// ---- Output --------------------------------------------------
+@mixin emit($group, $prefix: '') {
+  @each $name, $decls in $group {
+    .dg-#{$prefix}#{$name} { @each $prop, $val in $decls { #{$prop}: $val; } }
+  }
+}
+
+// New families (spacing replaces the old hand-written 0–6 steps).
+@mixin base {
+  @include emit($margin);
+  @include emit($padding);
+  @include emit($gap);
+  @include emit($width);
+  @include emit($min-width);
+  @include emit($max-width);
+  @include emit($height);
+  @include emit($min-height);
+  @include emit($max-height);
+  @include emit($square);
+  @include emit($offsets);
+  @include emit($grid);
+  @include emit($rounded);
+  @include emit($extra);
+  @include emit($color);
+  @include emit($type-big);
+  @include emit($type-extra);
+  @include emit($columns);
+  @include emit($transform);
+  @include emit($effects);
+  @include emit($interaction);
+  @include states;
+}
+
+// ---- Rules that need selectors (children, states, themes, print) ----
+$line: color-mix(in oklab, currentColor 18%, transparent);
+@mixin states {
+  .dg-scrollbar-none::-webkit-scrollbar { display: none; }
+  // Responsive sticky starts at the top unless a .dg-top-* says otherwise.
+  :where(.dg-md-sticky, .dg-lg-sticky, .dg-xl-sticky) { top: 0; }
+
+  // Space and lines between children (lines are a 1px background, so the
+  // flat reset that removes borders leaves them alone).
+  @each $k, $v in $space {
+    .dg-space-y-#{$k} > * + * { margin-top: $v; }
+    .dg-space-x-#{$k} > * + * { margin-left: $v; }
+  }
+  .dg-divide-y > * + * {
+    background-image: linear-gradient($line, $line);
+    background-repeat: no-repeat; background-size: 100% 1px; background-position: top;
+  }
+  .dg-divide-x > * + * {
+    background-image: linear-gradient($line, $line);
+    background-repeat: no-repeat; background-size: 1px 100%; background-position: left;
+  }
+
+  // Hover on the element itself, and on a child when its .dg-group parent
+  // is hovered or focused (cards, links with arrows, image zoom).
+  $moves: '.dg-hover-lift, .dg-hover-scale-105, .dg-hover-opacity-75, .dg-hover-opacity-100, [class*="dg-group-hover-"]';
+  #{$moves} { transition: translate var(--dg-dur-slow, .5s) var(--dg-ease), scale var(--dg-dur-slow, .5s) var(--dg-ease), opacity var(--dg-dur, .2s) var(--dg-ease); }
+  .dg-hover-lift:is(:hover, :focus-visible)       { translate: 0 -4px; }
+  .dg-hover-scale-105:is(:hover, :focus-visible)  { scale: 1.05; }
+  .dg-hover-opacity-75:is(:hover, :focus-visible) { opacity: .75; }
+  .dg-hover-opacity-100:is(:hover, :focus-visible) { opacity: 1; }
+  .dg-hover-underline:is(:hover, :focus-visible)  { text-decoration: underline; text-underline-offset: 3px; }
+  .dg-hover-bg-surface-2:is(:hover, :focus-visible) { background-color: var(--dg-surface-2); }
+  .dg-hover-bg-surface-3:is(:hover, :focus-visible) { background-color: var(--dg-surface-3); }
+  .dg-group:is(:hover, :focus-visible, :focus-within) {
+    .dg-group-hover-scale-105 { scale: 1.05; }
+    .dg-group-hover-scale-110 { scale: 1.1; }
+    .dg-group-hover-opacity-100 { opacity: 1; }
+    .dg-group-hover-opacity-75 { opacity: .75; }
+    .dg-group-hover-underline { text-decoration: underline; text-underline-offset: 3px; }
+    .dg-group-hover-nudge { translate: 3px -3px; }
+    .dg-group-hover-x { translate: 4px 0; }
+    .dg-group-hover-lift { translate: 0 -4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #{$moves} { transition: none; }
+  }
+
+  // Show something only in one theme (e.g. a light and a dark logo).
+  [data-theme="dark"] .dg-only-light { display: none !important; }
+  .dg-only-dark { display: none !important; }
+  [data-theme="dark"] .dg-only-dark { display: revert !important; }
+
+  // Print.
+  .dg-print-only { display: none !important; }
+  @media print {
+    .dg-print-hidden { display: none !important; }
+    .dg-print-only { display: revert !important; }
+    .dg-print-break-before { break-before: page; }
+    .dg-print-break-after { break-after: page; }
+  }
+}
+
+// Layout families behind a breakpoint prefix. Included last, so a
+// responsive class wins over any base class at the same specificity.
+@mixin responsive {
+  @each $bp, $min in $breakpoints {
+    @media (min-width: $min) {
+      @include emit($display, '#{$bp}-');
+      @include emit($position, '#{$bp}-');
+      @include emit($flex, '#{$bp}-');
+      @include emit($grid, '#{$bp}-');
+      @include emit($gap, '#{$bp}-');
+      @include emit($margin-responsive, '#{$bp}-');
+      @include emit($padding, '#{$bp}-');
+      @include emit($type, '#{$bp}-');
+      @include emit($type-big, '#{$bp}-');
+      @include emit($columns, '#{$bp}-');
+      @include emit(only-fluid($width), '#{$bp}-');
+      @include emit(only-fluid($max-width), '#{$bp}-');
+      @include emit(only-fluid($height), '#{$bp}-');
+      @include emit(only-fluid($min-height), '#{$bp}-');
+    }
+  }
+}

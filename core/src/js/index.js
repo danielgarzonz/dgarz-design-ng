@@ -83,7 +83,8 @@ function init(ctx) {
   $all('.dg-combobox',   ctx).forEach(wireCombobox);
   $all('[data-mask],[data-mask-pattern]', ctx).forEach(wireMask);
   $all('[data-currency]', ctx).forEach(wireCurrency);
-  $all('[data-tip]',     ctx).forEach(wireTooltip);
+  // .dg-tooltip draws its own bubble with CSS; the JS tooltip is for the rest.
+  $all('[data-tip]:not(.dg-tooltip)', ctx).forEach(wireTooltip);
   $all('.dg-gallery',    ctx).forEach(wireGallery);
   $all('.dg-faq',        ctx).forEach(wireFAQ);
   $all('.dg-nav-item-toggle', ctx).forEach(wireNavToggle);

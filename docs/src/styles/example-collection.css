@@ -25,8 +25,8 @@
 .doc-gallery-open { color:#0066cc; }
 [data-theme="dark"] .doc-gallery-open { color:#73b8ff; }
 .preview-stage { --pv-blue:#005fcc; --pv-ink:#101010; --dg-text:#101010; --dg-text-muted:#62626b; --dg-text-faint:#65656f; height:300px; padding:24px 30px 0; overflow:hidden; background:#edf0f3; color:var(--pv-ink); font-family:var(--dg-font-sans); user-select:none; }
-.preview-window { max-width:400px; height:300px; margin:auto; background:#fff; border:1px solid #e1e3e6; border-radius:10px 10px 0 0; overflow:hidden; box-shadow:0 12px 28px #1425360d; }
-.preview-bar { display:flex; align-items:center; gap:12px; border-bottom:1px solid #eee; padding:10px 16px; font-size:8px; color:#727272; }
+.preview-window { max-width:400px; height:300px; margin:auto; background:#fff; border-radius:10px 10px 0 0; overflow:hidden; }
+.preview-bar { display:flex; align-items:center; gap:12px; padding:10px 16px; font-size:8px; color:#727272; }
 .preview-logo { color:var(--pv-blue); font-size:20px; font-weight:700; line-height:1; letter-spacing:-.08em; }
 .preview-bar i { width:16px; height:16px; background:#d6eaff; border-radius:50%; margin-left:auto; }
 .preview-content { position:relative; padding:18px; }
@@ -34,8 +34,8 @@
 .preview-content h4 span { color:var(--pv-blue); }
 .preview-content p { font-size:9px; color:#666; margin:0 0 12px; }
 .preview-cover { height:52px; margin:-18px -18px 0; background:#d6eaff; background-image:linear-gradient(120deg,transparent 60%,#a6d2ff 60%); }
-.preview-avatar { display:grid; place-items:center; position:relative; width:36px; height:36px; margin-top:-18px; border:3px solid white; background:#005fcc; border-radius:8px; color:white; font-size:10px; }
-.preview-stats { display:flex; gap:28px; padding:10px 0; border-block:1px solid #eee; font-size:17px; }
+.preview-avatar { display:grid; place-items:center; position:relative; width:36px; height:36px; margin-top:-18px; background:#005fcc; border-radius:8px; color:white; font-size:10px; }
+.preview-stats { display:flex; gap:28px; padding:10px 0; font-size:17px; }
 .preview-stats small, .preview-row small { display:block; font-size:8px; font-weight:400; color:#666; margin-top:4px; }
 .preview-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:10px; }
 .preview-tiles i { height:50px; background:#e5f1ff; border-radius:5px; }
@@ -69,7 +69,7 @@
 .preview-editorial .preview-cta { grid-column:1/-1; }
 
 .preview-stage.is-mobile { padding-top:20px; background:#e5f1ff; }
-.is-mobile .preview-window { width:208px; height:350px; border-radius:22px 22px 0 0; border:5px solid #151515; }
+.is-mobile .preview-window { width:208px; height:350px; border-radius:22px 22px 0 0; }
 .is-mobile .preview-bar { padding:10px; }
 .is-mobile .preview-content { padding:14px; }
 .is-mobile .preview-content h4 { font-size:20px; }

@@ -23,7 +23,12 @@
     "build:wrappers": "npm run build --workspace=dgarz-design-react && npm run build --workspace=dgarz-design-vue && npm run build --workspace=dgarz-design-angular",
     "verify:wrappers": "npm run build && node scripts/verify-wrappers.mjs",
     "verify:button-classes": "npm run verify:button-classes --workspace=core",
-    "verify:glass": "npm run verify:glass --workspace=core"
+    "verify:glass": "npm run verify:glass --workspace=core",
+    "check:size": "node core/scripts/check-size.mjs",
+    "verify:classes": "node docs/scripts/verify-classes.mjs",
+    "verify:styles": "node docs/scripts/verify-styles.mjs",
+    "ci": "npm run build --workspace=core && npm test && npm run check:size && npm run verify:package && npm run verify:hydrate && npm run verify:glass && npm run verify:button-classes && node docs/scripts/copy-core.mjs && npm run build:docs:only && npm run verify:classes",
+    "build:docs:only": "npm run build --workspace=docs --ignore-scripts"
   },
   "devDependencies": {
     "@angular/common": "^20.3.34",

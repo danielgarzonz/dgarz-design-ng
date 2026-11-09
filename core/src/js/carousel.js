@@ -17,7 +17,40 @@ export function wireCarousel(el) {
   if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', 'Diapositivas');
   var current = 0;
 
+  // Focus variant: the active item sits in the center at full size and the
+  // others shrink with their distance (circular, so it loops). Positions are
+  // CSS variables (--dg-focus-x / -s / -o / -z) the stylesheet transitions.
+  var focus = el.classList.contains("dg-carousel-focus");
+  var FOCUS_SCALES = [1, 0.7, 0.5, 0.4];
+  function layoutFocus() {
+    var w = items[0].offsetWidth;
+    var gap = parseFloat(getComputedStyle(el).getPropertyValue("--dg-focus-gap")) || 12;
+    items.forEach(function (it, i) {
+      var d = ((i - current) % total + total) % total;
+      if (d > total / 2) d -= total;
+      var a = Math.abs(d);
+      var x = 0;
+      for (var k = 1; k <= a; k++) {
+        x += w * FOCUS_SCALES[Math.min(k - 1, 3)] / 2 + gap + w * FOCUS_SCALES[Math.min(k, 3)] / 2;
+      }
+      it.style.setProperty("--dg-focus-x", (d < 0 ? -x : x) + "px");
+      it.style.setProperty("--dg-focus-s", FOCUS_SCALES[Math.min(a, 3)]);
+      it.style.setProperty("--dg-focus-o", a >= 3 ? 0 : 1);
+      it.style.setProperty("--dg-focus-z", 10 - a);
+      it.classList.toggle("is-active", a === 0);
+      it.setAttribute("aria-hidden", String(a !== 0));
+      it.setAttribute("role", "group");
+      it.setAttribute("aria-label", (i + 1) + " de " + total);
+    });
+  }
+
   function goTo(n) {
+    if (focus) {
+      current = ((n % total) + total) % total;
+      layoutFocus();
+      el.dispatchEvent(new CustomEvent("dg:slide", { detail: { index: current }, bubbles: true }));
+      return;
+    }
     var visible = visibleCount();
     var positions = total - visible + 1;
     current = ((n % positions) + positions) % positions;
@@ -91,5 +124,23 @@ export function wireCarousel(el) {
   window.addEventListener('resize', function () { goTo(current); });
 
   el.__dgGoTo = goTo;
-  goTo(0);
+  if (focus) {
+    // Entrance: every slide starts stacked in the center and then spreads out
+    // to its place (slower transition while .is-entering is on).
+    items.forEach(function (it, i) {
+      it.style.setProperty("--dg-focus-x", "0px");
+      it.style.setProperty("--dg-focus-s", "1");
+      it.style.setProperty("--dg-focus-o", "1");
+      it.style.setProperty("--dg-focus-z", i === 0 ? 10 : 1);
+    });
+    el.classList.add("is-entering");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        goTo(0);
+        setTimeout(function () { el.classList.remove("is-entering"); }, 1700);
+      });
+    });
+  } else {
+    goTo(0);
+  }
 }

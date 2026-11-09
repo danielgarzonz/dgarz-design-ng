@@ -113,9 +113,6 @@
    minmax, two columns still fit at 640px but look desktop-sized — tighten them. */
 @media (max-width: 640px) {
   .dg-grid.dg-grid-auto { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dg-space-3); }
-  .dg-grid.dg-grid-auto .dg-card { min-height: 150px; }
-  .dg-grid.dg-grid-auto .dg-card-body { padding: var(--dg-space-3); }
-  .dg-grid.dg-grid-auto .dg-avatar { width: 36px; height: 36px; font-size: 1rem; }
 }
 
 .dg-section { padding-block: var(--dg-space-8); }
@@ -134,13 +131,7 @@
   flex-wrap: wrap;
   gap: var(--dg-actions-gap);
 }
-.dg-actions > :is(button, .dg-btn) {
-  flex: 0 0 auto;
-  width: auto;
-  white-space: nowrap;
-}
-/* Escape hatch for a label too long to fit any viewport on one line. */
-.dg-actions > .dg-actions-wrap { white-space: normal; }
+/* Buttons inside .dg-actions: see components/_contexts.scss. */
 .dg-actions > .dg-actions-search {
   flex: 1 1 var(--dg-actions-search-basis);
   min-width: 0;

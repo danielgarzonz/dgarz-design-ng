@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: Build, tests and checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Build framework (components + CSS + JS)
+        run: npm run build --workspace=core
+      - name: Unit tests
+        run: npx vitest run
+        working-directory: core
+      - name: Size budget and !important budget
+        run: node core/scripts/check-size.mjs
+      - name: Package, hydration, glass and button checks
+        run: |
+          npm run verify:package --workspace=core
+          npm run verify:hydrate --workspace=core
+          npm run verify:glass --workspace=core
+          npm run verify:button-classes --workspace=core
+
+      - name: Build docs
+        run: |
+          node docs/scripts/copy-core.mjs
+          npm run build:docs:only
+        env:
+          ASTRO_TELEMETRY_DISABLED: 1
+      - name: Every dg-* class used in the docs exists, no style="" in designs
+        run: node docs/scripts/verify-classes.mjs
+
+  styles:
+    name: Style regression vs base branch
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    # Intended visual changes: add the "style-change" label to the PR.
+    continue-on-error: ${{ contains(github.event.pull_request.labels.*.name, 'style-change') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Build reference CSS from the base branch
+        run: |
+          git worktree add ../base origin/${{ github.base_ref }}
+          mkdir -p ../base-css
+          npx sass ../base/core/src/scss/dgarz.scss:../base-css/dgarz.css \
+                   ../base/core/src/scss/dgarz-full.scss:../base-css/dgarz.full.css \
+                   ../base/core/src/scss/dgarz-app.scss:../base-css/dgarz-app.css --no-source-map
+      - name: Build this branch and the docs
+        run: |
+          npm run build:legacy --workspace=core
+          node docs/scripts/copy-core.mjs
+          npm run build:docs:only
+        env:
+          ASTRO_TELEMETRY_DISABLED: 1
+      - name: Serve the docs
+        run: |
+          npm run preview --workspace=docs -- --port 4321 &
+          for i in $(seq 1 60); do curl -sf http://localhost:4321/ >/dev/null && break; sleep 1; done
+      - name: Compare computed styles on every page and hero
+        run: node docs/scripts/verify-styles.mjs --base ../base-css --url http://localhost:4321 --out style-report.txt
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: style-report
+          path: style-report.txt
+          if-no-files-found: ignore

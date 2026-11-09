@@ -27,7 +27,7 @@ Los tokens públicos utilizan el prefijo `--dgarz-` y se distribuyen en `dgarz-d
 
 ## Publicación y compatibilidad
 
-El nuevo punto de entrada raíz sustituye la API global anterior y requiere una versión mayor. Esta rama prepara `2.0.0-alpha.0`; no se publica automáticamente. `dgarz-design/legacy` permite migrar el comportamiento anterior de forma explícita. Los artefactos CSS y UMD anteriores conservan sus rutas.
+En 1.2.0 el Core de componentes se publica en `dgarz-design/core` y la raíz del paquete conserva el JS clásico de 1.1.0 (`import` y `require`), así que actualizar no rompe a nadie; sus tipos son solo de tipos (`dist/root.d.mts`). Cambiar la raíz al Core requiere una versión mayor (2.0). `dgarz-design/legacy` permite migrar el comportamiento anterior de forma explícita. Los artefactos CSS y UMD anteriores conservan sus rutas.
 
 El punto de entrada raíz registra los Custom Elements compilados por Stencil y debe conservarse como efecto secundario en bundlers. El runtime de Stencil se incluye en la salida (`externalRuntime: false`).
 

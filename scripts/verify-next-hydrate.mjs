@@ -86,7 +86,7 @@ export function HydrateClient({ rootId }) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const mod = await import('dgarz-design');
+      const mod = await import('dgarz-design/core');
       mod.defineCustomElements();
       await customElements.whenDefined('dgarz-button');
       if (cancelled) return;

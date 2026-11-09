@@ -186,3 +186,37 @@
 @media (prefers-reduced-motion: reduce) {
   .dg-carousel-item.is-active :is(.dg-carousel-caption > *, .dg-carousel-slide > div > *, .dg-carousel-text) { animation: none; }
 }
+
+/* ---- Focus variant: active item centered and largest -------------------
+   carousel.js places every item with --dg-focus-x / -s / -o / -z by its
+   distance to the active one (1, .7, .5, .4); items 3+ away fade out so
+   the loop never shows an item crossing the screen. Size the stage with
+   --dg-focus-w (item width) or a height utility on the carousel. */
+.dg-carousel.dg-carousel-focus {
+  --dg-focus-w: min(70vw, 42svh);
+  --dg-focus-gap: var(--dg-space-3);
+  position: relative;
+  height: calc(var(--dg-focus-w) * 1.25);
+  border-radius: 0; background: none; box-shadow: none;
+}
+/* Sizes: small for a strip inside a layout, large for a full stage. */
+.dg-carousel.dg-carousel-focus.dg-focus-sm { --dg-focus-w: min(40vw, 20svh); --dg-focus-gap: var(--dg-space-2); }
+.dg-carousel.dg-carousel-focus.dg-focus-lg { --dg-focus-w: min(80vw, 52svh); }
+.dg-carousel-focus .dg-carousel-inner { position: relative; display: block; height: 100%; transform: none; }
+.dg-carousel-focus .dg-carousel-item {
+  position: absolute; top: 50%; left: 50%;
+  width: var(--dg-focus-w); aspect-ratio: 4 / 5;
+  transform: translate(-50%, -50%) translateX(var(--dg-focus-x, 0px)) scale(var(--dg-focus-s, 1));
+  opacity: var(--dg-focus-o, 1);
+  z-index: var(--dg-focus-z, 1);
+  transition: transform .9s var(--dg-ease-motion), opacity .6s var(--dg-ease-motion);
+}
+/* Entrance: slides spread out from the center, slower than a step. */
+.dg-carousel-focus.is-entering .dg-carousel-item {
+  transition-duration: 1.6s, 1s;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .dg-carousel-focus .dg-carousel-item { transition: none; }
+}
+

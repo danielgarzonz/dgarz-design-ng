@@ -1,0 +1,127 @@
+/* Docs code block (.doc-code): window chrome, copy button and Prism token
+   colors. Shared by DocsLayout and the full-screen hero view. */
+/* ---- code block — window style, follows the theme ----
+   Light by default (soft gray surface, dark text, light syntax palette);
+   the previous dark terminal palette applies in dark mode. */
+.doc-code {
+  --code-bg: #f6f6f7;
+  --code-bar: #ececee;
+  --code-bar-line: #dcdce0;
+  --code-fg: #24292f;
+  --code-muted: #8c8c94;
+  --code-btn-bg: #e2e2e6;
+  --code-btn-fg: #57606a;
+  --code-btn-hover-bg: #d4d4d8;
+  --code-btn-hover-fg: #24292f;
+  --code-scroll: #c8c8ce;
+  --tk-comment: #5f6872; /* 5.2:1 on #f6f6f7 (was 4.2) */ --tk-tag: #116329; --tk-punct: #57606a; --tk-attr: #0550ae;
+  --tk-string: #0a3069; --tk-keyword: #cf222e; --tk-selector: #953800; --tk-property: #0550ae;
+  --tk-number: #0550ae; --tk-function: #8250df;
+  position: relative;
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border-radius: var(--dg-radius-lg);
+  margin: var(--dg-space-5) 0;
+  font-size: var(--dg-text-xs);
+  overflow: hidden;
+  box-shadow: none;
+  /* Standalone blocks get the same edge as .doc-example (light blocks would
+     otherwise blend into the page); outline survives the flat border reset. */
+  outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+}
+[data-theme="dark"] .doc-code {
+  --code-bg: #0d1117;
+  --code-bar: #161b22;
+  --code-bar-line: #21262d;
+  --code-fg: #e4e4e7;
+  --code-muted: #484f58;
+  --code-btn-bg: #21262d;
+  --code-btn-fg: #8b949e;
+  --code-btn-hover-bg: #30363d;
+  --code-btn-hover-fg: #e6edf3;
+  --code-scroll: #30363d;
+  --tk-comment: #848d97; /* 5.6:1 on #0d1117 (was 4.1) */ --tk-tag: #7dd3fc; --tk-punct: #7dd3fc; --tk-attr: #7ee787;
+  --tk-string: #a5d6ff; --tk-keyword: #ff7b72; --tk-selector: #ffa657; --tk-property: #79c0ff;
+  --tk-number: #f2cc60; --tk-function: #d2a8ff;
+}
+/* macOS chrome bar */
+.doc-code::before {
+  content: '';
+  display: block;
+  height: 40px;
+  background-color: var(--code-bar);
+  background-image:
+    radial-gradient(circle, #ff5f57 5.5px, transparent 5.5px),
+    radial-gradient(circle, #febc2e 5.5px, transparent 5.5px),
+    radial-gradient(circle, #28c840 5.5px, transparent 5.5px);
+  background-size: 11px 11px, 11px 11px, 11px 11px;
+  background-position: 14px center, 30px center, 46px center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+/* language label centered in bar */
+.doc-code[data-lang]::after {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--dg-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--code-muted);
+  pointer-events: none;
+}
+.doc-code pre {
+  padding: var(--dg-space-5);
+  margin: 0;
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-family: var(--dg-font-mono);
+  scrollbar-width: thin;
+  scrollbar-color: var(--code-scroll) transparent;
+}
+.doc-code pre::-webkit-scrollbar { height: 5px; }
+.doc-code pre::-webkit-scrollbar-thumb { background: var(--code-scroll); border-radius: 4px; }
+/* copy button — inside chrome bar */
+.doc-code .cp {
+  position: absolute;
+  top: 8px; right: 12px;
+  height: 24px;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--code-btn-bg);
+  border: 0;
+  color: var(--code-btn-fg);
+  border-radius: var(--dg-radius-sm);
+  padding: 0 0.65em;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.doc-code .cp:hover {
+  background: var(--code-btn-hover-bg);
+  color: var(--code-btn-hover-fg);
+}
+.doc-code .cp.is-copied {
+  background: var(--dg-success-subtle);
+  color: var(--dg-on-success-subtle);
+}
+/* ---- Prism token colors (theme-aware via --tk-*) ---- */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--tk-comment); font-style: italic; }
+.token.tag, .token.punctuation { color: var(--tk-punct); }
+.token.tag .token.tag { color: var(--tk-tag); }
+.token.attr-name { color: var(--tk-attr); }
+.token.attr-value, .token.string { color: var(--tk-string); }
+.token.keyword, .token.boolean, .token.important { color: var(--tk-keyword); }
+.token.selector, .token.class, .token.builtin { color: var(--tk-selector); }
+.token.property { color: var(--tk-property); }
+.token.number { color: var(--tk-number); }
+.token.function { color: var(--tk-function); }
+.token.operator { color: var(--tk-keyword); }
+.token.unit, .token.pseudo-class, .token.pseudo-element { color: var(--tk-selector); }
+.token.atrule { color: var(--tk-selector); }
+.token.url { color: var(--tk-string); text-decoration: underline; }

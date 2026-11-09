@@ -43,7 +43,6 @@
   overflow: hidden;
   border-radius: var(--dg-radius-xl);
   padding: var(--dg-space-6);
-  border: 1px solid color-mix(in oklab, var(--dg-border) 70%, transparent);
 }
 
 .doc-stage > * { position: relative; z-index: 1; }
@@ -125,7 +124,6 @@
 /* ---- Grid documentation cell --------------------------------- */
 .doc-grid-cell {
   background: var(--dg-surface-3);
-  border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius-sm);
   padding: var(--dg-space-3);
   text-align: center;

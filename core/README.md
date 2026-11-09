@@ -20,7 +20,7 @@ Este ejemplo corresponde al código de esta rama; hasta su publicación npm pued
 
 ```js
 import 'dgarz-design/tokens';
-import 'dgarz-design'; // registra los Custom Elements disponibles
+import 'dgarz-design/core'; // registra los Custom Elements disponibles
 ```
 
 ```html
@@ -46,7 +46,7 @@ document.querySelector('dgarz-button').addEventListener('dgarz-click', () => {
 | Vue 3.5 | `dgarz-design-vue` | `@dgarz-click` |
 | Angular 20.3 | `dgarz-design-angular` | `(dgarz-click)` |
 
-Todos siguen en versión local `2.0.0-alpha.0`, sin publicar. El Core no incorpora los frameworks a su runtime. La guía está en [Frameworks](http://192.168.100.6:4321/comenzar/frameworks), accesible desde [la entrada de documentación](http://192.168.100.6:4321/comenzar/intro).
+El Core se publica en `dgarz-design/core` desde la 1.2.0 (la raíz del paquete sigue siendo el JS clásico); los adaptadores siguen sin publicar. El Core no incorpora los frameworks a su runtime. La guía está en [Frameworks](http://192.168.100.6:4321/comenzar/frameworks), accesible desde [la entrada de documentación](http://192.168.100.6:4321/comenzar/intro).
 
 Desde la raíz: `npm run build` genera y compila Core y wrappers; `npm run verify:wrappers` instala sus tarballs en un consumidor limpio y verifica tipos, plantillas Angular y comportamiento en Chromium. Instala previamente el navegador de Playwright. La instalación del consumidor puede necesitar la red; `DGARZ_OFFLINE=1` exige una caché completa. Las carpetas temporales se conservan si hay un fallo.
 

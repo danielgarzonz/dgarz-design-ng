@@ -22,9 +22,14 @@
       background: var(--dg-overlay-chrome);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
+      animation: pub-nav-enter 1.5s cubic-bezier(.25, .75, .25, 1) backwards;
       transition: transform var(--dg-dur-motion) var(--dg-ease-motion), background var(--dg-dur-motion) var(--dg-ease-motion);
     }
-    .pub-nav.is-hidden { transform: translateY(-100%); }
+    @keyframes pub-nav-enter {
+      from { translate: 0 calc(-100% - 1px); }
+      to { translate: 0 0; }
+    }
+    .pub-nav.is-hidden { transform: translateY(-100%); animation: none; }
 
 
     /* Móvil: las opciones viven dentro del header, que crece y se reduce. */
@@ -80,7 +85,7 @@
     }
     .pub-menu-backdrop { display: none; }
     .pub-brand { font-family: var(--dg-font-serif); font-weight: var(--dg-weight-semi); }
-    .pub-nav > .pub-brand { grid-area: brand; justify-self: center; white-space: nowrap; }
+    .pub-nav > .pub-brand { font-size: 1.2rem; grid-area: brand; justify-self: center; white-space: nowrap; }
     .pub-nav > .pub-nav-start {
       grid-area: nav; justify-self: start;
       display: flex; align-items: center; gap: var(--dg-space-2);
@@ -90,7 +95,7 @@
     .pub-version {
       min-width: 0; max-width: 100%;
       font-family: var(--dg-font-mono);
-      font-size: var(--dg-text-xs);
+      font-size: .8125rem;
       font-weight: var(--dg-weight-medium);
       letter-spacing: -0.03em;
       color: var(--dg-text-faint);
@@ -106,6 +111,8 @@
     .pub-version:hover { color: var(--dg-text); background: var(--dg-surface-3); }
     /* El texto del primer enlace se alinea con la tangente; su píldora de hover sobresale. */
     .pub-nav-start .dg-navbar-nav { flex-shrink: 0; margin-inline-start: -0.25em; }
+    .pub-nav .dg-navbar-nav .dg-nav-link,
+    .pub-nav .pub-docs-btn { font-size: 1rem; }
     .pub-nav > .pub-actions { grid-area: actions; justify-self: end; }
     .pub-nav > .pub-menu { grid-area: menu; }
     .pub-actions {
@@ -149,17 +156,24 @@
     .dg-navbar.pub-nav { min-height: 60px; }
     @media (min-width: 861px) {
       .dg-navbar.pub-nav {
-        width: 100%;
-        margin-inline: 0;
-        padding-inline: max(var(--dg-space-5), calc((100% - 1320px) / 2 + var(--dg-space-5)));
-        border-radius: 0;
+        --pub-nav-radius: 55px;
       }
     }
     @media (max-width: 860px) {
-      .pub-docs-btn, .pub-nav-start .dg-navbar-nav { display: none; }
+      .pub-docs-btn, .pub-nav .pub-desktop-links { display: none; }
       .pub-nav .pub-menu-btn,
       .pub-nav .doc-menu-btn { display: inline-flex; }
       .pub-menu { display: grid; }
+      .pub-actions { gap: 2px; }
+      .pub-nav .pub-actions > button,
+      .pub-nav .pub-actions > button:hover {
+        background: none;
+        color: var(--dg-text);
+        flex-basis: 32px; width: 32px; height: 44px;
+        border-radius: 0;
+      }
+      .pub-nav .pub-actions > button + button { margin-inline-start: 0; }
+      .pub-nav .pub-actions > button svg { width: 18px; height: 18px; }
       .dg-navbar.pub-nav {
         width: 100%;
         padding-left: max(var(--pub-nav-inset), env(safe-area-inset-left, 0px));
@@ -206,5 +220,20 @@
     /* (El radio baja a 32px en ≤380px desde el token --dg-bar-radius.) */
     @media (prefers-reduced-motion: reduce) {
       .pub-nav, .pub-menu, .pub-menu-backdrop { transition: none; }
+      .dg-navbar.pub-nav { animation: none; }
       .pub-nav.is-open .pub-menu-list > * { animation: none; }
     }
+
+/* Text links in the top bar and its mobile menu. */
+.dg-navbar.pub-nav .dg-nav-link {
+  border-radius: 0;
+  background: transparent;
+  text-decoration: none;
+}
+.dg-navbar.pub-nav .dg-nav-link:hover {
+  background: transparent;
+}
+.dg-navbar.pub-nav .dg-nav-link[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}

@@ -123,6 +123,10 @@
   --dg-font-serif: "Gambetta", Georgia, "Times New Roman", serif;
   --dg-font-sans:  "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --dg-font-mono:  "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Condensed display face for poster-style titles. The framework does not
+     load it: add the Anton link (Google Fonts) where it is used; otherwise the
+     next fonts in the stack apply. */
+  --dg-font-condensed: "Anton", "Bebas Neue", "Oswald", Impact, "Arial Narrow Bold", sans-serif;
 
   /* Semantic heading family — defaults to the serif (dgarz's signature look).
      Override to var(--dg-font-sans) for a sans-only identity without local CSS. */
@@ -227,6 +231,12 @@
   --dg-ease-content: cubic-bezier(.4, 0, .2, 1); /* even fade, clearly visible */
   /* Header/footer chrome of modals and drawers; matches the iPhone status bar. */
   --dg-overlay-chrome: #f8f8f8;
+  /* Editorial surfaces (fixed in both themes): warm neutrals and a graphite
+     panel for poster/editorial layouts. See .dg-bg-sand, -cream, -graphite. */
+  --dg-sand: #ebe5d9;
+  --dg-sand-deep: #e1d9ca;
+  --dg-cream: #f8e9cf;
+  --dg-graphite: #2a2a2a;
   /* Cards: a flat tinted surface (no border, no shadow) that separates them from the page. */
   --dg-card-bg: #f8f8f8;
   --dg-dur-indicator: .45s; /* sliding active indicator in tabs / segmented */

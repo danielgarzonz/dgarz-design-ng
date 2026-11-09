@@ -1,8 +1,17 @@
 /*!
  * dgarz design v1.2.0 — dgarz-app.css (app pack)
- * Requires dgarz.css loaded first.
+ * Requires dgarz.css loaded first (same layer order, declared again so the
+ * file is safe on its own).
  * MIT License
  */
+@use 'sass:meta';
 
-@use 'app-pack/app';
-@use 'base/flat';
+@layer dg.reset, dg.base, dg.layout, dg.components, dg.utilities, dg.flat;
+
+@layer dg.components {
+  @include meta.load-css('app-pack/app');
+}
+
+@layer dg.flat {
+  @include meta.load-css('base/flat');
+}

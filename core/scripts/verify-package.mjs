@@ -87,7 +87,12 @@ try {
   }
   run(process.execPath, ['--input-type=module', '-e', `
     import assert from 'node:assert/strict';
-    const core = await import('dgarz-design');
+    // Root = the classic browser JS, as in 1.1.0 (it touches document on load,
+    // so only resolve it here; its API runs in the browser check below).
+    assert.ok(import.meta.resolve('dgarz-design').endsWith('/dist/dgarz.esm.js'), 'root import must stay dgarz.esm.js');
+    const { createRequire } = await import('node:module');
+    assert.ok(createRequire(import.meta.url).resolve('dgarz-design').endsWith('/dist/dgarz.js'), 'root require must stay dgarz.js');
+    const core = await import('dgarz-design/core');
     assert.equal(typeof core.defineCustomElements, 'function');
     for (const path of ${JSON.stringify(Object.keys(manifest.exports).filter(path => !path.includes('*')))}) {
       import.meta.resolve(path === '.' ? 'dgarz-design' : 'dgarz-design' + path.slice(1));
@@ -113,12 +118,15 @@ try {
     <style>button { background: red !important; }</style>
     <script type="importmap">${JSON.stringify({ imports: {
       'dgarz-design': '/node_modules/dgarz-design/' + manifest.exports['.'].import.slice(2),
+      'dgarz-design/core': '/node_modules/dgarz-design/' + manifest.exports['./core'].import.slice(2),
       'dgarz-design/legacy': '/node_modules/dgarz-design/' + manifest.exports['./legacy'].import.slice(2),
     } })}</script></head><body>
     <dgarz-button>Guardar</dgarz-button>
     <script type="module">
-      import 'dgarz-design';
+      import 'dgarz-design/core';
+      import root from 'dgarz-design';
       import legacy from 'dgarz-design/legacy';
+      if (typeof root.toast !== 'function') throw new Error('Root must stay the classic API (1.1.0)');
       if (typeof legacy.toast !== 'function') throw new Error('Missing legacy API');
       window.activations = 0;
       document.body.addEventListener('dgarz-click', () => window.activations++);
