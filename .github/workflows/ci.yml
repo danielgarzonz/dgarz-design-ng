@@ -69,6 +69,9 @@ jobs:
           npx sass ../base/core/src/scss/dgarz.scss:../base-css/dgarz.css \
                    ../base/core/src/scss/dgarz-full.scss:../base-css/dgarz.full.css \
                    ../base/core/src/scss/dgarz-app.scss:../base-css/dgarz-app.css --no-source-map
+          # Minify like the real build: the docs serve the .min.css files, and the
+          # minifier rewrites some values (0% → 0), so compare like with like.
+          for f in dgarz dgarz.full dgarz-app; do npx clean-css-cli -o ../base-css/$f.min.css ../base-css/$f.css; done
       - name: Build this branch and the docs
         # Full build: the docs also import the Stencil core (dgarz-design/hydrate).
         run: |
