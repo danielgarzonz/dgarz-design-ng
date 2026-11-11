@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/DocsLayout.astro';
+import Code from '../../components/Code.astro';
+import DgarzCoreDemo from '../../components/DgarzCoreDemo.astro';
+
+const server = `import { renderToString } from 'dgarz-design/hydrate';
+
+const { html } = await renderToString(
+  '<dgarz-button>Continuar</dgarz-button>',
+  {
+    fullDocument: false,
+    serializeShadowRoot: 'declarative-shadow-dom',
+  },
+);`;
+
+const client = `import { defineCustomElements } from 'dgarz-design/core';
+import 'dgarz-design/tokens';
+
+defineCustomElements();`;
+---
+<Layout
+  title="Core SSR"
+  lead="dgarz-button y dgarz-input se renderizan en el servidor con Declarative Shadow DOM y se hidratan en el cliente."
+  currentHref="/getting-started/core"
+>
+  <p>
+    Esta página usa <code>dgarz-design/hydrate</code> durante el build estático de Astro.
+    El HTML publicado incluye <code>&lt;template shadowrootmode="open"&gt;</code>.
+    El navegador registra los Custom Elements y conserva <code>dgarz-click</code>, <code>dgarz-input</code> y <code>dgarz-change</code>.
+  </p>
+
+  <div class="doc-sub">Demo viva</div>
+  <DgarzCoreDemo id="astro-core" />
+  <p class="dg-text-sm dg-muted dg-mt-3">
+    Pulsa <strong>Continuar</strong>. Cancelar, Guardando y No disponible no deben emitir clics.
+  </p>
+
+  <div class="doc-sub">Servidor</div>
+  <Code lang="js">{server}</Code>
+  <p>No importes <code>dgarz-design/hydrate</code> en el navegador. Es un módulo de Node.</p>
+
+  <div class="doc-sub">Cliente</div>
+  <Code lang="js">{client}</Code>
+
+  <div class="doc-sub">Límites actuales</div>
+  <ul>
+    <li>Componentes Core actuales: <code>dgarz-button</code> y <code>dgarz-input</code>.</li>
+    <li>Astro estático y Next.js App Router verificados para el piloto (<code>verify:astro-hydrate</code>, <code>verify:next-hydrate</code>).</li>
+    <li>Los adaptadores React/Vue/Angular siguen documentados en la <a href="/getting-started/frameworks">guía de frameworks</a> como cliente; no declaran SSR propio.</li>
+  </ul>
+</Layout>

@@ -11,7 +11,7 @@ import { chromium } from 'playwright';
 
 const docs = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(docs, 'dist');
-const pagePath = join(dist, 'comenzar/core/index.html');
+const pagePath = join(dist, 'getting-started/core/index.html');
 const html = await readFile(pagePath, 'utf8');
 
 assert.match(html, /shadowrootmode=["']open["']/i, 'Built page missing Declarative Shadow DOM');
@@ -52,7 +52,7 @@ const page = await browser.newPage();
 const pageErrors = [];
 page.on('pageerror', (error) => pageErrors.push(String(error)));
 
-await page.goto(`http://127.0.0.1:${port}/comenzar/core/`, { waitUntil: 'networkidle' });
+await page.goto(`http://127.0.0.1:${port}/getting-started/core/`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => document.querySelector('#astro-core')?.dataset.ready === 'true');
 
 const before = await page.evaluate(() => {

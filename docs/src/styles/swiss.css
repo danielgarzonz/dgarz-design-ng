@@ -1,0 +1,100 @@
+/* Swiss editorial system shared by the docs and the landing:
+   tokens (one accent, hairline rules) and the flat top bar (SiteHeader variant="swiss"). */
+:root {
+  --doc-page-bg: #ffffff;
+  --doc-demo-bg: var(--dg-card-bg, #f8f8f8);
+  --doc-accent: #e10600;
+  --doc-rule: color-mix(in oklab, var(--dg-text) 14%, transparent);
+  --doc-rule-strong: var(--dg-text);
+  --doc-gutter: var(--dg-space-5);
+}
+[data-theme="dark"] {
+  --doc-page-bg: var(--dg-paper);
+  --doc-demo-bg: var(--dg-surface-2);
+  --doc-accent: #ff453a;
+}
+
+/* ---- top bar (Swiss): flat, page-colored, hairline aligned to the grid ---- */
+.dg-navbar.pub-nav.is-swiss {
+  --swiss-inset: max(var(--dg-space-6), calc((100% - 1320px) / 2 + var(--dg-space-6)));
+  width: 100%; margin: 0; border-radius: 0;
+  /* The bar row is exactly the 60px the page reserves; on the landing the
+     mobile menu opens in a second row, so the bar can grow below it. */
+  height: auto; min-height: 60px; padding-block: 0;
+  grid-template-rows: 60px auto;
+  padding-inline: max(var(--swiss-inset), env(safe-area-inset-left, 0px)) max(var(--swiss-inset), env(safe-area-inset-right, 0px));
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "brand nav actions" "menu menu menu";
+  column-gap: var(--dg-space-5);
+  background-color: var(--doc-page-bg);
+  /* The rule spans the content box only, i.e. the same width as the grid. */
+  background-image: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong));
+  background-repeat: no-repeat; background-size: 100% 1px;
+  /* Pinned under the 60px bar row: it stays put when the menu opens below. */
+  background-position: 0 59px;
+  background-origin: content-box;
+}
+.dg-navbar.pub-nav.is-swiss > .pub-brand {
+  justify-self: start; display: inline-flex; align-items: center; gap: 0;
+  font-family: var(--dg-font-sans); font-size: 1.0625rem; font-weight: var(--dg-weight-bold);
+  letter-spacing: -0.035em; color: var(--dg-text); text-decoration: none;
+}
+.dg-navbar.pub-nav.is-swiss > .pub-brand::before {
+  content: ""; width: 9px; height: 9px; margin-right: 0.55em; background: var(--doc-accent); flex: none;
+}
+.dg-navbar.pub-nav.is-swiss :is(.brand-name, .brand-suffix) { font-family: inherit; font-style: normal; }
+/* A normal word space between the two words (flex drops the whitespace). */
+.dg-navbar.pub-nav.is-swiss .brand-suffix { font-weight: var(--dg-weight-normal); margin-left: 0.24em; }
+.dg-navbar.pub-nav.is-swiss .pub-version {
+  padding: 0; background: none; border-radius: 0;
+  font-size: var(--dg-text-xs); letter-spacing: 0; color: var(--dg-text-faint);
+}
+.dg-navbar.pub-nav.is-swiss .pub-version:hover { color: var(--doc-accent); background: none; }
+.dg-navbar.pub-nav.is-swiss .pub-actions { gap: var(--dg-space-5); margin-inline-end: 0; }
+.dg-navbar.pub-nav.is-swiss .pub-desktop-links { gap: var(--dg-space-5); }
+.dg-navbar.pub-nav.is-swiss :is(.pub-desktop-links .dg-nav-link, .pub-docs-btn) {
+  position: relative; padding: 0.4em 0;
+  font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--dg-text-muted); text-decoration: none;
+}
+.dg-navbar.pub-nav.is-swiss :is(.pub-desktop-links .dg-nav-link, .pub-docs-btn):hover { color: var(--dg-text); }
+.dg-navbar.pub-nav.is-swiss :is(.pub-desktop-links .dg-nav-link, .pub-docs-btn)[aria-current="page"] {
+  color: var(--dg-text); text-decoration: none; padding-left: calc(7px + 0.6em);
+}
+.dg-navbar.pub-nav.is-swiss :is(.pub-desktop-links .dg-nav-link, .pub-docs-btn)[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; top: 50%; width: 7px; height: 7px; translate: 0 -50%;
+  background: var(--doc-accent);
+}
+.dg-navbar.pub-nav.is-swiss .pub-actions > button,
+.dg-navbar.pub-nav.is-swiss .pub-actions > button:hover {
+  flex: 0 0 32px; width: 32px; height: 40px; margin: 0;
+  background: none; color: var(--dg-text);
+}
+.dg-navbar.pub-nav.is-swiss .pub-actions > button:hover { color: var(--doc-accent); }
+.dg-navbar.pub-nav.is-swiss .pub-actions > button svg { width: 16px; height: 16px; }
+@media (max-width: 860px) {
+  .dg-navbar.pub-nav.is-swiss {
+    --swiss-inset: var(--dg-space-4);
+    column-gap: var(--dg-space-3);
+  }
+  .dg-navbar.pub-nav.is-swiss .pub-actions { gap: var(--dg-space-1); }
+  .dg-navbar.pub-nav.is-swiss .pub-actions > button svg { width: 18px; height: 18px; }
+  /* Landing menu: full screen under the bar, like the docs index. */
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list {
+    height: calc(100dvh - 60px); padding: var(--dg-space-3) 0 calc(var(--dg-space-8) + env(safe-area-inset-bottom, 0px));
+    align-items: stretch;
+  }
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link {
+    justify-content: flex-start; min-height: 72px; padding: 0 0 0 calc(9px + 0.6em);
+    font-size: clamp(2rem, 9vw, 2.75rem); font-weight: var(--dg-weight-bold); letter-spacing: -0.04em;
+    color: var(--dg-text-muted); text-decoration: none; background: none;
+  }
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link + .dg-nav-link::before { left: 0; right: 0; background: var(--doc-rule); }
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link[aria-current="page"] { color: var(--dg-text); text-decoration: none; }
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link[aria-current="page"]::after {
+    content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; translate: 0 -50%; background: var(--doc-accent);
+  }
+  .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link:hover { background: none; color: var(--dg-text); }
+}
+

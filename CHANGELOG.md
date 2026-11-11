@@ -3,7 +3,7 @@
 All notable changes to **dgarz design** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.2.0] — 2026-11-08
+## [1.2.0] — 2026-11-09
 
 ### Compatibility
 - **Nothing breaks on upgrade from 1.1.0:** the package root (`import 'dgarz-design'`, `require('dgarz-design')`) still delivers the classic JS (`dgarz.esm.js` / `dgarz.js`) and every 1.1.0 CSS path is unchanged. The root types expose only component types (`dist/root.d.mts`).

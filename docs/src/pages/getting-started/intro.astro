@@ -1,0 +1,205 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="doc-sub">Características clave</div>
+      <div class="dg-grid dg-grid-2 dg-gap-4">
+        <div class="dg-card"><div class="dg-card-body">
+          <span class="doc-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></span>
+          <h5>Monocromo por diseño</h5>
+          <p class="dg-muted dg-text-sm">Una escala de grises de 12 pasos. Sin paletas complejas. Todo el sistema de color deriva de ella y funciona en claro y oscuro.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <span class="doc-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
+          <h5>Zero dependencias</h5>
+          <p class="dg-muted dg-text-sm">Un archivo CSS, un archivo JS opcional. Sin jQuery, sin PostCSS, sin Sass requerido. Cópialo y listo.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <span class="doc-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></span>
+          <h5>Dark mode nativo</h5>
+          <p class="dg-muted dg-text-sm">Cambia entre temas con un solo atributo: <code class="dg-code">data-theme="dark"</code>. Todo el sistema se adapta automáticamente.</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <span class="doc-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
+          <h5>Tokens sobreescribibles</h5>
+          <p class="dg-muted dg-text-sm">Todos los valores son CSS custom properties (<code class="dg-code">--dg-*</code>). Re-skinea el framework completo con 5 líneas de CSS.</p>
+        </div></div>
+      </div>
+
+      <div class="doc-sub">Inicio rápido</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Copia esta plantilla para tener una página funcionando con el CSS y el JS del framework.</p>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;!DOCTYPE html&gt;
+&lt;html data-theme="light"&gt;
+&lt;head&gt;
+  &lt;!-- Fuentes --&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono&amp;display=swap" rel="stylesheet"&gt;
+  &lt;link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,401,500,501&amp;display=swap" rel="stylesheet"&gt;
+
+  &lt;!-- dgarz design --&gt;
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.full.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;button class="dg-btn dg-btn-primary"&gt;Hola, dgarz design&lt;/button&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/npm/dgarz-design@1/dist/dgarz.min.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+      <div class="doc-sub">¿Qué incluye?</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Todos los archivos que trae el paquete en <code class="dg-code">dist/</code>, con la ruta para importarlos desde npm. Los <code class="dg-code">.min</code> son las versiones minificadas para producción.</p>
+      <div class="dg-eyebrow doc-file-group">CSS</div>
+      <div class="dg-grid dg-grid-2 dg-gap-3">
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz.css</code> <code class="dg-code">dgarz.min.css</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Core y componentes: tokens, reset, tipografía, grid de 12 columnas, utilidades y más de 20 componentes (botones, forms, cards, badges, alerts, modal, nav…).</p>
+          <p class="doc-file-import">dgarz-design/css</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz-app.css</code> <code class="dg-code">dgarz-app.min.css</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">App pack: app shell, sidebar, drawer, accordion, steps, skeleton y stat cards. Se carga después de <code class="dg-code">dgarz.css</code>.</p>
+          <p class="doc-file-import">dgarz-design/app</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz.full.css</code> <code class="dg-code">dgarz.full.min.css</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Todo en uno: core, componentes y app pack en un solo archivo.</p>
+          <p class="doc-file-import">dgarz-design/full</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">tokens.css</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Solo los tokens públicos (<code class="dg-code">--dgarz-*</code>) para dar identidad a los web components.</p>
+          <p class="doc-file-import">dgarz-design/tokens</p>
+        </div></div>
+      </div>
+      <div class="dg-eyebrow doc-file-group">JavaScript</div>
+      <div class="dg-grid dg-grid-2 dg-gap-3">
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz.js</code> <code class="dg-code">dgarz.min.js</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Capa de comportamiento por atributos HTML (<code class="dg-code">data-dg-*</code>): modales, drawers, tabs, carrusel, dropdowns y más. Global <code class="dg-code">dgarz</code>, sin dependencias y opcional.</p>
+          <p class="doc-file-import">dgarz-design/js</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz.esm.js</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">La misma capa de comportamiento como módulo ES, para bundlers.</p>
+          <p class="doc-file-import">dgarz-design/esm</p>
+        </div></div>
+      </div>
+      <div class="dg-eyebrow doc-file-group">Web components</div>
+      <div class="dg-grid dg-grid-2 dg-gap-3">
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">index.mjs</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Entrada del paquete: registra los web components (<code class="dg-code">&lt;dgarz-button&gt;</code>, <code class="dg-code">&lt;dgarz-input&gt;</code>) e incluye sus tipos de TypeScript.</p>
+          <p class="doc-file-import">dgarz-design</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">components/</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Cada web component por separado, para importar solo los que uses, con sus <code class="dg-code">.d.ts</code>.</p>
+          <p class="doc-file-import">dgarz-design/components/*</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">hydrate/</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Render en servidor (SSR) con Declarative Shadow DOM.</p>
+          <p class="doc-file-import">dgarz-design/hydrate</p>
+        </div></div>
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">component-docs.json</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Metadatos de los componentes (props, eventos y slots) para herramientas y documentación.</p>
+          <p class="doc-file-import">dgarz-design/component-docs.json</p>
+        </div></div>
+      </div>
+      <div class="dg-eyebrow doc-file-group">Recursos</div>
+      <div class="dg-grid dg-grid-2 dg-gap-3">
+        <div class="dg-card"><div class="dg-card-body">
+          <div class="doc-file-names"><code class="dg-code">dgarz-icons.svg</code></div>
+          <p class="dg-text-sm dg-muted dg-mt-2">Sprite con 38 iconos SVG para usar con <code class="dg-code">&lt;use href="#dg-…"&gt;</code>.</p>
+          <p class="doc-file-import">dgarz-design/icons</p>
+        </div></div>
+      </div>
+
+      <div class="doc-sub">Explorar la documentación</div>
+      <div class="dg-grid dg-grid-3 dg-gap-3">
+        <a href="/getting-started/install" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #6366f1" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19h14"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">Comenzar</div>
+            <h5 class="dg-text-base">Instalación</h5>
+            <p class="dg-text-sm dg-muted">CDN, npm y bundlers</p>
+          </div>
+        </a>
+        <a href="/foundations/color" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #ec4899" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">Fundamentos</div>
+            <h5 class="dg-text-base">Color & tokens</h5>
+            <p class="dg-text-sm dg-muted">Sistema de diseño monocromo</p>
+          </div>
+        </a>
+        <a href="/forms/controls" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #3b82f6" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="3"/><path d="M7 10.5v3"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">Formularios</div>
+            <h5 class="dg-text-base">Controles base</h5>
+            <p class="dg-text-sm dg-muted">Inputs, selects, switches y validación</p>
+          </div>
+        </a>
+        <a href="/components/buttons" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #06b6d4" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M9 12h6"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">Componentes</div>
+            <h5 class="dg-text-base">Botones</h5>
+            <p class="dg-text-sm dg-muted">Variantes, estados, grupos</p>
+          </div>
+        </a>
+        <a href="/app-pack/shell" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #22c55e" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M9 4.5v15"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">App Pack</div>
+            <h5 class="dg-text-base">App Shell</h5>
+            <p class="dg-text-sm dg-muted">Sidebar, drawer, layout completo</p>
+          </div>
+        </a>
+        <a href="/examples" class="dg-card dg-text-decoration-none">
+          <div class="dg-card-body">
+            <span class="doc-feature-icon is-tinted" style="--doc-ico: #ef4444" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m21 15.5-4.5-4.5L7 19.5"/></svg></span>
+            <div class="dg-eyebrow dg-mb-2">Studio</div>
+            <h5 class="dg-text-base">Galería</h5>
+            <p class="dg-text-sm dg-muted">Ejemplos y plantillas completas</p>
+          </div>
+        </a>
+      </div>`;
+---
+
+<Layout title="Introducción" lead="Component Design System agnóstico con Core Stencil.js, CSS nativo y tokens de diseño. Migración progresiva desde la versión 1." currentHref="/getting-started/intro">
+  <p>El nuevo Core de componentes viene en <code>dgarz-design/core</code> desde la versión <code>1.2.0</code> (la raíz del paquete sigue entregando el JS clásico); sus adaptadores de React, Vue y Angular siguen en desarrollo local, sin publicar. Consulta la <a href="/getting-started/frameworks">guía de frameworks</a> y la demo de <a href="/getting-started/core">Core SSR</a> con Declarative Shadow DOM. El piloto también está verificado en Next.js App Router vía <code>dgarz-design/hydrate</code>.</p>
+  <h2>Referencia heredada 1.x</h2>
+  <p>Los ejemplos siguientes corresponden al CSS y JavaScript de la versión anterior, que se conservan durante la migración.</p>
+  <Fragment set:html={pageContent} />
+</Layout>
+
+<style is:global>
+  /* Icon above each key-feature title: a soft surface tile, no border. */
+  .doc-feature-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; margin-bottom: var(--dg-space-3);
+    border-radius: var(--dg-radius);
+    background: var(--dg-surface-3);
+    color: var(--dg-text);
+  }
+  .doc-feature-icon svg { display: block; }
+  /* Explorar: each tile takes a light tint of its sidebar section color
+     (nav.ts); the glyph stays in the text color (black in light, white in
+     dark, where a black glyph would disappear on the dark tint). */
+  .doc-feature-icon.is-tinted {
+    background: color-mix(in srgb, var(--doc-ico) 14%, var(--dg-card-bg));
+    color: var(--dg-text);
+  }
+  [data-theme="dark"] .doc-feature-icon.is-tinted {
+    background: color-mix(in srgb, var(--doc-ico) 20%, var(--dg-card-bg));
+  }
+  /* ¿Qué incluye?: group labels and the npm import path under each file. */
+  .doc-file-group { margin: var(--dg-space-5) 0 var(--dg-space-3); }
+  .doc-file-names { display: flex; flex-wrap: wrap; gap: var(--dg-space-2); }
+  .doc-file-import {
+    margin: var(--dg-space-3) 0 0;
+    font-family: var(--dg-font-mono); font-size: var(--dg-text-xs);
+    color: var(--dg-text-muted);
+  }
+</style>

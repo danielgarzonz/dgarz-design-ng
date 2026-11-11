@@ -4,14 +4,14 @@ import { heroesNewestFirst } from "../../data/heroes";
 ---
 
 <Layout
-  title="Heroes"
-  lead="Diseños de hero hechos solo con dgarz design, del más reciente al más antiguo. Abre uno para verlo a pantalla completa como una web real y copiar su código."
+  title="Portadas"
+  lead="Diseños de portada hechos solo con dgarz design, del más reciente al más antiguo. Abre uno para verlo a pantalla completa como una web real y copiar su código."
   currentHref="/studio/heroes"
 >
   <div class="dg-grid dg-grid-2 dg-gap-6 dg-mt-5">
     {heroesNewestFirst.map(({ hero, number }, index) => (
       <a class="dg-card-hover dg-text-decoration-none dg-mb-7 doc-hero-card" href={`/studio/heroes/${hero.id}`}>
-        <img class="dg-w-full dg-rounded-0 dg-object-cover doc-hero-thumb" src={`/showcase/heroes/${hero.id}.webp`} alt={`Vista previa del hero ${hero.title}`} width="1280" height="800" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+        <img class="dg-w-full dg-rounded-0 dg-object-cover doc-hero-thumb" src={`/showcase/heroes/${hero.id}.webp`} alt={`Vista previa de la portada ${hero.title}`} width="1280" height="800" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
         <div class="dg-flex dg-justify-between dg-items-end dg-gap-3 dg-pt-3">
           <div>
             <p class="dg-eyebrow dg-mb-1">{String(number).padStart(2, "0")}</p>

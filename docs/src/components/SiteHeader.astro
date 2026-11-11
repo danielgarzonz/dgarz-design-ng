@@ -2,15 +2,16 @@
 import { TOP_NAV } from '../data/nav';
 import { CHANGELOG } from '../data/changelog';
 import '../styles/site-header.css';
-interface Props { currentHref: string; hideOnScroll?: boolean; showMainMenu?: boolean; }
-const { currentHref, hideOnScroll = false, showMainMenu = true } = Astro.props;
+// variant "swiss": the docs' editorial bar (styled in DocsLayout); the landing keeps the default.
+interface Props { currentHref: string; hideOnScroll?: boolean; showMainMenu?: boolean; variant?: "default" | "swiss"; }
+const { currentHref, hideOnScroll = false, showMainMenu = true, variant = "default" } = Astro.props;
 /* Docs still ship the 1.x CSS/JS line; core's 2.0 alpha is separate. */
 const version = CHANGELOG[0]?.version ?? "1.2.0";
 ---
-<nav class="dg-navbar pub-nav" id="pubNav" aria-label="Principal" data-hide-on-scroll={hideOnScroll ? "true" : undefined}>
+<nav class:list={["dg-navbar pub-nav", variant === "swiss" && "is-swiss"]} id="pubNav" aria-label="Principal" data-hide-on-scroll={hideOnScroll ? "true" : undefined}>
   <a href="/" class="dg-navbar-brand pub-brand" aria-label="dgarz design, inicio"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
   <div class="pub-nav-start">
-    <a href="/comenzar/changelog" class="pub-version" title={`Versión ${version}`}>v{version}</a>
+    <a href="/getting-started/changelog" class="pub-version" title={`Versión ${version}`}>v{version}</a>
 
   </div>
   <div class="pub-actions">
@@ -19,7 +20,7 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
         <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
       ))}
     </div>
-    <a href="/comenzar/intro" class="dg-nav-link pub-docs-btn" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
+    <a href="/getting-started/intro" class="dg-nav-link pub-docs-btn" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
     <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
       <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
       <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
@@ -36,7 +37,7 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
         {TOP_NAV.map((item) => (
           <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
         ))}
-        <a href="/comenzar/intro" class="dg-nav-link" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
+        <a href="/getting-started/intro" class="dg-nav-link" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
       </div>
     </div>
   </div>}
