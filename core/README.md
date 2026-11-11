@@ -2,7 +2,7 @@
 
 Component Design System (CDS) corporativo, omnicanal y agnóstico. Su misión es unificar diseño y desarrollo mediante componentes universales, accesibles y de alto rendimiento. El paquete principal es **`dgarz-design`**.
 
-**[Entrar a la documentación local →](http://192.168.100.6:4321/comenzar/intro)**.
+**[Entrar a la documentación local →](http://192.168.100.6:4321/getting-started/intro)**.
 
 ## Estado de la migración
 
@@ -46,7 +46,7 @@ document.querySelector('dgarz-button').addEventListener('dgarz-click', () => {
 | Vue 3.5 | `dgarz-design-vue` | `@dgarz-click` |
 | Angular 20.3 | `dgarz-design-angular` | `(dgarz-click)` |
 
-El Core se publica en `dgarz-design/core` desde la 1.2.0 (la raíz del paquete sigue siendo el JS clásico); los adaptadores siguen sin publicar. El Core no incorpora los frameworks a su runtime. La guía está en [Frameworks](http://192.168.100.6:4321/comenzar/frameworks), accesible desde [la entrada de documentación](http://192.168.100.6:4321/comenzar/intro).
+El Core se publica en `dgarz-design/core` desde la 1.2.0 (la raíz del paquete sigue siendo el JS clásico); los adaptadores siguen sin publicar. El Core no incorpora los frameworks a su runtime. La guía está en [Frameworks](http://192.168.100.6:4321/getting-started/frameworks), accesible desde [la entrada de documentación](http://192.168.100.6:4321/getting-started/intro).
 
 Desde la raíz: `npm run build` genera y compila Core y wrappers; `npm run verify:wrappers` instala sus tarballs en un consumidor limpio y verifica tipos, plantillas Angular y comportamiento en Chromium. Instala previamente el navegador de Playwright. La instalación del consumidor puede necesitar la red; `DGARZ_OFFLINE=1` exige una caché completa. Las carpetas temporales se conservan si hay un fallo.
 

@@ -1,6 +1,6 @@
 # Documentación de dgarz design
 
-La entrada principal es **[Introducción](http://192.168.100.6:4321/comenzar/intro)**, en la ruta `/comenzar/intro`.
+La entrada principal es **[Introducción](http://192.168.100.6:4321/getting-started/intro)**, en la ruta `/getting-started/intro`.
 
 Desde la raíz del monorepositorio:
 
@@ -12,7 +12,7 @@ npm run dev:docs
 
 Astro escucha en todas las interfaces (`0.0.0.0`) en el puerto `4321`. El puerto es estricto: si está ocupado, falla en lugar de cambiar la dirección del catálogo. La dirección `192.168.100.6` corresponde al equipo de desarrollo en la red local; el servidor debe estar ejecutándose para acceder desde otros dispositivos.
 
-Los enlaces internos usan `/comenzar/intro`, por lo que también funcionan en localhost o en el dominio de despliegue. La portada `/` se conserva; sus accesos a documentación y el botón «Empezar» llevan a la introducción. Dentro del catálogo, el logo y «Inicio» regresan a esa misma entrada.
+Los enlaces internos usan `/getting-started/intro`, por lo que también funcionan en localhost o en el dominio de despliegue. La portada `/` se conserva; sus accesos a documentación y el botón «Empezar» llevan a la introducción. Dentro del catálogo, el logo y «Inicio» regresan a esa misma entrada.
 
 ```bash
 npm run build:docs

@@ -11,15 +11,16 @@ export interface ChangelogRelease {
 export const CHANGELOG: ChangelogRelease[] = [
   {
     version: "1.2.0",
-    date: "",
-    unreleased: true,
-    summary: "Nuevos componentes de formulario y bloques de contenido, utilidades completas y modales con glow.",
+    date: "2026-11-09",
+    summary: "Capas de cascada, escalas completas con versiones responsivas y el nuevo core de componentes, sin romper nada de 1.1.0.",
     highlights: [
+      "Capas de cascada (@layer): tu CSS siempre gana sin !important, y las utilidades siempre ganan a los componentes",
+      "Escalas completas: margen, padding, tamaños, posición y grid en todos sus pasos, con versiones dg-md-, dg-lg- y dg-xl- (2 836 clases)",
+      "Core de componentes Stencil en dgarz-design/core; la raíz del paquete sigue entregando el JS clásico, así que actualizar no rompe nada",
       "Formularios: datepicker, combobox con búsqueda y tags, dropzone de archivos, máscaras de input y toggle de contraseña",
       "Bloques: pricing, features, testimonios, timeline, FAQ con búsqueda y galería con lightbox",
-      "Tablas: filas como cards en móvil, edición inline y selección de todas las filas",
-      "Utilidades completas: flexbox, escala de espaciado en todos los ejes, sombras, transiciones y scroll-snap",
-      "Modales con efecto glow (halo pulsante o anillo giratorio) y helpers dgConfirm / dgAlert / dgPrompt",
+      "Glass opcional, dock flotante, drawers superior e inferior, carrusel con foco y modales con revelado circular y glow",
+      "Corregido: el tooltip solo con CSS ya no muestra una segunda burbuja",
     ],
   },
   {

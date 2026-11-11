@@ -1,10 +1,11 @@
 ---
-import { NAV, TOP_NAV, getPrevNext, type NavItem } from "../data/nav";
+import { NAV, getPrevNext, type NavItem } from "../data/nav";
 import SiteHeader from "../components/SiteHeader.astro";
 import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
 import "../styles/doc-patterns.css";
 import "../styles/brand.css";
 import "../styles/doc-code.css";
+import "../styles/swiss.css";
 
 interface Props {
   title: string;
@@ -21,6 +22,11 @@ const iconSprite = iconSpriteRaw
   .replace("<svg ", '<svg aria-hidden="true" ');
 
 const activeGroup = NAV.find((g) => g.items.some((i) => i.href === currentHref));
+// Swiss numbering: group and page position, e.g. Fundamentos › Escalas = 02.15.
+const pad = (n: number) => String(n).padStart(2, "0");
+const groupNumber = activeGroup ? NAV.indexOf(activeGroup) + 1 : 0;
+const pageIndex = activeGroup ? activeGroup.items.findIndex((i) => i.href === currentHref) + 1 : 0;
+const pageCode = activeGroup ? `${pad(groupNumber)}.${pad(pageIndex)}` : "";
 
 // Cambiar a CDN después de publicar a npm:
 // const CDN = `https://cdn.jsdelivr.net/npm/dgarz-design@1.0.0/dist`;
@@ -53,13 +59,21 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   <style is:global>
     /* Header (60px) + aire. */
     html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    /* Swiss editorial: one grid, one typeface family, one accent, hairline rules. */
     :root {
       --doc-page-bg: #ffffff;
       --doc-panel-bg: #fff;
+      --doc-demo-bg: var(--dg-card-bg, #f8f8f8);
+      --doc-accent: #e10600;
+      --doc-rule: color-mix(in oklab, var(--dg-text) 14%, transparent);
+      --doc-rule-strong: var(--dg-text);
+      --doc-gutter: var(--dg-space-5);
     }
     [data-theme="dark"] {
       --doc-page-bg: var(--dg-paper);
       --doc-panel-bg: var(--dg-surface);
+      --doc-demo-bg: var(--dg-surface-2);
+      --doc-accent: #ff453a;
     }
     body { --doc-header-offset: 60px; overflow-x: hidden; padding-top: 60px; background: var(--doc-page-bg); }
     body:has(.pub-nav.is-hidden) { --doc-header-offset: 0px; }
@@ -75,132 +89,162 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       outline-offset: 3px;
     }
 
-    /* ---- shell ---- */
+    /* ---- shell: 12-column grid (index 3 · content 9) ---- */
     .doc-shell {
       display: grid;
-      grid-template-columns: 248px 1fr;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--doc-gutter);
       max-width: 1320px;
       margin-inline: auto;
+      padding-inline: var(--dg-space-6);
     }
+    .doc-sidebar { grid-column: 1 / span 3; }
+    .doc-main { grid-column: 4 / -1; }
     @media (max-width: 860px) {
-      .doc-shell { grid-template-columns: 1fr; }
+      .doc-shell { display: block; padding-inline: 0; }
     }
 
-    /* ---- sidebar ---- */
+    /* ---- index (sidebar): typographic, no panel ---- */
     .doc-sidebar {
       position: sticky; top: var(--doc-header-offset); align-self: start;
-      height: calc(100vh - var(--doc-header-offset)); overflow-y: auto;
+      height: calc(100dvh - var(--doc-header-offset)); overflow-y: auto;
       transition: top var(--dg-dur-motion) var(--dg-ease-motion), height var(--dg-dur-motion) var(--dg-ease-motion);
       scroll-behavior: auto; overflow-anchor: none;
-      background: var(--doc-panel-bg);
-      padding: var(--dg-space-6) var(--dg-space-4) var(--dg-space-8) var(--dg-space-5);
+      padding: var(--dg-space-7) var(--dg-space-4) var(--dg-space-8) 0;
+      scrollbar-width: thin;
     }
     @media (min-width: 861px) {
       .dg-navbar.pub-nav { width: min(100%, 1320px); }
-      .doc-sidebar {
-        position: fixed;
-        top: calc(var(--doc-header-offset) + var(--dg-space-4));
-        left: max(var(--dg-space-4), calc((100vw - 1320px) / 2));
-        width: 248px;
-        height: calc(100dvh - var(--doc-header-offset) - 2 * var(--dg-space-4));
-        padding: var(--dg-space-5) var(--dg-space-4);
-        border-radius: var(--dg-radius-lg);
-        outline: 1px solid var(--dg-border);
-        outline-offset: -1px;
-        z-index: 20;
-      }
-      .doc-main { grid-column: 2; }
     }
     .doc-nav-label {
-      display: flex; align-items: center; gap: 7px;
-      font-size: var(--dg-text-xs); text-transform: uppercase;
-      letter-spacing: 0.12em; color: var(--dg-text-faint);
+      display: flex; align-items: baseline; gap: var(--dg-space-3);
+      font-family: var(--dg-font-sans); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--dg-text);
       margin: var(--dg-space-6) 0 var(--dg-space-2);
-      font-family: var(--dg-font-sans); font-weight: var(--dg-weight-semi);
+      padding-top: var(--dg-space-3);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
     }
     .doc-nav-label:first-child { margin-top: 0; }
-    .doc-nav-label .dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-    }
-    .doc-nav-dot-comenzar { background: #6366f1; }
-    .doc-nav-dot-fundamentos { background: #ec4899; }
-    .doc-nav-dot-formularios { background: #3b82f6; }
-    .doc-nav-dot-componentes { background: #06b6d4; }
-    .doc-nav-dot-utilidades { background: #f59e0b; }
-    .doc-nav-dot-app-pack { background: #22c55e; }
-    .doc-nav-dot-studio { background: #ef4444; }
+    .doc-nav-num { font-family: var(--dg-font-mono); font-weight: var(--dg-weight-normal); letter-spacing: 0; color: var(--doc-accent); }
     .doc-nav a {
-      display: block; padding: 0.4em 0.7em;
-      border-radius: var(--dg-radius); font-size: var(--dg-text-sm);
-      color: var(--dg-text-muted);
-      transition: color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
-      text-decoration: none;
+      position: relative; display: block;
+      padding: 0.32em 0 0.32em calc(2ch + var(--dg-space-3));
+      font-size: var(--dg-text-sm); line-height: 1.35;
+      color: var(--dg-text-muted); text-decoration: none;
+      transition: color var(--dg-dur) var(--dg-ease);
     }
-    .doc-nav a:hover { color: var(--dg-text); background: var(--dg-surface-2); }
-    .doc-nav a.is-active {
-      color: var(--dg-text); background: var(--dg-surface-3);
-      font-weight: var(--dg-weight-medium);
+    .doc-nav a:hover { color: var(--dg-text); }
+    .doc-nav a.is-active, .doc-nav a[aria-current="page"] { color: var(--dg-text); font-weight: var(--dg-weight-semi); }
+    /* Active page: a small red square in the number column. */
+    .doc-nav a.is-active::before {
+      content: ""; position: absolute; left: 0; top: 50%;
+      width: 7px; height: 7px; translate: 0 -50%;
+      background: var(--doc-accent);
     }
 
     /* ---- main ---- */
-    .doc-main { padding: 0 var(--dg-space-7) calc(140px + env(safe-area-inset-bottom, 0px)); min-width: 0; }
+    .doc-main { padding: 0 0 var(--dg-space-8); min-width: 0; counter-reset: doc-sub; }
 
-    /* ---- hero ---- */
+    /* ---- page header: kicker rule, display title, lead + metadata ---- */
     .doc-hero {
-      display: flex; flex-direction: column; align-items: flex-start;
-      padding-top: var(--dg-space-6); padding-bottom: var(--dg-space-6);
- margin-bottom: var(--dg-space-7);
+      display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--doc-gutter);
+      padding-top: var(--dg-space-7); margin-bottom: var(--dg-space-8);
     }
-    .doc-hero-tag {
-      display: inline-flex; align-items: center;
-      margin: 0;
-      padding: 0.4em 0.75em;
-      font-size: var(--dg-text-sm);
-      font-weight: var(--dg-weight-semi);
-      letter-spacing: 0.01em;
-      line-height: 1.2;
-      color: var(--dg-text);
-      background: var(--doc-panel-bg);
-      border-radius: var(--dg-radius-sm);
+    .doc-hero > * { grid-column: 1 / -1; }
+    .doc-hero-kicker {
+      display: flex; align-items: baseline; gap: var(--dg-space-4);
+      /* Same top inset as the index labels, so both lines of text align. */
+      padding-top: var(--dg-space-3);
+      font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--dg-text);
     }
+    .doc-hero-code { font-family: var(--dg-font-mono); font-weight: var(--dg-weight-normal); letter-spacing: 0; color: var(--doc-accent); }
+    .doc-hero-tag { margin: 0; padding: 0; background: none; }
     .doc-hero-title {
-      font-family: var(--dg-font-serif);
-      font-size: var(--dg-text-4xl);
-      font-weight: var(--dg-weight-normal);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-family: var(--dg-font-sans);
+      font-size: clamp(2.75rem, 1.6rem + 4.2vw, 5.75rem);
+      font-weight: var(--dg-weight-bold);
+      letter-spacing: -0.045em;
+      line-height: 0.95;
       color: var(--dg-text);
       text-wrap: balance;
-      /* 6px: entre space-2 (flojo) y el -6px (pegado). */
-      margin: 6px 0 var(--dg-space-3);
+      margin: var(--dg-space-7) 0 var(--dg-space-7);
     }
-    .doc-hero > p { margin-top: 0; }
-    .doc-hero p { color: var(--dg-text-muted); max-width: 60ch; line-height: var(--dg-leading-normal); }
+    .doc-hero-body { display: grid; grid-template-columns: subgrid; row-gap: var(--dg-space-5); }
+    .doc-hero-lead {
+      grid-column: 1 / span 6;
+      margin: 0; max-width: 46ch;
+      font-size: var(--dg-text-xl); line-height: 1.45; letter-spacing: -0.01em;
+      color: var(--dg-text); text-wrap: pretty;
+    }
+    .doc-hero-meta { grid-column: 7 / -1; font-size: var(--dg-text-sm); }
+    .doc-hero-meta dl { margin: 0; }
+    .doc-hero-meta dl > div {
+      display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--dg-space-3);
+      padding: var(--dg-space-2) 0;
+      background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat;
+    }
+    .doc-hero-meta dt { font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dg-text-faint); padding-top: 0.15em; }
+    .doc-hero-meta dd { margin: 0; color: var(--dg-text); }
+    .doc-hero-meta a { color: inherit; text-decoration: none; }
+    .doc-hero-meta a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .doc-toc { margin-top: var(--dg-space-5); }
+    .doc-toc-label {
+      margin: 0; padding-top: var(--dg-space-2);
+      font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dg-text-faint);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
+    }
+    .doc-toc ol { list-style: none; margin: var(--dg-space-2) 0 0; padding: 0; counter-reset: doc-toc; }
+    .doc-toc li { counter-increment: doc-toc; display: grid; grid-template-columns: 2.5ch 1fr; gap: var(--dg-space-2); padding: 0.18em 0; }
+    .doc-toc li::before { content: counter(doc-toc, decimal-leading-zero); font-family: var(--dg-font-mono); font-size: var(--dg-text-xs); color: var(--dg-text-faint); padding-top: 0.2em; }
+    .doc-toc a { color: var(--dg-text-muted); text-decoration: none; }
+    .doc-toc a:hover { color: var(--dg-text); }
+    @media (max-width: 1100px) {
+      .doc-hero-lead, .doc-hero-meta { grid-column: 1 / -1; }
+      .doc-hero-meta { max-width: 32rem; }
+    }
 
     /* ---- page text entrance ---- */
-    .doc-hero-tag, .doc-hero-title, .doc-hero p { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
-    .doc-hero-title { animation-delay: 40ms; }
-    .doc-hero p { animation-delay: 80ms; }
+    .doc-hero-kicker, .doc-hero-title, .doc-hero-body { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
+    .doc-hero-title { animation-delay: 60ms; }
+    .doc-hero-body { animation-delay: 140ms; }
     @media (prefers-reduced-motion: reduce) {
-      .doc-hero-tag, .doc-hero-title, .doc-hero p { animation: none; }
+      .doc-hero-kicker, .doc-hero-title, .doc-hero-body { animation: none; }
     }
 
-    /* ---- section labels ---- */
+    /* ---- section headings: numbered automatically, hairline rule above ---- */
     .doc-sub {
-      font-size: 1.4rem; font-weight: var(--dg-weight-semi); line-height: 1.3;
-      letter-spacing: -0.015em; text-wrap: balance;
-      color: var(--dg-text); margin: 40px 0 12px;
+      counter-increment: doc-sub;
+      display: grid; grid-template-columns: 3.25rem 1fr; align-items: baseline;
+      font-size: clamp(1.4rem, 1.1rem + 0.8vw, 1.9rem); font-weight: var(--dg-weight-semi);
+      line-height: 1.15; letter-spacing: -0.025em; text-wrap: balance;
+      color: var(--dg-text);
+      margin: var(--dg-space-8) 0 var(--dg-space-3);
+      padding-top: var(--dg-space-4);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
+      scroll-margin-top: calc(var(--doc-header-offset) + var(--dg-space-5));
+    }
+    .doc-sub::before {
+      content: counter(doc-sub, decimal-leading-zero);
+      font-family: var(--dg-font-mono); font-size: var(--dg-text-sm); font-weight: var(--dg-weight-normal);
+      letter-spacing: 0; color: var(--doc-accent);
+    }
+    /* The text right under a heading lines up with the heading text, not the number. */
+    .doc-sub + p { padding-left: 3.25rem; }
+    @media (max-width: 560px) {
+      .doc-sub { grid-template-columns: 2.5rem 1fr; }
+      .doc-sub + p { padding-left: 0; }
     }
 
     .doc-subsection {
-      font-size: 1.4rem; font-weight: var(--dg-weight-semi); line-height: 1.4;
-      color: var(--dg-text); margin: 28px 0 8px; text-wrap: balance;
+      font-size: var(--dg-text-xl); font-weight: var(--dg-weight-semi); line-height: 1.3;
+      letter-spacing: -0.015em; color: var(--dg-text); margin: var(--dg-space-6) 0 var(--dg-space-2); text-wrap: balance;
     }
     .doc-main > p, .doc-main > section > p {
       max-width: 72ch; margin-bottom: 16px;
       color: var(--dg-text-muted); line-height: 1.65;
     }
-    .doc-main > .doc-sub:first-child { margin-top: 0; }
+    .doc-main > .doc-hero + .doc-sub, .doc-main > .doc-sub:first-child { margin-top: 0; }
     .doc-main > :is(.doc-sub, .doc-subsection) + .doc-example { margin-top: 12px; }
     .doc-structure { list-style: decimal; margin: 0; padding-left: 1.25rem; max-width: 72ch; color: var(--dg-text-muted); line-height: 1.7; }
     .doc-structure li + li { margin-top: 8px; }
@@ -208,22 +252,28 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     /* One shared surface: live example above, copyable source below.
        Outline survives the flat border reset (border: none !important). */
     .doc-example {
-      margin-block: var(--dg-space-5);
-      border-radius: var(--dg-radius-lg);
+      margin-block: var(--dg-space-5) var(--dg-space-7);
+      border-radius: 0;
       overflow: hidden;
-      background: var(--doc-panel-bg);
-      outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+      background: var(--doc-demo-bg);
     }
     .doc-example > .doc-demo { margin: 0; border-radius: 0; outline: none; }
     .doc-example > .doc-code { margin: 0; border-radius: 0; outline: none; }
 
     /* ---- demo block (docs layer: utilities on it still win) ---- */
     @layer dg.docs {
+    /* Swiss: the docs' own headings are set in the grotesque, not the framework's
+       serif default. Live examples keep the framework look; an explicit
+       dg-font-serif still wins (utilities come after this layer). */
+    .doc-main :is(h2, h3):not(.doc-demo *, .doc-example *, .doc-hero *) {
+      font-family: var(--dg-font-sans);
+      font-weight: var(--dg-weight-semi);
+      letter-spacing: -0.025em;
+    }
     .doc-demo {
-      border-radius: var(--dg-radius-lg);
-      padding: var(--dg-space-6);
-      background: var(--doc-panel-bg);
-      outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+      border-radius: 0;
+      padding: var(--dg-space-7) var(--dg-space-6);
+      background: var(--doc-demo-bg);
     }
     .doc-demo.is-plain { background-image: none; }
     /* Glass demos: colorful, detailed stand-in for a photo so the blur is visible. */
@@ -243,35 +293,26 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     .doc-modal-size-tabs { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
     .doc-modal-size-tabs button { flex-shrink: 0; white-space: nowrap; }
 
-    /* ---- prev/next ---- */
+    /* ---- prev/next: editorial footer ---- */
     .doc-prevnext {
-      position: fixed;
-      left: calc(50% + 124px);
-      bottom: calc(var(--dg-space-4) + env(safe-area-inset-bottom, 0px));
-      transform: translateX(-50%);
-      z-index: 24;
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-      width: max-content;
-      max-width: calc(min(100vw, 1320px) - 248px - 2 * var(--dg-space-7));
-      padding: 4px;
-      border-radius: 22px;
-      background: color-mix(in oklab, var(--dg-surface-3) 55%, transparent);
-      -webkit-backdrop-filter: saturate(1.8) blur(20px);
-      backdrop-filter: saturate(1.8) blur(20px);
+      display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--doc-gutter);
+      margin-top: var(--dg-space-9, 6rem);
+      padding-top: var(--dg-space-4);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 2px no-repeat;
     }
     .doc-prevnext a {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 6px 12px; min-height: 44px;
-      border: 0; border-radius: 18px;
-      background: transparent;
-      min-width: 0; flex: 1 1 auto;
-      text-decoration: none; color: var(--dg-text);
-      transition: background var(--dg-dur) var(--dg-ease);
+      display: flex; flex-direction: column; gap: var(--dg-space-2);
+      padding: var(--dg-space-3) 0 var(--dg-space-5);
+      color: var(--dg-text); text-decoration: none; min-width: 0;
     }
-    .doc-prevnext a:hover { background: color-mix(in oklab, var(--dg-text) 8%, transparent); }
-    .doc-prevnext .dg-icon { width: 16px; height: 16px; flex-shrink: 0; }
-    .doc-prevnext .name { font-size: var(--dg-text-sm); line-height: 1.25; font-weight: var(--dg-weight-medium); white-space: normal; overflow-wrap: anywhere; min-width: 0; }
-    .doc-prevnext a.next { text-align: right; }
+    .doc-prevnext a.next { grid-column: 2; text-align: right; align-items: flex-end; }
+    .doc-prevnext-dir { font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.12em; color: var(--dg-text-faint); transition: color var(--dg-dur) var(--dg-ease); }
+    .doc-prevnext .name {
+      font-size: clamp(1.4rem, 1rem + 1.4vw, 2.25rem); font-weight: var(--dg-weight-semi);
+      letter-spacing: -0.03em; line-height: 1.05; overflow-wrap: anywhere;
+    }
+    .doc-prevnext a:hover .doc-prevnext-dir { color: var(--doc-accent); }
+    .doc-prevnext a:hover .name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 
     /* ---- theme toggle ---- */
     .doc-theme-btn {
@@ -283,43 +324,46 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     .doc-theme-btn:hover { background: var(--dg-surface-2); color: var(--dg-text); }
     .doc-icon-hidden { display: none; }
 
-    .doc-mobile-links { display: none; }
     .doc-menu-backdrop { display: none; }
     @media (max-width: 860px) {
       .doc-main { padding-inline: var(--dg-space-4); }
-      .doc-prevnext { left: 50%; max-width: calc(100% - 2 * var(--dg-space-4)); }
-      .doc-mobile-links { display: block; margin-bottom: var(--dg-space-5); }
+      .doc-hero { padding-top: var(--dg-space-5); margin-bottom: var(--dg-space-7); }
+      .doc-hero-title { margin: var(--dg-space-5) 0; }
+      .doc-hero-lead { font-size: var(--dg-text-lg); }
+      .doc-toc { display: none; }
+      .doc-example { margin-inline: calc(var(--dg-space-4) * -1); }
+      /* Full-screen index under the top bar: a curtain that drops from the bar. */
       .doc-sidebar {
         display: block;
         position: fixed;
-        /* Float below the top bar with a gap; rounded panel, not flush.
-           Extra top inset clears the curved pub-nav bottom radius. */
-        --doc-menu-gap: var(--dg-space-5);
-        top: calc(60px + var(--doc-menu-gap));
-        right: var(--doc-menu-gap);
-        bottom: var(--doc-menu-gap);
-        left: var(--doc-menu-gap);
+        top: 60px; right: 0; bottom: 0; left: 0;
         z-index: 25;
-        height: calc(100dvh - 60px - 2 * var(--doc-menu-gap));
-        max-height: calc(100dvh - 60px - 2 * var(--doc-menu-gap));
-        padding: var(--dg-space-5) var(--dg-space-4);
-        border-radius: var(--dg-radius-xl);
-        border-right: none;
+        height: calc(100dvh - 60px);
+        max-height: none;
+        padding: var(--dg-space-5) var(--dg-space-4) calc(var(--dg-space-8) + env(safe-area-inset-bottom, 0px));
+        padding-left: max(var(--dg-space-4), env(safe-area-inset-left, 0px));
+        padding-right: max(var(--dg-space-4), env(safe-area-inset-right, 0px));
+        border-radius: 0;
+        background: var(--doc-page-bg);
         overscroll-behavior: contain;
         visibility: hidden;
         pointer-events: none;
-        transform: translateX(calc(-100% - var(--doc-menu-gap)));
-        transition: transform var(--dg-dur-motion) var(--dg-ease-motion), visibility 0s var(--dg-dur-motion);
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path var(--dg-dur-motion) var(--dg-ease-motion), visibility 0s var(--dg-dur-motion);
       }
       .doc-sidebar.is-open {
         visibility: visible;
         pointer-events: auto;
-        transform: translateX(0);
+        clip-path: inset(0 0 0 0);
         transition-delay: 0s;
       }
-      .doc-sidebar.is-open :is(.doc-nav-label, a) { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
-      .doc-sidebar .doc-nav-label { justify-content: center; }
-      .doc-sidebar .doc-nav a { text-align: center; }
+      .doc-sidebar .doc-nav a { font-size: var(--dg-text-base); padding-block: 0.55em; }
+      .doc-sidebar .doc-nav-label { margin-top: var(--dg-space-7); }
+      .doc-sidebar > :first-child .doc-nav-label { margin-top: 0; padding-top: 0; background: none; }
+      /* The bar stays on screen while the index is open (it holds the close button). */
+      body.doc-menu-open .pub-nav.is-hidden { transform: none; }
+      .doc-sidebar.is-open :is(.doc-nav-label, a) { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 160ms backwards; }
+
       .doc-menu-backdrop {
         display: block;
         position: fixed; inset: 0; z-index: 24;
@@ -346,14 +390,14 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
         pointer-events: auto;
         transition-delay: 0s;
       }
-      .doc-demo { padding: var(--dg-space-4); }
+      .doc-demo { padding: var(--dg-space-5) var(--dg-space-4); }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .doc-sidebar, .doc-menu-backdrop { transition: none; }
     }
     @media (max-width: 860px) and (prefers-reduced-motion: reduce) {
-      .doc-sidebar { transition: none; transform: none; }
+      .doc-sidebar { transition: none; clip-path: none; }
       .doc-sidebar.is-open :is(.doc-nav-label, a) { animation: none; }
     }
 
@@ -378,7 +422,7 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 <!-- SVG sprite -->
 <Fragment set:html={iconSprite} />
 
-<SiteHeader currentHref={currentHref} hideOnScroll showMainMenu={false}>
+<SiteHeader currentHref={currentHref} hideOnScroll showMainMenu={false} variant="swiss">
     <button slot="actions" class="pub-theme-btn doc-menu-btn" id="docMenuToggle" aria-label="Abrir índice de documentación" aria-expanded="false" aria-controls="docSidebar">
       <svg class="dg-icon pub-icon-open" viewBox="3 3 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path id="docMenuIcon" d="M4 9h16M4 15h16" /></svg>
       <svg class="dg-icon pub-icon-close" viewBox="3 3 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20" /></svg>
@@ -389,18 +433,10 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 <div class="doc-shell">
   <!-- Sidebar -->
   <aside class="doc-sidebar dg-scroll" id="docSidebar" aria-label="Navegación de documentación">
-    <div class="doc-mobile-links">
-      <div class="doc-nav-label">Navegación</div>
-      <nav class="doc-nav" aria-label="Navegación principal móvil">
-        {TOP_NAV.map((item) => (
-          <a href={item.href} aria-current={currentHref === item.href ? "page" : undefined}>{item.label}</a>
-        ))}
-      </nav>
-    </div>
-    {NAV.map((group) => (
+    {NAV.map((group, groupIndex) => (
       <div>
         <div class="doc-nav-label">
-          <span class={`dot doc-nav-dot-${group.title.toLowerCase().replace(/\s+/g, "-")}`}></span>
+          <span class="doc-nav-num">{pad(groupIndex + 1)}</span>
           {group.title}
         </div>
         <nav class="doc-nav">
@@ -437,11 +473,28 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   <!-- Main -->
   <main class="doc-main" data-dg-reveal-children>
     <!-- Hero -->
-    <div class="doc-hero" data-dg-no-reveal>
-      {activeGroup && <span class="doc-hero-tag">{activeGroup.title}</span>}
+    <header class="doc-hero" data-dg-no-reveal>
+      <div class="doc-hero-kicker">
+        {pageCode && <span class="doc-hero-code">{pageCode}</span>}
+        {activeGroup && <span class="doc-hero-tag">{activeGroup.title}</span>}
+      </div>
       <h1 class="doc-hero-title">{title}</h1>
-      {lead && <p>{lead}</p>}
-    </div>
+      <div class="doc-hero-body">
+        {lead && <p class="doc-hero-lead">{lead}</p>}
+        <aside class="doc-hero-meta" aria-label="Sobre esta página">
+          <dl>
+            {activeGroup && <div><dt>Sección</dt><dd>{activeGroup.title}</dd></div>}
+            {activeGroup && <div><dt>Página</dt><dd>{pageIndex} / {activeGroup.items.length}</dd></div>}
+            {prev && <div><dt>Anterior</dt><dd><a href={prev.href}>{prev.label}</a></dd></div>}
+            {next && <div><dt>Siguiente</dt><dd><a href={next.href}>{next.label}</a></dd></div>}
+          </dl>
+          <nav class="doc-toc" id="docToc" aria-label="En esta página" hidden>
+            <p class="doc-toc-label">En esta página</p>
+            <ol></ol>
+          </nav>
+        </aside>
+      </div>
+    </header>
 
     <!-- Page content -->
     <slot />
@@ -449,16 +502,41 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     <!-- Prev / Next -->
     <nav class="doc-prevnext" data-dg-no-reveal aria-label="Página anterior y siguiente">
       {prev
-        ? <a href={prev.href} title={prev.label} aria-label={`Anterior: ${prev.label}`}><svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7" /></svg><span class="name">{prev.label}</span></a>
-        : null
+        ? <a href={prev.href} aria-label={`Anterior: ${prev.label}`}><span class="doc-prevnext-dir">← Anterior</span><span class="name">{prev.label}</span></a>
+        : <span></span>
       }
       {next &&
-        <a href={next.href} class="next" title={next.label} aria-label={`Siguiente: ${next.label}`}><span class="name">{next.label}</span><svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7" /></svg></a>
+        <a href={next.href} class="next" aria-label={`Siguiente: ${next.label}`}><span class="doc-prevnext-dir">Siguiente →</span><span class="name">{next.label}</span></a>
       }
     </nav>
   </main>
 </div>
 
+<!-- "En esta página": built from the numbered section headings of the page. -->
+<script is:inline>
+  (() => {
+    const toc = document.getElementById('docToc');
+    const subs = [...document.querySelectorAll('.doc-main > .doc-sub, .doc-main > section > .doc-sub')];
+    if (!toc || subs.length < 2) return;
+    const list = toc.querySelector('ol');
+    const used = new Set();
+    subs.forEach((sub, index) => {
+      if (!sub.id) {
+        let id = sub.textContent.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'seccion';
+        while (used.has(id) || document.getElementById(id)) id += '-' + (index + 1);
+        sub.id = id;
+      }
+      used.add(sub.id);
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#' + sub.id;
+      link.textContent = sub.textContent.trim();
+      item.append(link);
+      list.append(item);
+    });
+    toc.hidden = false;
+  })();
+</script>
 <script src={jsHref} is:inline></script>
 <script>
   const menuToggle = document.querySelector<HTMLButtonElement>('#docMenuToggle')!;

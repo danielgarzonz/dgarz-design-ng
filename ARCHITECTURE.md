@@ -21,7 +21,7 @@ Los tokens públicos utilizan el prefijo `--dgarz-` y se distribuyen en `dgarz-d
 ## Siguientes etapas
 
 1. Ampliar las pruebas de los adaptadores a Next.js y otras versiones de framework. Mantener `@stencil/angular-output-target` fijado en 1.1.0 hasta verificar una actualización que conserve los eventos. Un CEM estándar sigue siendo una mejora pendiente; ya hay metadatos Stencil.
-2. Incorporar SSR con el hydrate output target de Stencil y Declarative Shadow DOM; implementar la hidratación del cliente y validar HTML estático, Astro y Next.js por separado. El piloto ya cubre `dgarz-design/hydrate`, Astro `/comenzar/core` y Next App Router (`verify:hydrate`, `verify:astro-hydrate`, `verify:next-hydrate`). Ampliar la misma prueba al migrar cada componente. Importar el paquete raíz en Node no equivale a SSR funcional. No introducir acceso a document/window en el nivel superior del Core.
+2. Incorporar SSR con el hydrate output target de Stencil y Declarative Shadow DOM; implementar la hidratación del cliente y validar HTML estático, Astro y Next.js por separado. El piloto ya cubre `dgarz-design/hydrate`, Astro `/getting-started/core` y Next App Router (`verify:hydrate`, `verify:astro-hydrate`, `verify:next-hydrate`). Ampliar la misma prueba al migrar cada componente. Importar el paquete raíz en Node no equivale a SSR funcional. No introducir acceso a document/window en el nivel superior del Core.
 3. Migrar el inventario heredado componente por componente, con pruebas, historias, documentación, auditorías de accesibilidad y pruebas reales de teclado/navegador.
 4. Migrar Astro a ejemplos del nuevo Core y medir tamaños, tiempos de interacción y ausencia de duplicación del runtime de Stencil en las aplicaciones.
 

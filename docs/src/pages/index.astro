@@ -1,9 +1,11 @@
 ---
 import Code from "../components/Code.astro";
 import "../styles/doc-code.css";
+import "../styles/swiss.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import iconSpriteRaw from "../../../core/src/icons/dgarz-icons.svg?raw";
 import "../styles/brand.css";
+import { CHANGELOG } from "../data/changelog";
 
 const iconSprite = iconSpriteRaw
   .replace(/<\?xml[^>]*\?>/, "")
@@ -11,22 +13,41 @@ const iconSprite = iconSpriteRaw
 
 const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.full.min.css";
 const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
+const version = CHANGELOG[0]?.version ?? "1.2.0";
 
-const features = [
-  { title: "Monocromo por diseño", icon: "dg-sun", text: "Una escala de grises de 12 pasos. Todo el sistema de color deriva de ella y funciona en claro y oscuro." },
-  { title: "Cero dependencias", icon: "dg-check", text: "Un archivo CSS y un archivo JS opcional. Sin jQuery, sin PostCSS y sin Sass requerido." },
-  { title: "Modo oscuro nativo", icon: "dg-moon", text: "Cambia de tema con un solo atributo, data-theme, y todo el sistema se adapta." },
-  { title: "Tokens personalizables", icon: "dg-settings", text: "Todos los valores son variables CSS --dg-*, así que puedes adaptar el framework a tu marca." },
+// Spec sheet of the hero and the counters: real figures of the 1.2.0 build.
+const spec = [
+  { label: "Versión", value: version },
+  { label: "Clases", value: "2 836" },
+  { label: "Peso", value: "41 KB gzip" },
+  { label: "Dependencias", value: "0" },
+  { label: "Licencia", value: "MIT" },
+];
+const figures = [
+  { value: 2836, format: "thousands", unit: "clases", text: "Escalas completas en todos los lados y versiones responsivas." },
+  { value: 0, unit: "dependencias", text: "Un CSS y un JS opcional. Sin build obligatorio." },
+  { value: 41, unit: "KB gzip", text: "Todo el framework, comprimido, con presupuesto en CI." },
+  { value: 12, unit: "grises", text: "Una escala monocroma de la que deriva todo el color." },
+];
+const ideas = ["Monocromo", "Sin dependencias", "Modo oscuro nativo", "Capas de cascada", "Escalas completas", "Animaciones de 1 s", "Glass opcional", "Retícula de 12 columnas"];
+
+const principles = [
+  { title: "Monocromo por diseño", text: "Una escala de grises de 12 pasos. Todo el sistema de color deriva de ella y funciona igual en claro y oscuro." },
+  { title: "Tu CSS siempre gana", text: "El framework vive en capas de cascada: tus estilos lo sobrescriben sin !important y sin pelear especificidad." },
+  { title: "Una clase para cada cosa", text: "Margen, padding, tamaños, posición y grid con escalas completas, y sus versiones para cada tamaño de pantalla." },
+  { title: "Movimiento con intención", text: "Entradas y salidas de un segundo, con tokens propios, que respetan la opción de reducir movimiento." },
 ];
 
 const sections = [
-  { group: "Comenzar", title: "Instalación", icon: '<path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19h14"/>', tint: "#6366f1", text: "Agrega el framework a tu proyecto.", href: "/comenzar/install" },
-  { group: "Fundamentos", title: "Color y tokens", icon: '<path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/>', tint: "#ec4899", text: "El sistema de diseño monocromo.", href: "/fundamentos/color" },
-  { group: "Formularios", title: "Controles base", icon: '<rect x="3" y="7" width="18" height="10" rx="3"/><path d="M7 10.5v3"/>', tint: "#3b82f6", text: "Inputs, selects, switches y validación.", href: "/formularios/forms" },
-  { group: "Componentes", title: "Botones", icon: '<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M9 12h6"/>', tint: "#06b6d4", text: "Variantes, estados y grupos.", href: "/componentes/buttons" },
-  { group: "App Pack", title: "App Shell", icon: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M9 4.5v15"/>', tint: "#22c55e", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
-  { group: "Studio", title: "Galería", icon: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m21 15.5-4.5-4.5L7 19.5"/>', tint: "#ef4444", text: "Ejemplos, heroes y sitios completos.", href: "/examples" },
+  { group: "Comenzar", title: "Instalación", text: "Agrega el framework a tu proyecto.", href: "/getting-started/install" },
+  { group: "Fundamentos", title: "Escalas", text: "Todas las utilidades y sus versiones responsivas.", href: "/foundations/scales" },
+  { group: "Formularios", title: "Controles base", text: "Inputs, selects, switches y validación.", href: "/forms/controls" },
+  { group: "Componentes", title: "Botones", text: "Variantes, estados y grupos.", href: "/components/buttons" },
+  { group: "App Pack", title: "App Shell", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
+  { group: "Studio", title: "Portadas", text: "Diseños completos hechos solo con clases.", href: "/studio/heroes" },
 ];
+const pad = (n: number) => String(n).padStart(2, "0");
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
 ---
 
 <!doctype html>
@@ -36,239 +57,328 @@ const sections = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" id="docThemeColor" />
   <title>dgarz design — Framework CSS monocromo</title>
-  <meta name="description" content="Framework CSS monocromo, sin dependencias y con modo oscuro nativo." />
+  <meta name="description" content="Framework CSS monocromo, sin dependencias, con modo oscuro nativo, capas de cascada y escalas completas." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,401,500,501,600,601&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href={cssHref} />
   <script is:inline>
-    // Hold the hero entrance until the web fonts are ready (max 1.5s), so the
-    // fallback → Gambetta swap happens while the hero is still invisible.
+    // Hold the hero entrance until Geist is ready (max 1.5s), so the letters
+    // never rise in the fallback face and swap mid-animation.
     (function () {
       var root = document.documentElement;
       if (!document.fonts || !document.fonts.load) return;
-      root.classList.add("pub-fonts-pending");
-      var done = function () { root.classList.remove("pub-fonts-pending"); };
-      // fonts.ready resolves before any font is requested; load() requests
-      // the title faces explicitly and resolves when they are usable.
-      Promise.all([
-        document.fonts.load('400 1em "Gambetta"'),
-        document.fonts.load('italic 400 1em "Gambetta"')
-      ]).then(done, done);
+      root.classList.add("lp-fonts-pending");
+      var done = function () { root.classList.remove("lp-fonts-pending"); };
+      Promise.all([document.fonts.load('700 1em "Geist"'), document.fonts.load('300 1em "Geist"')]).then(done, done);
       setTimeout(done, 1500);
     })();
   </script>
   <style is:global>
-    body { overflow-x: hidden; padding-top: 60px; background: var(--dg-surface-2); }
-    /* Título, párrafo y botones forman un solo bloque centrado en la pantalla
-       visible bajo la barra superior (60px). */
-    .pub-hero {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      /* White hero (#ffffff = --dg-paper in light; follows the theme in dark),
-         bleeding to the viewport edges from inside .dg-container. */
-      background: var(--dg-paper);
-      margin-inline: calc(50% - 50vw);
-      padding-inline: calc(50vw - 50%);
-      /* Also extends up behind the fixed 60px menu, so the gaps around its
-         rounded corners show the hero background. The extra top padding keeps
-         the content centered in the visible area below the menu. */
-      margin-top: -60px;
-      min-height: 100svh;
-      padding-block: calc(60px + var(--dg-space-5)) var(--dg-space-5);
+    html { scroll-behavior: smooth; }
+    body { margin: 0; padding-top: 60px; background: var(--doc-page-bg); overflow-x: hidden; }
+    *:not([class*="dg-shadow-"], .dg-navbar, .dg-app-header, .dg-dock), *::before, *:not(.dg-switch-track)::after { box-shadow: none !important; text-shadow: none !important; }
+
+    /* ---- the page grid: same 1320px measure and insets as the docs ---- */
+    .lp-wrap {
+      width: 100%; max-width: 1320px; margin-inline: auto;
+      padding-inline: max(var(--dg-space-6), env(safe-area-inset-left, 0px)) max(var(--dg-space-6), env(safe-area-inset-right, 0px));
+      box-sizing: border-box;
     }
-    .pub-title {
-      margin: 0;
-      font-weight: var(--dg-weight-medium); /* 500: wordmark a step heavier than body serif */
-      /* Original scale (3.5rem min, 13vw), shrunk only when "dgarz design"
-         (~4.9em wide in Gambetta) would not fit the line on narrow phones. */
-      font-size: clamp(2.5rem, min(max(3.5rem, 13vw), calc((100vw - 3rem) / 5.2)), 11rem); line-height: 1; letter-spacing: -0.03em;
-      --pub-letters: 11; /* "dgarz" + "design": the sweep starts at the last letter */
+    .lp-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--doc-gutter); }
+    @media (max-width: 860px) { .lp-wrap { padding-inline: var(--dg-space-4); } }
+
+    /* Section head: number + title over a full rule, like the docs' sections. */
+    .lp-section { padding-block: var(--dg-space-9, 6rem) 0; }
+    .lp-head {
+      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--doc-gutter); align-items: baseline;
+      padding-top: var(--dg-space-4); margin-bottom: var(--dg-space-7);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 2px no-repeat;
     }
-    /* Strict sequence, one part after another: title → paragraph → button 1 → button 2.
-       --pub-step is each part's own duration; the title ends when its last-swept
-       letter ("d") finishes. */
-    .pub-hero {
-      --pub-step: var(--dg-dur-motion);
-      --pub-title-end: calc(120ms + (11 - 1) * 55ms + var(--dg-dur-motion));
+    .lp-num { font-family: var(--dg-font-mono); font-size: var(--dg-text-sm); color: var(--doc-accent); }
+    /* Item numbers belong to their section (04 → 04.1, 04.2…): gray, so only the section number is red. */
+    .lp-num.lp-sub { color: var(--dg-text-faint); }
+    .lp-head .lp-num { grid-column: 1 / span 1; }
+    .lp-head h2 {
+      grid-column: 2 / span 7; margin: 0;
+      font-family: var(--dg-font-sans); font-weight: var(--dg-weight-bold);
+      font-size: clamp(2rem, 1.2rem + 3vw, 4rem); line-height: 0.98; letter-spacing: -0.045em; text-wrap: balance;
     }
-    /* Italic glyphs extend beyond their advance width: keep their paint area open. */
-    .pub-word { display: inline-block; overflow: visible; }
-    .pub-letter {
-      display: inline-block;
-      /* Extra paint space prevents WebKit clipping animated italic overhangs.
-         Negative margins preserve the original letter spacing. */
-      padding-inline: .18em;
-      margin-inline: -.18em;
-      overflow: visible;
-      /* Right-to-left sweep: the last letter enters first, each one slides in
-         from the right while it fades in and comes into focus. */
-      animation: pub-letter-sweep var(--dg-dur-motion) var(--dg-ease-motion) backwards;
-      animation-delay: calc((var(--pub-letters) - 1 - var(--i)) * 55ms + 120ms);
-    }
-    @keyframes pub-letter-sweep {
-      from { opacity: 0; transform: translateX(.45em); filter: blur(12px); }
-      to { opacity: 1; transform: none; filter: blur(0); }
-    }
-    /* After the title: paragraph → button 1 → button 2, each fading in place. */
-    .pub-reveal {
-      animation: pub-reveal var(--pub-step) var(--dg-ease-motion) backwards;
-      animation-delay: calc(var(--pub-title-end) + var(--pub-order, 0) * var(--pub-step));
-    }
-    @keyframes pub-reveal {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    /* Paused + backwards fill keeps the hero in its hidden start state. */
-    .pub-fonts-pending :is(.pub-letter, .pub-reveal) { animation-play-state: paused; }
-    .pub-intro { max-width: 36rem; padding-top: var(--dg-space-5); }
-    .pub-intro .dg-cluster { justify-content: center; }
-    /* Editorial showcase after the hero: three staggered columns of poster-like
-       interfaces built with the framework; columns drift at different speeds
-       on scroll (parallax, transform only). */
-    .pub-showcase {
-      position: relative; overflow: hidden;
-      margin-inline: calc(50% - 50vw); padding: clamp(4rem, 9vw, 7.5rem) calc(50vw - 50%);
-      /* Always dark: the posters are fixed images, not theme-aware. */
-      background: var(--dg-950);
-    }
-    .pub-showcase-grid {
-      display: grid; grid-template-columns: repeat(3, minmax(0, 19rem));
-      justify-content: center; align-items: start; gap: clamp(1rem, 2.4vw, 1.75rem);
-    }
-    .pub-showcase-col { display: flex; flex-direction: column; gap: clamp(1rem, 2.4vw, 1.75rem); will-change: transform; }
-    .pub-showcase-col-mid { margin-top: -4rem; }
-    .pub-showcase-col-end { margin-top: 3rem; }
-    /* Posters are WebP renders of docs/scripts/showcase/posters.html
-       (regenerate with docs/scripts/render-showcase.mjs). */
-    .pub-poster-img { display: block; width: 100%; height: auto; }
-    /* Small screens: fixed-width posters, middle column centered; the side
-       columns run off the edges and are clipped by the band (editorial crop). */
+    .lp-head p { grid-column: 9 / -1; margin: 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm); line-height: 1.6; }
+    .lp-eyebrow { font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi); text-transform: uppercase; letter-spacing: 0.12em; }
     @media (max-width: 860px) {
-      .pub-showcase-grid { grid-template-columns: repeat(3, 15rem); justify-content: center; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .pub-showcase-col { will-change: auto; transform: none !important; }
+      .lp-head { grid-template-columns: 2.5rem 1fr; row-gap: var(--dg-space-3); }
+      .lp-head .lp-num { grid-column: 1; }
+      .lp-head h2 { grid-column: 2; }
+      .lp-head p { grid-column: 2; }
     }
 
-    /* Component gallery: live framework markup, inert (preview only). */
-    .pub-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--dg-space-4); }
-    @media (max-width: 991px) { .pub-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 575px) { .pub-gallery { grid-template-columns: minmax(0, 1fr); } }
-    .pub-tile { position: relative; display: flex; flex-direction: column; }
-    .pub-tile-stage {
-      display: grid; place-items: center; min-height: 240px; flex: 1;
-      padding: var(--dg-space-5); background: var(--dg-surface);
+    /* ================= 00 · HERO: a living Swiss poster ================= */
+    .lp-hero { position: relative; min-height: calc(100svh - 60px); display: flex; flex-direction: column; overflow: hidden; }
+    /* The 12-column grid draws itself line by line, then stays as a faint guide. */
+    .lp-gridlines { position: absolute; inset: 0; pointer-events: none; }
+    .lp-gridlines .lp-wrap { height: 100%; }
+    .lp-gridlines .lp-grid { height: 100%; }
+    .lp-gridlines span {
+      height: 100%;
+      background: linear-gradient(var(--doc-rule), var(--doc-rule)) left / 1px 100% no-repeat;
+      transform-origin: top; animation: lp-line 1.2s var(--dg-ease-motion) backwards;
+      animation-delay: calc(var(--i) * 45ms);
     }
-    .pub-tile-stage > * { max-width: 100%; }
-    .pub-tile-form { width: min(100%, 17rem); }
-    .pub-tile-modal { width: min(100%, 22rem); max-height: none; animation: none; }
-    .pub-tile-glass {
+    .lp-gridlines span:last-child { background-image: linear-gradient(var(--doc-rule), var(--doc-rule)), linear-gradient(var(--doc-rule), var(--doc-rule)); background-position: left, right; background-size: 1px 100%, 1px 100%; }
+    @keyframes lp-line { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+    .lp-hero-inner { position: relative; flex: 1; display: flex; flex-direction: column; padding-block: var(--dg-space-6) var(--dg-space-7); container-type: inline-size; }
+    .lp-kicker { display: flex; flex-wrap: wrap; gap: var(--dg-space-3) var(--dg-space-6); align-items: baseline; }
+    .lp-kicker .lp-num { font-size: var(--dg-text-xs); }
+    /* The wordmark fills the width of the grid: sized from the container. */
+    .lp-title {
+      margin: auto 0 0; padding-top: var(--dg-space-7);
+      font-family: var(--dg-font-sans); font-size: 17.84cqi; line-height: 0.82; letter-spacing: -0.065em;
+      color: var(--dg-text); white-space: nowrap;
+    }
+    /* Room for the descender of the g inside the clipping mask. */
+    .lp-word { display: inline-flex; overflow: hidden; padding-bottom: 0.22em; margin-bottom: -0.14em; vertical-align: top; }
+    .lp-word-a { font-weight: var(--dg-weight-bold); }
+    .lp-word-b { font-weight: 300; margin-left: 0.18em; }
+    .lp-letter { display: inline-block; animation: lp-rise 1s cubic-bezier(.2, .8, .1, 1) backwards; animation-delay: calc(400ms + var(--i) * 55ms); }
+    @keyframes lp-rise { from { transform: translateY(105%); } to { transform: translateY(0); } }
+    /* The full stop: a red square that drops in last. */
+    .lp-dot {
+      display: inline-block; width: 0.16em; height: 0.16em; margin-left: 0.06em; vertical-align: baseline;
+      background: var(--doc-accent);
+      animation: lp-drop 0.9s cubic-bezier(.3, 1.5, .5, 1) backwards; animation-delay: 1.15s;
+    }
+    @keyframes lp-drop { from { transform: translateY(-3em) scale(0.4); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
+
+    .lp-hero-foot { margin-top: var(--dg-space-7); row-gap: var(--dg-space-6); }
+    .lp-lead { grid-column: 1 / span 6; margin: 0; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem); line-height: 1.3; letter-spacing: -0.02em; text-wrap: pretty; }
+    .lp-actions { grid-column: 1 / span 6; display: flex; flex-wrap: wrap; gap: var(--dg-space-3); }
+    .lp-spec { grid-column: 8 / -1; grid-row: 1 / span 2; margin: 0; align-self: end; }
+    .lp-spec div {
+      display: grid; grid-template-columns: 1fr auto; gap: var(--dg-space-3); padding: var(--dg-space-2) 0;
+      background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat;
+    }
+    .lp-spec dt { font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dg-text-faint); }
+    .lp-spec dd { margin: 0; font-family: var(--dg-font-mono); font-size: var(--dg-text-sm); }
+    .lp-fade { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; animation-delay: calc(900ms + var(--o, 0) * 90ms); }
+    @media (max-width: 860px) {
+      .lp-lead, .lp-actions, .lp-spec { grid-column: 1 / -1; grid-row: auto; }
+    }
+    .lp-fonts-pending :is(.lp-letter, .lp-dot, .lp-fade) { animation-play-state: paused; }
+
+    /* Square, flat buttons for the poster. */
+    .lp-btn {
+      display: inline-flex; align-items: center; gap: var(--dg-space-3);
+      min-height: 52px; padding: 0 var(--dg-space-5);
+      font-size: var(--dg-text-sm); font-weight: var(--dg-weight-semi); text-transform: uppercase; letter-spacing: 0.1em;
+      text-decoration: none; border-radius: 0;
+      transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease);
+    }
+    .lp-btn svg { width: 16px; height: 16px; transition: translate .5s var(--dg-ease); }
+    .lp-btn:hover svg { translate: 3px -3px; }
+    .lp-btn-solid { background: var(--dg-text); color: var(--doc-page-bg); }
+    .lp-btn-solid:hover { background: var(--doc-accent); color: #fff; }
+    .lp-btn-quiet { background: var(--doc-demo-bg); color: var(--dg-text); }
+    .lp-btn-quiet:hover { background: color-mix(in oklab, var(--dg-text) 10%, var(--doc-demo-bg)); }
+
+    /* ================= 01 · FIGURES: count up when they enter ================= */
+    .lp-figures { row-gap: var(--dg-space-7); }
+    .lp-figure { grid-column: span 3; padding-top: var(--dg-space-3); background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat; }
+    .lp-figure-value { display: block; font-size: clamp(3.25rem, 2rem + 4.5vw, 7rem); font-weight: var(--dg-weight-bold); line-height: 0.9; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+    .lp-figure-unit { display: block; margin-top: var(--dg-space-3); }
+    .lp-figure p { margin: var(--dg-space-2) 0 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm); line-height: 1.55; max-width: 26ch; }
+    @media (max-width: 1000px) { .lp-figure { grid-column: span 6; } }
+    @media (max-width: 560px) { .lp-figure { grid-column: 1 / -1; } }
+
+    /* ================= 02 · BAND: the ideas, in motion ================= */
+    .lp-band { margin-top: var(--dg-space-9, 6rem); padding-block: var(--dg-space-6); background: var(--dg-text); color: var(--doc-page-bg); }
+    .lp-band .dg-marquee-track { --dg-marquee-gap: var(--dg-space-7); align-items: center; }
+    .lp-band-item { display: inline-flex; align-items: center; gap: var(--dg-space-7); white-space: nowrap; font-size: clamp(2rem, 1rem + 4vw, 4.5rem); font-weight: var(--dg-weight-bold); letter-spacing: -0.045em; line-height: 1; }
+    .lp-band-item::after { content: ""; width: 0.28em; height: 0.28em; background: var(--doc-accent); }
+
+    /* ================= 03 · LIVE COMPONENTS ================= */
+    .lp-tiles { row-gap: var(--dg-space-7); }
+    .lp-tile { grid-column: span 4; display: flex; flex-direction: column; }
+    .lp-tile-stage {
+      display: grid; place-items: center; min-height: 248px; padding: var(--dg-space-6);
+      background: var(--doc-demo-bg); transition: background var(--dg-dur-motion) var(--dg-ease-motion);
+    }
+    .lp-tile:hover .lp-tile-stage { background: color-mix(in oklab, var(--dg-text) 6%, var(--doc-demo-bg)); }
+    .lp-tile-glass {
       background:
-        radial-gradient(circle at 18% 30%, #ff7a1a 0, transparent 40%),
-        radial-gradient(circle at 82% 22%, #8e7dff 0, transparent 42%),
-        radial-gradient(circle at 60% 95%, #22c55e 0, transparent 40%),
+        radial-gradient(circle at 20% 25%, #ff7a1a 0, transparent 40%),
+        radial-gradient(circle at 80% 30%, #8e7dff 0, transparent 42%),
         linear-gradient(135deg, #0f1a2e, #247cff);
     }
-    .pub-tile-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--dg-space-3); padding: var(--dg-space-4) var(--dg-space-5); background: var(--dg-surface); }
-    .pub-tile { overflow: hidden; }
-    .pub-tile-meta h3 { margin: 0; }
-    .pub-tile-meta > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    /* Only the arrow navigates to the docs; the components above are live.
-       It is a framework button (subtle, icon), so it shares the buttons' hover. */
-    .pub-tile-arrow { flex: none; min-width: 0; }
-    .pub-tile-arrow svg { width: 1rem; height: 1rem; transition: transform .5s var(--dg-ease); }
-    .pub-tile-arrow:is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }
-    .pub-main .dg-card { border: 0; }
-    .pub-features, .pub-code-section {
-      background: #ffffff;
-      margin-inline: calc(50% - 50vw);
-      padding-inline: calc(50vw - 50%);
+    .lp-tile:hover .lp-tile-glass { background: radial-gradient(circle at 25% 30%, #ff7a1a 0, transparent 42%), radial-gradient(circle at 75% 25%, #8e7dff 0, transparent 44%), linear-gradient(135deg, #0f1a2e, #247cff); }
+    .lp-tile-form { width: min(100%, 260px); }
+    .lp-tile-modal { position: relative; inset: auto; transform: none; width: min(100%, 300px); margin: 0; animation: none; }
+    .lp-tile-meta {
+      display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: var(--dg-space-2);
+      padding-top: var(--dg-space-3); margin-top: var(--dg-space-3);
+      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
+      color: var(--dg-text); text-decoration: none;
     }
-    [data-theme="dark"] :is(.pub-features, .pub-code-section) { background: var(--dg-paper); }
-    .pub-feature { background: #f8f8f8; color: var(--dg-text); }
-    .pub-feature h3 { color: inherit; }
-    .pub-feature .dg-muted { color: var(--dg-text-muted); }
-    [data-theme="dark"] .pub-feature { background: var(--dg-surface-3); }
-    .pub-link { background: #ffffff; color: inherit; text-decoration: none; }
-    [data-theme="dark"] .pub-link { background: var(--dg-surface-3); }
-    [data-theme="dark"] .pub-link:hover { background: var(--dg-border); }
-    .pub-doc-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px; margin-bottom: var(--dg-space-3);
-      background: color-mix(in srgb, var(--doc-icon-tint) 14%, var(--dg-card-bg));
-      border-radius: var(--dg-radius); color: var(--dg-text);
-    }
-    .pub-doc-icon svg { display: block; width: 22px; height: 22px; }
-    [data-theme="dark"] .pub-doc-icon {
-      background: color-mix(in srgb, var(--doc-icon-tint) 20%, var(--dg-card-bg));
-    }
-    .pub-link:hover { background: var(--dg-surface-3); }
-    .pub-cta {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-      gap: var(--dg-space-5); padding: var(--dg-space-7);
-      border-radius: var(--dg-radius-xl); background: var(--dg-solid); color: var(--dg-on-solid);
-    }
-    .pub-cta h2 { color: inherit; margin: 0; }
-    .pub-cta .dg-btn { background: var(--dg-on-solid); color: var(--dg-solid); border: 0; }
-    .pub-footer { padding-block: var(--dg-space-6); color: var(--dg-text-muted); font-size: var(--dg-text-sm); }
+    .lp-tile-meta h3 { margin: 0; font-family: var(--dg-font-sans); font-size: var(--dg-text-lg); font-weight: var(--dg-weight-semi); letter-spacing: -0.02em; }
+    .lp-tile-meta span:not(.lp-num) { display: block; color: var(--dg-text-muted); font-size: var(--dg-text-sm); }
+    .lp-tile-meta svg { width: 20px; height: 20px; transition: translate .5s var(--dg-ease), color var(--dg-dur) var(--dg-ease); }
+    .lp-tile-meta:hover svg { translate: 3px -3px; color: var(--doc-accent); }
+    @media (max-width: 1000px) { .lp-tile { grid-column: span 6; } }
+    @media (max-width: 640px) { .lp-tile { grid-column: 1 / -1; } }
 
-    @media (max-width: 860px) {
-      .pub-cta { padding: var(--dg-space-5); }
+    /* ================= 04 · SHOWCASE: columns drifting at their own pace ================= */
+    .lp-showcase { overflow: hidden; }
+    .lp-showcase-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--doc-gutter); }
+    .lp-showcase-col { display: grid; gap: var(--doc-gutter); will-change: transform; }
+    .lp-showcase-col:nth-child(2) { margin-top: var(--dg-space-9, 6rem); }
+    .lp-showcase img { display: block; width: 100%; height: auto; border-radius: 0; background: var(--doc-demo-bg); }
+    @media (max-width: 640px) {
+      .lp-showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lp-showcase-col:nth-child(3) { display: none; }
     }
+
+    /* ================= 05 · PRINCIPLES ================= */
+    .lp-principles { row-gap: var(--dg-space-7); }
+    .lp-principle { grid-column: span 6; display: grid; grid-template-columns: 3.25rem 1fr; padding-top: var(--dg-space-4); background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat; }
+    .lp-principle h3 { margin: 0 0 var(--dg-space-3); font-family: var(--dg-font-sans); font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.4rem); font-weight: var(--dg-weight-semi); line-height: 1.05; letter-spacing: -0.035em; }
+    .lp-principle p { margin: 0; color: var(--dg-text-muted); line-height: 1.6; max-width: 46ch; }
+    @media (max-width: 860px) { .lp-principle { grid-column: 1 / -1; } }
+
+    /* ================= 06 · CODE + RESULT ================= */
+    .lp-code { row-gap: var(--dg-space-5); align-items: stretch; }
+    .lp-code > .doc-code { grid-column: 1 / span 7; margin: 0; border-radius: 0; }
+    .lp-result { grid-column: 8 / -1; display: grid; place-items: center; gap: var(--dg-space-4); padding: var(--dg-space-7); background: var(--doc-demo-bg); align-content: center; }
+    .lp-result .lp-eyebrow { color: var(--dg-text-faint); }
+    @media (max-width: 860px) { .lp-code > .doc-code, .lp-result { grid-column: 1 / -1; } }
+
+    /* ================= 07 · INDEX of the documentation ================= */
+    .lp-index { list-style: none; margin: 0; padding: 0; counter-reset: lp-index; }
+    .lp-index a {
+      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--doc-gutter); align-items: baseline;
+      padding: var(--dg-space-5) 0; color: var(--dg-text); text-decoration: none;
+      background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat;
+      transition: background-color var(--dg-dur-motion) var(--dg-ease-motion), padding var(--dg-dur-motion) var(--dg-ease-motion);
+    }
+    .lp-index li:last-child a { background-image: linear-gradient(var(--doc-rule), var(--doc-rule)), linear-gradient(var(--doc-rule), var(--doc-rule)); background-position: top, bottom; background-size: 100% 1px, 100% 1px; }
+    .lp-index .lp-num { grid-column: 1; }
+    .lp-index .lp-eyebrow { grid-column: 2 / span 2; color: var(--dg-text-faint); }
+    .lp-index strong { grid-column: 4 / span 4; font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.6rem); font-weight: var(--dg-weight-semi); letter-spacing: -0.04em; line-height: 1; }
+    .lp-index em { grid-column: 8 / span 4; font-style: normal; color: var(--dg-text-muted); font-size: var(--dg-text-sm); }
+    .lp-index svg { grid-column: 12; justify-self: end; width: 24px; height: 24px; transition: translate .5s var(--dg-ease), color var(--dg-dur) var(--dg-ease); }
+    .lp-index a:hover { background-color: var(--doc-demo-bg); padding-inline: var(--dg-space-4); }
+    .lp-index a:hover svg { translate: 4px -4px; color: var(--doc-accent); }
+    @media (max-width: 860px) {
+      .lp-index a { grid-template-columns: 2.5rem 1fr auto; row-gap: var(--dg-space-1); }
+      .lp-index .lp-eyebrow, .lp-index strong, .lp-index em { grid-column: 2; }
+      .lp-index svg { grid-column: 3; grid-row: 1 / span 3; align-self: center; }
+    }
+
+    /* ================= 08 · CLOSE ================= */
+    .lp-close { container-type: inline-size; }
+    .lp-close-title { margin: 0; font-family: var(--dg-font-sans); font-size: 25.75cqi; font-weight: var(--dg-weight-bold); line-height: 0.82; letter-spacing: -0.07em; white-space: nowrap; }
+    .lp-close-title .lp-dot { animation: none; }
+    .lp-install { margin-top: var(--dg-space-7); row-gap: var(--dg-space-4); align-items: center; }
+    .lp-install .doc-code { grid-column: 1 / span 7; margin: 0; border-radius: 0; }
+    .lp-install .lp-actions { grid-column: 9 / -1; justify-content: flex-end; }
+    @media (max-width: 860px) { .lp-install .doc-code, .lp-install .lp-actions { grid-column: 1 / -1; justify-content: flex-start; } }
+
+    .lp-footer { margin-top: var(--dg-space-9, 6rem); padding-block: var(--dg-space-5) var(--dg-space-8); background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) no-repeat; background-size: 100% 2px; background-origin: content-box; background-position: 0 calc(-1 * var(--dg-space-5)); row-gap: var(--dg-space-5); font-size: var(--dg-text-sm); }
+    .lp-footer-brand { grid-column: 1 / span 4; align-self: start; display: inline-flex; align-items: center; gap: 0; font-size: 1.0625rem; font-weight: var(--dg-weight-bold); letter-spacing: -0.035em; }
+    .lp-footer-brand::before { content: ""; width: 9px; height: 9px; margin-right: 0.55em; background: var(--doc-accent); }
+    .lp-footer-brand span { font-weight: var(--dg-weight-normal); margin-left: 0.24em; }
+    .lp-footer nav { grid-column: span 3; display: grid; gap: var(--dg-space-2); align-content: start; }
+    .lp-footer nav .lp-eyebrow { color: var(--dg-text-faint); margin-bottom: var(--dg-space-1); }
+    .lp-footer a { color: var(--dg-text-muted); text-decoration: none; }
+    .lp-footer a:hover { color: var(--dg-text); }
+    .lp-footer small { grid-column: 11 / -1; justify-self: end; align-self: end; color: var(--dg-text-faint); font-family: var(--dg-font-mono); }
+    @media (max-width: 860px) {
+      .lp-footer-brand { grid-column: 1 / -1; }
+      .lp-footer nav { grid-column: span 6; }
+      .lp-footer small { grid-column: 1 / -1; justify-self: start; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      .pub-letter, .pub-reveal { animation: none; }
+      .lp-gridlines span, .lp-letter, .lp-dot, .lp-fade { animation: none; }
+      .lp-band .dg-marquee-track { animation: none; }
     }
   </style>
 </head>
 <body>
 <Fragment set:html={iconSprite} />
 
-<SiteHeader currentHref="/" hideOnScroll />
+<SiteHeader currentHref="/" hideOnScroll variant="swiss" />
 
-<main class="pub-main dg-container">
-  <section class="pub-hero">
-    <h1 class="dg-display pub-title" aria-label="dgarz design">
-      <span class="pub-word brand-name" aria-hidden="true">{[..."dgarz"].map((letter, i) => <span class="pub-letter" style={`--i: ${i}`}>{letter}</span>)}</span>{" "}
-      <span class="pub-word brand-suffix" aria-hidden="true">{[..."design"].map((letter, i) => <span class="pub-letter" style={`--i: ${i + 5}`}>{letter}</span>)}</span>
-    </h1>
-    <div class="pub-intro">
-      <p class="dg-lead pub-reveal" style="--pub-order: 0">Un framework CSS moderno y monocromo, sin dependencias y con modo oscuro nativo.</p>
-      <div class="dg-cluster dg-mt-4">
-        <a href="/comenzar/intro" class="dg-btn dg-btn-primary pub-reveal" style="--pub-order: 1">Empezar</a>
-        <a href="/componentes/buttons" class="dg-btn dg-btn-subtle pub-reveal" style="--pub-order: 2">Ver componentes</a>
+<main>
+  <!-- 00 · Hero -->
+  <section class="lp-hero" aria-labelledby="lp-title">
+    <div class="lp-gridlines" aria-hidden="true">
+      <div class="lp-wrap"><div class="lp-grid">
+        {Array.from({ length: 12 }, (_, i) => <span style={`--i: ${i}`}></span>)}
+      </div></div>
+    </div>
+    <div class="lp-wrap lp-hero-inner">
+      <div class="lp-kicker lp-eyebrow lp-fade">
+        <span class="lp-num">00</span>
+        <span>Framework CSS monocromo</span>
+        <span class="dg-hidden-xs">Diseñado en retícula de 12 columnas</span>
+      </div>
+      <h1 class="lp-title" id="lp-title" aria-label="dgarz design">
+        <span class="lp-word lp-word-a" aria-hidden="true">{[..."dgarz"].map((letter, i) => <span class="lp-letter" style={`--i: ${i}`}>{letter}</span>)}</span><span class="lp-word lp-word-b" aria-hidden="true">{[..."design"].map((letter, i) => <span class="lp-letter" style={`--i: ${i + 5}`}>{letter}</span>)}</span><span class="lp-dot" aria-hidden="true"></span>
+      </h1>
+      <div class="lp-grid lp-hero-foot">
+        <p class="lp-lead lp-fade" style="--o: 1">Un framework CSS monocromo, sin dependencias y con modo oscuro nativo. Escalas completas, capas de cascada y animaciones con intención.</p>
+        <div class="lp-actions lp-fade" style="--o: 2">
+          <a href="/getting-started/intro" class="lp-btn lp-btn-solid">Empezar <Fragment set:html={arrow} /></a>
+          <a href="/studio/heroes" class="lp-btn lp-btn-quiet">Ver portadas</a>
+        </div>
+        <dl class="lp-spec lp-fade" style="--o: 3">
+          {spec.map((row) => <div><dt>{row.label}</dt><dd>{row.value}</dd></div>)}
+        </dl>
       </div>
     </div>
   </section>
 
-  <section class="pub-showcase" data-pub-parallax aria-labelledby="pub-showcase-title">
-    <h2 id="pub-showcase-title" class="dg-sr-only">Sitios de ejemplo hechos con dgarz design</h2>
-    <div class="pub-showcase-grid">
-      <div class="pub-showcase-col" data-speed="70">
-        <img class="pub-poster-img" src="/showcase/01-estudio.webp" alt="Sitio de ejemplo «Estudio Norte», estudio de arquitectura: titular «Espacios que respiran», ilustración de un arco y lista de proyectos." width="304" height="502" loading="lazy" decoding="async">
-        <img class="pub-poster-img" src="/showcase/06-cuaderno.webp" alt="Sitio de ejemplo «Cuaderno», newsletter: titular, campo de correo, casilla de aceptación y botón «Suscribirme»." width="304" height="278" loading="lazy" decoding="async">
-      </div>
-      <div class="pub-showcase-col pub-showcase-col-mid" data-speed="-120">
-        <img class="pub-poster-img" src="/showcase/02-evento.webp" alt="Sitio de ejemplo «Forma 26», conferencia: titular «Diseño sin ruido» y botón glass «Reservar lugar» sobre un degradado." width="304" height="454" loading="lazy" decoding="async">
-        <img class="pub-poster-img" src="/showcase/04-panel.webp" alt="Sitio de ejemplo «Pulso», panel en modo oscuro: saludo, tabs, métricas de visitas y conversión y barras de progreso." width="304" height="331" loading="lazy" decoding="async">
-      </div>
-      <div class="pub-showcase-col pub-showcase-col-end" data-speed="40">
-        <img class="pub-poster-img" src="/showcase/05-revista.webp" alt="Sitio de ejemplo «Revista Gris»: titular tipográfico «Luz y forma», entradilla del ensayo y esferas ilustradas." width="304" height="410" loading="lazy" decoding="async">
-        <img class="pub-poster-img" src="/showcase/03-tienda.webp" alt="Sitio de ejemplo «Atelier Mono», tienda: frasco de sérum, precio, selector de tamaño y botón «Añadir a la bolsa»." width="304" height="440" loading="lazy" decoding="async">
+  <!-- 01 · Figures -->
+  <section class="lp-section lp-wrap" data-dg-reveal-children aria-labelledby="lp-figures">
+    <header class="lp-head">
+      <span class="lp-num">01</span>
+      <h2 id="lp-figures">Pequeño por fuera, completo por dentro.</h2>
+      <p>Cifras reales de la versión {version}, medidas en cada cambio por el CI.</p>
+    </header>
+    <div class="lp-grid lp-figures">
+      {figures.map((item) => (
+        <div class="lp-figure">
+          <span class="lp-figure-value" data-lp-count={item.value} data-lp-format={item.format}>{item.format === "thousands" ? item.value.toLocaleString("es-MX").replace(",", " ") : item.value}</span>
+          <span class="lp-figure-unit lp-eyebrow">{item.unit}</span>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 02 · Band -->
+  <section class="lp-band" aria-label="Ideas clave">
+    <div class="dg-marquee">
+      <div class="dg-marquee-track">
+        {ideas.map((idea) => <span class="lp-band-item">{idea}</span>)}
+        {ideas.map((idea) => <span class="lp-band-item" aria-hidden="true">{idea}</span>)}
       </div>
     </div>
   </section>
 
-  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-gallery">
-    <h2 id="pub-gallery" class="dg-mb-2">Componentes listos para usar</h2>
-    <p class="dg-muted dg-mb-5">Así se ven tal cual, con el HTML del framework. Cambia el tema para verlos en oscuro.</p>
-    <div class="pub-gallery">
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage">
+  <!-- 03 · Live components -->
+  <section class="lp-section lp-wrap" data-dg-reveal-children aria-labelledby="lp-components">
+    <header class="lp-head">
+      <span class="lp-num">02</span>
+      <h2 id="lp-components">Componentes vivos, no capturas.</h2>
+      <p>Así se ven tal cual, con el HTML del framework. Cambia el tema arriba para verlos en oscuro.</p>
+    </header>
+    <div class="lp-grid lp-tiles">
+      <article class="lp-tile">
+        <div class="lp-tile-stage">
           <div class="dg-stack dg-gap-3">
             <div class="dg-cluster">
               <button type="button" class="dg-btn dg-btn-primary">Guardar</button>
@@ -281,25 +391,25 @@ const sections = [
             </div>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Botones</h3><span class="dg-text-sm dg-muted">Variantes y tamaños</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/buttons" aria-label="Documentación de Botones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/components/buttons"><span class="lp-num lp-sub">02.1</span><div><h3>Botones</h3><span>Variantes y tamaños</span></div><Fragment set:html={arrow} /></a>
       </article>
 
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage">
-          <div class="dg-stack dg-gap-3 pub-tile-form">
+      <article class="lp-tile">
+        <div class="lp-tile-stage">
+          <div class="dg-stack dg-gap-3 lp-tile-form">
             <div class="dg-field">
-              <label class="dg-label" for="pubDemoEmail">Correo</label>
-              <input class="dg-input" id="pubDemoEmail" type="email" value="ana@estudio.com">
+              <label class="dg-label" for="lpDemoEmail">Correo</label>
+              <input class="dg-input" id="lpDemoEmail" type="email" value="ana@estudio.com">
             </div>
             <label class="dg-switch"><input type="checkbox" checked><span class="dg-switch-track"></span> Notificaciones</label>
             <label class="dg-check"><input type="checkbox" checked><span class="dg-check-box"></span> Recordarme</label>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Formularios</h3><span class="dg-text-sm dg-muted">Campos y controles</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/formularios/forms" aria-label="Documentación de Formularios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/forms/controls"><span class="lp-num lp-sub">02.2</span><div><h3>Formularios</h3><span>Campos y controles</span></div><Fragment set:html={arrow} /></a>
       </article>
 
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage">
+      <article class="lp-tile">
+        <div class="lp-tile-stage">
           <div class="dg-stack dg-gap-3">
             <div class="dg-alert dg-alert-success">
               <svg class="dg-icon dg-icon-sm dg-alert-icon"><use href="#dg-check"/></svg>
@@ -312,12 +422,12 @@ const sections = [
             </div>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Alertas y badges</h3><span class="dg-text-sm dg-muted">Estados claros</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/alerts" aria-label="Documentación de Alertas y badges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/components/alerts"><span class="lp-num lp-sub">02.3</span><div><h3>Alertas y badges</h3><span>Estados claros</span></div><Fragment set:html={arrow} /></a>
       </article>
 
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage">
-          <div class="dg-modal dg-modal-sm pub-tile-modal">
+      <article class="lp-tile">
+        <div class="lp-tile-stage">
+          <div class="dg-modal dg-modal-sm lp-tile-modal">
             <button type="button" class="dg-modal-close" aria-label="Cerrar"><svg class="dg-icon"><use href="#dg-x"/></svg></button>
             <div class="dg-modal-header"><h4 class="dg-modal-title">Invitar equipo</h4></div>
             <div class="dg-modal-body">Enviaremos un enlace de acceso a cada correo.</div>
@@ -327,12 +437,12 @@ const sections = [
             </div>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Modales</h3><span class="dg-text-sm dg-muted">Sólido o glass</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/modales" aria-label="Documentación de Modales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/components/modals"><span class="lp-num lp-sub">02.4</span><div><h3>Modales</h3><span>Sólido o glass</span></div><Fragment set:html={arrow} /></a>
       </article>
 
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage pub-tile-glass">
-          <div class="dg-stack dg-gap-3" style="align-items: center">
+      <article class="lp-tile">
+        <div class="lp-tile-stage lp-tile-glass">
+          <div class="dg-stack dg-gap-3 dg-items-center">
             <span class="dg-badge dg-badge-info is-glass">Nuevo</span>
             <div class="dg-cluster">
               <button type="button" class="dg-btn dg-btn-primary is-glass">Explorar</button>
@@ -340,12 +450,12 @@ const sections = [
             </div>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Glass opcional</h3><span class="dg-text-sm dg-muted">Sobre imágenes</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/fundamentos/superficies#glass-componentes" aria-label="Documentación de Glass opcional"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/foundations/surfaces#glass-componentes"><span class="lp-num lp-sub">02.5</span><div><h3>Glass opcional</h3><span>Sobre imágenes</span></div><Fragment set:html={arrow} /></a>
       </article>
 
-      <article class="dg-card pub-tile">
-        <div class="pub-tile-stage">
-          <div class="dg-stack dg-gap-4" style="align-items: center">
+      <article class="lp-tile">
+        <div class="lp-tile-stage">
+          <div class="dg-stack dg-gap-4 dg-items-center">
             <div class="dg-tabs dg-tabs-pill" data-dg-tabs aria-label="Secciones de ejemplo">
               <button type="button" class="dg-tab is-active" role="tab" aria-selected="true">Resumen</button>
               <button type="button" class="dg-tab" role="tab" aria-selected="false">Equipo</button>
@@ -358,74 +468,124 @@ const sections = [
             </div>
           </div>
         </div>
-        <div class="pub-tile-meta"><div><h3 class="dg-text-base">Navegación</h3><span class="dg-text-sm dg-muted">Tabs y segmentado</span></div><a class="dg-btn-subtle dg-btn-icon pub-tile-arrow" href="/componentes/nav" aria-label="Documentación de Navegación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+        <a class="lp-tile-meta" href="/components/nav"><span class="lp-num lp-sub">02.6</span><div><h3>Navegación</h3><span>Tabs y segmentado</span></div><Fragment set:html={arrow} /></a>
       </article>
     </div>
   </section>
 
-  <section class="dg-section pub-features" data-dg-reveal-children aria-labelledby="pub-features">
-    <h2 id="pub-features" class="dg-mb-5">Pensado para ir directo al grano</h2>
-    <div class="dg-grid dg-grid-2 dg-gap-4">
-      {features.map((item) => (
-        <div class="dg-card pub-feature"><div class="dg-card-body">
-          <svg class="dg-icon dg-icon-lg dg-mb-3" aria-hidden="true" focusable="false"><use href={`#${item.icon}`} /></svg>
-          <h3 class="dg-text-lg">{item.title}</h3>
-          <p class="dg-muted dg-text-sm dg-mt-2">{item.text}</p>
-        </div></div>
+  <!-- 04 · Showcase -->
+  <section class="lp-section lp-showcase" aria-labelledby="lp-showcase">
+    <div class="lp-wrap">
+      <header class="lp-head">
+        <span class="lp-num">03</span>
+        <h2 id="lp-showcase">Sitios completos, solo con clases.</h2>
+        <p>Estudios, tiendas, revistas y paneles armados con el framework, sin una línea de CSS propio.</p>
+      </header>
+      <div class="lp-showcase-grid" data-lp-parallax>
+        <div class="lp-showcase-col" data-speed="70">
+          <img src="/showcase/01-estudio.webp" alt="Sitio de ejemplo «Estudio Norte», estudio de arquitectura: titular «Espacios que respiran» e imagen de un interior." loading="lazy" decoding="async">
+          <img src="/showcase/06-cuaderno.webp" alt="Sitio de ejemplo «Cuaderno», newsletter: titular, campo de correo, casilla de aceptación y botón de suscripción." loading="lazy" decoding="async">
+        </div>
+        <div class="lp-showcase-col" data-speed="-120">
+          <img src="/showcase/02-evento.webp" alt="Sitio de ejemplo «Forma 26», conferencia: titular «Diseño sin ruido» y botón glass «Reservar lugar»." loading="lazy" decoding="async">
+          <img src="/showcase/04-panel.webp" alt="Sitio de ejemplo «Pulso», panel en modo oscuro: saludo, tabs, métricas de visitas y conversión." loading="lazy" decoding="async">
+        </div>
+        <div class="lp-showcase-col" data-speed="40">
+          <img src="/showcase/05-revista.webp" alt="Sitio de ejemplo «Revista Gris»: titular tipográfico «Luz y forma», entradilla del ensayo y foto." loading="lazy" decoding="async">
+          <img src="/showcase/03-tienda.webp" alt="Sitio de ejemplo «Atelier Mono», tienda: frasco de sérum, precio, selector de tamaño y botón de compra." loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Principles -->
+  <section class="lp-section lp-wrap" data-dg-reveal-children aria-labelledby="lp-principles">
+    <header class="lp-head">
+      <span class="lp-num">04</span>
+      <h2 id="lp-principles">Cuatro principios.</h2>
+      <p>Las decisiones que sostienen cada clase del framework.</p>
+    </header>
+    <div class="lp-grid lp-principles">
+      {principles.map((item, i) => (
+        <article class="lp-principle"><span class="lp-num lp-sub">04.{i + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>
       ))}
     </div>
   </section>
 
-  <section class="dg-section pub-code-section" data-dg-reveal-children aria-labelledby="pub-code">
-    <h2 id="pub-code" class="dg-mb-3">Clases claras, HTML limpio</h2>
-    <p class="dg-muted dg-mb-5">Escribe el marcado y deja que el framework se encargue del resto.</p>
-    <Code lang="html"><code class="language-html">&lt;html data-theme="dark"&gt;
+  <!-- 06 · Code + result -->
+  <section class="lp-section lp-wrap" data-dg-reveal-children aria-labelledby="lp-code">
+    <header class="lp-head">
+      <span class="lp-num">05</span>
+      <h2 id="lp-code">Clases claras, HTML limpio.</h2>
+      <p>Escribe el marcado; el framework se encarga del resto, también del modo oscuro.</p>
+    </header>
+    <div class="lp-grid lp-code">
+      <Code lang="html"><code class="language-html">&lt;div class="dg-flex dg-flex-col dg-md-flex-row dg-gap-3"&gt;
   &lt;button class="dg-btn dg-btn-primary"&gt;Guardar&lt;/button&gt;
-  &lt;span class="dg-badge dg-badge-success"&gt;Activo&lt;/span&gt;
-&lt;/html&gt;</code></Code>
-  </section>
-
-  <section class="dg-section" data-dg-reveal-children aria-labelledby="pub-docs">
-    <h2 id="pub-docs" class="dg-mb-5">Explora la documentación</h2>
-    <div class="dg-grid dg-grid-3 dg-gap-3">
-      {sections.map((item) => (
-        <a href={item.href} class="dg-card pub-link">
-          <div class="dg-card-body">
-            <span class="pub-doc-icon" style={`--doc-icon-tint: ${item.tint};`} aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={item.icon} />
-            </span>
-            <div class="dg-eyebrow dg-mb-2">{item.group}</div>
-            <h3 class="dg-text-base">{item.title}</h3>
-            <p class="dg-text-sm dg-muted dg-mt-1">{item.text}</p>
-          </div>
-        </a>
-      ))}
+  &lt;button class="dg-btn dg-btn-subtle"&gt;Cancelar&lt;/button&gt;
+&lt;/div&gt;
+&lt;span class="dg-badge dg-badge-dot dg-badge-success"&gt;Activo&lt;/span&gt;</code></Code>
+      <div class="lp-result">
+        <span class="lp-eyebrow">Resultado</span>
+        <div class="dg-flex dg-flex-col dg-md-flex-row dg-gap-3">
+          <button type="button" class="dg-btn dg-btn-primary">Guardar</button>
+          <button type="button" class="dg-btn dg-btn-subtle">Cancelar</button>
+        </div>
+        <span class="dg-badge dg-badge-dot dg-badge-success">Activo</span>
+      </div>
     </div>
   </section>
 
-  <section class="dg-section" data-dg-reveal-children>
-    <div class="pub-cta">
-      <h2>Empieza con tu primera página.</h2>
-      <a href="/comenzar/install" class="dg-btn">Ver instalación</a>
+  <!-- 07 · Index -->
+  <section class="lp-section lp-wrap" data-dg-reveal-children aria-labelledby="lp-index">
+    <header class="lp-head">
+      <span class="lp-num">06</span>
+      <h2 id="lp-index">Índice.</h2>
+      <p>Por dónde empezar, según lo que necesites.</p>
+    </header>
+    <ol class="lp-index">
+      {sections.map((item, i) => (
+        <li><a href={item.href}><span class="lp-num lp-sub">06.{i + 1}</span><span class="lp-eyebrow">{item.group}</span><strong>{item.title}</strong><em>{item.text}</em><Fragment set:html={arrow} /></a></li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 08 · Close -->
+  <section class="lp-section lp-wrap" aria-labelledby="lp-close">
+    <div class="lp-close">
+      <h2 class="lp-close-title" id="lp-close">Empieza<span class="lp-dot" aria-hidden="true"></span></h2>
+    </div>
+    <div class="lp-grid lp-install">
+      <div class="doc-code" data-lang="bash"><button class="cp">Copiar</button><pre><code>npm install dgarz-design</code></pre></div>
+      <div class="lp-actions">
+        <a href="/getting-started/install" class="lp-btn lp-btn-solid">Ver instalación <Fragment set:html={arrow} /></a>
+      </div>
     </div>
   </section>
 </main>
 
-<footer class="pub-footer dg-container">
-  <div class="dg-flex dg-items-center dg-justify-between dg-gap-3 dg-wrap">
-    <span class="pub-brand"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></span>
-    <div class="dg-cluster">
-      <a href="/comenzar/intro" class="dg-link">Documentación</a>
-      <a href="/comenzar/changelog" class="dg-link">Changelog</a>
-    </div>
-  </div>
+<footer class="lp-wrap lp-grid lp-footer">
+  <span class="lp-footer-brand">dgarz <span>design</span></span>
+  <nav aria-label="Documentación">
+    <span class="lp-eyebrow">Documentación</span>
+    <a href="/getting-started/intro">Introducción</a>
+    <a href="/getting-started/install">Instalación</a>
+    <a href="/foundations/scales">Escalas</a>
+  </nav>
+  <nav aria-label="Proyecto">
+    <span class="lp-eyebrow">Proyecto</span>
+    <a href="/getting-started/changelog">Changelog</a>
+    <a href="https://www.npmjs.com/package/dgarz-design" rel="noopener">npm</a>
+    <a href="/studio/heroes">Studio</a>
+  </nav>
+  <small>v{version} · MIT</small>
 </footer>
 
 <script is:inline>
   // Showcase parallax: each column drifts by its data-speed (px) as the section
-  // crosses the viewport. Transform only, one write per frame, off when reduced motion.
+  // crosses the viewport. Transform only, one write per frame, off with reduced motion.
   (function () {
-    var section = document.querySelector("[data-pub-parallax]");
+    var section = document.querySelector("[data-lp-parallax]");
     if (!section) return;
     var cols = Array.prototype.slice.call(section.querySelectorAll("[data-speed]"));
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -436,7 +596,6 @@ const sections = [
       var rect = section.getBoundingClientRect();
       var vh = window.innerHeight;
       if (rect.bottom < 0 || rect.top > vh) return;
-      // -1 when the section enters from below, 0 centered, 1 as it leaves above.
       var progress = (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
       progress = Math.max(-1, Math.min(1, progress));
       cols.forEach(function (c) {
@@ -446,8 +605,35 @@ const sections = [
     function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
     window.addEventListener("scroll", queue, { passive: true });
     window.addEventListener("resize", queue);
-    if (reduce.addEventListener) reduce.addEventListener("change", queue);
     update();
+  })();
+
+  // Figures count up from zero the first time they enter the screen.
+  (function () {
+    var els = Array.prototype.slice.call(document.querySelectorAll("[data-lp-count]"));
+    if (!els.length || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    function format(el, n) {
+      var s = String(Math.round(n));
+      return el.dataset.lpFormat === "thousands" ? s.replace(/\B(?=(\d{3})+(?!\d))/g, " ") : s;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        var el = entry.target, target = Number(el.dataset.lpCount), start = null, duration = 1400;
+        if (!target) return;
+        function step(t) {
+          if (start === null) start = t;
+          var p = Math.min(1, (t - start) / duration);
+          el.textContent = format(el, target * (1 - Math.pow(1 - p, 4)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        el.textContent = format(el, 0);
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    els.forEach(function (el) { io.observe(el); });
   })();
 </script>
 <script is:inline src={jsHref} defer></script>
@@ -458,17 +644,17 @@ const sections = [
 <script>
   import Prism from "prismjs";
   import "prismjs/components/prism-markup";
-  document.querySelectorAll<HTMLElement>(".doc-code code").forEach((code) => Prism.highlightElement(code));
+  document.querySelectorAll<HTMLElement>(".doc-code code.language-html").forEach((code) => Prism.highlightElement(code));
   function copyWithTextarea(text: string): boolean {
-    const area = document.createElement('textarea');
+    const area = document.createElement("textarea");
     area.value = text;
-    area.setAttribute('readonly', '');
-    area.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px;';
+    area.setAttribute("readonly", "");
+    area.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px;";
     document.body.appendChild(area);
     area.focus();
     area.setSelectionRange(0, text.length);
     let ok = false;
-    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    try { ok = document.execCommand("copy"); } catch { ok = false; }
     area.remove();
     return ok;
   }
@@ -478,15 +664,15 @@ const sections = [
     }
     return copyWithTextarea(text);
   }
-  document.querySelectorAll<HTMLButtonElement>('.cp').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const pre = btn.closest('.doc-code')?.querySelector('pre');
-      const ok = await copyText(pre?.textContent ?? '');
-      btn.textContent = ok ? '✓ Copiado' : 'No se pudo copiar';
-      btn.classList.toggle('is-copied', ok);
+  document.querySelectorAll<HTMLButtonElement>(".cp").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const pre = btn.closest(".doc-code")?.querySelector("pre");
+      const ok = await copyText(pre?.textContent ?? "");
+      btn.textContent = ok ? "✓ Copiado" : "No se pudo copiar";
+      btn.classList.toggle("is-copied", ok);
       setTimeout(() => {
-        btn.textContent = 'Copiar';
-        btn.classList.remove('is-copied');
+        btn.textContent = "Copiar";
+        btn.classList.remove("is-copied");
       }, 1800);
     });
   });

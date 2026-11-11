@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/DocsLayout.astro';
+import Code from '../../components/Code.astro';
+const react = `'use client';
+import { DgarzButton } from 'dgarz-design-react';
+import 'dgarz-design/tokens';
+
+export function Actions() {
+  return <DgarzButton disabled={false} loading={false}
+    onDgarzClick={() => console.log('Guardar')}>Guardar</DgarzButton>;
+}`;
+const vue = `<script setup lang="ts">
+import { DgarzButton } from 'dgarz-design-vue';
+import 'dgarz-design/tokens';
+const save = () => console.log('Guardar');
+<\/script>
+
+<template>
+  <DgarzButton :disabled="false" :loading="false" @dgarz-click="save">
+    Guardar
+  </DgarzButton>
+</template>`;
+const angular = `import { Component } from '@angular/core';
+import { DgarzButton } from 'dgarz-design-angular';
+
+@Component({
+  selector: 'app-actions',
+  standalone: true,
+  imports: [DgarzButton],
+  template: '<dgarz-button [disabled]="false" [loading]="false" (dgarz-click)="save()">Guardar</dgarz-button>',
+})
+export class Actions {
+  save() { console.log('Guardar'); }
+}`;
+---
+<Layout title="Adaptadores de frameworks" lead="Componentes de React, Vue y Angular generados desde el mismo Core de Stencil.js." currentHref="/getting-started/frameworks">
+  <p>Los adaptadores están en desarrollo local y aún no se han publicado; el Core que usan viene en <code>dgarz-design/core</code> desde la versión <code>1.2.0</code>. Componentes disponibles: <code>dgarz-button</code> y <code>dgarz-input</code>. Los adaptadores no duplican su lógica.</p>
+  <h2>React 19 y cliente de Next.js</h2>
+  <Code lang="tsx">{react}</Code>
+  <p>El evento nativo <code>dgarz-click</code> se expone como <code>onDgarzClick</code>. El ejemplo del adaptador es cliente. SSR con DSD del Core está verificado en Astro (<a href="/getting-started/core">Core SSR</a>) y en un consumidor Next.js App Router vía <code>dgarz-design/hydrate</code> + registro cliente (<code>npm run verify:next-hydrate</code>). El adaptador React aún no declara SSR propio.</p>
+  <h2>Vue 3.5</h2>
+  <Code lang="vue">{vue}</Code>
+  <p>Vue conserva el evento <code>@dgarz-click</code>. El adaptador declara Vue Router como peer por los tipos del runtime oficial, aunque la pantalla no utilice un router.</p>
+  <h2>Angular 20.3</h2>
+  <Code lang="ts">{angular}</Code>
+  <p>Importa el componente standalone, carga <code>dgarz-design/tokens</code> en los estilos globales y usa bindings booleanos explícitos. No necesitas <code>CUSTOM_ELEMENTS_SCHEMA</code> al usar el adaptador.</p>
+  <h2>Desarrollo y verificación</h2>
+  <Code lang="bash">{'npm run build\nnpm run verify:wrappers'}</Code>
+  <p>Los archivos de <code>packages/*/src/generated</code> se regeneran desde Stencil. El verificador instala tarballs en un consumidor temporal y comprueba tipos, plantillas de Angular y comportamiento en Chromium. Requiere el navegador de Playwright y permite reutilizar la caché de npm.</p>
+  <p><a href="/getting-started/intro">Volver a la entrada de documentación</a></p>
+</Layout>

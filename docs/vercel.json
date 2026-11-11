@@ -6,9 +6,229 @@
   "outputDirectory": "dist",
   "redirects": [
     {
+      "source": "/comenzar/changelog",
+      "destination": "/getting-started/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/comenzar/core",
+      "destination": "/getting-started/core",
+      "permanent": true
+    },
+    {
+      "source": "/comenzar/frameworks",
+      "destination": "/getting-started/frameworks",
+      "permanent": true
+    },
+    {
+      "source": "/comenzar/install",
+      "destination": "/getting-started/install",
+      "permanent": true
+    },
+    {
       "source": "/comenzar/intro",
-      "destination": "/",
-      "permanent": false
+      "destination": "/getting-started/intro",
+      "permanent": true
+    },
+    {
+      "source": "/comenzar/js",
+      "destination": "/getting-started/js",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/animaciones",
+      "destination": "/foundations/animations",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/auto",
+      "destination": "/foundations/semantic-html",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/bordes",
+      "destination": "/foundations/borders",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/color",
+      "destination": "/foundations/color",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/composicion",
+      "destination": "/foundations/composition",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/display",
+      "destination": "/foundations/display",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/escalas",
+      "destination": "/foundations/scales",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/espaciado",
+      "destination": "/foundations/spacing",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/flex",
+      "destination": "/foundations/flex",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/grid",
+      "destination": "/foundations/grid",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/interaccion",
+      "destination": "/foundations/interaction",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/sombras",
+      "destination": "/foundations/shadows",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/superficies",
+      "destination": "/foundations/surfaces",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/text-effects",
+      "destination": "/foundations/text-effects",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/tokens",
+      "destination": "/foundations/tokens",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/typography",
+      "destination": "/foundations/typography",
+      "permanent": true
+    },
+    {
+      "source": "/fundamentos/visibilidad",
+      "destination": "/foundations/visibility",
+      "permanent": true
+    },
+    {
+      "source": "/formularios/floating-labels",
+      "destination": "/forms/floating-labels",
+      "permanent": true
+    },
+    {
+      "source": "/formularios/forms",
+      "destination": "/forms/controls",
+      "permanent": true
+    },
+    {
+      "source": "/formularios/variants",
+      "destination": "/forms/variants",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/alerts",
+      "destination": "/components/alerts",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/badges",
+      "destination": "/components/badges",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/buttons",
+      "destination": "/components/buttons",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/callouts",
+      "destination": "/components/callouts",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/cards",
+      "destination": "/components/cards",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/carousel",
+      "destination": "/components/carousel",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/chips",
+      "destination": "/components/chips",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/collapse",
+      "destination": "/components/collapse",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/drawer",
+      "destination": "/components/drawer",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/dropdown",
+      "destination": "/components/dropdown",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/figures",
+      "destination": "/components/figures",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/misc",
+      "destination": "/components/misc",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/modales",
+      "destination": "/components/modals",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/nav",
+      "destination": "/components/nav",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/overlays",
+      "destination": "/components/overlays",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/popover",
+      "destination": "/components/popover",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/tables",
+      "destination": "/components/tables",
+      "permanent": true
+    },
+    {
+      "source": "/componentes/toasts",
+      "destination": "/components/toasts",
+      "permanent": true
+    },
+    {
+      "source": "/utilidades/utilities",
+      "destination": "/utilities",
+      "permanent": true
     }
   ]
 }

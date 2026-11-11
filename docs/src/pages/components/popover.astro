@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `<div class="dg-callout dg-callout-info dg-mb-5 dg-measure-md">
+        <p class="dg-callout-title">Tooltip vs Popover</p>
+        <strong>Tooltip</strong> (<code class="dg-code">.dg-tooltip + data-tip</code>) — texto corto, solo hover, puro CSS.<br>
+        <strong>Popover</strong> (<code class="dg-code">.dg-popover + data-dg-popover</code>) — con título y contenido HTML, al click, requiere JS.
+      </div>
+
+      <div class="doc-sub">Posiciones disponibles</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Elige dónde aparece con <code class="dg-code">.dg-popover-top</code>, <code class="dg-code">.dg-popover-bottom</code>, <code class="dg-code">.dg-popover-left</code> o <code class="dg-code">.dg-popover-right</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-min-h-200 dg-flex dg-items-center dg-justify-center dg-gap-4">
+        <!-- Top -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-top">Arriba ↑</button>
+          <div class="dg-popover dg-popover-top" id="pop-top" hidden>
+            <div class="dg-popover-header">Popover arriba</div>
+            <div class="dg-popover-body">Aparece encima del elemento que lo dispara.</div>
+          </div>
+        </div>
+        <!-- Bottom -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-bottom">Abajo ↓</button>
+          <div class="dg-popover dg-popover-bottom" id="pop-bottom" hidden>
+            <div class="dg-popover-header">Popover abajo</div>
+            <div class="dg-popover-body">Aparece debajo del elemento.</div>
+          </div>
+        </div>
+        <!-- Right -->
+        <div class="dg-relative">
+          <button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-right">Derecha →</button>
+          <div class="dg-popover dg-popover-right" id="pop-right" hidden>
+            <div class="dg-popover-header">Popover derecha</div>
+            <div class="dg-popover-body">A la derecha del trigger.</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Wrapper .dg-relative + trigger con data-dg-popover="#id" + popover con clase de posición --&gt;
+&lt;div class="dg-relative"&gt;
+  &lt;button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-top"&gt;Arriba ↑&lt;/button&gt;
+  &lt;div class="dg-popover dg-popover-top" id="pop-top" hidden&gt;
+    &lt;div class="dg-popover-header"&gt;Popover arriba&lt;/div&gt;
+    &lt;div class="dg-popover-body"&gt;Aparece encima del elemento que lo dispara.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-relative"&gt;
+  &lt;button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-bottom"&gt;Abajo ↓&lt;/button&gt;
+  &lt;div class="dg-popover dg-popover-bottom" id="pop-bottom" hidden&gt;
+    &lt;div class="dg-popover-header"&gt;Popover abajo&lt;/div&gt;
+    &lt;div class="dg-popover-body"&gt;Aparece debajo del elemento.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-relative"&gt;
+  &lt;button class="dg-btn dg-btn-outline dg-btn-sm" data-dg-popover="#pop-right"&gt;Derecha →&lt;/button&gt;
+  &lt;div class="dg-popover dg-popover-right" id="pop-right" hidden&gt;
+    &lt;div class="dg-popover-header"&gt;Popover derecha&lt;/div&gt;
+    &lt;div class="dg-popover-body"&gt;A la derecha del trigger.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Posiciones: dg-popover-top · dg-popover-bottom · dg-popover-left · dg-popover-right --&gt;
+&lt;!-- Se cierra al hacer click fuera — requiere dgarz.js --&gt;</pre></div>
+</div>`;
+---
+
+<Layout title="Popover" lead="Tarjetas informativas ancladas a un trigger." currentHref="/components/popover">
+  <Fragment set:html={pageContent} />
+</Layout>
