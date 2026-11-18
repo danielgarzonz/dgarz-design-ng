@@ -4,12 +4,13 @@
    Light by default (soft gray surface, dark text, light syntax palette);
    the previous dark terminal palette applies in dark mode. */
 .doc-code {
+  /* Light and neutral, no border: a flat block that reads by its fill. */
   --code-bg: #f6f6f7;
-  --code-bar: #ececee;
-  --code-bar-line: #dcdce0;
+  --code-bar: #efeff1;
+  --code-bar-line: #e4e4e7;
   --code-fg: #24292f;
   --code-muted: #8c8c94;
-  --code-btn-bg: #e2e2e6;
+  --code-btn-bg: #e4e4e7;
   --code-btn-fg: #57606a;
   --code-btn-hover-bg: #d4d4d8;
   --code-btn-hover-fg: #24292f;
@@ -25,21 +26,19 @@
   font-size: var(--dg-text-xs);
   overflow: hidden;
   box-shadow: none;
-  /* Standalone blocks get the same edge as .doc-example (light blocks would
-     otherwise blend into the page); outline survives the flat border reset. */
-  outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+  outline: none;
 }
 [data-theme="dark"] .doc-code {
-  --code-bg: #0d1117;
-  --code-bar: #161b22;
-  --code-bar-line: #21262d;
+  --code-bg: #111113;
+  --code-bar: #18181b;
+  --code-bar-line: #232327;
   --code-fg: #e4e4e7;
-  --code-muted: #484f58;
-  --code-btn-bg: #21262d;
-  --code-btn-fg: #8b949e;
-  --code-btn-hover-bg: #30363d;
-  --code-btn-hover-fg: #e6edf3;
-  --code-scroll: #30363d;
+  --code-muted: #52525b;
+  --code-btn-bg: #232327;
+  --code-btn-fg: #a1a1aa;
+  --code-btn-hover-bg: #2e2e33;
+  --code-btn-hover-fg: #f4f4f5;
+  --code-scroll: #2e2e33;
   --tk-comment: #848d97; /* 5.6:1 on #0d1117 (was 4.1) */ --tk-tag: #7dd3fc; --tk-punct: #7dd3fc; --tk-attr: #7ee787;
   --tk-string: #a5d6ff; --tk-keyword: #ff7b72; --tk-selector: #ffa657; --tk-property: #79c0ff;
   --tk-number: #f2cc60; --tk-function: #d2a8ff;

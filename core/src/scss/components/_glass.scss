@@ -1,4 +1,6 @@
 @use "../abstracts/glass" as glass-mixins;
+/* .dg-glass, .dg-glass-strong, .dg-glass-dark and .dg-liquid are deprecated
+   short aliases of the .dg-surface-* classes (removed in 2.0). */
 /* ============================================================
    SURFACE FX — glassmorphism · liquid glass · gradients
    Opt-in visual layer for cards, panels, buttons and shells
@@ -7,7 +9,9 @@
 .dg-surface-glass,
 .dg-glass {
   position: relative;
-  background: color-mix(in oklab, var(--dg-surface) 94%, transparent);
+  /* Same translucency as the glass components (--dg-glass-alpha), so it
+     actually reads as glass over a photo or a color. */
+  background: color-mix(in oklab, var(--dg-surface) var(--dg-glass-alpha), transparent);
   color: var(--dg-text);
   backdrop-filter: blur(var(--dg-glass-blur)) saturate(130%);
   -webkit-backdrop-filter: blur(var(--dg-glass-blur)) saturate(130%);
@@ -20,7 +24,8 @@
 .dg-surface-glass-strong,
 .dg-glass-strong {
   position: relative;
-  background: color-mix(in oklab, var(--dg-surface) 96%, transparent);
+  /* Frosted: more opaque and more blur than .dg-surface-glass. */
+  background: color-mix(in oklab, var(--dg-surface) min(100%, calc(var(--dg-glass-alpha) + 14%)), transparent);
   color: var(--dg-text);
   backdrop-filter: blur(var(--dg-glass-blur-strong)) saturate(150%);
   -webkit-backdrop-filter: blur(var(--dg-glass-blur-strong)) saturate(150%);
@@ -33,7 +38,7 @@
 .dg-surface-glass-dark,
 .dg-glass-dark {
   position: relative;
-  background: color-mix(in oklab, #000 94%, transparent);
+  background: color-mix(in oklab, #000 var(--dg-glass-alpha), transparent);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid color-mix(in oklab, #fff 8%, transparent);
@@ -41,6 +46,9 @@
     inset 0 1px 0 color-mix(in oklab, #fff 7%, transparent),
     0 8px 28px color-mix(in oklab, #000 20%, transparent);
   color: #fff;
+  /* Titles, muted text and links inside follow the white text. */
+  --dg-text: #fff;
+  --dg-text-muted: color-mix(in oklab, #fff 72%, transparent);
 }
 
 
@@ -88,7 +96,7 @@
   background:
     linear-gradient(135deg,
       color-mix(in oklab, var(--dg-accent) 24%, #fff 76%),
-      color-mix(in oklab, var(--dg-accent-violet) 14%, #fff 86%)
+      color-mix(in oklab, var(--dg-accent-2) 14%, #fff 86%)
     );
   box-shadow:
     0 12px 28px color-mix(in oklab, var(--dg-accent) 12%, transparent),
@@ -99,7 +107,7 @@
   background:
     linear-gradient(135deg,
       color-mix(in oklab, var(--dg-accent-warm) 20%, #fff 80%),
-      color-mix(in oklab, #f7eee4 88%, var(--dg-accent-warm) 12%)
+      color-mix(in oklab, #f0f5f7 88%, var(--dg-accent-warm) 12%)
     );
   box-shadow:
     0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 12%, transparent),
@@ -109,15 +117,26 @@
 .dg-surface-gradient-aurora {
   background:
     radial-gradient(circle at 18% 18%, color-mix(in oklab, var(--dg-accent-2) 50%, transparent) 0, transparent 28%),
-    radial-gradient(circle at 82% 8%, color-mix(in oklab, var(--dg-accent-violet) 44%, transparent) 0, transparent 30%),
+    radial-gradient(circle at 82% 8%, color-mix(in oklab, var(--dg-accent-2) 44%, transparent) 0, transparent 30%),
     radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--dg-accent-mint) 24%, transparent) 0, transparent 36%),
     linear-gradient(145deg,
       color-mix(in oklab, #fff 92%, var(--dg-accent-3) 8%),
-      color-mix(in oklab, #eef4ff 72%, #fff 28%)
+      color-mix(in oklab, #f0f5f7 72%, #fff 28%)
     );
   box-shadow:
-    0 12px 30px color-mix(in oklab, var(--dg-accent-violet) 10%, transparent),
+    0 12px 30px color-mix(in oklab, var(--dg-accent-2) 10%, transparent),
     inset 0 1px 0 color-mix(in oklab, #fff 34%, transparent);
+}
+
+/* Cool, warm and aurora are light in both themes: they carry their own dark
+   ink, so titles and muted text stay readable in dark mode too. */
+.dg-surface-gradient-cool,
+.dg-surface-gradient-warm,
+.dg-surface-gradient-aurora {
+  --dg-text: #0b0b0c;
+  --dg-text-muted: #5e5447;
+  --dg-text-faint: #6e6254;
+  color: var(--dg-text);
 }
 
 .dg-surface-mesh {
@@ -125,7 +144,7 @@
   overflow: hidden;
   background:
     radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--dg-accent) 12%, transparent) 0, transparent 20%),
-    radial-gradient(circle at 84% 14%, color-mix(in oklab, var(--dg-accent-violet) 14%, transparent) 0, transparent 24%),
+    radial-gradient(circle at 84% 14%, color-mix(in oklab, var(--dg-accent-2) 14%, transparent) 0, transparent 24%),
     radial-gradient(circle at 70% 82%, color-mix(in oklab, var(--dg-accent-mint) 10%, transparent) 0, transparent 18%),
     linear-gradient(180deg, color-mix(in oklab, var(--dg-surface) 98%, #fff 2%), color-mix(in oklab, var(--dg-surface-2) 94%, #fff 6%));
 }
@@ -153,11 +172,20 @@
 }
 
 .dg-surface-noise {
-  background-image:
-    radial-gradient(color-mix(in oklab, #fff 26%, transparent) .75px, transparent .75px),
-    linear-gradient(180deg, transparent, transparent);
-  background-size: 10px 10px, auto;
-  background-position: 0 0, 0 0;
+  /* A grain layered over the surface's own background (it used to replace
+     it, so a gradient + noise card lost its gradient). */
+  position: relative;
+  isolation: isolate;
+}
+.dg-surface-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: radial-gradient(color-mix(in oklab, #fff 26%, transparent) .75px, transparent .75px);
+  background-size: 10px 10px;
 }
 
 .dg-glass-pill {

@@ -23,7 +23,7 @@ function luminance(value, tokens, seen = new Set()) {
 for (const [theme, tokens] of [['light', base], ['dark', { ...base, ...parse(dark) }]]) {
   const pairs = Object.keys(tokens).filter(k => k.startsWith('dg-on-') && tokens[`dg-${k.slice(6)}`])
     .map(k => [k, `dg-${k.slice(6)}`]);
-  for (const fg of ['dg-text', 'dg-text-muted', 'dg-text-faint']) {
+  for (const fg of ['dg-text', 'dg-text-muted', 'dg-text-faint', 'dg-warning-text']) {
     for (const bg of ['dg-paper', 'dg-surface', 'dg-surface-2', 'dg-surface-3']) pairs.push([fg, bg]);
   }
   for (const [fg, bg] of pairs) {

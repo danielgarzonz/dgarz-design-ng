@@ -28,12 +28,13 @@ function applyMask(raw, mask) {
   return out;
 }
 
-function stripLiterals(masked, mask) {
-  var raw = '';
-  for (var i = 0; i < masked.length && i < mask.length; i++) {
-    if (TOKENS[mask[i]] && masked[i] && masked[i] !== '_') raw += masked[i];
-  }
-  return raw;
+// The typed characters, whatever their position: letters and digits only
+// (mask literals and the placeholder char are dropped). It used to read the
+// value position by position against the mask, which lost every character
+// typed where the mask expects a literal — "(" at the start of a phone, the
+// spaces of a card, the "-" of AA-9999.
+function stripLiterals(masked) {
+  return String(masked).replace(/[^A-Za-z0-9]/g, '');
 }
 
 export function wireMask(input) {
@@ -51,7 +52,7 @@ export function wireMask(input) {
   input.setAttribute('autocomplete', 'off');
 
   function update(e) {
-    var raw    = stripLiterals(input.value, maskStr);
+    var raw    = stripLiterals(input.value);
     // Add just-typed char to raw if it came via keypress
     if (e && e.data) {
       var last = e.data;

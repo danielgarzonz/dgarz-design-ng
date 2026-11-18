@@ -7,11 +7,11 @@ import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 
 const budgets = {
-  'dgarz.min.css': 43,
-  'dgarz.full.min.css': 47,
+  'dgarz.min.css': 45,
+  'dgarz.full.min.css': 49,
   'dgarz-app.min.css': 6,
-  'dgarz.min.js': 17,
-  'dgarz.esm.js': 22,
+  'dgarz.min.js': 18,
+  'dgarz.esm.js': 24,
 };
 const importantBudget = 35; // !important in dgarz.css: only intentional state overrides.
 

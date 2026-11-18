@@ -26,7 +26,7 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
   color: var(--dg-text);
   background: var(--dg-field-bg);
   border: 1px solid var(--dg-field-border);
-  border-radius: var(--dg-radius);
+  border-radius: var(--dg-field-radius);
   padding: 0.7em 1em;
   transition: border-color var(--dg-dur) var(--dg-ease), box-shadow var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
 }
@@ -49,6 +49,8 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 .dg-textarea,
 :where(.dg-auto) textarea:not([class]) { resize: vertical; min-height: 6em; line-height: var(--dg-leading-normal); }
 .dg-input-pill { border-radius: var(--dg-radius-pill); }
+/* A textarea has several lines: it cannot be a pill. */
+.dg-textarea, :where(.dg-auto) textarea:not([class]) { border-radius: var(--dg-field-radius-multiline); }
 
 /* Kill the browser's blue/yellow autofill background, themed instead of hardcoded. */
 .dg-input:-webkit-autofill,
@@ -72,29 +74,33 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 
 .dg-input-group {
   display: flex; align-items: stretch;
-  border-radius: var(--dg-radius);
+  border-radius: var(--dg-field-radius);
   transition: box-shadow var(--dg-dur) var(--dg-ease);
 }
-.dg-input-group:focus-within { box-shadow: var(--dg-ring); }
+/* Focus marks the whole group (field + addon or button) with one line in the
+   text color, drawn over the group's outer edge so the field's own gray edge
+   does not show twice. Follows the group's radius. */
+.dg-input-group:focus-within { outline: 1px solid var(--dg-text); outline-offset: -1px; }
 .dg-input-group .dg-input {
-  border-radius: var(--dg-radius) 0 0 var(--dg-radius);
+  border-radius: var(--dg-field-radius) 0 0 var(--dg-field-radius);
   border-right: none;
 }
 .dg-input-group .dg-input:focus {
   box-shadow: none;
   border-color: var(--dg-field-border);
 }
-.dg-input-group #{button.$selector} { border-left: none; }
+.dg-input-group #{button.$selector} { border-left: none; border-radius: 0 var(--dg-field-radius) var(--dg-field-radius) 0; }
 .dg-input-group .dg-input-addon {
   display: inline-flex; align-items: center; padding: 0 1em;
   background: var(--dg-surface-3);
   border: 1px solid var(--dg-field-border); border-left: none;
-  border-radius: 0 var(--dg-radius) var(--dg-radius) 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm);
+  border-radius: 0 var(--dg-field-radius) var(--dg-field-radius) 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm);
 }
 
 /* Checkbox & radio */
-/* Checkbox & radio — round, same height as the switch (1.95em) and the same 1px
-   input border. The check is an SVG stroke used as a mask; on checking it is
+/* Checkbox & radio — round, same height as the switch (1.95em) and the same
+   look: filled with the background they sit on (--dg-control-bg), subtle 1px edge (stronger when checked) and a solid
+   mark (black; white in dark). The check is an SVG stroke used as a mask; on checking it is
    revealed left→right (drawn) and lands with the switch's small bounce. The
    radio dot grows from the center with the same bounce. Transitions (not
    animations) so boxes that load already checked do not animate. */
@@ -104,38 +110,74 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
   --dg-check-size: 1.95em;
   box-sizing: border-box; position: relative;
   width: var(--dg-check-size); height: var(--dg-check-size); flex: none;
-  border: 1px solid var(--dg-field-border);
-  border-radius: 50%; /* round, iOS-style; the radio differs by its dot */
-  background: var(--dg-surface-2);
+  border: 1px solid var(--dg-switch-line, color-mix(in oklab, currentColor 14%, transparent));
+  border-radius: var(--dg-check-radius, 50%); /* round by default; square in square mode */
+  background: var(--dg-control-bg);
   display: inline-flex; align-items: center; justify-content: center;
-  transition: background .3s var(--dg-ease), border-color .3s var(--dg-ease);
+  /* Unchecking (these are the exit timings): the check fades first, then
+     the fill, then the ring unwinds — the entrance in reverse. */
+  transition: background .4s var(--dg-ease-motion) .18s, border-color .4s var(--dg-ease-motion) .18s;
 }
 .dg-check .dg-check-box::after { content: ""; }
+/* Checking a checkbox plays the stepper's "done" effect, with transitions
+   only (a box that loads checked does not animate): a ring is drawn around
+   the circle, the circle fills with the text color (black; white in dark),
+   then the check is traced in the background color. */
+@property --dg-check-sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.dg-check .dg-check-box:not(.dg-radio)::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  background: conic-gradient(currentColor var(--dg-check-sweep), transparent 0);
+  /* A 1.5px frame that follows the box shape (circle, or square in square mode). */
+  padding: 1.5px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  transition: --dg-check-sweep .45s var(--dg-ease-motion) .35s;
+}
+.dg-check input:checked + .dg-check-box:not(.dg-radio)::before {
+  --dg-check-sweep: 360deg;
+  transition: --dg-check-sweep .45s var(--dg-ease-motion);
+}
 .dg-check .dg-check-box:not(.dg-radio)::after {
   width: 72%; height: 72%;
-  background: var(--dg-on-solid);
+  /* Unchecked: the check is always there in a subtle tone (the fill mixed
+     with 25% of the text color). Checked: the background color sweeps
+     across it left → right, tracing the check over the black fill. */
+  background: linear-gradient(90deg, var(--dg-control-bg) 0 50%, color-mix(in oklab, currentColor 25%, var(--dg-control-bg)) 50% 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.25 4.25L18.5 8'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.25 4.25L18.5 8'/%3E%3C/svg%3E") center / contain no-repeat;
-  clip-path: inset(0 100% 0 0);
-  scale: .7;
-  transition: clip-path .35s cubic-bezier(.65, 0, .35, 1), scale var(--dg-switch-dur) var(--dg-switch-ease);
+  transition: background-position .35s cubic-bezier(.65, 0, .35, 1);
 }
+.dg-check .dg-check-box.dg-radio { border-radius: 50%; } /* a radio is always round */
 .dg-check .dg-check-box.dg-radio::after {
-  width: 42%; height: 42%; border-radius: 50%; background: var(--dg-on-solid);
+  width: 56%; height: 56%; border-radius: 50%; background: var(--dg-switch-on, currentColor);
   scale: 0;
   transition: scale var(--dg-switch-dur) var(--dg-switch-ease);
 }
-.dg-check input:checked + .dg-check-box { background: var(--dg-solid); border-color: var(--dg-solid); }
-.dg-check input:checked + .dg-check-box:not(.dg-radio)::after { clip-path: inset(0 0 0 0); scale: 1; }
+.dg-check input:checked + .dg-check-box { border-color: var(--dg-switch-line-on, color-mix(in oklab, currentColor 32%, transparent)); }
+.dg-check input:checked + .dg-check-box:not(.dg-radio) {
+  background: var(--dg-switch-on, currentColor); border-color: var(--dg-switch-on, currentColor);
+  transition: background .35s var(--dg-ease-motion) .3s, border-color .35s var(--dg-ease-motion) .3s;
+}
+.dg-check input:checked + .dg-check-box:not(.dg-radio)::after {
+  background-position: 0 0;
+  transition: background-position .4s cubic-bezier(.65, 0, .35, 1) .55s;
+}
 .dg-check input:checked + .dg-check-box.dg-radio::after { scale: 1; }
 .dg-check input:focus-visible + .dg-check-box { box-shadow: var(--dg-ring); }
 .dg-check:has(input:disabled) { cursor: not-allowed; opacity: .45; }
 @media (prefers-reduced-motion: reduce) {
-  .dg-check .dg-check-box, .dg-check .dg-check-box::after { transition: none; }
+  .dg-check .dg-check-box, .dg-check .dg-check-box::before, .dg-check .dg-check-box::after,
+  .dg-check input:checked + .dg-check-box, .dg-check input:checked + .dg-check-box::before,
+  .dg-check input:checked + .dg-check-box::after { transition: none; }
 }
 
-/* Switch — iOS-style: larger rounded track, thumb stretches while pressed and
-   lands with a small bounce. Same markup: label.dg-switch > input + .dg-switch-track.
+/* Switch — a track filled with the background it sits on (--dg-control-bg), a subtle 1px edge and an inset thumb:
+   white when off, solid (black; white in dark) when on. The thumb stretches
+   while pressed and lands with a small bounce.
+   Same markup: label.dg-switch > input + .dg-switch-track.
    Geometry lives in custom properties so the checked offset follows the
    (stretched) thumb width; width and translate both animate. */
 .dg-switch { display: inline-flex; align-items: center; gap: var(--dg-space-3); cursor: pointer; user-select: none; font-size: var(--dg-text-sm); -webkit-tap-highlight-color: transparent; }
@@ -143,25 +185,25 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 .dg-switch .dg-switch-track {
   --dg-switch-w: 3.2em;
   --dg-switch-h: 1.95em;
-  --dg-switch-pad: 0px; /* flush thumb by default (keep a unit: it feeds calc()); e.g. .14em for an inset thumb */
-  --dg-switch-border: 1px; /* same edge as inputs (--dg-field-border) */
+  --dg-switch-pad: .2em; /* inset thumb (keep a unit: it feeds calc()) */
+  --dg-switch-border: 1px;
   --dg-switch-thumb: calc(var(--dg-switch-h) - 2 * var(--dg-switch-pad) - 2 * var(--dg-switch-border));
   --dg-switch-thumb-w: var(--dg-switch-thumb);
   flex: none; position: relative; box-sizing: border-box;
   width: var(--dg-switch-w); height: var(--dg-switch-h); border-radius: var(--dg-radius-pill);
-  border: var(--dg-switch-border) solid var(--dg-field-border);
-  /* Solid gray (no transparency) that reads on paper and surfaces. */
-  --dg-switch-off: color-mix(in oklab, var(--dg-text) 20%, var(--dg-paper));
-  background: var(--dg-switch-off);
-  transition: background .3s var(--dg-ease), border-color .3s var(--dg-ease);
+  border: var(--dg-switch-border) solid var(--dg-switch-line, color-mix(in oklab, currentColor 14%, transparent));
+  background: var(--dg-control-bg);
+  transition: border-color .3s var(--dg-ease);
 }
 .dg-switch .dg-switch-track::after {
   content: ""; position: absolute; top: var(--dg-switch-pad); left: var(--dg-switch-pad);
   width: var(--dg-switch-thumb-w); height: var(--dg-switch-thumb);
-  /* Always-white thumb; a soft shadow (not a border) defines its edge on any
-     page background, like iOS. Exempt from the flat reset in base/_flat.scss. */
-  border-radius: var(--dg-radius-pill); background: var(--dg-0);
-  box-shadow: var(--dg-switch-thumb-shadow);
+  /* Off: a flat thumb that always contrasts with the fill it sits on — the
+     background mixed with 28% of the current text color (darker on light
+     fills, lighter on dark or strong ones). Set --dg-switch-thumb-off to
+     force a color. */
+  border-radius: var(--dg-radius-pill);
+  background: var(--dg-switch-thumb-off, color-mix(in oklab, currentColor 28%, var(--dg-control-bg)));
   translate: 0 0;
   transition: translate var(--dg-switch-dur) var(--dg-switch-ease),
               width var(--dg-switch-dur) var(--dg-switch-ease),
@@ -169,8 +211,11 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 }
 /* Pressing stretches the thumb toward the middle. */
 .dg-switch:active input:not(:disabled) + .dg-switch-track { --dg-switch-thumb-w: calc(var(--dg-switch-thumb) * 1.3); }
-.dg-switch input:checked + .dg-switch-track { background: var(--dg-switch-on); border-color: var(--dg-switch-on); }
+.dg-switch input:checked + .dg-switch-track { border-color: var(--dg-switch-line-on, color-mix(in oklab, currentColor 32%, transparent)); }
 .dg-switch input:checked + .dg-switch-track::after {
+  /* On: the current text color (black on light fills, white on dark or
+     strong ones); --dg-switch-on forces a color. */
+  background: var(--dg-switch-on, currentColor);
   translate: calc(var(--dg-switch-w) - var(--dg-switch-thumb-w) - 2 * var(--dg-switch-pad) - 2 * var(--dg-switch-border)) 0;
 }
 .dg-switch input:focus-visible + .dg-switch-track { box-shadow: var(--dg-ring); }
@@ -224,7 +269,8 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 .dg-range:focus-visible::-webkit-slider-thumb { box-shadow: var(--dg-ring); }
 
 /* ============================================================
-   FLOATING LABELS — label animado dentro del input
+   FLOATING LABELS — DEPRECATED (removed in 2.0). Use .dg-field with
+   .dg-label above the input. Kept so 1.x sites keep working.
    ============================================================ */
 .dg-float-field { position: relative; }
 
@@ -272,7 +318,7 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
   border: 1px solid var(--dg-float-label-border);
   box-shadow: var(--dg-float-label-shadow);
   padding: 0 var(--dg-space-1);
-  border-radius: 6px;
+  border-radius: min(6px, var(--dg-radius-sm));
 }
 .dg-float-field .dg-input:focus + label,
 .dg-float-field .dg-textarea:focus + label,
@@ -294,3 +340,139 @@ $dg-auto-text-input: ':where([type="text"], [type="email"], [type="password"], [
 .dg-input-group.is-glass .dg-input-addon {
   background-color: color-mix(in oklab, var(--dg-surface-3) var(--dg-glass-alpha-soft), transparent);
 }
+
+/* ============================================================
+   NUMBER — input with − / + buttons (.dg-number, see controls.js)
+   ============================================================ */
+.dg-number { display: flex; align-items: stretch; width: 100%; border-radius: var(--dg-field-radius); }
+.dg-number .dg-input { text-align: center; border-radius: 0; font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
+.dg-number .dg-input::-webkit-inner-spin-button,
+.dg-number .dg-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.dg-number .dg-input:focus { border-color: var(--dg-field-border); }
+.dg-number-btn {
+  flex: none; width: 2.75em;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--dg-surface-2); color: var(--dg-text);
+  border: 1px solid var(--dg-field-border);
+  font: inherit; font-size: var(--dg-text-base); line-height: 1; cursor: pointer;
+  transition: background var(--dg-dur) var(--dg-ease);
+}
+.dg-number-btn:first-child { border-right: none; border-radius: var(--dg-field-radius) 0 0 var(--dg-field-radius); }
+.dg-number-btn:last-child  { border-left: none;  border-radius: 0 var(--dg-field-radius) var(--dg-field-radius) 0; }
+.dg-number-btn:hover:not(:disabled) { background: var(--dg-surface-3); }
+.dg-number-btn:disabled { color: var(--dg-text-faint); cursor: not-allowed; }
+/* Focus marks the whole control, like an input group. */
+.dg-number:focus-within { outline: 1px solid var(--dg-text); outline-offset: -1px; }
+
+/* ============================================================
+   OPTION CARDS — a checkbox or radio as a card
+   <label class="dg-check dg-option-card"><input type="radio">
+     <span class="dg-check-box dg-radio"></span>
+     <span class="dg-option-card-body">title + description</span>
+     <span class="dg-option-card-meta">price…</span></label>
+   ============================================================ */
+.dg-check.dg-option-card {
+  align-items: flex-start; gap: var(--dg-space-3);
+  padding: var(--dg-space-4);
+  background: var(--dg-control-bg, var(--dg-paper));
+  border-radius: var(--dg-radius);
+  outline: 1px solid var(--dg-border); outline-offset: -1px;
+  font-size: var(--dg-text-base);
+  transition: outline-color var(--dg-dur) var(--dg-ease);
+}
+.dg-check.dg-option-card:hover { outline-color: color-mix(in oklab, var(--dg-text) 35%, transparent); }
+/* Selected: one line in the text color, 2px, around the card. */
+.dg-check.dg-option-card:has(input:checked) { outline: 2px solid var(--dg-text); outline-offset: -2px; }
+.dg-option-card .dg-check-box { margin-top: 0.1em; }
+.dg-option-card-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--dg-space-1); }
+.dg-option-card-title { font-weight: var(--dg-weight-semi); }
+.dg-option-card-desc { font-size: var(--dg-text-sm); color: var(--dg-text-muted); }
+.dg-option-card-meta { flex: none; font-weight: var(--dg-weight-semi); font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   ONE-TIME CODE — .dg-otp > .dg-otp-input × n (see controls.js)
+   ============================================================ */
+.dg-otp { display: flex; gap: var(--dg-space-2); }
+.dg-otp-input {
+  width: 3em; height: 3.5em; padding: 0;
+  text-align: center; font: inherit; font-size: var(--dg-text-xl); font-weight: var(--dg-weight-semi);
+  font-variant-numeric: tabular-nums; color: var(--dg-text);
+  background: var(--dg-field-bg);
+  border: 1px solid var(--dg-field-border); border-radius: var(--dg-radius);
+  caret-color: var(--dg-text);
+  transition: border-color var(--dg-dur) var(--dg-ease);
+}
+.dg-otp-input:focus { outline: none; border-color: var(--dg-text); }
+.dg-otp.is-invalid .dg-otp-input { border-color: var(--dg-danger); }
+
+/* ============================================================
+   FIELD FOOT, COUNTER AND AUTOSIZE
+   <div class="dg-field-foot"><span class="dg-help">…</span>
+   <span class="dg-counter" data-counter-for="id"></span></div>
+   ============================================================ */
+.dg-field-foot { display: flex; align-items: baseline; gap: var(--dg-space-3); margin-top: var(--dg-space-2); }
+.dg-field-foot .dg-help { margin-top: 0; }
+.dg-counter {
+  margin-inline-start: auto;
+  font-size: var(--dg-text-xs); color: var(--dg-text-muted);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+  transition: color var(--dg-dur) var(--dg-ease);
+}
+.dg-counter.is-near { color: var(--dg-text); font-weight: var(--dg-weight-medium); }
+.dg-counter.is-over { color: var(--dg-danger); font-weight: var(--dg-weight-medium); }
+/* Grows with its text (native field-sizing; controls.js covers the rest). */
+.dg-textarea[data-autosize] { field-sizing: content; resize: none; min-height: 5.5em; max-height: 20em; overflow-y: auto; }
+
+/* ============================================================
+   RATING — native radios, value 1…n in order:
+   <div class="dg-rating"><input type="radio" id name value="1">
+   <label for><span class="dg-sr-only">1 estrella</span></label>…</div>
+   ============================================================ */
+.dg-rating {
+  --dg-rating-off: color-mix(in oklab, currentColor 24%, transparent);
+  --dg-rating-on: currentColor;
+  display: inline-flex; gap: 0.15em;
+  font-size: var(--dg-text-2xl); line-height: 1;
+  color: var(--dg-text);
+}
+.dg-rating input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.dg-rating label { display: grid; cursor: pointer; border-radius: var(--dg-radius-sm); }
+.dg-rating label::before {
+  content: ""; width: 1em; height: 1em;
+  background: var(--dg-rating-off);
+  -webkit-mask: var(--dg-rating-star) center / contain no-repeat;
+          mask: var(--dg-rating-star) center / contain no-repeat;
+  transition: background var(--dg-dur) var(--dg-ease), transform var(--dg-dur) var(--dg-ease);
+}
+.dg-rating { --dg-rating-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.2l2.95 6 6.6.95-4.78 4.66 1.13 6.57L12 17.27l-5.9 3.1 1.13-6.56L2.45 9.15l6.6-.96z'/%3E%3C/svg%3E"); }
+/* The checked star and every star before it. */
+.dg-rating input:checked + label::before,
+.dg-rating label:has(~ input:checked)::before { background: var(--dg-rating-on); }
+.dg-rating input:checked + label::before { animation: dg-rating-pop var(--dg-dur-slow) var(--dg-ease); }
+/* Hover previews: the star under the pointer and the ones before it. */
+.dg-rating:has(label:hover) label::before { background: var(--dg-rating-off); }
+.dg-rating:has(label:hover) label:hover::before,
+.dg-rating:has(label:hover) label:has(~ label:hover)::before { background: var(--dg-rating-on); }
+.dg-rating label:hover::before { transform: scale(1.12); }
+.dg-rating input:focus-visible + label { outline: 2px solid var(--dg-text); outline-offset: 2px; }
+/* Read-only: disabled inputs. */
+.dg-rating:has(input:disabled) { pointer-events: none; }
+.dg-rating:has(input:disabled) label { cursor: default; }
+@keyframes dg-rating-pop { 40% { transform: scale(1.25); } }
+
+/* ============================================================
+   LAYOUT — groups, horizontal rows, required / optional
+   ============================================================ */
+.dg-fieldset { display: grid; gap: var(--dg-space-5); min-width: 0; margin: 0; padding: 0; border: 0; }
+.dg-legend { float: left; width: 100%; padding: 0; margin-bottom: calc(var(--dg-space-1) * -1); font-size: var(--dg-text-base); font-weight: var(--dg-weight-semi); color: var(--dg-text); }
+.dg-legend + * { clear: left; }
+.dg-fieldset + .dg-fieldset { margin-top: var(--dg-space-7); }
+.dg-fieldset:disabled { opacity: 0.6; }
+/* Label on the left from 768px; help, counter and errors line up with the field. */
+@media (min-width: 768px) {
+  .dg-field.dg-field-row { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); column-gap: var(--dg-space-6); align-items: start; }
+  .dg-field-row > .dg-label { grid-column: 1; grid-row: 1 / span 4; margin-bottom: 0; padding-top: 0.75em; }
+  .dg-field-row > :not(.dg-label) { grid-column: 2; }
+}
+.dg-label.is-required::after { content: "*"; margin-inline-start: 0.2em; color: var(--dg-danger); }
+.dg-label-optional { margin-inline-start: 0.35em; font-weight: var(--dg-weight-normal); color: var(--dg-text-muted); }

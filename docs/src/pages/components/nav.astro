@@ -254,24 +254,7 @@ const pageContent = `<!-- NAVBAR -->
           <div id="tp3" class="dg-mt-4 dg-text-sm dg-muted" hidden>Contenido del tab <strong>Ajustes</strong>: configuración del proyecto.</div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Envuelve todo con data-dg-tabs --&gt;
-&lt;div data-dg-tabs&gt;
-
-  &lt;!-- Barra de pestañas --&gt;
-  &lt;div class="dg-tabs"&gt;
-    &lt;button class="dg-tab is-active" data-dg-panel="#panel-1"&gt;Resumen&lt;/button&gt;
-    &lt;button class="dg-tab"           data-dg-panel="#panel-2"&gt;Actividad&lt;/button&gt;
-    &lt;button class="dg-tab"           data-dg-panel="#panel-3"&gt;Ajustes&lt;/button&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Paneles — el primero visible, los demás con hidden --&gt;
-  &lt;div id="panel-1"&gt;Contenido del resumen…&lt;/div&gt;
-  &lt;div id="panel-2" hidden&gt;Contenido de actividad…&lt;/div&gt;
-  &lt;div id="panel-3" hidden&gt;Contenido de ajustes…&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;!-- Navegación con teclado: ← → para cambiar de tab, Enter/Space para activar --&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub">Variantes de tabs</div>
@@ -303,14 +286,7 @@ const pageContent = `<!-- NAVBAR -->
           </div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- Underline (por defecto) —sin clase extra--&gt;
-&lt;div class="dg-tabs"&gt;…&lt;/div&gt;
-
-&lt;!-- Pill: fondo sólido en el activo --&gt;
-&lt;div class="dg-tabs dg-tabs-pill"&gt;…&lt;/div&gt;
-
-&lt;!-- Enclosed: borde tipo card conectado al contenido --&gt;
-&lt;div class="dg-tabs dg-tabs-enclosed"&gt;…&lt;/div&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <!-- SEGMENTED -->
@@ -334,14 +310,7 @@ const pageContent = `<!-- NAVBAR -->
           </div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-segmented" data-dg-segmented&gt;
-  &lt;button class="is-active"&gt;Lista&lt;/button&gt;
-  &lt;button&gt;Cuadrícula&lt;/button&gt;
-  &lt;button&gt;Mapa&lt;/button&gt;
-&lt;/div&gt;
-
-&lt;!-- data-dg-segmented activa la lógica de selección única.
-     Sin JS: maneja tú mismo la clase .is-active en los botones. --&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub dg-mt-7">Tabs y segmentado glass</div>
@@ -390,20 +359,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class="dg-dock" data-dg-dock aria-label="Apariencia"&gt;
-  &lt;button type="button" class="dg-dock-item is-active" aria-label="Claro"&gt;
-    &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-sun"/&gt;&lt;/svg&gt;
-  &lt;/button&gt;
-  &lt;button type="button" class="dg-dock-item" aria-label="Oscuro"&gt;
-    &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-moon"/&gt;&lt;/svg&gt;
-  &lt;/button&gt;
-  &lt;button type="button" class="dg-dock-item" aria-label="Estadísticas"&gt;
-    &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-chart"/&gt;&lt;/svg&gt;
-  &lt;/button&gt;
-  &lt;button type="button" class="dg-dock-item" aria-label="Favoritos"&gt;
-    &lt;svg class="dg-icon"&gt;&lt;use href="dgarz-icons.svg#dg-star"/&gt;&lt;/svg&gt;
-  &lt;/button&gt;
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -422,17 +378,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class=&quot;dg-dock&quot; data-dg-dock aria-label=&quot;Principal&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot;&gt;
-    &lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-home&quot;/&gt;&lt;/svg&gt;
-    &lt;span class=&quot;dg-dock-label&quot;&gt;Inicio&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;
-    &lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-search&quot;/&gt;&lt;/svg&gt;
-    &lt;span class=&quot;dg-dock-label&quot;&gt;Buscar&lt;/span&gt;
-  &lt;/button&gt;
-  …
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -451,12 +397,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class=&quot;dg-dock&quot; data-dg-dock aria-label=&quot;Secciones&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot;&gt;Inicio&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;Explorar&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;Guardados&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;Perfil&lt;/button&gt;
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -474,12 +415,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class=&quot;dg-dock dg-dock-shadow&quot; data-dg-dock aria-label=&quot;Principal&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-home&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Inicio&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-search&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Buscar&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-bell&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Avisos&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-user&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Perfil&lt;/span&gt;&lt;/button&gt;
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -497,12 +433,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class=&quot;dg-dock dg-dock-bordered&quot; data-dg-dock aria-label=&quot;Principal&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-home&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Inicio&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-search&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Buscar&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-bell&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Avisos&lt;/span&gt;&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot;&gt;&lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-user&quot;/&gt;&lt;/svg&gt;&lt;span class=&quot;dg-dock-label&quot;&gt;Perfil&lt;/span&gt;&lt;/button&gt;
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -520,12 +451,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class="dg-dock" data-dg-dock aria-label="Principal"&gt;
-  &lt;a class="dg-dock-item is-active" href="/" aria-current="page" aria-label="Inicio"&gt;…&lt;/a&gt;
-  &lt;a class="dg-dock-item" href="/buscar" aria-label="Buscar"&gt;…&lt;/a&gt;
-  &lt;a class="dg-dock-item" href="/avisos" aria-label="Notificaciones"&gt;…&lt;/a&gt;
-  &lt;a class="dg-dock-item" href="/perfil" aria-label="Perfil"&gt;…&lt;/a&gt;
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -537,7 +463,7 @@ const pageContent = `<!-- NAVBAR -->
 <div class="doc-demo is-plain dock-demo">
 <div class="dock-phone">
   <div class="dock-phone-screen">
-    <nav class="dg-dock dg-dock-fixed" data-dg-dock aria-label="Vista" style="position: absolute">
+    <nav class="dg-dock dg-dock-fixed dg-absolute" data-dg-dock aria-label="Vista">
       <button type="button" class="dg-dock-item is-active" aria-label="Claro"><svg class="dg-icon"><use href="#dg-sun"/></svg></button>
       <button type="button" class="dg-dock-item" aria-label="Oscuro"><svg class="dg-icon"><use href="#dg-moon"/></svg></button>
       <button type="button" class="dg-dock-item" aria-label="Estadísticas"><svg class="dg-icon"><use href="#dg-chart"/></svg></button>
@@ -549,9 +475,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class="dg-dock dg-dock-fixed" data-dg-dock aria-label="Vista"&gt;
-  …
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -574,13 +498,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class=&quot;dg-dock dg-dock-bar&quot; data-dg-dock aria-label=&quot;Principal&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot;&gt;
-    &lt;svg class=&quot;dg-icon&quot;&gt;&lt;use href=&quot;dgarz-icons.svg#dg-home&quot;/&gt;&lt;/svg&gt;
-    &lt;span class=&quot;dg-dock-label&quot;&gt;Inicio&lt;/span&gt;
-  &lt;/button&gt;
-  …
-&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -610,18 +528,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;div class=&quot;dg-dock-layout&quot;&gt;
-  &lt;main&gt;…contenido…&lt;/main&gt;
-  &lt;nav class=&quot;dg-dock dg-dock-bar&quot; data-dg-dock aria-label=&quot;Principal&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot; aria-label=&quot;Destacados&quot;&gt;…&lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot; aria-label=&quot;Tienda&quot;&gt;…&lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;dg-dock-item&quot; aria-label=&quot;Mensajes&quot;&gt;…&lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;dg-dock-item is-active&quot; aria-label=&quot;Perfil&quot;&gt;…&lt;/button&gt;
-  &lt;/nav&gt;
-&lt;/div&gt;
-
-/* Curva de las esquinas del contenido (por defecto 2rem) */
-.dg-dock-layout { --dg-dock-tuck: 2.5rem; }</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -640,10 +547,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class="dg-dock dg-dock-sm" data-dg-dock aria-label="Herramientas"&gt;…&lt;/nav&gt;
-
-/* O a medida */
-.mi-dock { --dg-dock-item: 3rem; --dg-dock-icon: 1.25rem; }</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -662,7 +566,7 @@ const pageContent = `<!-- NAVBAR -->
 </div>
 <div class="doc-code">
 <button class="cp">Copiar</button>
-<pre>&lt;nav class="dg-dock is-glass" data-dg-dock aria-label="Apariencia"&gt;…&lt;/nav&gt;</pre>
+<pre></pre>
 </div>
 </div>
 </section>
@@ -687,7 +591,7 @@ const pageContent = `<!-- NAVBAR -->
   #navbar, [id^="navbar-"] { scroll-margin-top: 80px; }
   .doc-demo.navbar-stage { padding: 0; background: var(--dg-surface-2); }
   .navbar-page { display: grid; gap: .6rem; padding: 1.5rem 1.25rem 1.75rem; }
-  .navbar-page span { display: block; height: .55rem; border-radius: 99px; background: var(--dg-surface-3); }
+  .navbar-page span { display: block; height: .55rem; border-radius: var(--dg-radius-pill); background: var(--dg-surface-3); }
   .navbar-page span:nth-child(1) { width: 42%; height: .9rem; }
   .navbar-page span:nth-child(2) { width: 78%; }
   .navbar-page span:nth-child(3) { width: 64%; }
@@ -699,15 +603,15 @@ const pageContent = `<!-- NAVBAR -->
   .dock-phone .dg-dock-fixed { bottom: 26px; }
   .dock-phone-stack { display: flex; flex-direction: column; height: 24rem; }
   .dock-phone-content { flex: 1; padding: 2.75rem 1.25rem 1rem; }
-  .dock-phone-title { margin: 0 0 .25rem; font-family: var(--dg-font-serif); font-size: 1.75rem; }
+  .dock-phone-title { margin: 0 0 .25rem; font-family: var(--dg-font-heading); font-size: 1.75rem; letter-spacing: -0.03em; }
   .dock-phone .dg-dock-bar { padding-bottom: 24px; }
   .dock-phone-layout { flex: 1; }
   .dock-phone-layout > .dock-sheet { flex: 1; display: flex; align-items: flex-end; padding: 2.5rem .75rem .75rem; background: var(--dg-paper); }
-  .dock-week { width: 100%; padding: 1.1rem 1.1rem .9rem; border-radius: 1.5rem; background: var(--dg-surface-2); }
+  .dock-week { width: 100%; padding: 1.1rem 1.1rem .9rem; border-radius: var(--dg-radius-xl); background: var(--dg-surface-2); }
   .dock-week-head { display: flex; justify-content: space-between; align-items: baseline; font-size: .95rem; }
   .dock-week-total { margin: .6rem 0 1.1rem; color: var(--dg-text-muted); font-size: .9rem; }
   .dock-week-total b { font-size: 2rem; font-weight: 500; color: var(--dg-text-muted); margin-right: .25rem; }
   .dock-week-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: .7rem; color: var(--dg-text-muted); }
-  .dock-week-days i { display: block; width: 14px; height: 4px; margin: 0 auto .45rem; border-radius: 99px; background: var(--dg-text); }
+  .dock-week-days i { display: block; width: 14px; height: 4px; margin: 0 auto .45rem; border-radius: var(--dg-radius-pill); background: var(--dg-text); }
   .dock-phone-home-light { background: var(--dg-0); }
 </style>

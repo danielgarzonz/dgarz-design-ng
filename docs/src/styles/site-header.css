@@ -61,6 +61,8 @@
     .pub-nav.is-open .pub-menu-list > * { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) 80ms backwards; }
     .pub-nav.is-open .pub-menu-list > :nth-child(2) { animation-delay: 130ms; }
     .pub-nav.is-open .pub-menu-list > :nth-child(3) { animation-delay: 180ms; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(4) { animation-delay: 230ms; }
+    .pub-nav.is-open .pub-menu-list > :nth-child(5) { animation-delay: 280ms; }
     .pub-menu-list .dg-nav-link {
       position: relative;
       display: flex; align-items: center; justify-content: center;
@@ -151,6 +153,11 @@
     }
     .pub-moon, [data-theme="dark"] .pub-sun { display: none; }
     [data-theme="dark"] .pub-moon { display: block; }
+    .pub-radius-btn path { display: none; }
+    :root:not([data-doc-radius]) .pub-r-semi,
+    [data-doc-radius="semi"] .pub-r-semi,
+    [data-doc-radius="full"] .pub-r-full,
+    [data-doc-radius="none"] .pub-r-none { display: inline; }
 
 
     .dg-navbar.pub-nav { min-height: 60px; }

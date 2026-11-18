@@ -35,7 +35,7 @@
 #{glass.opt-in(".dg-navbar")} { @include glass.surface(var(--dg-paper)); }
 #{glass.opt-in(".dg-navbar-inverse")} { @include glass.fill(var(--dg-solid)); }
 .dg-navbar-brand {
-  font-family: var(--dg-font-serif); font-size: var(--dg-text-lg);
+  font-family: var(--dg-font-heading); font-size: var(--dg-text-lg); letter-spacing: -0.03em;
   font-weight: var(--dg-weight-medium); letter-spacing: -0.01em;
   flex-shrink: 0;
 }

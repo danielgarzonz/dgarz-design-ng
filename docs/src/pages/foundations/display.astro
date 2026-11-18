@@ -98,7 +98,7 @@ import Layout from "../../layouts/DocsLayout.astro";
     </div>
   </div>
 
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-block"&gt;...&lt;/div&gt;
+  <div class="doc-code" data-code-source="manual" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-block"&gt;...&lt;/div&gt;
 &lt;span class="dg-inline"&gt;...&lt;/span&gt;
 &lt;span class="dg-inline-block"&gt;...&lt;/span&gt;
 &lt;div class="dg-flex"&gt;...&lt;/div&gt;
@@ -149,13 +149,13 @@ import Layout from "../../layouts/DocsLayout.astro";
     </div>
   </div>
 
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;Solo visible en desktop&lt;/div&gt;
+  <div class="doc-code" data-code-source="manual" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-hidden-mobile"&gt;Solo visible en desktop&lt;/div&gt;
 &lt;div class="dg-hidden-desktop"&gt;Solo visible en móvil&lt;/div&gt;
 &lt;div class="dg-hidden-xs"&gt;Oculto en pantallas muy pequeñas&lt;/div&gt;</pre></div>
 </div>
 
 <style>
-  .doc-disp-table { border-radius: var(--dg-radius); overflow: hidden; }
+  .doc-disp-table { border-radius: 0; overflow: hidden; }
   .doc-disp-thead {
     display: grid; grid-template-columns: 180px 1fr 1fr;
     background: var(--dg-surface-2);

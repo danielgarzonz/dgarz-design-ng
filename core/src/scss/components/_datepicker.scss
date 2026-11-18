@@ -191,3 +191,19 @@
 
 /* ---- Date picker: opt-in glass ---------------------------- */
 #{glass.opt-in(".dg-cal")} { @include glass.surface(var(--dg-surface)); }
+
+/* ---- Range (data-range) ---- */
+.dg-cal-hint {
+  margin-bottom: var(--dg-space-3);
+  font-size: var(--dg-text-xs); color: var(--dg-text-muted); text-align: center;
+}
+.dg-cal-day.is-in-range:not(.is-selected) {
+  background: color-mix(in oklab, var(--dg-text) 8%, transparent);
+  border-radius: 0;
+}
+.dg-cal-day.is-range-start { border-start-end-radius: 0; border-end-end-radius: 0; }
+.dg-cal-day.is-range-end   { border-start-start-radius: 0; border-end-start-radius: 0; }
+
+/* ---- Time only (.dg-timepicker) ---- */
+.dg-cal.dg-cal-time-only { width: 220px; }
+.dg-cal.dg-cal-time-only .dg-cal-time { margin-top: 0; }

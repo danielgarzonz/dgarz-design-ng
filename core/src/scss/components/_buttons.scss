@@ -303,15 +303,17 @@
 /* ---- Button: visual variants ------------------------------ */
 
 .dg-btn-gradient {
-  background: linear-gradient(135deg, var(--dg-accent), color-mix(in oklab, var(--dg-accent-violet) 38%, var(--dg-accent) 62%));
-  color: #0b0b0c;
+  /* The brand light: from the deep tone to the accent and the light at the
+     base (ink → slate → steel in light; steel → mist in dark). */
+  background: linear-gradient(180deg, var(--dg-accent-violet) 0%, var(--dg-accent) 62%, var(--dg-accent-2) 100%);
+  color: var(--dg-on-accent);
   border-color: transparent;
   box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent) 24%, transparent);
 }
 .dg-btn-gradient:hover { opacity: .92; }
 
 .dg-btn-gradient-warm {
-  background: linear-gradient(135deg, var(--dg-accent-warm), color-mix(in oklab, #ffb47d 44%, var(--dg-accent-warm) 56%));
+  background: linear-gradient(135deg, var(--dg-accent-warm), color-mix(in oklab, #f0f5f7 60%, var(--dg-accent-warm) 40%));
   color: #0b0b0c;
   border-color: transparent;
   box-shadow: 0 12px 28px color-mix(in oklab, var(--dg-accent-warm) 24%, transparent);

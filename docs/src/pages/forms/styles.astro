@@ -1,0 +1,259 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Estilos de presentación de campos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Hay dos formas de presentar un campo. Elige una en el selector para ver el resultado y su código.</p>
+
+      <!-- Selector -->
+      <div class="dg-flex dg-items-center dg-gap-4 dg-mb-4">
+        <div class="dg-segmented" id="fieldStyleSeg">
+          <button class="is-active" data-style="static">Estático</button>
+          <button data-style="placeholder">Solo placeholder</button>
+        </div>
+        <span id="fieldStyleDesc" class="dg-text-sm dg-muted">
+          Label siempre visible encima del input — el estilo por defecto de <code class="dg-code">.dg-field</code>.
+        </span>
+      </div>
+
+      <!-- Demo único que cambia -->
+      <div class="doc-example">
+      <div class="doc-demo is-plain" id="fieldStyleDemo">
+
+        <!-- ESTÁTICO (visible por defecto — es lo que .dg-field hace sin nada extra) -->
+        <div id="demoStyleStatic">
+          <div class="dg-stack dg-gap-5 dg-max-w-md">
+            <div class="dg-field">
+              <label class="dg-label" for="fs2a">Nombre completo</label>
+              <input class="dg-input" id="fs2a" type="text" placeholder="Ana Rivas" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2b">Correo electrónico</label>
+              <input class="dg-input" id="fs2b" type="email" placeholder="ana@correo.com" />
+              <span class="dg-help">Nunca compartiremos tu correo.</span>
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2c">Mensaje</label>
+              <textarea class="dg-textarea" id="fs2c" placeholder="Escribe tu mensaje…"></textarea>
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs2d">Plan</label>
+              <select class="dg-select" id="fs2d">
+                <option value="">Elige una opción</option>
+                <option>Free</option><option>Pro</option><option>Studio</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLO PLACEHOLDER (oculto) -->
+        <div id="demoStylePlaceholder" hidden>
+          <div class="dg-stack dg-gap-3 dg-max-w-md">
+            <input class="dg-input" type="text"  placeholder="Nombre completo"   aria-label="Nombre completo" />
+            <input class="dg-input" type="email" placeholder="Correo electrónico" aria-label="Correo electrónico" />
+            <textarea class="dg-textarea" placeholder="Escribe tu mensaje…" aria-label="Mensaje"></textarea>
+            <select class="dg-select" aria-label="Plan">
+              <option value="">Elige un plan</option>
+              <option>Free</option><option>Pro</option><option>Studio</option>
+            </select>
+          </div>
+        </div>
+
+      </div><!-- /doc-demo -->
+
+      <!-- Código que cambia -->
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre id="fieldStyleCode">&lt;!-- Estático — el comportamiento por defecto de .dg-field, sin atributos extra --&gt;
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="nombre"&gt;Nombre completo&lt;/label&gt;
+  &lt;input class="dg-input" id="nombre" type="text" placeholder="Ana Rivas" /&gt;
+  &lt;span class="dg-help"&gt;Texto de ayuda opcional.&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="msg"&gt;Mensaje&lt;/label&gt;
+  &lt;textarea class="dg-textarea" id="msg" placeholder="Tu mensaje…"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="plan"&gt;Plan&lt;/label&gt;
+  &lt;select class="dg-select" id="plan"&gt;
+    &lt;option value=""&gt;Selecciona&lt;/option&gt;
+    &lt;option&gt;Pro&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</pre></div>
+      </div><!-- /doc-example -->
+
+      <!-- JS del selector -->
+      <script>
+      (function() {
+        var CODES = {
+          static: '&lt;!-- Estático — el comportamiento por defecto de .dg-field, sin atributos extra --&gt;\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="nombre"&gt;Nombre completo&lt;/label&gt;\\n  &lt;input class="dg-input" id="nombre" type="text" placeholder="Ana Rivas" /&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="msg"&gt;Mensaje&lt;/label&gt;\\n  &lt;textarea class="dg-textarea" id="msg" placeholder="Tu mensaje…"&gt;&lt;/textarea&gt;\\n&lt;/div&gt;\\n\\n&lt;div class="dg-field"&gt;\\n  &lt;label class="dg-label" for="plan"&gt;Plan&lt;/label&gt;\\n  &lt;select class="dg-select" id="plan"&gt;\\n    &lt;option value=""&gt;Elige una opción&lt;/option&gt;\\n    &lt;option&gt;Pro&lt;/option&gt;\\n  &lt;/select&gt;\\n&lt;/div&gt;',
+          placeholder: '&lt;!-- Sin .dg-field — no hay label, usa aria-label para accesibilidad --&gt;\\n&lt;input class="dg-input" type="text"\\n       placeholder="Nombre completo"\\n       aria-label="Nombre completo" /&gt;\\n\\n&lt;input class="dg-input" type="email"\\n       placeholder="Correo electrónico"\\n       aria-label="Correo electrónico" /&gt;\\n\\n&lt;textarea class="dg-textarea"\\n          placeholder="Mensaje…"\\n          aria-label="Mensaje"&gt;&lt;/textarea&gt;\\n\\n&lt;select class="dg-select" aria-label="Plan"&gt;\\n  &lt;option value=""&gt;Elige un plan&lt;/option&gt;\\n  &lt;option&gt;Pro&lt;/option&gt;\\n&lt;/select&gt;'
+        };
+        var DESCS = {
+          static: 'Label siempre visible encima del input — el estilo por defecto de <code class="dg-code">.dg-field</code>.',
+          placeholder: 'Sin label visible. Usa <code class="dg-code">aria-label</code> para accesibilidad.'
+        };
+        var DEMOS = { static: 'demoStyleStatic', placeholder: 'demoStylePlaceholder' };
+
+        var seg  = document.getElementById('fieldStyleSeg');
+        var desc = document.getElementById('fieldStyleDesc');
+        var code = document.getElementById('fieldStyleCode');
+
+        if (!seg) return;
+
+        seg.addEventListener('click', function(e) {
+          var btn = e.target.closest('button[data-style]');
+          if (!btn) return;
+          var style = btn.getAttribute('data-style');
+
+          // Activar botón
+          seg.querySelectorAll('button').forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+
+          // Cambiar descripción
+          desc.innerHTML = DESCS[style];
+
+          // Cambiar demo visible
+          Object.keys(DEMOS).forEach(function(k) {
+            var el = document.getElementById(DEMOS[k]);
+            if (el) el.hidden = (k !== style);
+          });
+
+          // Cambiar código
+          if (code) code.innerHTML = CODES[style];
+        });
+      })();
+      </script>
+
+      <!-- ── RESUMEN DE VARIANTES ── -->
+      <div class="doc-sub dg-mt-6">Cuándo usar cada uno</div>
+      <div class="dg-table-card">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Estilo</th><th>HTML</th><th>Cuándo usarlo</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="dg-fw-medium">Label estático <span class="dg-badge">Por defecto</span></td>
+              <td><code class="dg-code">.dg-field</code></td>
+              <td class="dg-muted">La mayoría de formularios: admins, registro, login, checkout — máxima claridad</td>
+            </tr>
+            <tr>
+              <td class="dg-fw-medium">Solo placeholder</td>
+              <td>Sin <code class="dg-code">.dg-field</code></td>
+              <td class="dg-muted">Búsquedas, filtros inline, formularios muy compactos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-sub">Estilo de esquinas</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">El estilo de esquinas es general: un solo ajuste cambia todos los componentes a la vez (botones, campos, checkbox, badges, cards, menús, modales, alertas, toasts…), así nunca conviven botones redondeados con campos rectos. Hay tres: <strong>semi</strong> (por defecto, 10px y 5px en piezas pequeñas), <strong>redondeado</strong> (<code class="dg-code">data-radius="full"</code>: botones y campos de una línea en cápsula, cards más suaves) y <strong>recto</strong> (<code class="dg-code">data-radius="none"</code>). Ponlo en <code class="dg-code">&lt;html&gt;</code> para todo el sitio, o en un contenedor para una sola zona. Este selector es el mismo que el botón de esquinas de la barra superior: al cambiarlo cambia toda la documentación.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-segmented dg-mb-5" data-doc-skip data-doc-switch="data-radius" role="group" aria-label="Estilo de esquinas">
+          <button type="button" class="is-active" data-value="" aria-pressed="true">Semi (por defecto)</button>
+          <button type="button" data-value="full" aria-pressed="false">Redondeado</button>
+          <button type="button" data-value="none" aria-pressed="false">Recto</button>
+        </div>
+        <div data-doc-target class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-gap-6">
+          <div class="dg-stack dg-gap-3">
+            <div class="dg-field">
+              <label class="dg-label" for="rc-mail-a">Correo</label>
+              <input class="dg-input" id="rc-mail-a" type="email" placeholder="ana@estudio.com" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="rc-plan-a">Plan</label>
+              <select class="dg-select" id="rc-plan-a"><option>Estudio</option><option>Equipo</option></select>
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="rc-msg-a">Mensaje</label>
+              <textarea class="dg-textarea" id="rc-msg-a" rows="2" placeholder="Escribe tu mensaje"></textarea>
+            </div>
+            <div class="dg-input-group">
+              <input class="dg-input" type="search" placeholder="Buscar" aria-label="Buscar" />
+              <button type="button" class="dg-btn-primary">Ir</button>
+            </div>
+            <label class="dg-check"><input type="checkbox" checked /><span class="dg-check-box"></span> Recordarme</label>
+          </div>
+          <div class="dg-card">
+            <div class="dg-card-body dg-stack dg-gap-4">
+              <div class="dg-cluster">
+                <span class="dg-badge">Nuevo</span>
+                <span class="dg-badge dg-badge-success">Activo</span>
+              </div>
+              <h3 class="dg-card-title">Plan Estudio</h3>
+              <p class="dg-muted dg-text-sm">Proyectos ilimitados y 100 GB para tu equipo.</p>
+              <div class="dg-cluster">
+                <button type="button" class="dg-btn dg-btn-primary">Elegir plan</button>
+                <button type="button" class="dg-btn dg-btn-subtle">Comparar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+
+      <div class="doc-sub">Cambiar las esquinas desde la página</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Igual que el modo claro y oscuro, el estilo de esquinas se puede dejar en manos del visitante. <code class="dg-code">data-dg-radius-toggle</code> en un botón pasa de semi a redondeado y a recto, y <code class="dg-code">data-dg-radius-set="none"</code> fija uno concreto. Sin más, cambia toda la página y la elección se recuerda en la próxima visita, como el tema. Con <code class="dg-code">data-dg-target</code> cambia solo ese contenedor, como en este ejemplo. El cambio se anima, salvo con <em>reducir movimiento</em>, y lanza el evento <code class="dg-code">dg:radiuschange</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-cluster dg-mb-5">
+          <button type="button" class="dg-btn dg-btn-subtle dg-btn-sm" data-dg-radius-set="semi" data-dg-target="#radius-panel">Semi</button>
+          <button type="button" class="dg-btn dg-btn-subtle dg-btn-sm" data-dg-radius-set="full" data-dg-target="#radius-panel">Redondeado</button>
+          <button type="button" class="dg-btn dg-btn-subtle dg-btn-sm" data-dg-radius-set="none" data-dg-target="#radius-panel">Recto</button>
+          <button type="button" class="dg-btn dg-btn-primary dg-btn-sm" data-dg-radius-toggle data-dg-target="#radius-panel">Siguiente estilo</button>
+        </div>
+        <div class="dg-card dg-max-w-480" id="radius-panel">
+          <div class="dg-card-body dg-stack dg-gap-4">
+            <div class="dg-field">
+              <label class="dg-label" for="rp-mail">Correo</label>
+              <input class="dg-input" id="rp-mail" type="email" placeholder="ana@estudio.com" />
+            </div>
+            <label class="dg-check"><input type="checkbox" checked /><span class="dg-check-box"></span> Recibir novedades</label>
+            <div class="dg-cluster">
+              <span class="dg-badge">Nuevo</span>
+              <button type="button" class="dg-btn dg-btn-primary">Suscribirme</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Esquinas desde JavaScript</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Las mismas acciones existen como funciones. <code class="dg-code">setRadius</code> y <code class="dg-code">toggleRadius</code> aceptan un contenedor como segundo argumento; sin él actúan sobre <code class="dg-code">&lt;html&gt;</code> y guardan la elección.</p>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>dgarz.setRadius("none");        // "semi", "full" o "none"
+dgarz.toggleRadius();           // semi → full → none → semi
+dgarz.getRadius();              // estilo actual de &lt;html&gt;
+
+// Solo en una zona
+dgarz.setRadius("full", document.querySelector("#panel"));
+
+// Reaccionar al cambio
+document.addEventListener("dg:radiuschange", (e) =&gt; console.log(e.detail.radius));</pre></div>
+
+      <div class="doc-sub">Campos glass</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Los campos no tienen relleno, así que sobre una imagen no se leen. <code class="dg-code">.is-glass</code> les da una superficie translúcida que se vuelve más sólida mientras escribes. Aplica a <code class="dg-code">.dg-input</code>, <code class="dg-code">.dg-textarea</code>, <code class="dg-code">.dg-select</code> y <code class="dg-code">.dg-input-group</code>. Si el usuario activa <em>reducir transparencia</em> o el navegador no soporta <code class="dg-code">backdrop-filter</code>, vuelve a su color sólido.</p>
+      <div class="doc-example">
+<div class="doc-demo glass-stage">
+<div class="dg-stack dg-gap-3 dg-max-w-sm">
+  <input class="dg-input is-glass" type="search" placeholder="Buscar destinos" aria-label="Buscar destinos">
+  <select class="dg-select is-glass" aria-label="Temporada">
+    <option>Verano</option>
+    <option>Invierno</option>
+  </select>
+  <div class="dg-input-group is-glass">
+    <input class="dg-input" type="text" placeholder="usuario" aria-label="Usuario">
+    <span class="dg-input-addon">@dgarz.com</span>
+  </div>
+</div>
+</div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+`;
+---
+
+<Layout title="Estilos" lead="Cómo se ven los campos: presentación de la etiqueta, estilo de esquinas (general para todos los componentes) y campos glass sobre imágenes." currentHref="/forms/styles">
+  <Fragment set:html={pageContent} />
+</Layout>

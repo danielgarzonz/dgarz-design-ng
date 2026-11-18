@@ -11,6 +11,8 @@ export interface NavGroup {
 
 export const TOP_NAV: NavItem[] = [
   { label: "Inicio", href: "/" },
+  { label: "Alertas", href: "/alerts" },
+  { label: "Animaciones", href: "/foundations/animations" },
 ];
 
 export const NAV: NavGroup[] = [
@@ -53,9 +55,13 @@ export const NAV: NavGroup[] = [
     title: "Formularios",
     color: "#3b82f6",
     items: [
-      { label: "Controles base",   href: "/forms/controls" },
-      { label: "Variantes",        href: "/forms/variants" },
-      { label: "Floating labels",  href: "/forms/floating-labels" },
+      { label: "Estilos",          href: "/forms/styles" },
+      { label: "Campos",           href: "/forms/fields" },
+      { label: "Selección",        href: "/forms/selection" },
+      { label: "Fechas y hora",    href: "/forms/dates" },
+      { label: "Archivos",         href: "/forms/files" },
+      { label: "Estructura",       href: "/forms/layout" },
+      { label: "Formulario por pasos", href: "/forms/steps" },
     ],
   },
   {
@@ -65,7 +71,8 @@ export const NAV: NavGroup[] = [
       { label: "Botones",          href: "/components/buttons" },
       { label: "Cards",            href: "/components/cards" },
       { label: "Badges",           href: "/components/badges" },
-      { label: "Alerts",           href: "/components/alerts" },
+      { label: "Alertas",          href: "/alerts" },
+      { label: "Avisos",           href: "/components/alerts" },
       { label: "Callouts",         href: "/components/callouts" },
       { label: "Toasts",           href: "/components/toasts" },
       { label: "Tablas",           href: "/components/tables" },
@@ -81,6 +88,7 @@ export const NAV: NavGroup[] = [
 
       { label: "Popover",          href: "/components/popover" },
       { label: "Figures",          href: "/components/figures" },
+      { label: "Timeline",         href: "/components/timeline" },
     ],
   },
   {
@@ -90,7 +98,6 @@ export const NAV: NavGroup[] = [
       { label: "App Shell",        href: "/app-pack/shell" },
       { label: "Accordion",        href: "/app-pack/accordion" },
       { label: "Breadcrumbs",      href: "/app-pack/breadcrumbs" },
-      { label: "Steps",            href: "/app-pack/steps" },
       { label: "List Group",       href: "/app-pack/listgroup" },
       { label: "Stat Cards",       href: "/app-pack/stats" },
       { label: "Skeleton & Empty", href: "/app-pack/feedback" },

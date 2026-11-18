@@ -45,10 +45,17 @@ export function wireDatePicker(input) {
   if (input.__dgCal) return;
   input.__dgCal = true;
 
-  var withTime = input.hasAttribute('data-time');
-  var minDate  = input.dataset.min ? new Date(input.dataset.min) : null;
-  var maxDate  = input.dataset.max ? new Date(input.dataset.max) : null;
-  var fmt      = input.dataset.format || (withTime ? 'DD/MM/YYYY HH:mm' : 'DD/MM/YYYY');
+  // Modes: a date (default), a date and time (data-time), only a time
+  // (.dg-timepicker or data-time-only) and a range of dates (data-range).
+  var timeOnly = input.classList.contains('dg-timepicker') || input.hasAttribute('data-time-only');
+  var isRange  = !timeOnly && input.hasAttribute('data-range');
+  var withTime = timeOnly || (!isRange && input.hasAttribute('data-time'));
+  var minDate  = input.dataset.min ? new Date(input.dataset.min + 'T00:00') : null;
+  var maxDate  = input.dataset.max ? new Date(input.dataset.max + 'T00:00') : null;
+  var fmt      = input.dataset.format || (timeOnly ? 'HH:mm' : withTime ? 'DD/MM/YYYY HH:mm' : 'DD/MM/YYYY');
+  var stepM    = Math.max(1, parseInt(input.dataset.minuteStep || '1', 10));
+  var RANGE_SEP = ' – ';
+  var rangeStart = null, rangeEnd = null;
 
   var today    = new Date();
   var viewDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -57,7 +64,15 @@ export function wireDatePicker(input) {
   var selM = today.getMinutes();
   var mode = 'days'; // 'days' | 'months' | 'years'
 
-  if (input.value) {
+  if (isRange && input.value) {
+    var ends = input.value.split(RANGE_SEP);
+    rangeStart = parseInput(ends[0] || '', fmt);
+    rangeEnd   = parseInput(ends[1] || '', fmt);
+    if (rangeStart) viewDate = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), 1);
+  } else if (timeOnly && input.value) {
+    var tm = input.value.match(/^(\d{1,2}):(\d{2})$/);
+    if (tm) { selH = +tm[1]; selM = +tm[2]; }
+  } else if (input.value) {
     var parsed = parseInput(input.value, fmt);
     if (parsed) {
       selected = parsed;
@@ -71,7 +86,8 @@ export function wireDatePicker(input) {
   cal.setAttribute('hidden', '');
   cal.setAttribute('role', 'dialog');
   cal.setAttribute('aria-modal', 'true');
-  cal.setAttribute('aria-label', 'Selector de fecha');
+  cal.setAttribute('aria-label', timeOnly ? 'Selector de hora' : isRange ? 'Selector de rango de fechas' : 'Selector de fecha');
+  if (timeOnly) cal.classList.add('dg-cal-time-only');
   document.body.appendChild(cal);
 
   /* ---- Render ---- */
@@ -96,7 +112,15 @@ export function wireDatePicker(input) {
       var date = new Date(year, month, d);
       var cls  = 'dg-cal-day';
       if (isSameDay(date, today))    cls += ' is-today';
-      if (isSameDay(date, selected)) cls += ' is-selected';
+      if (!isRange && isSameDay(date, selected)) cls += ' is-selected';
+      if (isRange) {
+        if (isSameDay(date, rangeStart) || isSameDay(date, rangeEnd)) cls += ' is-selected';
+        if (rangeStart && rangeEnd && !isSameDay(rangeStart, rangeEnd)) {
+          if (isSameDay(date, rangeStart)) cls += ' is-range-start';
+          if (isSameDay(date, rangeEnd))   cls += ' is-range-end';
+          if (date > rangeStart && date < rangeEnd) cls += ' is-in-range';
+        }
+      }
       if (isDisabledDate(date, minDate, maxDate)) cls += ' is-disabled';
       cells += '<div class="' + cls + '" data-date="' + year + '/' + (month + 1) + '/' + d + '">' + d + '</div>';
     }
@@ -130,7 +154,10 @@ export function wireDatePicker(input) {
         '</div>';
     }
 
+    if (timeOnly) { cal.innerHTML = timeHtml; return; }
+    var hint = isRange ? '<div class="dg-cal-hint">' + (rangeStart && !rangeEnd ? 'Elige la fecha final' : 'Elige la fecha de inicio') + '</div>' : '';
     cal.innerHTML =
+      hint +
       '<div class="dg-cal-header">' +
         '<div class="dg-cal-nav" data-ca="prev">‹</div>' +
         '<div class="dg-cal-title" data-ca="to-months">' + MONTHS_ES[month] + ' ' + year + '</div>' +
@@ -207,8 +234,15 @@ export function wireDatePicker(input) {
 
   /* ---- Selection ---- */
   function commit() {
-    if (!selected) return;
-    input.value = formatDate(selected, fmt, selH, selM);
+    if (isRange) {
+      if (!rangeStart || !rangeEnd) return;
+      input.value = formatDate(rangeStart, fmt) + RANGE_SEP + formatDate(rangeEnd, fmt);
+    } else if (timeOnly) {
+      input.value = formatDate(today, fmt, selH, selM);
+    } else {
+      if (!selected) return;
+      input.value = formatDate(selected, fmt, selH, selM);
+    }
     input.dispatchEvent(new Event('change', { bubbles: true }));
     input.dispatchEvent(new Event('input',  { bubbles: true }));
   }
@@ -221,7 +255,14 @@ export function wireDatePicker(input) {
     var dayEl = t.closest('.dg-cal-day:not(.is-disabled):not(.is-empty):not(.is-other-month)');
     if (dayEl && dayEl.dataset.date) {
       var parts = dayEl.dataset.date.split('/');
-      selected  = new Date(+parts[0], +parts[1] - 1, +parts[2], selH, selM);
+      var picked = new Date(+parts[0], +parts[1] - 1, +parts[2], selH, selM);
+      if (isRange) {
+        // First click: start. Second click: end (or a new start if earlier).
+        if (!rangeStart || rangeEnd || picked < rangeStart) { rangeStart = picked; rangeEnd = null; render(); }
+        else { rangeEnd = picked; render(); commit(); close(); }
+        return;
+      }
+      selected  = picked;
       if (!withTime) { commit(); close(); }
       else           { render(); }
       return;
@@ -244,7 +285,8 @@ export function wireDatePicker(input) {
         case 'to-months': mode = 'months'; render(); break;
         case 'to-years':  mode = 'years';  render(); break;
         case 'apply':
-          if (selected) { selected.setHours(selH, selM); commit(); }
+          if (timeOnly) commit();
+          else if (selected) { selected.setHours(selH, selM); commit(); }
           close(); break;
         case 'cancel': close(); break;
       }
@@ -265,8 +307,8 @@ export function wireDatePicker(input) {
       switch (tb.dataset.ta) {
         case 'h+': selH = (selH + 1) % 24;  break;
         case 'h-': selH = (selH + 23) % 24; break;
-        case 'm+': selM = (selM + 1) % 60;  break;
-        case 'm-': selM = (selM + 59) % 60; break;
+        case 'm+': selM = (Math.floor(selM / stepM) * stepM + stepM) % 60; break;
+        case 'm-': selM = (Math.ceil(selM / stepM) * stepM - stepM + 60) % 60; break;
       }
       var hEl = cal.querySelector('#dgCalH');
       var mEl2 = cal.querySelector('#dgCalM');
@@ -286,6 +328,9 @@ export function wireDatePicker(input) {
   input.setAttribute('aria-haspopup', 'dialog');
 
   document.addEventListener('click', function(e) {
-    if (!cal.hasAttribute('hidden') && !cal.contains(e.target) && e.target !== input) close();
+    // composedPath() is taken when the click happens: a day cell that the
+    // calendar re-renders (range, date + time) still counts as inside.
+    var path = e.composedPath ? e.composedPath() : [e.target];
+    if (!cal.hasAttribute('hidden') && path.indexOf(cal) < 0 && e.target !== input) close();
   });
 }

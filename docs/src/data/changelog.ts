@@ -10,6 +10,21 @@ export interface ChangelogRelease {
 // esa es la fuente que lee npm; esta es la que lee la web.
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.3.0",
+    date: "2026-11-18",
+    summary: "Formularios completos, un solo estilo de esquinas para todo el sistema, tipografía suiza y bordes sutiles por defecto, alertas de estado y color accesible.",
+    highlights: [
+      "Formularios: rango de fechas, selector de hora, número con − / +, opciones en tarjeta, código de verificación, contador, área de texto que crece, etiquetas libres y valoración con estrellas",
+      "Estructura de formularios: grupos con título, obligatorio y opcional, etiqueta a la izquierda",
+      "Estilo de esquinas general: semi por defecto (10px), redondeado o recto con data-radius, igual en todos los componentes, y un botón para cambiarlo como el modo oscuro (data-dg-radius-toggle, dgarz.setRadius)",
+      "Alertas de estado al estilo SweetAlert con dgAlert, dgConfirm y dgPrompt, con el pie integrado en el modal",
+      "Switch, checkbox y radio rediseñados, que toman el fondo sobre el que están (--dg-control-bg)",
+      "Tipografía suiza (Geist) en títulos, bordes sutiles, tablas rectas y acento azul acero",
+      "Contraste WCAG AA en todos los pares de color, sin zoom al enfocar un campo en iPhone",
+      "Clases duplicadas marcadas como obsoletas, con su reemplazo en dist/deprecated-classes.json",
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2026-11-09",
     summary: "Capas de cascada, escalas completas con versiones responsivas y el nuevo core de componentes, sin romper nada de 1.1.0.",

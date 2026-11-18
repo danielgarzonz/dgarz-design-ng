@@ -1,234 +1,287 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-import Demo from "../../components/Demo.astro";
-import Code from "../../components/Code.astro";
+
+// The same card in every variant, so the comparison is the surface itself.
+const glass = [
+  ["dg-card", "Sólido", "El valor por defecto de todo el framework. Úsalo siempre que no haya una razón para otra cosa."],
+  ["dg-card dg-surface-glass", "Glass", "Translúcido con desenfoque: deja ver el fondo. Barras, cards flotantes sobre una imagen."],
+  ["dg-card dg-surface-glass-strong", "Glass esmerilado", "Más opaco y más desenfoque: el fondo apenas se intuye. Paneles con mucho texto."],
+  ["dg-card dg-surface-glass-dark", "Glass oscuro", "Negro translúcido con texto blanco, en cualquier tema. Leyendas y controles sobre fotos."],
+];
+const gradients = [
+  ["dg-card", "Sólido", "Referencia: la card sin superficie."],
+  ["dg-card dg-surface-gradient", "Gradient", "Un tinte casi imperceptible. Destaca una card sin cambiar de color."],
+  ["dg-card dg-surface-gradient-cool", "Cool", "Pizarra hacia acero, en pastel. Piezas de producto, métricas."],
+  ["dg-card dg-surface-gradient-warm", "Warm", "Niebla suave. Avisos amables, bloques de apoyo."],
+  ["dg-card dg-surface-gradient-aurora", "Aurora", "Manchas de acero y niebla. La más expresiva: una por pantalla."],
+  ["dg-card dg-surface-mesh", "Mesh", "Manchas muy tenues sobre el color de superficie. Fondos de secciones."],
+];
 ---
 
 <Layout
   title="Superficies"
-  lead="Capa visual opt-in para glassmorphism y gradientes suaves sin romper la base minimal del sistema."
+  lead="Glass y gradientes como capa opcional: todo es sólido por defecto y estas clases se reservan para piezas destacadas."
   currentHref="/foundations/surfaces"
 >
-  <div class="doc-sub">Idea del sistema</div>
+  <div class="doc-sub">Cuándo usarlas</div>
   <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
-    Estas variantes no cambian el look base de <code class="dg-code">dgarz</code>, que es sólido. Se aplican por clase,
-    así el usuario decide si quiere una interfaz plana, con glass, con gradientes o con una mezcla.
-    La recomendación es usarlas en shells, cards destacadas, dashboards y CTAs, no en toda la UI.
+    El framework es plano y sólido. Las superficies cambian el fondo de un contenedor y se aplican por clase, una pieza a
+    la vez: una barra sobre una foto, la card principal de un panel, un llamado a la acción. Si todo lleva glass o
+    gradiente, nada destaca. Las clases de glass vuelven a sólido si el usuario pide menos transparencia o el navegador
+    no puede desenfocar el fondo.
   </p>
 
-  <div class="doc-example">
-
-  <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1a1040">
-    <div class="dg-cluster dg-gap-3 dg-wrap">
-      <span class="dg-badge">Base minimal</span>
-      <span class="dg-glass-pill">Glass</span>
-      <span class="dg-glass-pill dg-surface-gradient-cool">Gradient</span>
-      <span class="dg-glass-pill dg-surface-gradient-warm">Warm</span>
-    </div>
-    <div class="dg-grid dg-grid-3">
-      <div class="dg-card">
-        <div class="dg-card-body">
-          <div class="dg-text-sm dg-muted">Base</div>
-          <div class="dg-card-title dg-text-lg">Neutral</div>
-        </div>
-      </div>
-      <div class="dg-card dg-surface-glass">
-        <div class="dg-card-body">
-          <div class="dg-text-sm dg-muted">Opt-in</div>
-          <div class="dg-card-title dg-text-lg">Glass</div>
-        </div>
-      </div>
-      <div class="dg-card dg-surface-gradient">
-        <div class="dg-card-body">
-          <div class="dg-text-sm dg-muted">Opt-in</div>
-          <div class="dg-card-title dg-text-lg">Gradient</div>
-        </div>
-      </div>
-    </div>
-  </Demo>
-  <Code />
-
-  </div>
-
-  <div class="doc-sub">Variantes disponibles</div>
-  <p class="dg-muted dg-text-sm dg-mb-4">Cada clase define un nivel de efecto. Compáralas sobre una imagen de fondo para elegir la adecuada.</p>
-  <div class="doc-example">
-  <Demo plain class="doc-stage dg-stack dg-gap-5" style="background-image:url('https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#0d1f1a">
-    <div class="dg-grid dg-grid-2">
-      <article class="dg-card dg-surface-glass">
-        <div class="dg-card-body">
-          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
-            <span class="dg-glass-pill">.dg-surface-glass</span>
-            <button class="dg-btn dg-btn-glass dg-btn-sm">Preview</button>
-          </div>
-          <h3 class="dg-card-title dg-text-xl">Glassmorphism</h3>
-          <p class="dg-muted dg-text-sm dg-mt-2">Blur moderado, borde translúcido y highlight suave. Ideal para cards flotantes y topbars.</p>
-        </div>
-      </article>
-
-      <article class="dg-card dg-surface-glass-strong">
-        <div class="dg-card-body">
-          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
-            <span class="dg-glass-pill">.dg-surface-glass-strong</span>
-            <button class="dg-btn dg-btn-glass dg-btn-sm">Modal</button>
-          </div>
-          <h3 class="dg-card-title dg-text-xl">Glass fuerte</h3>
-          <p class="dg-muted dg-text-sm dg-mt-2">Más blur y más opacidad. Funciona mejor para overlays, drawers y panels hero.</p>
-        </div>
-      </article>
-
-      <article class="dg-card dg-surface-gradient-aurora dg-surface-noise">
-        <div class="dg-card-body">
-          <div class="dg-flex dg-items-center dg-justify-between dg-mb-4">
-            <span class="dg-glass-pill">.dg-surface-gradient-aurora</span>
-            <button class="dg-btn dg-btn-gradient-warm dg-btn-sm">Launch</button>
-          </div>
-          <h3 class="dg-card-title dg-text-xl">Aurora / mesh</h3>
-          <p class="dg-muted dg-text-sm dg-mt-2">Gradiente más expresivo, pero aún suave. Bueno para dashboards editoriales y marketing UI.</p>
-        </div>
-      </article>
-    </div>
-  </Demo>
-  <Code />
-  </div>
-
-  <div class="doc-sub">Botones y CTAs</div>
-  <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-btn-glass</code>, <code class="dg-code">.dg-btn-gradient</code> y <code class="dg-code">.dg-btn-gradient-warm</code> llevan las superficies a las acciones principales.</p>
-  <div class="doc-example">
-  <Demo plain class="doc-stage dg-stack dg-gap-4" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#12102a">
-    <div class="dg-cluster dg-gap-3 dg-wrap">
-      <button class="dg-btn">Base</button>
-      <button class="dg-btn dg-btn-glass">Glass</button>
-      <button class="dg-btn dg-btn-gradient">Gradient</button>
-      <button class="dg-btn dg-btn-gradient-warm">Warm gradient</button>
-    </div>
-    <div class="dg-card dg-surface-gradient-cool dg-surface-shine">
-      <div class="dg-card-body dg-flex dg-items-center dg-justify-between dg-gap-4 dg-wrap">
-        <div>
-          <div class="dg-text-sm dg-muted">Call to action</div>
-          <div class="dg-card-title dg-text-2xl">Financial health +85%</div>
-          <p class="dg-muted dg-text-sm dg-mt-2">Puedes combinar gradiente + shine para piezas destacadas sin teñir toda la interfaz.</p>
-        </div>
-        <div class="dg-cluster dg-gap-3">
-          <button class="dg-btn dg-btn-glass">Ver detalle</button>
-          <button class="dg-btn dg-btn-gradient">View all</button>
-        </div>
-      </div>
-    </div>
-  </Demo>
-  <Code />
-  </div>
-
-  <div class="doc-sub">Override de color por contenedor</div>
-  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-lg">
-    Si un proyecto quiere otro acento, no necesitas rehacer clases. Puedes cambiar las variables en un wrapper
-    y todas las superficies visuales usarán ese nuevo tono.
+  <div class="doc-sub">Glass</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    El glass solo tiene sentido sobre algo: una imagen, un video o un color intenso. Sobre un fondo liso se ve igual que
+    una card sólida. Las tres variantes cambian cuánto deja ver del fondo.
   </p>
   <div class="doc-example">
-  <Demo plain class="doc-stage" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80')!important;background-size:cover;background-position:center;background-color:#1f0a00">
-    <section class="dg-grid dg-grid-2 doc-surface-brand-cool">
-      <article class="dg-card dg-surface-gradient-cool">
-        <div class="dg-card-body">
-          <div class="dg-text-sm dg-muted">Brand A</div>
-          <div class="dg-card-title dg-text-xl">Cool / fintech</div>
-        </div>
-      </article>
-      <article class="dg-card dg-surface-gradient-warm doc-surface-brand-warm">
-        <div class="dg-card-body">
-          <div class="dg-text-sm dg-muted">Brand B</div>
-          <div class="dg-card-title dg-text-xl">Warm / commerce</div>
-        </div>
-      </article>
-    </section>
-  </Demo>
-  <Code />
+    <div class="doc-demo glass-stage">
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-lg-grid-cols-4">
+        {glass.map(([cls, title, text]) => (
+          <article class={cls}>
+            <div class="dg-card-body">
+              <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">.{cls === "dg-card" ? "dg-card" : cls.replace("dg-card ", "")}</p>
+              <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-1">{title}</h3>
+              <p class="dg-text-sm dg-opacity-75 dg-m-0">{text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
   </div>
 
-  <div class="doc-sub" id="glass-componentes">Glass en componentes</div>
+  <div class="doc-sub">Gradientes</div>
   <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
-    Todos los componentes son <strong>sólidos por defecto</strong>. El glass es la segunda opción y se activa de dos formas.
-    Conserva el color y el texto de cada variante, se vuelve más opaco en hover y foco, y vuelve a sólido si el usuario activa
-    <em>reducir transparencia</em> o si el navegador no soporta <code class="dg-code">backdrop-filter</code>.
+    Fondos claros con un tinte de color, pensados para la página y no para ir sobre una foto. Van de menos a más
+    expresivo, en los colores del degradado de dgarz design (pizarra, acero y niebla); salen de los tokens <code class="dg-code">--dg-accent-*</code>, así que cambian con tu marca (ver más abajo).
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain dg-bg-paper">
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-lg-grid-cols-3">
+        {gradients.map(([cls, title, text]) => (
+          <article class={cls}>
+            <div class="dg-card-body">
+              <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">.{cls === "dg-card" ? "dg-card" : cls.replace("dg-card ", "")}</p>
+              <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-1">{title}</h3>
+              <p class="dg-text-sm dg-opacity-75 dg-m-0">{text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Acabados</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Se suman a cualquier superficie, sin reemplazar su fondo. <code class="dg-code">.dg-surface-shine</code> cruza un
+    reflejo diagonal; <code class="dg-code">.dg-surface-noise</code> añade un grano fino que quita el aspecto de
+    gradiente digital.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain dg-bg-paper">
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-3">
+        <article class="dg-card dg-surface-gradient-cool">
+          <div class="dg-card-body">
+            <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">.dg-surface-gradient-cool</p>
+            <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-0">Sin acabado</h3>
+          </div>
+        </article>
+        <article class="dg-card dg-surface-gradient-cool dg-surface-shine">
+          <div class="dg-card-body">
+            <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">+ .dg-surface-shine</p>
+            <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-0">Reflejo</h3>
+          </div>
+        </article>
+        <article class="dg-card dg-surface-gradient-cool dg-surface-noise">
+          <div class="dg-card-body">
+            <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">+ .dg-surface-noise</p>
+            <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-0">Grano</h3>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Botones</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    <code class="dg-code">.dg-btn-glass</code> es un botón neutro translúcido para ir sobre imágenes.
+    <code class="dg-code">.dg-btn-gradient</code> y <code class="dg-code">.dg-btn-gradient-warm</code> son para un único
+    llamado a la acción destacado; el resto de botones de la pantalla, sólidos.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo glass-stage">
+      <div class="dg-cluster">
+        <button type="button" class="dg-btn-primary">Sólido</button>
+        <button type="button" class="dg-btn dg-btn-glass">Glass</button>
+        <button type="button" class="dg-btn dg-btn-gradient">Gradient</button>
+        <button type="button" class="dg-btn dg-btn-gradient-warm">Gradient warm</button>
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Ejemplo: un panel sobre una imagen</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Así se combinan: una sola pieza con glass sobre el fondo, su acción principal sólida y la secundaria en glass.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo glass-stage">
+      <article class="dg-card dg-surface-glass dg-max-w-sm">
+        <div class="dg-card-body">
+          <p class="dg-text-xs dg-uppercase dg-opacity-75 dg-m-0">Casa Ollin · Reservas</p>
+          <p class="dg-text-5xl dg-fw-semi dg-mt-2 dg-mb-0">128</p>
+          <p class="dg-text-sm dg-opacity-75 dg-mt-1 dg-mb-0">reservas esta semana, 14 más que la anterior.</p>
+          <div class="dg-cluster dg-mt-5">
+            <button type="button" class="dg-btn-primary dg-btn-sm">Ver agenda</button>
+            <button type="button" class="dg-btn dg-btn-glass dg-btn-sm">Exportar</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Con el color de tu marca</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Los gradientes y sus botones salen de los tokens <code class="dg-code">--dg-accent-*</code>. Redefínelos en
+    <code class="dg-code">:root</code> o en un contenedor y todas las superficies toman ese tono, sin tocar las clases.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain dg-bg-paper">
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2">
+        <article class="dg-card dg-surface-gradient-cool">
+          <div class="dg-card-body">
+            <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">Tokens por defecto</p>
+            <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-4">Azul acero</h3>
+            <button type="button" class="dg-btn dg-btn-gradient dg-btn-sm">Empezar</button>
+          </div>
+        </article>
+        <div class="mi-marca">
+          <article class="dg-card dg-surface-gradient-cool">
+            <div class="dg-card-body">
+              <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">.mi-marca</p>
+              <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-4">Topo y arena</h3>
+              <button type="button" class="dg-btn dg-btn-gradient dg-btn-sm">Empezar</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre>{`<style>
+  .mi-marca {
+    --dg-accent: #766a5c;        /* color principal de los gradientes */
+    --dg-accent-2: #c4b098;      /* segundo tono */
+    --dg-accent-mint: #c4b098;   /* tono intermedio del botón degradado */
+    --dg-accent-violet: #39332c; /* inicio oscuro del botón degradado */
+  }
+</style>
+
+<div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2">
+  <article class="dg-card dg-surface-gradient-cool">
+    <div class="dg-card-body">
+      <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">Tokens por defecto</p>
+      <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-4">Azul acero</h3>
+      <button type="button" class="dg-btn dg-btn-gradient dg-btn-sm">Empezar</button>
+    </div>
+  </article>
+  <div class="mi-marca">
+    <article class="dg-card dg-surface-gradient-cool">
+      <div class="dg-card-body">
+        <p class="dg-font-mono dg-text-xs dg-opacity-75 dg-m-0">.mi-marca</p>
+        <h3 class="dg-card-title dg-text-lg dg-mt-2 dg-mb-4">Topo y arena</h3>
+        <button type="button" class="dg-btn dg-btn-gradient dg-btn-sm">Empezar</button>
+      </div>
+    </article>
+  </div>
+</div>`}</pre></div>
+  </div>
+
+  <div class="doc-sub" id="glass-componentes">Glass en los componentes</div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">
+    Las clases de arriba son para contenedores. Los componentes (botones, badges, campos, menús, modales…) también son
+    sólidos por defecto y tienen su propio glass, que conserva el color y el texto de cada variante, se vuelve más opaco
+    en hover y foco, y vuelve a sólido si el usuario pide menos transparencia. Se activa de dos formas.
   </p>
 
   <div class="doc-sub">Por componente: <code class="dg-code">.is-glass</code></div>
-  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Para un elemento concreto, por ejemplo un botón o una card sobre una imagen. Disponible en botones y grupos, badges, alertas, callouts, cards, tabs, segmentado, toasts, chips, campos de formulario y en todos los componentes flotantes.</p>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Para un elemento concreto. Disponible en botones y grupos, badges, alertas, callouts, cards, tabs, segmentado, toasts, chips, campos de formulario y en todos los componentes flotantes.</p>
   <div class="doc-example">
-<div class="doc-demo glass-stage">
-  <div class="dg-cluster">
-    <button type="button" class="dg-btn-primary is-glass">Explorar</button>
-    <span class="dg-badge dg-badge-info is-glass">Nuevo</span>
-    <input class="dg-input is-glass" style="max-width: 14rem" placeholder="Buscar" aria-label="Buscar">
-  </div>
-</div>
-  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>&lt;button type="button" class="dg-btn-primary is-glass"&gt;Explorar&lt;/button&gt;
-&lt;span class="dg-badge dg-badge-info is-glass"&gt;Nuevo&lt;/span&gt;
-&lt;input class="dg-input is-glass" placeholder="Buscar" aria-label="Buscar"&gt;</pre></div>
+    <div class="doc-demo glass-stage">
+      <div class="dg-cluster">
+        <button type="button" class="dg-btn-primary is-glass">Explorar</button>
+        <span class="dg-badge dg-badge-info is-glass">Nuevo</span>
+        <input class="dg-input is-glass dg-max-w-xs" placeholder="Buscar" aria-label="Buscar">
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
   </div>
 
-  <div class="doc-sub">Para todo el sitio: <code class="dg-code">data-surface="glass"</code></div>
-  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">En <code class="dg-code">&lt;html&gt;</code> o en cualquier contenedor, activa el glass en los componentes flotantes: navbar, header y sidebar de app, modal, drawer, menús, popover, combobox, datepicker y menú inferior (dock). Los demás componentes siguen sólidos salvo que lleven <code class="dg-code">.is-glass</code>. Excepción: los controles del carrusel (flechas e indicadores) son glass por defecto para leerse sobre cualquier imagen; <code class="dg-code">.is-solid</code> en el carrusel los vuelve opacos. Añade <code class="dg-code">.is-solid</code> a un flotante para mantenerlo sólido dentro de ese ámbito.</p>
+  <div class="doc-sub">En todo un ámbito: <code class="dg-code">data-surface="glass"</code></div>
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">En <code class="dg-code">&lt;html&gt;</code> o en cualquier contenedor, activa el glass en los componentes flotantes: navbar, header y sidebar de app, modal, drawer, menús, popover, combobox, datepicker y menú inferior (dock). Los demás siguen sólidos salvo que lleven <code class="dg-code">.is-glass</code>. Para excluir un flotante, añade <code class="dg-code">.is-solid</code>. Excepción: los controles del carrusel son glass por defecto para leerse sobre cualquier imagen; <code class="dg-code">.is-solid</code> en el carrusel los vuelve opacos.</p>
   <div class="doc-example">
-<div class="doc-demo glass-stage" data-surface="glass">
-  <nav class="dg-navbar" style="border-radius: var(--dg-radius-lg)">
-    <span class="dg-navbar-brand">dgarz</span>
-    <div class="dg-navbar-nav"><a class="dg-nav-link is-active" href="#glass-componentes">Inicio</a><a class="dg-nav-link" href="#glass-componentes">Docs</a></div>
-  </nav>
-  <div class="dg-cluster dg-mt-4" style="align-items: flex-start">
-    <div class="dg-popover" style="position: static">Popover glass dentro del ámbito.</div>
-    <div class="dg-popover is-solid" style="position: static">Popover con <code>is-solid</code>.</div>
-  </div>
-</div>
-  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>&lt;html data-surface="glass"&gt;
-  …
-  &lt;nav class="dg-navbar"&gt;…&lt;/nav&gt;            &lt;!-- glass --&gt;
-  &lt;div class="dg-popover"&gt;…&lt;/div&gt;           &lt;!-- glass --&gt;
-  &lt;div class="dg-popover is-solid"&gt;…&lt;/div&gt;  &lt;!-- sólido --&gt;
-  &lt;div class="dg-card"&gt;…&lt;/div&gt;              &lt;!-- sólido: no es flotante --&gt;
-&lt;/html&gt;</pre></div>
+    <div class="doc-demo glass-stage">
+      <div data-surface="glass">
+      <nav class="dg-navbar">
+        <span class="dg-navbar-brand">Casa Ollin</span>
+        <div class="dg-navbar-nav"><a class="dg-nav-link is-active" href="#glass-componentes">Inicio</a><a class="dg-nav-link" href="#glass-componentes">Reservas</a></div>
+      </nav>
+      <div class="dg-cluster dg-items-start dg-mt-4">
+        <div class="dg-popover dg-static">Popover glass dentro del ámbito.</div>
+        <div class="dg-popover dg-static is-solid">Popover con <code>is-solid</code>.</div>
+      </div>
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
   </div>
 
   <div class="doc-sub">Tokens de glass</div>
-  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Ajustan todos los componentes glass a la vez; también puedes redefinirlos en un contenedor.</p>
-  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>:root {
-  --dg-glass-alpha: 72%;       /* rellenos: sólidos, sutiles, superficies */
+  <p class="dg-muted dg-text-sm dg-mb-4 dg-measure-xl">Ajustan a la vez los componentes glass y las superficies <code class="dg-code">.dg-surface-glass*</code>; también puedes redefinirlos en un contenedor.</p>
+  <div class="doc-code"><button class="cp">Copiar</button><pre>{`:root {
+  --dg-glass-alpha: 72%;       /* opacidad de rellenos y superficies glass */
   --dg-glass-alpha-soft: 42%;  /* outline, ghost */
   --dg-glass-alpha-hover: 14%; /* opacidad extra en hover y foco */
+  --dg-glass-blur: 12px;       /* .dg-surface-glass */
+  --dg-glass-blur-strong: 20px;
   --dg-glass-filter: blur(var(--dg-glass-blur-strong)) saturate(180%);
-}</pre></div>
+}`}</pre></div>
 
   <div class="doc-sub">Clases</div>
-  <p class="dg-muted dg-text-sm dg-mb-4">Lista completa de las clases de superficie y de botón disponibles.</p>
-  <div class="doc-code"><button class="cp">Copiar</button><pre is:raw>.dg-surface-glass
-.dg-surface-glass-strong
-.dg-surface-glass-dark
-.dg-surface-gradient
-.dg-surface-gradient-cool
-.dg-surface-gradient-warm
-.dg-surface-gradient-aurora
-.dg-surface-mesh
-.dg-surface-shine
-.dg-surface-noise
+  <div class="dg-table-card dg-mb-4">
+    <table class="dg-table dg-table-sm">
+      <thead><tr><th>Clase</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code class="dg-code">.dg-surface-glass</code></td><td>Translúcido con desenfoque</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-glass-strong</code></td><td>Esmerilado: más opaco y más desenfoque</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-glass-dark</code></td><td>Negro translúcido, texto blanco</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-gradient</code></td><td>Tinte mínimo</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-gradient-cool</code></td><td>Pizarra hacia acero, en pastel</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-gradient-warm</code></td><td>Niebla suave</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-gradient-aurora</code></td><td>Manchas de acero y niebla</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-mesh</code></td><td>Manchas tenues sobre la superficie</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-shine</code></td><td>Acabado: reflejo diagonal</td></tr>
+        <tr><td><code class="dg-code">.dg-surface-noise</code></td><td>Acabado: grano fino</td></tr>
+        <tr><td><code class="dg-code">.dg-btn-glass</code></td><td>Botón neutro translúcido</td></tr>
+        <tr><td><code class="dg-code">.dg-btn-gradient</code>, <code class="dg-code">-warm</code></td><td>Botón con gradiente, para un CTA</td></tr>
+        <tr><td><code class="dg-code">.is-glass</code></td><td>Glass en un componente concreto</td></tr>
+        <tr><td><code class="dg-code">[data-surface="glass"]</code></td><td>Glass en los flotantes de un ámbito</td></tr>
+        <tr><td><code class="dg-code">.is-solid</code></td><td>Excluye un flotante de ese ámbito</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-.dg-btn-glass
-.dg-btn-gradient
-.dg-btn-gradient-warm
-
-.is-glass                /* modificador por componente */
-.is-solid                /* excluye un flotante de data-surface="glass" */
-[data-surface="glass"]   /* glass en los flotantes del ámbito */</pre></div>
-
-  <style>
-    .doc-surface-brand-cool {
-      --dg-accent: #6f7dff;
-      --dg-accent-2: #b5c0ff;
-      --dg-accent-3: #e7ebff;
-      --dg-accent-violet: #8c74ff;
-      --dg-accent-mint: #88dbff;
-    }
-
-    .doc-surface-brand-warm {
-      --dg-accent-warm: #ff6a00;
+  <style is:global>
+    /* The brand override shown in its example (global: no Astro scoping
+       attributes, so the generated markup stays clean). */
+    .mi-marca {
+      --dg-accent: #766a5c;
+      --dg-accent-2: #c4b098;
+      --dg-accent-mint: #c4b098;
+      --dg-accent-violet: #39332c;
     }
   </style>
 </Layout>

@@ -1,0 +1,164 @@
+---
+import Layout from "../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Alertas de estado</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Un modal centrado que avisa del resultado de una acción, al estilo de SweetAlert. <code class="dg-code">dgarz.dgAlert()</code> lo crea, lo abre, mueve el foco al botón y lo elimina al cerrarse. El icono marca el estado: <code class="dg-code">success</code>, <code class="dg-code">danger</code>, <code class="dg-code">warning</code> o <code class="dg-code">info</code>. El de éxito dibuja su check al aparecer. Devuelve una promesa que se cumple al cerrar.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-cluster">
+          <button class="dg-btn dg-btn-subtle-success" data-alert-demo="success">Éxito</button>
+          <button class="dg-btn dg-btn-subtle-danger" data-alert-demo="danger">Error</button>
+          <button class="dg-btn dg-btn-subtle-warning" data-alert-demo="warning">Advertencia</button>
+          <button class="dg-btn dg-btn-subtle-info" data-alert-demo="info">Información</button>
+        </div>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>dgarz.dgAlert({
+  icon: "success",
+  title: "Pago recibido",
+  text: "Te enviamos el recibo a tu correo."
+});
+
+dgarz.dgAlert({ icon: "danger",  title: "No se pudo guardar", text: "Revisa tu conexión e inténtalo de nuevo." });
+dgarz.dgAlert({ icon: "warning", title: "Sesión por expirar", text: "Guarda tus cambios en los próximos 5 minutos." });
+dgarz.dgAlert({ icon: "info",    title: "Nueva versión",      text: "Recarga la página para ver las mejoras.", confirmText: "Entendido" });</pre></div>
+</div>
+
+      <div class="doc-sub">Confirmación</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">dgarz.dgConfirm()</code> pregunta antes de una acción y devuelve <code class="dg-code">true</code> o <code class="dg-code">false</code>. Con el icono <code class="dg-code">danger</code> el foco empieza en Cancelar, para que un Enter por inercia no borre nada. Escape y el fondo no cierran la alerta: hay que elegir.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <button class="dg-btn dg-btn-danger" data-alert-demo="confirm">Eliminar proyecto</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>const ok = await dgarz.dgConfirm({
+  icon: "danger",
+  title: "¿Eliminar el proyecto?",
+  text: "Se borrarán sus 24 archivos. Esta acción no se puede deshacer.",
+  confirmText: "Eliminar"
+});
+
+if (ok) dgarz.toast("Proyecto eliminado", { variant: "success" });</pre></div>
+</div>
+
+      <div class="doc-sub">Confirmación con espera</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">preConfirm</code> la alerta no se cierra hasta que termine la tarea: el botón muestra que está cargando y los dos botones se bloquean. Si la promesa falla, el mensaje del error aparece dentro de la alerta y se puede reintentar. En esta demo el primer intento falla.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <button class="dg-btn dg-btn-primary" data-alert-demo="wait">Publicar cambios</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>const ok = await dgarz.dgConfirm({
+  icon: "info",
+  title: "¿Publicar los cambios?",
+  text: "El sitio se actualizará para todos los visitantes.",
+  confirmText: "Publicar",
+  preConfirm: async () => {
+    const res = await fetch("/api/publicar", { method: "POST" });
+    if (!res.ok) throw new Error("El servidor no respondió. Inténtalo de nuevo.");
+  }
+});
+
+if (ok) dgarz.dgAlert({ icon: "success", title: "Publicado", text: "Los cambios ya están en línea." });</pre></div>
+</div>
+
+      <div class="doc-sub">Pedir un dato</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">dgarz.dgPrompt()</code> añade un campo y devuelve lo escrito, o <code class="dg-code">null</code> si se cancela. <code class="dg-code">preConfirm</code> sirve también para validar: lanza un error y el mensaje aparece bajo el campo.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <button class="dg-btn" data-alert-demo="prompt">Renombrar carpeta</button>
+      </div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>const name = await dgarz.dgPrompt({
+  title: "Renombrar carpeta",
+  inputValue: "Proyectos 2026",
+  inputPlaceholder: "Nombre de la carpeta",
+  confirmText: "Guardar",
+  preConfirm: (value) => {
+    if (!value.trim()) throw new Error("Escribe un nombre.");
+  }
+});
+
+if (name !== null) dgarz.toast("Carpeta renombrada a " + name);</pre></div>
+</div>
+
+      <div class="doc-sub">Alerta en HTML</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Si prefieres no usar JavaScript, escribe el modal de estado en el HTML y ábrelo con <code class="dg-code">data-dg-open</code>. <code class="dg-code">.dg-modal-accent</code> con <code class="dg-code">is-success</code>, <code class="dg-code">is-danger</code>, <code class="dg-code">is-warning</code> o <code class="dg-code">is-info</code> da el tono, y <code class="dg-code">.dg-modal-status-hero</code> coloca el icono arriba. <code class="dg-code">data-dg-static</code> evita que se cierre al tocar el fondo. Hay más variantes en <a href="/components/modals">Modales</a>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <button class="dg-btn" data-dg-open="#alert-html">Ver alerta</button>
+        <div class="dg-modal-backdrop" id="alert-html" data-dg-backdrop data-dg-static hidden>
+          <div class="dg-modal dg-modal-sm dg-modal-accent is-success" role="alertdialog" aria-modal="true" aria-labelledby="alert-html-title">
+            <div class="dg-modal-status-hero">
+              <span class="dg-modal-icon is-success"><svg class="dg-icon" aria-hidden="true"><use href="#dg-check"></use></svg></span>
+            </div>
+            <div class="dg-modal-body">
+              <h3 class="dg-modal-title" id="alert-html-title">Cuenta creada</h3>
+              <p>Te enviamos un enlace para confirmar tu correo.</p>
+            </div>
+            <div class="dg-modal-footer">
+              <button class="dg-btn dg-btn-primary" data-dg-close>Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Opciones</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Las tres funciones reciben un objeto. Todas las opciones son opcionales.</p>
+      <div class="dg-table-card">
+        <table class="dg-table dg-table-sm">
+          <thead><tr><th>Opción</th><th>Funciones</th><th>Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td><code class="dg-code">title</code></td><td>las tres</td><td class="dg-muted">Título de la alerta. También le da nombre accesible.</td></tr>
+            <tr><td><code class="dg-code">text</code></td><td>las tres</td><td class="dg-muted">Texto bajo el título.</td></tr>
+            <tr><td><code class="dg-code">icon</code></td><td>las tres</td><td class="dg-muted"><code class="dg-code">success</code>, <code class="dg-code">danger</code>, <code class="dg-code">warning</code> o <code class="dg-code">info</code>. Por defecto: <code class="dg-code">info</code> en dgAlert, <code class="dg-code">warning</code> en dgConfirm y ninguno en dgPrompt.</td></tr>
+            <tr><td><code class="dg-code">confirmText</code></td><td>las tres</td><td class="dg-muted">Texto del botón principal. Por defecto «Aceptar» o «Confirmar».</td></tr>
+            <tr><td><code class="dg-code">cancelText</code></td><td>dgConfirm, dgPrompt</td><td class="dg-muted">Texto de Cancelar. Con <code class="dg-code">null</code> no hay botón de cancelar.</td></tr>
+            <tr><td><code class="dg-code">focusCancel</code></td><td>dgConfirm</td><td class="dg-muted">Empieza con el foco en Cancelar. Por defecto, solo con el icono <code class="dg-code">danger</code>.</td></tr>
+            <tr><td><code class="dg-code">preConfirm</code></td><td>dgConfirm, dgPrompt</td><td class="dg-muted">Función, puede ser async, que se ejecuta al confirmar. Si lanza un error, su mensaje se muestra y la alerta sigue abierta.</td></tr>
+            <tr><td><code class="dg-code">inputType</code>, <code class="dg-code">inputValue</code>, <code class="dg-code">inputPlaceholder</code></td><td>dgPrompt</td><td class="dg-muted">Tipo, valor inicial y placeholder del campo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+`;
+---
+
+<Layout title="Alertas" lead="Modales de estado para avisar, confirmar o pedir un dato: éxito, error, advertencia e información, con una línea de JavaScript." currentHref="/alerts">
+  <Fragment set:html={pageContent} />
+</Layout>
+
+<script is:inline>
+  (function () {
+    var alerts = {
+      success: { icon: 'success', title: 'Pago recibido', text: 'Te enviamos el recibo a tu correo.' },
+      danger:  { icon: 'danger',  title: 'No se pudo guardar', text: 'Revisa tu conexión e inténtalo de nuevo.' },
+      warning: { icon: 'warning', title: 'Sesión por expirar', text: 'Guarda tus cambios en los próximos 5 minutos.' },
+      info:    { icon: 'info',    title: 'Nueva versión', text: 'Recarga la página para ver las mejoras.', confirmText: 'Entendido' }
+    };
+    var tries = 0;
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-alert-demo]');
+      if (!btn || !window.dgarz) return;
+      var dg = window.dgarz, kind = btn.getAttribute('data-alert-demo');
+      if (alerts[kind]) { dg.dgAlert(alerts[kind]); return; }
+      if (kind === 'confirm') {
+        dg.dgConfirm({ icon: 'danger', title: '¿Eliminar el proyecto?', text: 'Se borrarán sus 24 archivos. Esta acción no se puede deshacer.', confirmText: 'Eliminar' })
+          .then(function (ok) { if (ok) dg.toast('Proyecto eliminado', { variant: 'success' }); });
+      } else if (kind === 'wait') {
+        tries = 0;
+        dg.dgConfirm({
+          icon: 'info', title: '¿Publicar los cambios?', text: 'El sitio se actualizará para todos los visitantes.', confirmText: 'Publicar',
+          preConfirm: function () {
+            tries++;
+            return new Promise(function (resolve, reject) {
+              setTimeout(function () { tries === 1 ? reject(new Error('El servidor no respondió. Inténtalo de nuevo.')) : resolve(); }, 1200);
+            });
+          }
+        }).then(function (ok) { if (ok) dg.dgAlert({ icon: 'success', title: 'Publicado', text: 'Los cambios ya están en línea.' }); });
+      } else if (kind === 'prompt') {
+        dg.dgPrompt({
+          title: 'Renombrar carpeta', inputValue: 'Proyectos 2026', inputPlaceholder: 'Nombre de la carpeta', confirmText: 'Guardar',
+          preConfirm: function (value) { if (!value.trim()) throw new Error('Escribe un nombre.'); }
+        }).then(function (name) { if (name !== null) dg.toast('Carpeta renombrada a ' + name); });
+      }
+    });
+  })();
+</script>

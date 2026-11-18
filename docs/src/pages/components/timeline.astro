@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Línea de tiempo</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-timeline</code> ordena eventos en una línea vertical. Cada <code class="dg-code">.dg-timeline-item</code> lleva un punto y su contenido (fecha, título y texto). <code class="dg-code">.is-done</code> marca lo completado (el punto puede llevar un icono) y <code class="dg-code">.is-active</code> el paso en curso.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-timeline dg-max-w-md">
+          <div class="dg-timeline-item is-done"><span class="dg-timeline-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><div class="dg-timeline-content"><div class="dg-timeline-date">12 nov · 09:40</div><div class="dg-timeline-title">Pedido recibido</div><div class="dg-timeline-body">Confirmamos tu pago.</div></div></div>
+          <div class="dg-timeline-item is-done"><span class="dg-timeline-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><div class="dg-timeline-content"><div class="dg-timeline-date">12 nov · 15:10</div><div class="dg-timeline-title">Preparado</div><div class="dg-timeline-body">Empaquetado en el almacén de Monterrey.</div></div></div>
+          <div class="dg-timeline-item is-active"><span class="dg-timeline-dot"></span><div class="dg-timeline-content"><div class="dg-timeline-date">13 nov · 08:00</div><div class="dg-timeline-title">En camino</div><div class="dg-timeline-body">Llega mañana entre 10:00 y 14:00.</div></div></div>
+          <div class="dg-timeline-item"><span class="dg-timeline-dot"></span><div class="dg-timeline-content"><div class="dg-timeline-date">—</div><div class="dg-timeline-title">Entregado</div><div class="dg-timeline-body">Te avisaremos al entregarlo.</div></div></div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Historial de actividad</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Sin estados, la misma estructura sirve como historial o registro de cambios.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-timeline dg-max-w-md">
+          <div class="dg-timeline-item"><span class="dg-timeline-dot"></span><div class="dg-timeline-content"><div class="dg-timeline-date">Hoy · 11:24</div><div class="dg-timeline-title">Ana Rivas editó la propuesta</div><div class="dg-timeline-body">Cambió el presupuesto y la fecha de entrega.</div></div></div>
+          <div class="dg-timeline-item"><span class="dg-timeline-dot"></span><div class="dg-timeline-content"><div class="dg-timeline-date">Ayer · 18:02</div><div class="dg-timeline-title">Se añadió un comentario</div><div class="dg-timeline-body">«Revisemos el alcance el lunes».</div></div></div>
+          <div class="dg-timeline-item"><span class="dg-timeline-dot"></span><div class="dg-timeline-content"><div class="dg-timeline-date">10 nov</div><div class="dg-timeline-title">Proyecto creado</div><div class="dg-timeline-body">Plantilla «Estudio».</div></div></div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+`;
+---
+
+<Layout title="Timeline" lead="Eventos en orden: seguimiento de pedidos, historial de actividad y procesos." currentHref="/components/timeline">
+  <Fragment set:html={pageContent} />
+</Layout>

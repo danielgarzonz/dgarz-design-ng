@@ -3,11 +3,11 @@
    classless <table> inside a .dg-auto scope gets the same declarations
    via :where() as .dg-table, at zero added specificity. */
 .dg-table,
-:where(.dg-auto) table:not([class]) { width: 100%; border-collapse: collapse; border: 1px solid var(--dg-border-strong); font-size: var(--dg-text-sm); }
+:where(.dg-auto) table:not([class]) { width: 100%; border-collapse: collapse; border: 1px solid var(--dg-border); font-size: var(--dg-text-sm); }
 .dg-table th, .dg-table td,
-:where(.dg-auto) table:not([class]) th, :where(.dg-auto) table:not([class]) td { text-align: left; padding: var(--dg-space-3) var(--dg-space-4); border-bottom: 1px solid var(--dg-border-strong); }
+:where(.dg-auto) table:not([class]) th, :where(.dg-auto) table:not([class]) td { text-align: left; padding: var(--dg-space-3) var(--dg-space-4); border-bottom: 1px solid var(--dg-border); }
 .dg-table th,
-:where(.dg-auto) table:not([class]) th { font-weight: var(--dg-weight-semi); color: var(--dg-text-muted); font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.07em; }
+:where(.dg-auto) table:not([class]) th { font-weight: var(--dg-weight-semi); color: var(--dg-text-muted); font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.07em; background: var(--dg-surface-2); }
 .dg-table tbody tr,
 :where(.dg-auto) table:not([class]) tbody tr { transition: background var(--dg-dur) var(--dg-ease); }
 .dg-table-striped tbody tr:nth-child(even) { background: var(--dg-surface-2); }
@@ -15,7 +15,8 @@
 .dg-table tbody tr:hover,
 .dg-table-hover tbody tr:hover,
 :where(.dg-auto) table:not([class]) tbody tr:hover { background: var(--dg-surface-3); }
-.dg-table-card { max-width: 100%; min-width: 0; border: 1px solid var(--dg-border-strong); border-radius: var(--dg-radius-lg); overflow-x: auto; }
+/* Swiss: tables are square (radius 0). */
+.dg-table-card { max-width: 100%; min-width: 0; border: 1px solid var(--dg-border); border-radius: 0; overflow-x: auto; }
 .dg-table-card .dg-table { border: 0; }
 .dg-table-card .dg-table tr:last-child td { border-bottom: none; }
 
@@ -36,7 +37,7 @@
 
 /* Sticky header */
 .dg-table-sticky { max-height: 360px; overflow-y: auto; }
-.dg-table-sticky thead th { position: sticky; top: 0; background: var(--dg-surface); z-index: 1; box-shadow: 0 1px 0 var(--dg-border-strong); }
+.dg-table-sticky thead th { position: sticky; top: 0; background: var(--dg-surface-2); z-index: 1; box-shadow: 0 1px 0 var(--dg-border); }
 
 /* Selectable rows */
 .dg-table tr.is-selected { background: var(--dg-surface-3) !important; }
@@ -61,9 +62,9 @@
 }
 
 .dg-table-rowcard {
-  border: 1px solid var(--dg-border-strong);
+  border: 1px solid var(--dg-border);
   background: var(--dg-surface);
-  border-radius: var(--dg-radius-lg);
+  border-radius: 0;
   padding: var(--dg-space-4);
   box-shadow: var(--dg-shadow-1);
 }
@@ -71,7 +72,7 @@
 .dg-table-rowcard-row {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--dg-space-3); padding-block: 6px;
-  border-bottom: 1px solid var(--dg-border-strong);
+  border-bottom: 1px solid var(--dg-border);
 }
 .dg-table-rowcard-row:last-of-type { border-bottom: none; }
 .dg-table-rowcard-label { color: var(--dg-text-muted); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi); flex-shrink: 0; }
@@ -80,14 +81,15 @@
 
 /* Scroll horizontal accesible para tablas anchas */
 /* Horizontal scrolling is built into dg-table-card. Legacy aliases remain compatible. */
+/* .dg-table-responsive is a deprecated alias of .dg-table-scroll (removed in 2.0). */
 .dg-table-scroll, .dg-table-responsive { max-width: 100%; overflow-x: auto; }
 .dg-table-card:focus-visible, .dg-table-scroll:focus-visible, .dg-table-responsive:focus-visible { outline: 2px solid var(--dg-text); outline-offset: 3px; }
 .dg-table-wide { min-width: 760px; }
-.dg-table-caption { border-bottom: 1px solid var(--dg-border-strong); text-align: left; padding: var(--dg-space-4); font-weight: var(--dg-weight-semi); color: var(--dg-text); }
-.dg-table-bordered th, .dg-table-bordered td { border: 1px solid var(--dg-border-strong); }
+.dg-table-caption { border-bottom: 1px solid var(--dg-border); text-align: left; padding: var(--dg-space-4); font-weight: var(--dg-weight-semi); color: var(--dg-text); }
+.dg-table-bordered th, .dg-table-bordered td { border: 1px solid var(--dg-border); }
 .dg-table th.dg-cell-num, .dg-table td.dg-cell-num { text-align: right; }
 
-/* Optional square corners: apply to the wrapper or directly to its table. */
+/* Square corners are now the default; .dg-table-square stays as a no-op alias. */
 .dg-table-square,
 .dg-table-card:has(> .dg-table-square) { border-radius: 0; }
 

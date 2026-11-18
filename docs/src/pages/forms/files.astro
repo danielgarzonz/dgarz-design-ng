@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Zona para soltar archivos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-dropzone</code> acepta archivos arrastrados o elegidos con un clic, y los lista debajo con su tamaño, una barra de progreso y un botón para quitarlos. <code class="dg-code">data-accept</code> limita los tipos y <code class="dg-code">data-max-size</code> el tamaño (en MB).</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-max-w-md">
+          <label class="dg-dropzone" data-accept=".pdf,.png,.jpg" data-max-size="5">
+            <input type="file" multiple hidden />
+            <svg class="dg-icon dg-dropzone-icon"><use href="#dg-folder"/></svg>
+            <span class="dg-dropzone-title">Arrastra archivos aquí o haz clic</span>
+            <span class="dg-dropzone-sub">PDF, PNG o JPG · hasta 5 MB</span>
+          </label>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+`;
+---
+
+<Layout title="Archivos" lead="Zona para soltar archivos con lista, tamaño y progreso." currentHref="/forms/files">
+  <Fragment set:html={pageContent} />
+</Layout>

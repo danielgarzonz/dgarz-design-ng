@@ -15,6 +15,7 @@ export function wirePasswordToggle(wrap) {
   });
 }
 
+/* Deprecated with .dg-float-field (removed in 2.0). */
 export function wirePureFloatField(field) {
   if (field.__dgPureFloat) return;
   field.__dgPureFloat = true;

@@ -2,7 +2,8 @@
 /* ---- Combobox / Multi-select ------------------------------ */
 .dg-combobox { position: relative; }
 
-.dg-combobox-control {
+.dg-combobox-control,
+.dg-tags {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -10,13 +11,14 @@
   min-height: 2.6em;
   padding: 0.35em 0.6em;
   border: 1px solid var(--dg-field-border);
-  border-radius: var(--dg-radius);
+  border-radius: var(--dg-field-radius);
   background: var(--dg-field-bg);
   cursor: text;
   transition: border-color var(--dg-dur) var(--dg-ease), box-shadow var(--dg-dur) var(--dg-ease);
 }
 .dg-combobox.is-open .dg-combobox-control,
-.dg-combobox-control:focus-within {
+.dg-combobox-control:focus-within,
+.dg-tags:focus-within {
   border-color: var(--dg-text);
   box-shadow: var(--dg-ring);
 }
@@ -54,8 +56,19 @@
 }
 .dg-combobox-tag-remove:hover { background: var(--dg-border-strong); color: var(--dg-text); }
 
-/* Search input */
-.dg-combobox-input {
+/* ---- Free tags (.dg-tags) --------------------------------- */
+/* <div class="dg-tags"><input class="dg-tags-input"></div>: Enter or a comma
+   turns the text into a tag (the same chip as the combobox). */
+.dg-tags .dg-combobox-tag-remove { padding: 0; border: 0; background: transparent; font: inherit; font-size: 0.7em; }
+.dg-tags .dg-combobox-tag-remove:hover { background: var(--dg-border-strong); }
+.dg-tags .dg-combobox-tag { animation: dg-tag-in var(--dg-dur) var(--dg-ease); transition: background var(--dg-dur) var(--dg-ease), color var(--dg-dur) var(--dg-ease); }
+.dg-tags .dg-combobox-tag.is-flash { background: var(--dg-text); color: var(--dg-paper); }
+.dg-tags.is-full .dg-tags-input::placeholder { color: transparent; }
+@keyframes dg-tag-in { from { opacity: 0; transform: scale(0.85); } }
+
+/* Search input (also the text box of .dg-tags) */
+.dg-combobox-input,
+.dg-tags-input {
   flex: 1;
   min-width: 80px;
   border: none;
@@ -65,6 +78,7 @@
   color: var(--dg-text);
   padding: 0.2em 0.4em;
 }
+.dg-tags-input::placeholder,
 .dg-combobox-input::placeholder { color: var(--dg-text-faint); }
 
 /* Dropdown */
@@ -111,8 +125,8 @@
   width: 1em;
   height: 1em;
   flex: none;
-  border-radius: 3px;
-  border: 1.5px solid var(--dg-border-strong);
+  border-radius: min(3px, var(--dg-radius-sm));
+  border: 1.5px solid var(--dg-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,3 +154,7 @@
 
 /* ---- Combobox: opt-in glass ------------------------------- */
 #{glass.opt-in(".dg-combobox-dropdown")} { @include glass.surface(var(--dg-surface)); }
+
+/* Option text (the script also reads it for the tag): takes the free space
+   and truncates instead of pushing the check out. */
+.dg-combobox-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

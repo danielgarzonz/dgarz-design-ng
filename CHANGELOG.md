@@ -3,6 +3,129 @@
 All notable changes to **dgarz design** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+## [1.3.0] — 2026-11-18
+
+New form controls, one corner style for every component (semi by default), Swiss typography and subtle borders by default, status alerts and accessible color. Some defaults look different (corners, headings, borders, tables): each entry marked ⚠ or "Changed" says how to keep the previous look.
+
+### Added — More entrance animations
+- `.dg-fade-in` (opacity only), `.dg-zoom-in` (from 85 %), `.dg-zoom-out` (from 115 %), `.dg-blur-in` and `.dg-blur-in-{up,down,left,right}` (out of focus into focus), `.dg-rise-in` (comes up out of its own bottom edge, as if from the ground; no wrapper with `overflow: hidden` needed) `.dg-drop-in` (its mirror, down from the top edge) and `.dg-rise-in-left` / `-right` (out of the left / right edge). Same contract as `.dg-fade-in-*`: they play on mount, stay hidden during a `.dg-delay-*`, leave nothing applied when they end, and work with `.dg-anim-slow` / `-slower` / `-none` and reduced motion.
+- Scroll reveal directions: `.dg-reveal-down`, `.dg-reveal-left` and `.dg-reveal-right`, as modifiers on `.dg-reveal` (which keeps rising by default).
+- **Entrances wait until they are seen:** with `dgarz.js`, every entrance class (`dg-fade-in*`, `dg-zoom-*`, `dg-blur-in*`, `dg-rise-in*`, `dg-drop-in`, `dg-pop-in`, `dg-text-in`, `dg-text-reveal`) that starts below the fold stays paused and hidden (`.dg-anim-wait`) and plays when it scrolls into view, so it is never finished off-screen. Entrances already on screen play at once, as before. Without the script or with reduced motion they play on mount; `data-dg-no-reveal` on the element or an ancestor opts out. `dgarz.init(container)` also wires entrances added later.
+- Docs: the Animations page now has a catalog of every entrance and one example per family (fade, directional fade, zoom, blur, rise, stagger, duration, scroll reveal); each demo plays when it scrolls into view and can be replayed.
+
+### Changed — Brand accent
+- The accent tokens use the dgarz design steel-blue palette (ink #101820, slate #354B60, steel #7394AC, mist #B8D0DE, frost #F0F5F7) instead of blue, violet, orange and mint: `--dg-accent` slate (steel in dark), `--dg-accent-2` steel (mist in dark), `--dg-accent-3` mist, `--dg-accent-violet` ink (steel in dark), `--dg-accent-warm` and `--dg-accent-mint` mist/steel. This changes the surface gradients (`cool` slate → steel in pastel, `warm` mist, `aurora`, `mesh`), the gradient buttons, the focus ring and the modal glow. `.dg-btn-gradient` runs ink → slate → steel with white text (steel → mist with ink text in dark) via the new `--dg-on-accent`. Override the tokens to bring back any palette.
+
+### Changed — Switch, checkbox and radio
+- New look that adapts to whatever background the control sits on. The switch track and the check box are filled with that background (`--dg-control-bg`, see below) and carry a subtle 1px edge drawn from the current text color (18%, 32% when on). The switch thumb is flat (no shadow) and inset (`--dg-switch-pad: .2em`): off, it is the background mixed with 28% of the text color, so it always contrasts; on, it takes the text color itself — black on light fills, white on dark or strong ones. The radio dot (larger) uses the same color. An unchecked checkbox shows its check in a subtle tone (the fill mixed with 25% of the text color). Checked, it fills with the text color (black; white in dark) and plays the stepper's "done" effect: a ring is drawn around it, the circle fills, then the check is traced left → right in the background color; unchecking plays it in reverse (check, fill, ring) — with transitions, so boxes that load checked do not animate; reduced motion skips it. The press stretch and landing bounce are unchanged.
+- `--dg-switch-on`, `--dg-switch-thumb-off`, `--dg-switch-line` and `--dg-switch-line-on` are optional overrides (no longer defined by default); `--dg-switch-on` colors the thumb instead of filling the track. `--dg-switch-off` and `--dg-switch-thumb-shadow` are removed.
+
+### Deprecated
+- Duplicate class names (same rule as another class) are deprecated: they keep working in 1.x and will be removed in 2.0. The list, with the class to use instead, ships as `dist/deprecated-classes.json`:
+  - `.dg-serif` → `.dg-font-serif`
+  - `.dg-glass`, `.dg-glass-strong`, `.dg-glass-dark`, `.dg-liquid` → `.dg-surface-glass`, `-glass-strong`, `-glass-dark`, `.dg-surface-liquid`
+  - `.dg-table-responsive` → `.dg-table-scroll`; `.dg-modal-footer-expanded` → `.dg-modal-footer-wide`
+  - `.dg-col-flex` → `.dg-flex-col`; `.dg-flex-auto` → `.dg-grow`; `.dg-no-shrink` → `.dg-shrink-0`
+  - `.dg-fs-2xl` → `.dg-text-2xl`; `.dg-lh-1` → `.dg-leading-none`; `.dg-text-decoration-none` → `.dg-no-underline`
+  - `.dg-text-on-dark` / `.dg-text-on-light` → `.dg-text-white` / `.dg-text-black`; `.dg-place-center` → `.dg-place-items-center`
+  - `.dg-visible-xs`, `.dg-visible-sm` → `.dg-hidden-desktop` (they only hid from 992px, despite their names)
+  - `.dg-w-100p`, `.dg-h-100p`, `.dg-max-w-100p` (and their `md`/`lg`/`xl` copies) → `.dg-w-full`, `.dg-h-full`, `.dg-max-w-full`; `.dg-w-100vw` → `.dg-w-screen`. The keywords are now part of the size scale, so they also exist per breakpoint (`.dg-md-w-full`, `.dg-lg-w-screen`…).
+  - `.dg-table-square` → nothing: tables are square by default.
+- Floating labels (`.dg-float-field`) are deprecated and gone from the docs: use `.dg-field` with `.dg-label` above the input. They keep working in 1.x and will be removed in 2.0.
+- Competing systems for the same job are deprecated too, so there is one way per concept (grid, `.dg-grid-cols-*` and `.dg-row` / `.dg-col-*` all stay):
+  - `.dg-space-x-*` / `.dg-space-y-*` → `.dg-stack` / `.dg-cluster` + `.dg-gap-*`
+  - `.dg-text-gray-*` / `.dg-bg-gray-*` → `.dg-muted`, `.dg-faint`, `.dg-text-white` / `-black` and the `.dg-bg-surface*` utilities
+  - `.dg-text-muted` / `.dg-text-faint` → `.dg-muted` / `.dg-faint`, which now live in the utilities layer (they win over a component's own text color, like the old `.dg-text-*` versions did).
+
+### Changed — New default corners ("semi") ⚠ visual change
+- **The default look is less rounded.** Corners now default to "semi": 5px on small parts (checkbox) and 10px on everything else — buttons, fields, cards, badges, modals, dock. Before 1.3 the default was rounded: soft corners with pill buttons. **To keep the previous look, add one attribute:** `<html data-radius="full">`.
+- Corners have three options for the whole framework, set with `data-radius` on `<html>` or on any container: the default / `"semi"`, `"full"` (rounded: soft corners, pill buttons and pill one-line fields; the textarea keeps 22px) and `"none"` (square everywhere). Each mode sets every radius token, so all components follow it. True circles drawn with 50% (avatars, radios, spinners) stay round; the checkbox follows the mode (`--dg-check-radius`) and its checking ring follows the shape. `--dg-bar-radius` (bars hanging from the top edge, matching the iPhone screen corner) only changes in `"none"`.
+- New tokens: `--dg-field-radius` (one-line fields: input, select, combobox, input groups — including a button inside the group), `--dg-field-radius-multiline` (textarea), `--dg-check-radius`, `--dg-dock-item-radius`. The last fixed radii (3px, 6px, dock items) now go through the tokens. `.dg-input-pill` forces a pill field in any mode.
+
+### Added — Corner style switch, like the color theme
+- `data-dg-radius-toggle` on a button cycles the corner style (semi → full → none); `data-dg-radius-set="none"` sets one. Without a target they act on `<html>` and the choice is remembered (`localStorage` "dg-radius") and restored on the next visit, as `data-dg-theme-toggle` does; with `data-dg-target="#id"` they change only that container.
+- JavaScript: `dgarz.setRadius(value, el?)`, `dgarz.toggleRadius(el?)`, `dgarz.getRadius(el?)`, and a `dg:radiuschange` event with `{ radius }`.
+- The change animates: every corner morphs for 0.5s (`[data-dg-radius-morph]`, set for 600ms), except with reduced motion.
+
+### Added — Text case utilities
+- `.dg-lowercase`, `.dg-capitalize` and `.dg-normal-case` (undoes a case change inherited from a wrapper, e.g. inside `.dg-uppercase`), next to the existing `.dg-uppercase`.
+
+### Added — `--dg-control-bg`
+- New token for the fill of the switch track and the check box: the background they sit on. It defaults to `--dg-paper`, and `.dg-card`, `.dg-modal`, `.dg-menu`, `.dg-popover`, `.dg-drawer` and every `.dg-bg-*` utility (surfaces, white/black, light/dark, the semantic and primary/secondary scales, sand/cream/graphite) set it to their own fill, so the controls are never see-through and always match their container. Set it on any wrapper with a custom background.
+
+### Fixed — No zoom when focusing a field on iPhone
+- iOS Safari zoomed the page when a field with text under 16px got focus (fields use 14px, the small size 12px). On touch screens (`pointer: coarse`) inputs, textareas, selects, the combobox input and native fields in `.dg-auto` now use at least 16px; desktop keeps 14px. Page zoom stays available (no `maximum-scale`).
+
+### Added — Form controls
+- **Date range** (`.dg-datepicker[data-range]`): one calendar picks start and end; the days in between are tinted and a hint says which end is next. Value: `dd/mm/yyyy – dd/mm/yyyy`.
+- **Time picker** (`.dg-timepicker` or `data-time-only`): hours and minutes only, value `HH:mm`; `data-minute-step` (e.g. 15) sets the minute increment.
+- **Number with − / +** (`.dg-number` + `.dg-number-btn[data-step]`): uses the input's `min`, `max` and `step`, fires `input`/`change` and disables a button at its limit.
+- **Option cards** (`.dg-check.dg-option-card` with `-body`, `-title`, `-desc`, `-meta`): a radio or checkbox as a selectable card; the selected one gets a 2px outline.
+- **Verification code** (`.dg-otp` + `.dg-otp-input`): auto-advance, backspace goes back, arrows move, pasting fills every box; fires `dg:complete` with `{ value }`. `data-otp-type="text"` accepts letters.
+- **Character counter** (`.dg-counter[data-counter-for="id"]`): counts against the field's `maxlength` (or `data-max`); `is-near` from 90 %, `is-over` past the limit. Sits next to `.dg-help` in the new `.dg-field-foot`.
+- **Autosize textarea** (`.dg-textarea[data-autosize]`): grows with its text up to 20em (native `field-sizing`, with a script fallback).
+- **Free tags** (`.dg-tags` + `.dg-tags-input`): Enter, comma or Tab adds a tag, Backspace removes the last, a pasted list is split; duplicates flash instead of repeating. `data-value` (starting tags), `data-max`, an optional hidden input, and a `dg:change` event with `{ values }`. Uses the combobox chip.
+- **Rating** (`.dg-rating`): native radios 1…n drawn as stars, with hover preview, keyboard arrows and no JavaScript; disabled inputs make it read-only; sized with `dg-text-*`.
+- **Form layout**: `.dg-fieldset` + `.dg-legend` (titled groups), `.dg-field-row` (label on the left from 768px), `.dg-label.is-required` (asterisk) and `.dg-label-optional`.
+
+### Fixed — Datepicker
+- With time or range, picking a day closed the calendar: the click landed on a cell that had just been re-rendered and was read as an outside click. Outside clicks now use the event path.
+- `data-min` / `data-max` were read as UTC and could shift one day back west of Greenwich; they are now local dates.
+
+### Changed — Size budgets
+- `check-size` budgets raised for the 1.3.0 components: `dgarz.min.css` 45 KB, `dgarz.full.min.css` 49 KB, `dgarz.min.js` 18 KB, `dgarz.esm.js` 24 KB (gzip).
+
+### Changed — Alert footer
+- Status and confirmation modals (`.dg-modal-confirm`, `.dg-modal-accent`, or with `.dg-modal-status-hero`, which includes `dgAlert` / `dgConfirm` / `dgPrompt`) no longer float their footer in a gray box: the buttons sit centered on the modal, so the alert follows the same corners and surface as everything else.
+- `.dg-btn-cancel` inside a modal is a tint of the text color instead of a fixed gray (#b8b8bf), so it reads as the secondary action in both themes.
+
+### Fixed — Modals and drawers open with their animation every time (Safari)
+- In Safari, from the second opening on, an overlay could appear at its final state with no entrance ("dry"): the engine kept the animations of the previous opening. `openOverlay` now restarts every entrance (backdrop, modal effect, content) from its first frame with one style pass of `animation-name: none` (`.dg-anim-restart`, last layer) before anything paints. No visible change in other browsers.
+
+### Fixed — Warning as a text color
+- `.dg-text-warning` used the fill yellow (#eab308, 1.9:1 on white). It now uses the new `--dg-warning-text` token: #854d0e in light (≥ 4.5:1 on every surface), the same yellow in dark. Fills, buttons, badges and alerts do not change. `check-contrast` now audits this token too.
+
+### Fixed — Input masks, timeline and combobox
+- Input masks (`data-mask`, `data-mask-pattern`) dropped every character typed where the mask expects a literal: a phone number stayed empty (its mask starts with "("), a card stopped at 4 digits and `AA-9999` at the letters. The typed letters and digits are now read regardless of their position.
+- `.dg-timeline-dot` drew its ring with a border, which the flat reset removes: pending and in-progress dots were invisible and their white fill cut the line. The ring is now an outline over the background the timeline sits on (`--dg-control-bg`); the in-progress dot shows a solid ring with a dot inside.
+- `.dg-combobox-label` (the option text the script reads) now has styles: it takes the free space and truncates.
+
+### Fixed — Color contrast (WCAG AA)
+- Every shipped text/background token pair now reaches 4.5:1 in both themes (`node core/scripts/check-contrast.mjs`: 80 pairs, 0 failures). Text colors: `--dg-on-danger-subtle` #c81e1e (was #dc2626, 4.4:1), `--dg-on-danger-light` #450a0a (was #7f1d1d, 3.6:1), `--dg-on-info-light` #172554 (was #1e3a8a, 4.1:1), dark `--dg-on-warning-dark` #fefce8 (was #fef08a, 4.2:1). Fill: `--dg-success` #15803d (was #16a34a: white text was 3.3:1) and `--dg-success-dark` #166534 to stay a step darker — the Success button, badge and alert are slightly deeper green.
+
+### Fixed — Surfaces
+- A focused `.dg-input-group` now marks the whole group (field + addon or button) with one 1px line in the text color, following the group's corners; before, only the inner field showed a ring (its box-shadow ring was removed by the flat reset).
+- Focused text fields (`.dg-input`, `.dg-textarea`, `.dg-select` and native inputs) showed a double border: their own darker border plus the flat layer's 2px focus ring. Fields now keep only their border; checkboxes, switches, buttons and links keep the ring.
+- `.dg-surface-gradient-cool`, `-warm` and `-aurora` are light in both themes and now carry their own dark ink (`--dg-text`, `--dg-text-muted`), so their text is readable in dark mode.
+- A `.dg-spinner` inside a button now takes the button's text color (white on a solid button) instead of the page text color.
+- `.dg-surface-glass` and `.dg-surface-glass-strong` were 94–96 % opaque and looked like a solid card. They now follow `--dg-glass-alpha` (72 %; strong adds 14 %), the same translucency as the glass components; `.dg-surface-glass-dark` too. They still turn solid with reduced transparency or without `backdrop-filter`.
+- `.dg-surface-noise` replaced the surface's background (a gradient + noise card lost its gradient and turned transparent). The grain is now a layer on top.
+- `.dg-surface-glass-dark` redefines `--dg-text` / `--dg-text-muted`, so card titles and muted text inside turn white instead of staying dark on dark.
+- Docs: brand identity — the `dg` logo, white (black in dark) pages with the framework's text colors, white demo panels and landing cards with a subtle 1px line, light neutral code blocks with no border, and the steel-blue palette as the primary: slate #354B60 for text accents (mist #B8D0DE in dark), a mist → ink gradient on the accent marks, and a cold light (frost into ink) behind every glass demo.
+- Docs: every example's code now matches its demo exactly (231 examples checked): empty code blocks are filled from the demo markup, demos no longer use docs-only classes or inline styles, and drawer demos render from the same markup their code shows. The header and favicon use the `dg` monogram.
+- Docs: the Surfaces page was rewritten (one comparison per family, what each variant is for, a real example, brand override, class table) and every glass demo in the docs now sits on a Swiss poster backdrop instead of stock photos and color blobs.
+
+### Changed — Swiss typography by default
+- Headings (`h1`–`h3`, `.dg-display`, `.dg-h1`–`.dg-h3`), card titles, brand marks (navbar, app), big figures (`.dg-stat-value`, `.dg-pricing-amount`), empty-state titles, carousel captions and quotes (`.dg-quote`, testimonials) now use `--dg-font-heading`, which defaults to **Geist** instead of Gambetta. Headings are firmer and tighter (600, −0.025em; display 700, −0.04em); figures use tabular numbers; quotes are no longer italic.
+- **To keep the previous editorial look:** `:root { --dg-font-heading: var(--dg-font-serif); }`. Gambetta stays available as `.dg-font-serif` / `.dg-serif`.
+- A heading set in `.dg-font-condensed` keeps its own −0.01em tracking.
+
+### Changed — Flat gradients
+- `.dg-gradient-{primary,secondary,success,warning,danger,info}` are a clean diagonal from the light to the subtle tone of each color (primary, the brand's solid color, runs dark from the base to the dark tone and inverts with the theme); the dark radial blobs (they read as shadows, worst on warning) are gone. In dark, warning starts darker and uses white text (contrast ≥ 5.2:1 across the whole gradient).
+
+### Changed — Subtle borders by default
+- Every structural border of the framework uses the subtle `--dg-border` (#dcdce0; #2a2a2e in dark) instead of `--dg-border-strong`: form fields (`--dg-field-border` now points to `--dg-border`: inputs, selects, textareas, dropdown triggers, combobox, dock), tables (card, rows, caption, bordered cells, sticky header line, mobile card view), accordion, bordered collapse, outline badge, file dropzone, the alert side mark, `kbd` and the combobox check box. The switch and check edge is 14% of the text color. Outline buttons keep their colored border (it is the variant). Set `--dg-field-border: var(--dg-border-strong)` to bring back the stronger field edge.
+- Docs: the editorial rules are subtle too (`--doc-rule` 10%, `--doc-rule-strong` 18% of the text color instead of solid black); section openers keep their 2px weight.
+
+### Changed — Square tables
+- Table headers (`th` in `.dg-table` and in `.dg-auto` tables) have a subtle gray fill by default (`--dg-surface-2`); the sticky header uses the same gray.
+- `.dg-table-card` and the mobile `.dg-table-rowcard` have square corners (radius 0) by default; `.dg-table-square` stays as a no-op alias.
+
+### Changed — Tabs
+- Underline tabs (`.dg-tabs`) show a subtle 1px baseline under the whole row (a background, so the flat reset keeps it; color via `--dg-tabs-line`), and the active tab's 2px black line sits on it with square ends. Pill and enclosed tabs are unchanged.
+
 ## [1.2.0] — 2026-11-09
 
 ### Compatibility

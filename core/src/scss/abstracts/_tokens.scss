@@ -31,13 +31,17 @@
   /* Label of unfilled/soft buttons (subtle, text): pure black on light, light text on dark. */
   --dg-btn-ink:     #000000;
 
-  /* Accent layer — optional visual styles (glass / gradients / liquid) */
-  --dg-accent:        #247cff;
-  --dg-accent-2:      #82b6ff;
-  --dg-accent-3:      #d9e8ff;
-  --dg-accent-violet: #8e7dff;
-  --dg-accent-warm:   #ff7a1a;
-  --dg-accent-mint:   #7ad9c3;
+  /* Accent layer — optional visual styles (surface gradients, gradient
+     buttons, focus ring, modal glow). The dgarz design palette, steel blue:
+     ink #101820 · slate #354B60 · steel #7394AC · mist #B8D0DE · frost #F0F5F7.
+     The token names are historical. */
+  --dg-accent:        #354b60; /* slate */
+  --dg-accent-2:      #7394ac; /* steel */
+  --dg-accent-3:      #b8d0de; /* mist */
+  --dg-accent-violet: #101820; /* ink: top of .dg-btn-gradient */
+  --dg-accent-warm:   #b8d0de; /* mist */
+  --dg-accent-mint:   #7394ac; /* steel */
+  --dg-on-accent:     #ffffff; /* text on the accent gradient */
 
   --dg-glass-blur:        12px;
   --dg-glass-blur-strong: 20px;
@@ -56,9 +60,9 @@
   --dg-on-success-subtle:  #15803d;
   --dg-success-light:      #4ade80;
   --dg-on-success-light:   #14532d;
-  --dg-success:            #16a34a;
+  --dg-success:            #15803d; /* white text 5.0:1 (was #16a34a, 3.3:1) */
   --dg-on-success:         #ffffff;
-  --dg-success-dark:       #15803d;
+  --dg-success-dark:       #166534;
   --dg-on-success-dark:    #ffffff;
 
   --dg-warning-subtle:     #fffbeb;
@@ -67,13 +71,15 @@
   --dg-on-warning-light:   #713f12;
   --dg-warning:            #eab308;
   --dg-on-warning:         #1a1400;
+  /* Warning as a text color (.dg-text-warning): the fill yellow is 1.9:1 on white. */
+  --dg-warning-text:       #854d0e;
   --dg-warning-dark:       #ca8a04;
   --dg-on-warning-dark:    #1a1400;
 
   --dg-danger-subtle:      #fef1f1;
-  --dg-on-danger-subtle:   #dc2626;
+  --dg-on-danger-subtle:   #c81e1e;
   --dg-danger-light:       #f87171;
-  --dg-on-danger-light:    #7f1d1d;
+  --dg-on-danger-light:    #450a0a;
   --dg-danger:             #dc2626;
   --dg-on-danger:          #ffffff;
   --dg-danger-dark:        #b91c1c;
@@ -82,7 +88,7 @@
   --dg-info-subtle:        #eef5ff;
   --dg-on-info-subtle:     #1d4ed8;
   --dg-info-light:         #60a5fa;
-  --dg-on-info-light:      #1e3a8a;
+  --dg-on-info-light:      #172554;
   --dg-info:               #2563eb;
   --dg-on-info:            #ffffff;
   --dg-info-dark:          #1d4ed8;
@@ -128,9 +134,11 @@
      next fonts in the stack apply. */
   --dg-font-condensed: "Anton", "Bebas Neue", "Oswald", Impact, "Arial Narrow Bold", sans-serif;
 
-  /* Semantic heading family — defaults to the serif (dgarz's signature look).
-     Override to var(--dg-font-sans) for a sans-only identity without local CSS. */
-  --dg-font-heading: var(--dg-font-serif);
+  /* Semantic heading family: titles, display text, big figures and quotes.
+     Swiss by default (the grotesque, Geist). For the editorial serif look set
+     --dg-font-heading: var(--dg-font-serif); the serif stays available as
+     .dg-font-serif (.dg-serif is a deprecated alias). */
+  --dg-font-heading: var(--dg-font-sans);
 
   /* Modal title — its own tokens so consumers can retint/resize without
      writing a local override rule. Defaults match the shipped look. */
@@ -176,12 +184,17 @@
   --dg-btn-min-width-sm: 5rem;
   --dg-btn-min-width-lg: 7rem;
 
-  /* Radius — pill-forward */
-  --dg-radius-sm:   8px;
-  --dg-radius:      14px;
-  --dg-radius-lg:   22px;
-  --dg-radius-xl:   30px;
-  --dg-radius-pill: 999px;
+  /* Radius — "semi" by default: 5px on small parts, 10px on everything
+     else. data-radius="full" (rounded, pills) and "none" (square) below. */
+  --dg-radius-sm:   5px;
+  --dg-radius:      10px;
+  --dg-radius-lg:   10px;
+  --dg-radius-xl:   10px;
+  --dg-radius-pill: 10px;
+  --dg-field-radius: 10px;            /* one-line fields: input, select, combobox */
+  --dg-field-radius-multiline: 10px;  /* textarea */
+  --dg-check-radius: 5px;             /* checkbox (a radio is always round) */
+  --dg-dock-item-radius: 10px;
   /* Top bars hanging from the screen edge (top menu, top drawer): bottom
      corners follow the iPhone screen corner; 32px on ≤380px, square ≥861px. */
   --dg-bar-radius:  55px;
@@ -192,7 +205,8 @@
   /* Field / form control defaults */
   --dg-field-bg:            transparent;
   --dg-field-bg-focus:      transparent;
-  --dg-field-border:        var(--dg-border-strong);
+  /* Every structural border of dgarz design is subtle by default. */
+  --dg-field-border:        var(--dg-border);
   --dg-float-label-bg:      transparent;
   --dg-float-label-border:  transparent;
   --dg-float-label-shadow:  none;
@@ -244,8 +258,10 @@
   --dg-ind-scale: 1.12;     /* indicator grows this much mid-move, back to 1 on arrival */
   --dg-switch-dur: .5s;
   --dg-switch-ease: cubic-bezier(.34, 1.56, .64, 1); /* overshoot → small bounce on landing */
-  --dg-switch-on: var(--dg-solid);
-  --dg-switch-thumb-shadow: 0 1px 2px rgba(11,11,12,.18), 0 3px 8px rgba(11,11,12,.12);
+  /* Fill of the switch track and the check box: the background they sit on.
+     Containers with their own fill (card, modal, menu…) set it for their
+     content; override it on any wrapper with a custom background. */
+  --dg-control-bg: var(--dg-paper);
   --dg-ease-motion: cubic-bezier(.22, 1, .36, 1);
   --dg-ease-exit: cubic-bezier(.45, 0, .2, 1);
 
@@ -266,13 +282,57 @@
   :root { --dg-bar-radius: 0px; }
 }
 
+/* Radius: three options, set with data-radius on <html> or on any container.
+   - (default) / "semi"  5px on small parts, 10px on everything else.
+   - "full"              rounded: soft corners, pill buttons and pill one-line
+                         fields (the look of dgarz design before 1.3).
+   - "none"              square corners everywhere.
+   Circles drawn with 50% (avatars, radios, spinners) stay circles in every
+   mode. --dg-bar-radius follows the iPhone screen corner (bars hanging from
+   the top edge), so only "none" changes it. Each mode sets every radius token
+   (tokens are computed where they are declared), so it works on <html> and on
+   any container alike. Placed after the bar-radius media queries. */
+[data-radius="semi"] {
+  --dg-radius-sm:   5px;
+  --dg-radius:      10px;
+  --dg-radius-lg:   10px;
+  --dg-radius-xl:   10px;
+  --dg-radius-pill: 10px;
+  --dg-dock-item-radius: 10px;
+  --dg-check-radius: 5px;
+  --dg-field-radius: 10px;
+  --dg-field-radius-multiline: 10px;
+}
+[data-radius="full"] {
+  --dg-radius-sm:   8px;
+  --dg-radius:      14px;
+  --dg-radius-lg:   22px;
+  --dg-radius-xl:   30px;
+  --dg-radius-pill: 999px;
+  --dg-dock-item-radius: 1.4rem;
+  --dg-check-radius: 50%;
+  --dg-field-radius: 999px;
+  --dg-field-radius-multiline: 22px;
+}
+[data-radius="none"] {
+  --dg-radius-sm:   0px;
+  --dg-radius:      0px;
+  --dg-radius-lg:   0px;
+  --dg-radius-xl:   0px;
+  --dg-radius-pill: 0px;
+  --dg-bar-radius:  0px;
+  --dg-dock-tuck:   0px;
+  --dg-dock-item-radius: 0px;
+  --dg-check-radius: 0px;
+  --dg-field-radius: 0px;
+  --dg-field-radius-multiline: 0px;
+}
+
 /* ---- Dark theme ------------------------------------------ */
 [data-theme="dark"] {
   --dg-overlay-chrome: var(--dg-surface-3);
   --dg-card-bg: var(--dg-surface-2);
   /* Switch: white thumb on a mid-gray "on" track (a white track would hide it). */
-  --dg-switch-on: var(--dg-500);
-  --dg-switch-thumb-shadow: 0 1px 3px rgba(0,0,0,.5);
   --dg-paper:       var(--dg-950);
   --dg-surface:     #0f0f11;
   --dg-surface-2:   #161618;
@@ -287,12 +347,13 @@
   --dg-on-solid:    var(--dg-950);
   --dg-btn-ink:     var(--dg-text);
 
-  --dg-accent:        #64a4ff;
-  --dg-accent-2:      #9fc7ff;
-  --dg-accent-3:      #20334f;
-  --dg-accent-violet: #a89cff;
-  --dg-accent-warm:   #ff9d57;
-  --dg-accent-mint:   #8fe7d2;
+  --dg-accent:        #7394ac; /* steel: visible on black */
+  --dg-accent-2:      #b8d0de; /* mist */
+  --dg-accent-3:      #1b2733; /* deep slate tint */
+  --dg-accent-violet: #7394ac; /* steel: top of .dg-btn-gradient */
+  --dg-accent-warm:   #b8d0de; /* mist */
+  --dg-accent-mint:   #b8d0de; /* mist */
+  --dg-on-accent:     #101820; /* ink on steel / mist */
 
   --dg-success-subtle:     #0f2418;
   --dg-on-success-subtle:  #4ade80;
@@ -309,8 +370,9 @@
   --dg-on-warning-light:   #1a1400;
   --dg-warning:            #facc15;
   --dg-on-warning:         #1a1400;
+  --dg-warning-text:       #facc15;
   --dg-warning-dark:       #a16207;
-  --dg-on-warning-dark:    #fef08a;
+  --dg-on-warning-dark:    #fefce8;
 
   --dg-danger-subtle:      #2a0f0f;
   --dg-on-danger-subtle:   #f87171;

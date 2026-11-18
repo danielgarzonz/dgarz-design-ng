@@ -3,6 +3,7 @@ import { openOverlay, closeOverlay, closestOverlay, wireModalResize, fitModalTit
 import { toast } from './toast.js';
 import { dgConfirm, dgAlert, dgPrompt } from './confirm.js';
 import { applySavedTheme, toggleTheme } from './theme.js';
+import { applySavedRadius, setRadius, toggleRadius, getRadius } from './radius.js';
 import { wireDropdown, closeAllMenus } from './dropdown.js';
 import { wireTabs } from './tabs.js';
 import { wireAccordion } from './accordion.js';
@@ -21,6 +22,7 @@ import { wireDatePicker } from './datepicker.js';
 import { wireDropzone } from './fileupload.js';
 import { wireCombobox } from './combobox.js';
 import { wireMask, wireCurrency } from './mask.js';
+import { wireNumber, wireOtp, wireCounter, wireAutosize, wireTags } from './controls.js';
 import { wireTooltip } from './tooltip.js';
 import { wireGallery, wireFAQ, wireNavToggle, wireTableEditable } from './extras.js';
 import { wireNavbars } from './navbar.js';
@@ -41,6 +43,13 @@ function bindGlobal() {
     }
     var tt = e.target.closest("[data-dg-theme-toggle]");
     if (tt) { toggleTheme(); return; }
+    var rt = e.target.closest("[data-dg-radius-toggle], [data-dg-radius-set]");
+    if (rt) {
+      var scope = rt.hasAttribute("data-dg-target") ? target(rt, "data-dg-target") : null;
+      if (rt.hasAttribute("data-dg-radius-set")) setRadius(rt.getAttribute("data-dg-radius-set"), scope || undefined);
+      else toggleRadius(scope || undefined);
+      return;
+    }
     var toastBtn = e.target.closest("[data-dg-toast]");
     if (toastBtn) { toast(toastBtn.getAttribute("data-dg-toast"), { variant: toastBtn.getAttribute("data-dg-variant"), duration: +toastBtn.getAttribute("data-dg-duration") || undefined }); return; }
     closeAllMenus(true);
@@ -60,6 +69,7 @@ function bindGlobal() {
 function init(ctx) {
   ctx = ctx || document;
   applySavedTheme();
+  applySavedRadius();
   bindGlobal();
   $all(".dg-modal", ctx).forEach(wireModalResize);
   $all("[data-dg-dropdown]", ctx).forEach(wireDropdown);
@@ -78,11 +88,16 @@ function init(ctx) {
   wireProgressBars(ctx);
   wireReveal(ctx);
   wireSteps(ctx);
-  $all('.dg-datepicker', ctx).forEach(wireDatePicker);
+  $all('.dg-datepicker, .dg-timepicker', ctx).forEach(wireDatePicker);
   $all('.dg-dropzone',   ctx).forEach(wireDropzone);
   $all('.dg-combobox',   ctx).forEach(wireCombobox);
   $all('[data-mask],[data-mask-pattern]', ctx).forEach(wireMask);
   $all('[data-currency]', ctx).forEach(wireCurrency);
+  $all('.dg-number', ctx).forEach(wireNumber);
+  $all('.dg-otp', ctx).forEach(wireOtp);
+  $all('.dg-counter[data-counter-for]', ctx).forEach(wireCounter);
+  $all('textarea[data-autosize]', ctx).forEach(wireAutosize);
+  $all('.dg-tags', ctx).forEach(wireTags);
   // .dg-tooltip draws its own bubble with CSS; the JS tooltip is for the rest.
   $all('[data-tip]:not(.dg-tooltip)', ctx).forEach(wireTooltip);
   $all('.dg-gallery',    ctx).forEach(wireGallery);
@@ -95,6 +110,6 @@ function init(ctx) {
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
 else init();
 
-export { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, dgConfirm, dgAlert, dgPrompt };
+export { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, setRadius, toggleRadius, getRadius, dgConfirm, dgAlert, dgPrompt };
 export function goTo(carousel, n) { carousel.__dgGoTo && carousel.__dgGoTo(n); }
-export default { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, goTo, dgConfirm, dgAlert, dgPrompt };
+export default { init, toast, openOverlay, closeOverlay, fitModalTitles, toggleTheme, setRadius, toggleRadius, getRadius, goTo, dgConfirm, dgAlert, dgPrompt };

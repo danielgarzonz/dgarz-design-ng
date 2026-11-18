@@ -1,0 +1,273 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+<div class="doc-sub">Tamaños de input</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Usa <code class="dg-code">.dg-input-sm</code> o <code class="dg-code">.dg-input-lg</code> para ajustar la altura del campo.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack">
+        <input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" />
+        <input class="dg-input" type="text" placeholder="Estándar" />
+        <input class="dg-input dg-input-lg" type="text" placeholder="Grande" />
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;input class="dg-input dg-input-sm" type="text" placeholder="Pequeño" /&gt;
+&lt;input class="dg-input"            type="text" placeholder="Estándar" /&gt;
+&lt;input class="dg-input dg-input-lg" type="text" placeholder="Grande" /&gt;</pre></div>
+</div>
+
+      <div class="doc-sub">Input con icono</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-input-icon</code> reserva espacio para el icono a la izquierda. Añade <code class="dg-code">.dg-input-icon-right</code> para colocarlo a la derecha.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-sm">
+        <div class="dg-input-icon">
+          <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-search"/></svg>
+          <input class="dg-input" type="search" placeholder="Buscar…" />
+        </div>
+        <div class="dg-input-icon dg-input-icon-right">
+          <input class="dg-input" type="text" placeholder="usuario" />
+          <svg class="dg-icon dg-icon-sm dg-input-icon-el"><use href="#dg-users"/></svg>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Input group — input + addon o botón</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-input-group</code> une el input con un elemento adicional sin espacio.
+        Úsalo para prefijos de URL, dominios, botones de acción o unidades.
+      </p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-480">
+        <div class="dg-field">
+          <label class="dg-label">Subdominio</label>
+          <div class="dg-input-group">
+            <input class="dg-input" placeholder="mi-empresa" />
+            <span class="dg-input-addon">.dgarz.design</span>
+          </div>
+        </div>
+        <div class="dg-field">
+          <label class="dg-label">Buscar usuario</label>
+          <div class="dg-input-group">
+            <input class="dg-input" placeholder="@usuario" />
+            <button class="dg-btn dg-btn-primary dg-rounded-end">Buscar</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Contraseña con mostrar/ocultar</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        <code class="dg-code">.dg-password-wrap</code> se wirea solo — no hace falta escribir el toggle a mano.
+      </p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-max-w-sm">
+        <div class="dg-field">
+          <label class="dg-label" for="pwDemo">Contraseña</label>
+          <div class="dg-password-wrap">
+            <input id="pwDemo" class="dg-input" type="password" value="contraseña-secreta" />
+            <button type="button" class="dg-password-toggle" aria-label="Mostrar contraseña">
+              <svg class="dg-icon dg-icon-sm"><use href="#dg-eye"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-field"&gt;
+  &lt;label class="dg-label" for="pw"&gt;Contraseña&lt;/label&gt;
+  &lt;div class="dg-password-wrap"&gt;
+    &lt;input id="pw" class="dg-input" type="password" /&gt;
+    &lt;button type="button" class="dg-password-toggle" aria-label="Mostrar contraseña"&gt;
+      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-eye"&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- dgarz.js alterna type="password"/"text", el aria-label y el ícono
+     (#dg-eye ↔ #dg-eye-off) al hacer clic. No requiere configuración. --&gt;</pre></div>
+</div>
+
+      <div class="doc-sub">Número con − / +</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-number</code> envuelve un input numérico con dos botones. Usan el <code class="dg-code">min</code>, <code class="dg-code">max</code> y <code class="dg-code">step</code> del propio input, y se desactivan al llegar al límite. Útil para cantidades, huéspedes o unidades.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-xs">
+          <label class="dg-label" for="nm-guests">Huéspedes</label>
+          <div class="dg-number">
+            <button class="dg-number-btn" data-step="-1" aria-label="Quitar uno">−</button>
+            <input class="dg-input" id="nm-guests" type="number" min="1" max="8" step="1" value="2" />
+            <button class="dg-number-btn" data-step="1" aria-label="Añadir uno">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Máscaras de entrada</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">data-mask</code> el campo da formato mientras se escribe y pone el placeholder solo: <code class="dg-code">phone</code>, <code class="dg-code">phone_co</code>, <code class="dg-code">card</code>, <code class="dg-code">cvv</code>, <code class="dg-code">date_exp</code>, <code class="dg-code">zip</code> y <code class="dg-code">ssn</code>. Para otro formato usa <code class="dg-code">data-mask-pattern</code> (9 = número, A = letra, * = cualquiera), y para importes <code class="dg-code">data-currency</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-gap-5 dg-max-w-xl">
+          <div class="dg-field"><label class="dg-label" for="mk-phone">Teléfono</label><input class="dg-input" id="mk-phone" data-mask="phone" /></div>
+          <div class="dg-field"><label class="dg-label" for="mk-card">Tarjeta</label><input class="dg-input" id="mk-card" data-mask="card" /></div>
+          <div class="dg-field"><label class="dg-label" for="mk-exp">Caducidad</label><input class="dg-input" id="mk-exp" data-mask="date_exp" /></div>
+          <div class="dg-field"><label class="dg-label" for="mk-code">Código de cliente</label><input class="dg-input" id="mk-code" data-mask-pattern="AA-9999" /></div>
+          <div class="dg-field"><label class="dg-label" for="mk-amount">Importe</label><input class="dg-input" id="mk-amount" data-currency data-symbol="$" /></div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Código de verificación</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-otp</code> agrupa una casilla por carácter. Al escribir pasa sola a la siguiente, al borrar vuelve atrás y al pegar un código lo reparte entre todas. Al completarse lanza el evento <code class="dg-code">dg:complete</code> con el código; con <code class="dg-code">data-otp-type="text"</code> admite letras.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field">
+          <label class="dg-label">Código que te enviamos por SMS</label>
+          <div class="dg-otp" role="group" aria-label="Código de verificación">
+            <input class="dg-otp-input" aria-label="Dígito 1" />
+            <input class="dg-otp-input" aria-label="Dígito 2" />
+            <input class="dg-otp-input" aria-label="Dígito 3" />
+            <input class="dg-otp-input" aria-label="Dígito 4" />
+            <input class="dg-otp-input" aria-label="Dígito 5" />
+            <input class="dg-otp-input" aria-label="Dígito 6" />
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Área de texto con contador</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">data-autosize</code> el área crece con el texto, hasta un máximo, y luego hace scroll. <code class="dg-code">.dg-counter</code> con <code class="dg-code">data-counter-for</code> cuenta los caracteres del campo y toma el límite de su <code class="dg-code">maxlength</code>. Se resalta al pasar del 90 %. Va en <code class="dg-code">.dg-field-foot</code>, junto a la ayuda.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-480">
+          <label class="dg-label" for="ct-bio">Biografía</label>
+          <textarea class="dg-textarea" id="ct-bio" maxlength="160" data-autosize placeholder="Cuéntanos a qué te dedicas"></textarea>
+          <div class="dg-field-foot">
+            <span class="dg-help">Se muestra en tu perfil público.</span>
+            <span class="dg-counter" data-counter-for="ct-bio"></span>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Etiquetas libres</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-tags</code> convierte lo que se escribe en etiquetas al pulsar Enter, una coma o Tab. Retroceso con el campo vacío quita la última, y al pegar una lista separada por comas se crean todas. Si la etiqueta ya existe, destella en lugar de repetirse. Las iniciales van en <code class="dg-code">data-value</code>, el tope en <code class="dg-code">data-max</code>. El valor llega al input oculto y al evento <code class="dg-code">dg:change</code>. Si las opciones son fijas, usa la <a href="/forms/selection">opción múltiple</a>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-480">
+          <label class="dg-label" for="tg-skills">Habilidades</label>
+          <div class="dg-tags" data-value="Figma,Tipografía" data-max="6">
+            <input class="dg-tags-input" id="tg-skills" placeholder="Añade y pulsa Enter" />
+            <input type="hidden" name="skills" />
+          </div>
+          <span class="dg-help">Hasta 6 etiquetas.</span>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Validación de campos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Muestra el resultado de la validación bajo el campo con un mensaje <code class="dg-code">.dg-field-success</code> o <code class="dg-code">.dg-field-error</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-6">
+            <div class="dg-field">
+              <label class="dg-label">Correo válido</label>
+              <input class="dg-input is-valid" type="email" value="ana@dgarz.design" />
+              <span class="dg-field-success">¡Correo verificado!</span>
+            </div>
+          </div>
+          <div class="dg-col-12 dg-col-md-6">
+            <div class="dg-field">
+              <label class="dg-label">Contraseña inválida</label>
+              <input class="dg-input is-invalid" type="password" value="abc" />
+              <span class="dg-field-error">Mínimo 8 caracteres.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Formulario completo de ejemplo</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Combina campos, texto de ayuda, select, textarea, checkbox y botones en un formulario real.</p>
+      <div class="doc-example">
+<div class="doc-demo">
+        <form class="dg-stack dg-max-w-520 dg-gap-4">
+          <div class="dg-row">
+            <div class="dg-col-12 dg-col-md-6">
+              <div class="dg-field">
+                <label class="dg-label" for="fn">Nombre</label>
+                <input class="dg-input" id="fn" type="text" placeholder="Ana" />
+              </div>
+            </div>
+            <div class="dg-col-12 dg-col-md-6">
+              <div class="dg-field">
+                <label class="dg-label" for="ln">Apellido</label>
+                <input class="dg-input" id="ln" type="text" placeholder="Rivas" />
+              </div>
+            </div>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="em">Correo</label>
+            <input class="dg-input" id="em" type="email" placeholder="ana@correo.com" />
+            <span class="dg-help">Usaremos esto para enviarte el recibo.</span>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="pl">Plan</label>
+            <select class="dg-select" id="pl"><option>Free</option><option>Pro</option></select>
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="msg">Mensaje</label>
+            <textarea class="dg-textarea" id="msg" placeholder="¿Cómo podemos ayudarte?"></textarea>
+          </div>
+          <label class="dg-check"><input type="checkbox" /><span class="dg-check-box"></span> Acepto los <a href="#" class="dg-link">términos de uso</a></label>
+          <div class="dg-flex dg-justify-end dg-gap-3">
+            <button type="button" class="dg-btn dg-btn-cancel">Cancelar</button>
+            <button type="submit" class="dg-btn dg-btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;form class="dg-stack dg-max-w-520 dg-gap-4"&gt;
+  &lt;div class="dg-row"&gt;
+    &lt;div class="dg-col-12 dg-col-md-6"&gt;
+      &lt;div class="dg-field"&gt;
+        &lt;label class="dg-label" for="fn"&gt;Nombre&lt;/label&gt;
+        &lt;input class="dg-input" id="fn" type="text" placeholder="Ana" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dg-col-12 dg-col-md-6"&gt;
+      &lt;div class="dg-field"&gt;
+        &lt;label class="dg-label" for="ln"&gt;Apellido&lt;/label&gt;
+        &lt;input class="dg-input" id="ln" type="text" placeholder="Rivas" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-field"&gt;
+    &lt;label class="dg-label" for="em"&gt;Correo&lt;/label&gt;
+    &lt;input class="dg-input" id="em" type="email" placeholder="ana@correo.com" /&gt;
+    &lt;span class="dg-help"&gt;Usaremos esto para enviarte el recibo.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-field"&gt;
+    &lt;label class="dg-label" for="pl"&gt;Plan&lt;/label&gt;
+    &lt;select class="dg-select" id="pl"&gt;&lt;option&gt;Free&lt;/option&gt;&lt;option&gt;Pro&lt;/option&gt;&lt;/select&gt;
+  &lt;/div&gt;
+  &lt;div class="dg-field"&gt;
+    &lt;label class="dg-label" for="msg"&gt;Mensaje&lt;/label&gt;
+    &lt;textarea class="dg-textarea" id="msg" placeholder="¿Cómo podemos ayudarte?"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;label class="dg-check"&gt;&lt;input type="checkbox" /&gt;&lt;span class="dg-check-box"&gt;&lt;/span&gt; Acepto los &lt;a href="#" class="dg-link"&gt;términos de uso&lt;/a&gt;&lt;/label&gt;
+  &lt;div class="dg-flex dg-justify-end dg-gap-3"&gt;
+    &lt;button type="button" class="dg-btn dg-btn-cancel"&gt;Cancelar&lt;/button&gt;
+    &lt;button type="submit" class="dg-btn dg-btn-primary"&gt;Enviar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre></div>
+</div>
+`;
+---
+
+<Layout title="Campos" lead="Inputs, selects y textareas: tamaños, iconos, grupos, contraseña, número, máscaras, código, contador, etiquetas y validación. Los estilos (presentación, esquinas y glass) están en Estilos." currentHref="/forms/fields">
+  <Fragment set:html={pageContent} />
+</Layout>

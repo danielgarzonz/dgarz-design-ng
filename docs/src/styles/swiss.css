@@ -1,17 +1,45 @@
 /* Swiss editorial system shared by the docs and the landing:
    tokens (one accent, hairline rules) and the flat top bar (SiteHeader variant="swiss"). */
 :root {
+  /* dgarz design identity: a steel-blue palette — ink #101820, slate
+     #354B60, steel #7394AC, mist #B8D0DE, frost #F0F5F7 — and a cold light
+     that fades into ink. Text keeps the framework colors. */
+  --brand-ink: #101820;
+  --brand-slate: #354b60;
+  --brand-steel: #7394ac;
+  --brand-mist: #b8d0de;
+  --brand-frost: #f0f5f7;
+  --brand-gradient: linear-gradient(135deg, #b8d0de 0%, #7394ac 38%, #354b60 72%, #101820 100%);
+  /* The light from the reference: frost glowing at the left, into ink. */
+  --brand-glow:
+    radial-gradient(ellipse 70% 90% at 0% 62%, #f0f5f7 0%, #b8d0de 22%, #7394ac 46%, rgb(53 75 96 / 0) 74%),
+    linear-gradient(100deg, #354b60 0%, #1d2a38 60%, #101820 100%);
+  /* The page is always white (black in dark); the brand colors go into the
+     details: accent, demo panels, code blocks. */
   --doc-page-bg: #ffffff;
-  --doc-demo-bg: var(--dg-card-bg, #f8f8f8);
-  --doc-accent: #e10600;
-  --doc-rule: color-mix(in oklab, var(--dg-text) 14%, transparent);
-  --doc-rule-strong: var(--dg-text);
+  /* Demo panels and cards: white with a subtle 1px line (drawn as an outline,
+     the framework resets borders). */
+  --doc-demo-bg: #ffffff;
+  --doc-demo-line: color-mix(in oklab, var(--dg-text) 10%, transparent);
+  /* Text accents use slate (8.9:1 on white); marks use the gradient; the
+     accent button runs ink → slate → steel under white text. */
+  --doc-accent: var(--brand-slate);
+  --doc-accent-fill: var(--brand-gradient);
+  --doc-accent-button: linear-gradient(180deg, #101820 0%, #354b60 62%, #7394ac 100%);
+  --doc-on-accent: #ffffff;
+  /* Lines are subtle, like every border of dgarz design; section openers
+     keep their weight through thickness (2px), not color. */
+  --doc-rule: color-mix(in oklab, var(--dg-text) 10%, transparent);
+  --doc-rule-strong: color-mix(in oklab, var(--dg-text) 18%, transparent);
   --doc-gutter: var(--dg-space-5);
 }
 [data-theme="dark"] {
-  --doc-page-bg: var(--dg-paper);
-  --doc-demo-bg: var(--dg-surface-2);
-  --doc-accent: #ff453a;
+  --doc-page-bg: #000000;
+  --doc-demo-bg: #000000;
+  /* On black the mist end reads best for text accents. */
+  --doc-accent: var(--brand-mist);
+  --doc-accent-button: linear-gradient(180deg, #7394ac 0%, #b8d0de 100%);
+  --doc-on-accent: #101820;
 }
 
 /* ---- top bar (Swiss): flat, page-colored, hairline aligned to the grid ---- */
@@ -39,9 +67,6 @@
   font-family: var(--dg-font-sans); font-size: 1.0625rem; font-weight: var(--dg-weight-bold);
   letter-spacing: -0.035em; color: var(--dg-text); text-decoration: none;
 }
-.dg-navbar.pub-nav.is-swiss > .pub-brand::before {
-  content: ""; width: 9px; height: 9px; margin-right: 0.55em; background: var(--doc-accent); flex: none;
-}
 .dg-navbar.pub-nav.is-swiss :is(.brand-name, .brand-suffix) { font-family: inherit; font-style: normal; }
 /* A normal word space between the two words (flex drops the whitespace). */
 .dg-navbar.pub-nav.is-swiss .brand-suffix { font-weight: var(--dg-weight-normal); margin-left: 0.24em; }
@@ -64,7 +89,7 @@
 }
 .dg-navbar.pub-nav.is-swiss :is(.pub-desktop-links .dg-nav-link, .pub-docs-btn)[aria-current="page"]::before {
   content: ""; position: absolute; left: 0; top: 50%; width: 7px; height: 7px; translate: 0 -50%;
-  background: var(--doc-accent);
+  background: var(--doc-accent-fill);
 }
 .dg-navbar.pub-nav.is-swiss .pub-actions > button,
 .dg-navbar.pub-nav.is-swiss .pub-actions > button:hover {
@@ -93,8 +118,35 @@
   .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link + .dg-nav-link::before { left: 0; right: 0; background: var(--doc-rule); }
   .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link[aria-current="page"] { color: var(--dg-text); text-decoration: none; }
   .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link[aria-current="page"]::after {
-    content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; translate: 0 -50%; background: var(--doc-accent);
+    content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; translate: 0 -50%; background: var(--doc-accent-fill);
   }
   .dg-navbar.pub-nav.is-swiss .pub-menu-list .dg-nav-link:hover { background: none; color: var(--dg-text); }
 }
 
+/* The docs and the landing are square (data-radius="none" on <html>, the
+   Swiss identity), but demos show what the framework gives by default:
+   inside them the radius tokens go back to the default ("semi"). */
+/* Corner style of the components: one setting for the whole site (the
+   "Esquinas" button in the top bar sets html[data-doc-radius]). It reaches
+   every component — examples, landing tiles and the overlays opened on top
+   (modals, alerts, drawers, toasts, popovers) — while the docs chrome stays
+   square (html data-radius="none"). Semi is the framework default. */
+:is(.doc-demo, .lp-tile-stage, .dg-modal-backdrop, .dg-drawer-backdrop, .dg-drawer, .dg-toast-stack, .dg-popover, [data-doc-scope]) {
+  --dg-radius-sm: 5px; --dg-radius: 10px; --dg-radius-lg: 10px; --dg-radius-xl: 10px; --dg-radius-pill: 10px;
+  --dg-field-radius: 10px; --dg-field-radius-multiline: 10px; --dg-check-radius: 5px; --dg-dock-item-radius: 10px;
+  --dg-bar-radius: 55px; --dg-dock-tuck: 2rem;
+}
+:root[data-doc-radius="full"] :is(.doc-demo, .lp-tile-stage, .dg-modal-backdrop, .dg-drawer-backdrop, .dg-drawer, .dg-toast-stack, .dg-popover, [data-doc-scope]) {
+  --dg-radius-sm: 8px; --dg-radius: 14px; --dg-radius-lg: 22px; --dg-radius-xl: 30px; --dg-radius-pill: 999px;
+  --dg-field-radius: 999px; --dg-field-radius-multiline: 22px; --dg-check-radius: 50%; --dg-dock-item-radius: 1.4rem;
+}
+:root[data-doc-radius="none"] :is(.doc-demo, .lp-tile-stage, .dg-modal-backdrop, .dg-drawer-backdrop, .dg-drawer, .dg-toast-stack, .dg-popover, [data-doc-scope]) {
+  --dg-radius-sm: 0px; --dg-radius: 0px; --dg-radius-lg: 0px; --dg-radius-xl: 0px; --dg-radius-pill: 0px;
+  --dg-field-radius: 0px; --dg-field-radius-multiline: 0px; --dg-check-radius: 0px; --dg-dock-item-radius: 0px;
+  --dg-bar-radius: 0px; --dg-dock-tuck: 0px;
+}
+/* While the style changes, every corner morphs instead of jumping. */
+:root[data-doc-radius-morph] :is(.doc-demo, .lp-tile-stage, .dg-modal-backdrop, .dg-drawer-backdrop, .dg-drawer, .dg-toast-stack, .dg-popover, [data-doc-scope]),
+:root[data-doc-radius-morph] :is(.doc-demo, .lp-tile-stage, .dg-modal-backdrop, .dg-drawer-backdrop, .dg-drawer, .dg-toast-stack, .dg-popover, [data-doc-scope]) :is(*, *::before, *::after) {
+  transition: border-radius .5s var(--dg-ease-motion, ease);
+}

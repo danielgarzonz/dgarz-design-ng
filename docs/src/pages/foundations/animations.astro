@@ -1,82 +1,266 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-5">
-        <p class="dg-callout-title">Dos familias distintas</p>
-        <strong>Entrada al montar</strong> (<code class="dg-code">.dg-fade-in-*</code>, <code class="dg-code">.dg-pop-in</code>) —
-        juegan apenas el elemento existe en el DOM, sin JavaScript ni observador.<br /><br />
-        <strong>Revelado al hacer scroll</strong> (<code class="dg-code">.dg-reveal</code>) — permanece invisible
-        hasta que el elemento entra al viewport, usando <code class="dg-code">IntersectionObserver</code> por debajo.
-      </div>
 
-      <div class="doc-sub">Entrada al montar</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">
-        Cuatro direcciones + un pop de escala. Combínalas con <code class="dg-code">.dg-delay-1</code> a
-        <code class="dg-code">.dg-delay-16</code> (100ms cada paso) para escalonar varios elementos. Duran 0.6&nbsp;s; para una entrada más pausada añade <code class="dg-code">.dg-anim-slow</code> (1.2&nbsp;s) o <code class="dg-code">.dg-anim-slower</code> (1.8&nbsp;s). Para un efecto parallax sin JavaScript, <code class="dg-code">.dg-parallax-slow</code>, <code class="dg-code">-mid</code> y <code class="dg-code">-fast</code> desplazan el elemento a distinta velocidad al hacer scroll (con animaciones atadas al scroll; donde no hay soporte queda quieto). Dale a la sección recorrido con <code class="dg-code">.dg-min-h-150vh</code> y, si un bloque debe quedar fijo, usa <code class="dg-code">.dg-sticky</code> con <code class="dg-code">.dg-overflow-clip</code> en la sección (con overflow hidden el sticky no funciona).
-      </p>
-      <div class="doc-example">
-<div class="doc-demo is-plain">
-        <div class="dg-grid dg-grid-3" id="animGrid">
-          <div class="dg-card dg-fade-in-up"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-up</div></div>
-          <div class="dg-card dg-fade-in-down dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-down</div></div>
-          <div class="dg-card dg-fade-in-left dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-left</div></div>
-          <div class="dg-card dg-fade-in-right dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-right</div></div>
-          <div class="dg-card dg-pop-in dg-delay-4"><div class="dg-card-body dg-text-sm dg-text-center">pop-in</div></div>
-          <div class="dg-card dg-fade-in-up dg-delay-5"><div class="dg-card-body dg-text-sm dg-text-center">fade-in-up + delay-5</div></div>
-        </div>
-        <button class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" id="animReplay">↻ Repetir animación</button>
-      </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-card dg-fade-in-up"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-fade-in-down"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-fade-in-left"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-fade-in-right"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-pop-in"&gt;…&lt;/div&gt;
-
-&lt;!-- Escalonar una lista: 100ms de diferencia por elemento --&gt;
-&lt;div class="dg-card dg-fade-in-up dg-delay-1"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-fade-in-up dg-delay-2"&gt;…&lt;/div&gt;
-&lt;div class="dg-card dg-fade-in-up dg-delay-3"&gt;…&lt;/div&gt;
-&lt;!-- … hasta .dg-delay-16 --&gt;</pre></div>
-</div>
-      <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-4">
-        <p class="dg-callout-title">Respetan prefers-reduced-motion</p>
-        El framework fuerza <code class="dg-code">animation-duration: .001ms</code> globalmente bajo
-        <code class="dg-code">prefers-reduced-motion: reduce</code> — igual que el resto de animaciones
-        (modal, spinner, etc.), no es un caso especial de estas clases.
-      </div>
-
-      <div class="doc-sub">Revelado al hacer scroll</div>
-      <p class="dg-muted dg-text-sm dg-mb-4">
-        <code class="dg-code">.dg-reveal</code> empieza invisible (<code class="dg-code">opacity: 0</code>,
-        desplazado 18px) y se revela una sola vez al entrar en pantalla. <code class="dg-code">dgarz.js</code>
-        lo inicializa en <code class="dg-code">DOMContentLoaded</code> — en una SPA, vuelve a llamar
-        <code class="dg-code">dgarz.init(contenedor)</code> después de montar contenido nuevo (por ejemplo en
-        cada cambio de ruta) para que los elementos añadidos después también se observen.
-      </p>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-reveal"&gt;Aparece al hacer scroll hasta aquí&lt;/div&gt;
-
-&lt;script&gt;
-  // SPA: tras montar contenido nuevo (cambio de ruta, etc.)
-  dgarz.init(nuevoContenedor);
-&lt;/script&gt;</pre></div>`;
+// Catalog of every entrance: class, what moves and its default duration.
+const catalog = [
+  ["dg-fade-in", "Solo opacidad", "0.6 s"],
+  ["dg-fade-in-up", "Sube 20px mientras aparece", "0.6 s"],
+  ["dg-fade-in-down", "Baja 20px mientras aparece", "0.6 s"],
+  ["dg-fade-in-left", "Entra desde la izquierda", "0.6 s"],
+  ["dg-fade-in-right", "Entra desde la derecha", "0.6 s"],
+  ["dg-zoom-in", "Crece desde el 85 %", "0.6 s"],
+  ["dg-zoom-out", "Se reduce desde el 115 %", "0.6 s"],
+  ["dg-pop-in", "Crece desde el 70 % con rebote", "0.7 s"],
+  ["dg-blur-in", "Pasa de desenfocado a nítido", "0.8 s"],
+  ["dg-blur-in-up", "Desenfoque y subida a la vez", "0.8 s"],
+  ["dg-blur-in-down", "Desenfoque y bajada a la vez", "0.8 s"],
+  ["dg-blur-in-left", "Desenfoque, entra desde la izquierda", "0.8 s"],
+  ["dg-blur-in-right", "Desenfoque, entra desde la derecha", "0.8 s"],
+  ["dg-rise-in", "Sale de su propio borde inferior", "0.8 s"],
+  ["dg-drop-in", "Cae desde su propio borde superior", "0.8 s"],
+  ["dg-rise-in-left", "Sale de su propio borde izquierdo", "0.8 s"],
+  ["dg-rise-in-right", "Sale de su propio borde derecho", "0.8 s"],
+];
 ---
 
-<Layout title="Animaciones" lead="Entrada al montar y revelado al hacer scroll — dos utilidades de motion sin dependencias." currentHref="/foundations/animations">
-  <Fragment set:html={pageContent} />
+<Layout title="Animaciones" lead="Entradas que se reproducen cuando llegas a ellas, en cuatro direcciones y escalonadas: solo clases, sin dependencias." currentHref="/foundations/animations">
+
+  <div class="dg-callout dg-callout-info dg-measure-md dg-mb-5">
+    <p class="dg-callout-title">Todas esperan a verse</p>
+    Las entradas que ya están en pantalla al cargar se reproducen enseguida. Las que quedan más abajo esperan, ocultas,
+    y se reproducen cuando llegas a ellas con el scroll: así siempre se ven, en vez de terminar fuera de la vista.
+    Lo hace <code class="dg-code">dgarz.js</code>; sin el script, o con movimiento reducido, se reproducen al cargar.<br /><br />
+    Para que una entrada se reproduzca siempre al cargar, añade <code class="dg-code">data-dg-no-reveal</code> al elemento
+    o a un contenedor.
+  </div>
+
+  <div class="doc-sub">Catálogo</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Todas las entradas comparten la misma curva (sale rápido y frena al llegar) y no dejan nada aplicado al terminar:
+    ni transform, ni filtro, ni recorte. Durante su retraso el elemento queda oculto.
+  </p>
+  <div class="dg-table-card dg-mb-4">
+    <table class="dg-table dg-table-sm">
+      <thead><tr><th>Clase</th><th>Movimiento</th><th>Duración</th></tr></thead>
+      <tbody>
+        {catalog.map(([cls, motion, dur]) => (
+          <tr><td><code class="dg-code">.{cls}</code></td><td>{motion}</td><td>{dur}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-sub">Fundido</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-fade-in</code> solo cambia la opacidad: el elemento no se mueve. Es la entrada más
+    discreta, buena para fondos, imágenes y bloques que ya tienen su sitio.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-3">
+        <div class="dg-card dg-bg-primary dg-fade-in"><div class="dg-card-body dg-text-sm dg-text-center">fade-in</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">delay-2</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in dg-delay-4"><div class="dg-card-body dg-text-sm dg-text-center">delay-4</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Fundido con dirección</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Aparecen y recorren 20px hasta su sitio: <code class="dg-code">.dg-fade-in-up</code> sube,
+    <code class="dg-code">-down</code> baja, <code class="dg-code">-left</code> llega desde la izquierda y
+    <code class="dg-code">-right</code> desde la derecha. Elige la dirección según de dónde «viene» el contenido:
+    una barra lateral desde su lado, un título desde abajo.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-2 dg-md-grid-cols-4">
+        <div class="dg-card dg-bg-primary dg-fade-in-up"><div class="dg-card-body dg-text-sm dg-text-center">↑ fade-in-up</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-down dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">↓ fade-in-down</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-left dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">→ fade-in-left</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-right dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">← fade-in-right</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Zoom</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-zoom-in</code> crece desde el 85&nbsp;% y <code class="dg-code">.dg-zoom-out</code> se
+    asienta desde el 115&nbsp;%, como una cámara que se acerca o se aleja. <code class="dg-code">.dg-pop-in</code> parte
+    más pequeño y rebota un poco al llegar: resérvalo para elementos puntuales (un badge, un icono, una confirmación).
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-3">
+        <div class="dg-card dg-bg-primary dg-zoom-in"><div class="dg-card-body dg-text-sm dg-text-center">zoom-in</div></div>
+        <div class="dg-card dg-bg-primary dg-zoom-out dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">zoom-out</div></div>
+        <div class="dg-card dg-bg-primary dg-pop-in dg-delay-4"><div class="dg-card-body dg-text-sm dg-text-center">pop-in</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Desenfoque</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-blur-in</code> pasa de desenfocado a nítido mientras aparece, como si el texto entrara
+    en foco. <code class="dg-code">.dg-blur-in-up</code> además sube 24px. Lucen mejor en titulares y textos cortos; en
+    bloques muy grandes el filtro cuesta más al navegador.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <h2 class="dg-h2 dg-m-0 dg-blur-in">Entra en foco.</h2>
+      <p class="dg-muted dg-mt-2 dg-mb-0 dg-blur-in-up dg-delay-3">Y el texto de apoyo sube un poco después.</p>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Desenfoque con dirección</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Las mismas cuatro direcciones que el fundido, con el desenfoque encima: <code class="dg-code">.dg-blur-in-up</code>, <code class="dg-code">-down</code>, <code class="dg-code">-left</code> (desde la izquierda) y <code class="dg-code">-right</code> (desde la derecha). Recorren 24px.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-2 dg-md-grid-cols-4">
+        <div class="dg-card dg-bg-primary dg-blur-in-up"><div class="dg-card-body dg-text-sm dg-text-center">↑ blur-in-up</div></div>
+        <div class="dg-card dg-bg-primary dg-blur-in-down dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">↓ blur-in-down</div></div>
+        <div class="dg-card dg-bg-primary dg-blur-in-left dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">→ blur-in-left</div></div>
+        <div class="dg-card dg-bg-primary dg-blur-in-right dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">← blur-in-right</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Desde la base</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-rise-in</code> hace salir el elemento de su propio borde inferior, como si emergiera del
+    suelo: nunca se ve por debajo de su línea, sin necesidad de un contenedor con
+    <code class="dg-code">overflow: hidden</code>. <code class="dg-code">.dg-drop-in</code> es el espejo: cae desde su borde
+    superior. Para un titular de varias líneas, pon cada línea en su propio bloque y escalónalas.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <h2 class="dg-display dg-m-0">
+        <span class="dg-block dg-rise-in">Las ideas</span>
+        <span class="dg-block dg-rise-in dg-delay-2">cobran vida.</span>
+      </h2>
+      <p class="dg-muted dg-mt-4 dg-mb-0 dg-drop-in dg-delay-5">Y esta línea cae desde arriba.</p>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Desde el borde, en cuatro direcciones</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Cada elemento sale de uno de sus propios bordes y nunca se ve fuera de su caja: <code class="dg-code">.dg-rise-in</code> desde abajo, <code class="dg-code">.dg-drop-in</code> desde arriba, <code class="dg-code">.dg-rise-in-left</code> desde el borde izquierdo y <code class="dg-code">.dg-rise-in-right</code> desde el derecho. Los laterales funcionan bien en etiquetas, cifras y textos de una línea.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-2 dg-md-grid-cols-4">
+        <div class="dg-card dg-bg-primary dg-rise-in"><div class="dg-card-body dg-text-sm dg-text-center">↑ rise-in</div></div>
+        <div class="dg-card dg-bg-primary dg-drop-in dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">↓ drop-in</div></div>
+        <div class="dg-card dg-bg-primary dg-rise-in-left dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">→ rise-in-left</div></div>
+        <div class="dg-card dg-bg-primary dg-rise-in-right dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">← rise-in-right</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Escalonar</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-delay-1</code> a <code class="dg-code">.dg-delay-16</code> retrasan la entrada en pasos de
+    100&nbsp;ms. Aplícalos en orden a los elementos de una lista para que entren uno tras otro. Funcionan con todas las
+    entradas de esta página y con <code class="dg-code">.dg-text-in</code>.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-3 dg-md-grid-cols-6">
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-1"><div class="dg-card-body dg-text-sm dg-text-center">1</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-2"><div class="dg-card-body dg-text-sm dg-text-center">2</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-3"><div class="dg-card-body dg-text-sm dg-text-center">3</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-4"><div class="dg-card-body dg-text-sm dg-text-center">4</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-5"><div class="dg-card-body dg-text-sm dg-text-center">5</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-delay-6"><div class="dg-card-body dg-text-sm dg-text-center">6</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Duración</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Cada entrada tiene su duración por defecto (ver el catálogo). <code class="dg-code">.dg-anim-slow</code> la lleva a
+    1.2&nbsp;s y <code class="dg-code">.dg-anim-slower</code> a 1.8&nbsp;s, para portadas y entradas más pausadas.
+    <code class="dg-code">.dg-anim-none</code> la quita del todo, por ejemplo en una versión del componente que no debe
+    moverse.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain" data-doc-anim>
+      <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-3">
+        <div class="dg-card dg-bg-primary dg-fade-in-up"><div class="dg-card-body dg-text-sm dg-text-center">por defecto · 0.6 s</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-anim-slow"><div class="dg-card-body dg-text-sm dg-text-center">anim-slow · 1.2 s</div></div>
+        <div class="dg-card dg-bg-primary dg-fade-in-up dg-anim-slower"><div class="dg-card-body dg-text-sm dg-text-center">anim-slower · 1.8 s</div></div>
+      </div>
+      <button type="button" class="dg-btn dg-btn-ghost dg-btn-sm dg-mt-4" data-doc-skip data-doc-replay>↻ Repetir</button>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-4">
+    <p class="dg-callout-title">Respetan prefers-reduced-motion</p>
+    Con <code class="dg-code">prefers-reduced-motion: reduce</code>, el framework acorta todas las animaciones a
+    <code class="dg-code">0.001ms</code>: el contenido aparece al instante, sin movimiento. Es la misma regla global que
+    usan el modal, el spinner y el resto, no un caso especial de estas clases.
+  </div>
+
+  <div class="doc-sub">Revelado discreto</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    <code class="dg-code">.dg-reveal</code> es la versión más sutil: no se desvanece, solo se desplaza 16px hasta su sitio
+    cuando entra en pantalla. Úsalo en bloques de lectura largos, donde un fundido en cada párrafo distraería; con
+    <code class="dg-code">data-dg-reveal-children</code> en un contenedor, se aplica a todos sus hijos. Para otra dirección, añade un modificador: <code class="dg-code">.dg-reveal-down</code> baja,
+    <code class="dg-code">.dg-reveal-left</code> llega desde la izquierda y <code class="dg-code">.dg-reveal-right</code> desde
+    la derecha. <code class="dg-code">dgarz.js</code> lo inicializa en <code class="dg-code">DOMContentLoaded</code>; en una
+    SPA, vuelve a llamar <code class="dg-code">dgarz.init(contenedor)</code> después de montar contenido nuevo (por
+    ejemplo en cada cambio de ruta) para que los elementos añadidos también esperen a verse.
+  </p>
+  <div class="doc-example">
+    <div class="doc-demo is-plain">
+      <div class="dg-grid dg-grid-cols-2 dg-md-grid-cols-4">
+        <div class="dg-card dg-bg-primary dg-reveal"><div class="dg-card-body dg-text-sm dg-text-center">↑ reveal</div></div>
+        <div class="dg-card dg-bg-primary dg-reveal dg-reveal-down"><div class="dg-card-body dg-text-sm dg-text-center">↓ reveal-down</div></div>
+        <div class="dg-card dg-bg-primary dg-reveal dg-reveal-left"><div class="dg-card-body dg-text-sm dg-text-center">→ reveal-left</div></div>
+        <div class="dg-card dg-bg-primary dg-reveal dg-reveal-right"><div class="dg-card-body dg-text-sm dg-text-center">← reveal-right</div></div>
+      </div>
+    </div>
+    <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+  </div>
+
+  <div class="doc-sub">Relacionado</div>
+  <p class="dg-muted dg-text-sm dg-mb-4">
+    Los efectos sobre el propio texto (entrada suave, degradado animado, revelado de izquierda a derecha, brillo) están
+    en <a class="dg-link" href="/foundations/text-effects">Efectos de texto</a>. El parallax por scroll
+    (<code class="dg-code">.dg-parallax-*</code>) y las filas en movimiento continuo (<code class="dg-code">.dg-marquee</code>)
+    están en <a class="dg-link" href="/foundations/composition">Composición</a>.
+  </p>
 </Layout>
 
 <script>
-  const btn = document.getElementById('animReplay');
-  const grid = document.getElementById('animGrid');
-  if (btn && grid) {
-    btn.addEventListener('click', () => {
-      const cards = Array.from(grid.children);
-      cards.forEach((el) => {
-        const anim = Array.from(el.classList).find((c) => c.startsWith('dg-fade-in') || c === 'dg-pop-in');
-        el.classList.remove(anim);
-        // eslint-disable-next-line no-unused-expressions
-        void el.offsetWidth; // reflow para reiniciar la animación
-        el.classList.add(anim);
-      });
+  // "↻ Repetir" restarts every entrance inside its demo. Waiting until the
+  // demo is on screen is the framework's own behavior (dgarz.js).
+  const ENTRANCE = /^dg-(fade-in|zoom-|blur-in|rise-in|drop-in|pop-in)/;
+  document.querySelectorAll('[data-doc-anim]').forEach((demo) => {
+    demo.querySelector('[data-doc-replay]')?.addEventListener('click', () => {
+      const els = [...demo.querySelectorAll<HTMLElement>('*')].filter((el) => [...el.classList].some((c) => ENTRANCE.test(c)));
+      els.forEach((el) => { el.style.animationName = 'none'; });
+      void demo.getBoundingClientRect().width; // reflow: the next frame starts them over
+      els.forEach((el) => { el.style.animationName = ''; });
     });
-  }
+  });
 </script>

@@ -8,6 +8,7 @@
   z-index: 42;
   min-width: 220px; max-width: 320px;
   background: var(--dg-surface);
+  --dg-control-bg: var(--dg-surface);
   border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius);
   box-shadow: var(--dg-shadow-3);

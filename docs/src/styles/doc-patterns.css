@@ -64,6 +64,10 @@
 /* ---- Phone frame mini ---------------------------------------- */
 
 /* ---- Color documentation swatches --------------------------- */
+/* The color demos sit on the page background, not on the gray demo panel:
+   a gray backdrop makes light tones look shaded. */
+.doc-example:has(.doc-color-role-section),
+.doc-demo:has(.doc-color-role-section) { background: var(--doc-page-bg, var(--dg-paper)); }
 
 /* ---- Material-style color role grid -------------------------- */
 .doc-color-role-section {
@@ -80,12 +84,12 @@
 }
 
 .doc-color-role-title {
-  padding: 0.5rem 0.875rem;
+  padding: 0 0 var(--dg-space-2);
   font-size: var(--dg-text-xs);
   font-weight: var(--dg-weight-semi);
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  background: var(--dg-surface-2);
+  background: none;
   color: var(--dg-text-muted);
 }
 
@@ -93,7 +97,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
-  background: var(--dg-surface-3);
+  /* Separators in the page color: no gray behind the swatches. */
+  background: var(--doc-page-bg, var(--dg-paper));
   flex: 1;
 }
 
@@ -111,26 +116,84 @@
   grid-column: span 2;
 }
 
+/* Background colors: size follows the tone and alignment follows the block —
+   subtle top-left, light top-right (mirror), base bottom-left, dark
+   bottom-right — with the real hex in mono under each name. */
+.doc-color-role-section.is-bg .doc-color-role-chip {
+  flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 2px;
+  font-weight: var(--dg-weight-semi); letter-spacing: -0.02em; line-height: 1.05;
+}
+.doc-chip-hex { font-family: var(--dg-font-mono); font-size: 11px; font-weight: var(--dg-weight-normal); letter-spacing: 0; opacity: .75; background: none; padding: 0; color: inherit; }
+.doc-color-role-section.is-bg .doc-color-role-chip:nth-child(1) { justify-content: flex-start; font-size: var(--dg-text-xs); letter-spacing: 0; }
+.doc-color-role-section.is-bg .doc-color-role-chip:nth-child(2) { justify-content: flex-start; align-items: flex-end; text-align: right; font-size: var(--dg-text-xs); letter-spacing: 0; }
+.doc-color-role-section.is-bg .doc-color-role-chip:nth-child(3) { font-size: var(--dg-text-xl); }
+.doc-color-role-section.is-bg .doc-color-role-chip:nth-child(4) { align-items: flex-end; text-align: right; font-size: var(--dg-text-2xl); letter-spacing: -0.035em; }
+.doc-color-role-section.is-bg .doc-color-role-chip:nth-child(4) .doc-chip-hex { order: -1; }
+/* Light and Dark share one cell (the neutral pair), each block half the
+   height: name large and bold bottom-left, hex top-right. */
+.doc-color-role-section.is-bg .is-pair .doc-color-role-chips { grid-template-rows: 1fr 1fr; }
+.doc-color-role-section.is-bg .is-pair .doc-color-role-chip {
+  position: relative; justify-content: flex-end; align-items: flex-start; text-align: left;
+  font-size: var(--dg-text-2xl); letter-spacing: -0.04em; font-weight: var(--dg-weight-bold);
+}
+.doc-color-role-section.is-bg .is-pair .doc-color-role-chip .doc-chip-hex { position: absolute; top: 0.75rem; right: 0.75rem; order: 0; }
+
+/* Gradients: one block per color; the name (large) moves corner to corner
+   from one group to the next, and the real range (light → subtle) sits in
+   the opposite corner. */
+/* Low bands, not 4:3 boxes: a gradient reads in its length. */
+.doc-color-role-section.is-grad .doc-color-role-group { aspect-ratio: 8 / 3; }
+.doc-color-role-section.is-grad .doc-color-role-chip {
+  position: relative; padding: 0.875rem;
+  font-size: var(--dg-text-2xl); font-weight: var(--dg-weight-bold); letter-spacing: -0.04em; line-height: 1;
+}
+.doc-color-role-section.is-grad .doc-chip-name { position: absolute; }
+.doc-color-role-section.is-grad .doc-chip-hex { position: absolute; }
+.is-grad .doc-color-role-group:nth-child(4n+1) .doc-chip-name { left: .875rem; bottom: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+1) .doc-chip-hex  { right: .875rem; top: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+2) .doc-chip-name { right: .875rem; top: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+2) .doc-chip-hex  { left: .875rem; bottom: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+3) .doc-chip-name { right: .875rem; bottom: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+3) .doc-chip-hex  { left: .875rem; top: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+4) .doc-chip-name { left: .875rem; top: .875rem; }
+.is-grad .doc-color-role-group:nth-child(4n+4) .doc-chip-hex  { right: .875rem; bottom: .875rem; }
+
+/* Text colors: no background, so size does the work. A type scale that
+   follows the tone — subtle small (on its tag), light medium, base large,
+   dark (full width) largest. */
+.doc-color-role-section.is-text { gap: var(--dg-space-7) var(--dg-space-7); }
+.doc-color-role-section.is-text .doc-color-role-group { aspect-ratio: auto; }
+.doc-color-role-section.is-text .doc-color-role-chips { grid-template-columns: 1fr; gap: 0; flex: none; align-content: start; }
+.doc-color-role-section.is-text .doc-color-role-chip {
+  padding: var(--dg-space-2) 0; white-space: nowrap; overflow-wrap: normal;
+  font-weight: var(--dg-weight-semi); letter-spacing: -0.02em; line-height: 1.05;
+}
+.doc-color-role-section.is-text .doc-color-role-chip.full { grid-column: auto; }
+/* Swiss play on alignment: the samples zigzag — odd ones flush left, even
+   ones flush right — so the growing sizes alternate sides. */
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(even) { justify-self: end; text-align: right; }
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(odd) { justify-self: start; }
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(1) { font-size: var(--dg-text-sm); letter-spacing: 0; }
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(2) { font-size: var(--dg-text-lg); }
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(3) { font-size: var(--dg-text-2xl); letter-spacing: -0.03em; }
+.doc-color-role-section.is-text .doc-color-role-chip:nth-child(4) { font-size: var(--dg-text-3xl); letter-spacing: -0.04em; }
+/* Neutrals have only two samples: both large. */
+.doc-color-role-section.is-text .doc-color-role-group:first-child .doc-color-role-chip { font-size: var(--dg-text-2xl); letter-spacing: -0.03em; }
+
+/* Subtle text tones are very light (dark in the dark theme): show them on a
+   contrasting tag. The tag sets only the background, so the chip's dg-text-*
+   color is the one you see. */
 .doc-chip-mark {
   display: inline;
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: 0;
+  background: var(--dg-text);
+  color: inherit;
   font-size: inherit;
   font-weight: inherit;
 }
 
 /* ---- Border color preview ------------------------------------ */
-
-/* ---- Grid documentation cell --------------------------------- */
-.doc-grid-cell {
-  background: var(--dg-surface-3);
-  border-radius: var(--dg-radius-sm);
-  padding: var(--dg-space-3);
-  text-align: center;
-  font-size: var(--dg-text-sm);
-  color: var(--dg-text-muted);
-  font-family: var(--dg-font-mono);
-}
 
 /* ---- Responsive --------------------------------------------- */
 @media (max-width: 991px) {
