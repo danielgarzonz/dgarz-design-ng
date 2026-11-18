@@ -15,18 +15,18 @@ const cssHref = import.meta.env.DEV ? "/__core/dgarz.full.css" : "/dist/dgarz.fu
 const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 const version = CHANGELOG[0]?.version ?? "1.2.0";
 
-// Spec sheet of the hero and the counters: real figures of the 1.2.0 build.
+// Spec sheet of the hero and the counters: real figures of the 1.3.0 build.
 const spec = [
   { label: "Versión", value: version },
-  { label: "Clases", value: "2 836" },
-  { label: "Peso", value: "41 KB gzip" },
+  { label: "Clases", value: "2 890" },
+  { label: "Peso", value: "44 KB gzip" },
   { label: "Dependencias", value: "0" },
   { label: "Licencia", value: "MIT" },
 ];
 const figures = [
-  { value: 2836, format: "thousands", unit: "clases", text: "Escalas completas en todos los lados y versiones responsivas." },
+  { value: 2890, format: "thousands", unit: "clases", text: "Escalas completas en todos los lados y versiones responsivas." },
   { value: 0, unit: "dependencias", text: "Un CSS y un JS opcional. Sin build obligatorio." },
-  { value: 41, unit: "KB gzip", text: "Todo el framework, comprimido, con presupuesto en CI." },
+  { value: 44, unit: "KB gzip", text: "Todo el framework, comprimido, con presupuesto en CI." },
   { value: 12, unit: "grises", text: "Una escala monocroma de la que deriva todo el color." },
 ];
 const ideas = ["Monocromo", "Sin dependencias", "Modo oscuro nativo", "Capas de cascada", "Escalas completas", "Animaciones de 1 s", "Glass opcional", "Retícula de 12 columnas"];
@@ -41,7 +41,7 @@ const principles = [
 const sections = [
   { group: "Comenzar", title: "Instalación", text: "Agrega el framework a tu proyecto.", href: "/getting-started/install" },
   { group: "Fundamentos", title: "Escalas", text: "Todas las utilidades y sus versiones responsivas.", href: "/foundations/scales" },
-  { group: "Formularios", title: "Controles base", text: "Inputs, selects, switches y validación.", href: "/forms/controls" },
+  { group: "Formularios", title: "Campos", text: "Inputs, selects, máscaras y validación.", href: "/forms/fields" },
   { group: "Componentes", title: "Botones", text: "Variantes, estados y grupos.", href: "/components/buttons" },
   { group: "App Pack", title: "App Shell", text: "Sidebar, drawer y layout completo.", href: "/app-pack/shell" },
   { group: "Studio", title: "Portadas", text: "Diseños completos hechos solo con clases.", href: "/studio/heroes" },
@@ -51,14 +51,15 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 ---
 
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="light" data-radius="none">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" id="docThemeColor" />
   <title>dgarz design — Framework CSS monocromo</title>
   <meta name="description" content="Framework CSS monocromo, sin dependencias, con modo oscuro nativo, capas de cascada y escalas completas." />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -98,7 +99,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
       background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 2px no-repeat;
     }
     .lp-num { font-family: var(--dg-font-mono); font-size: var(--dg-text-sm); color: var(--doc-accent); }
-    /* Item numbers belong to their section (04 → 04.1, 04.2…): gray, so only the section number is red. */
+    /* Item numbers belong to their section (04 → 04.1, 04.2…): gray, so only the section number takes the accent. */
     .lp-num.lp-sub { color: var(--dg-text-faint); }
     .lp-head .lp-num { grid-column: 1 / span 1; }
     .lp-head h2 {
@@ -145,10 +146,10 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     .lp-word-b { font-weight: 300; margin-left: 0.18em; }
     .lp-letter { display: inline-block; animation: lp-rise 1s cubic-bezier(.2, .8, .1, 1) backwards; animation-delay: calc(400ms + var(--i) * 55ms); }
     @keyframes lp-rise { from { transform: translateY(105%); } to { transform: translateY(0); } }
-    /* The full stop: a red square that drops in last. */
+    /* The full stop: a square in the brand gradient that drops in last. */
     .lp-dot {
       display: inline-block; width: 0.16em; height: 0.16em; margin-left: 0.06em; vertical-align: baseline;
-      background: var(--doc-accent);
+      background: var(--doc-accent-fill);
       animation: lp-drop 0.9s cubic-bezier(.3, 1.5, .5, 1) backwards; animation-delay: 1.15s;
     }
     @keyframes lp-drop { from { transform: translateY(-3em) scale(0.4); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
@@ -180,13 +181,13 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     .lp-btn svg { width: 16px; height: 16px; transition: translate .5s var(--dg-ease); }
     .lp-btn:hover svg { translate: 3px -3px; }
     .lp-btn-solid { background: var(--dg-text); color: var(--doc-page-bg); }
-    .lp-btn-solid:hover { background: var(--doc-accent); color: #fff; }
-    .lp-btn-quiet { background: var(--doc-demo-bg); color: var(--dg-text); }
+    .lp-btn-solid:hover { background: var(--doc-accent-button); color: var(--doc-on-accent); }
+    .lp-btn-quiet { background: var(--doc-demo-bg); color: var(--dg-text); outline: 1px solid var(--doc-demo-line); outline-offset: -1px; }
     .lp-btn-quiet:hover { background: color-mix(in oklab, var(--dg-text) 10%, var(--doc-demo-bg)); }
 
     /* ================= 01 · FIGURES: count up when they enter ================= */
     .lp-figures { row-gap: var(--dg-space-7); }
-    .lp-figure { grid-column: span 3; padding-top: var(--dg-space-3); background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat; }
+    .lp-figure { grid-column: span 3; }
     .lp-figure-value { display: block; font-size: clamp(3.25rem, 2rem + 4.5vw, 7rem); font-weight: var(--dg-weight-bold); line-height: 0.9; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
     .lp-figure-unit { display: block; margin-top: var(--dg-space-3); }
     .lp-figure p { margin: var(--dg-space-2) 0 0; color: var(--dg-text-muted); font-size: var(--dg-text-sm); line-height: 1.55; max-width: 26ch; }
@@ -197,29 +198,35 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     .lp-band { margin-top: var(--dg-space-9, 6rem); padding-block: var(--dg-space-6); background: var(--dg-text); color: var(--doc-page-bg); }
     .lp-band .dg-marquee-track { --dg-marquee-gap: var(--dg-space-7); align-items: center; }
     .lp-band-item { display: inline-flex; align-items: center; gap: var(--dg-space-7); white-space: nowrap; font-size: clamp(2rem, 1rem + 4vw, 4.5rem); font-weight: var(--dg-weight-bold); letter-spacing: -0.045em; line-height: 1; }
-    .lp-band-item::after { content: ""; width: 0.28em; height: 0.28em; background: var(--doc-accent); }
+    .lp-band-item::after { content: ""; width: 0.28em; height: 0.28em; background: var(--doc-accent-fill); }
 
     /* ================= 03 · LIVE COMPONENTS ================= */
     .lp-tiles { row-gap: var(--dg-space-7); }
     .lp-tile { grid-column: span 4; display: flex; flex-direction: column; }
     .lp-tile-stage {
-      display: grid; place-items: center; min-height: 248px; padding: var(--dg-space-6);
-      background: var(--doc-demo-bg); transition: background var(--dg-dur-motion) var(--dg-ease-motion);
+      /* One fixed height for every stage, so the tiles line up in rows and
+         columns whatever component they show (the modal is the tallest). */
+      display: grid; place-items: center; height: 296px; overflow: hidden; padding: var(--dg-space-6);
+      background: var(--doc-demo-bg); --dg-control-bg: var(--doc-demo-bg);
+      outline: 1px solid var(--doc-demo-line); outline-offset: -1px;
+      transition: outline-color var(--dg-dur-motion) var(--dg-ease-motion);
     }
-    .lp-tile:hover .lp-tile-stage { background: color-mix(in oklab, var(--dg-text) 6%, var(--doc-demo-bg)); }
-    .lp-tile-glass {
-      background:
-        radial-gradient(circle at 20% 25%, #ff7a1a 0, transparent 40%),
-        radial-gradient(circle at 80% 30%, #8e7dff 0, transparent 42%),
-        linear-gradient(135deg, #0f1a2e, #247cff);
-    }
-    .lp-tile:hover .lp-tile-glass { background: radial-gradient(circle at 25% 30%, #ff7a1a 0, transparent 42%), radial-gradient(circle at 75% 25%, #8e7dff 0, transparent 44%), linear-gradient(135deg, #0f1a2e, #247cff); }
+    /* Hover (and keyboard focus inside): the background stays; the subtle
+       line turns black (white in dark). */
+    .lp-tile:is(:hover, :focus-within) .lp-tile-stage { outline-color: #000000; }
+    [data-theme="dark"] .lp-tile:is(:hover, :focus-within) .lp-tile-stage { outline-color: #ffffff; }
+    /* A grey stage, for a white component (the modal) to stand out.
+       Light: a step darker than the modal header (surface-2), so they don't
+       blend. Dark: surface-2 is already darker than the header. */
+    .lp-tile-stage.is-muted { --lp-muted: var(--dg-surface-3); background: var(--lp-muted); }
+    [data-theme="dark"] .lp-tile-stage.is-muted { --lp-muted: var(--dg-surface-2); }
+    /* The glass tile sits on the brand light, so the blur has something to show. */
+    .lp-tile-glass { background: var(--brand-glow); }
     .lp-tile-form { width: min(100%, 260px); }
     .lp-tile-modal { position: relative; inset: auto; transform: none; width: min(100%, 300px); margin: 0; animation: none; }
     .lp-tile-meta {
       display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: var(--dg-space-2);
-      padding-top: var(--dg-space-3); margin-top: var(--dg-space-3);
-      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
+      margin-top: var(--dg-space-4);
       color: var(--dg-text); text-decoration: none;
     }
     .lp-tile-meta h3 { margin: 0; font-family: var(--dg-font-sans); font-size: var(--dg-text-lg); font-weight: var(--dg-weight-semi); letter-spacing: -0.02em; }
@@ -242,7 +249,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 
     /* ================= 05 · PRINCIPLES ================= */
     .lp-principles { row-gap: var(--dg-space-7); }
-    .lp-principle { grid-column: span 6; display: grid; grid-template-columns: 3.25rem 1fr; padding-top: var(--dg-space-4); background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat; }
+    .lp-principle { grid-column: span 6; display: grid; grid-template-columns: 3.25rem 1fr; }
     .lp-principle h3 { margin: 0 0 var(--dg-space-3); font-family: var(--dg-font-sans); font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.4rem); font-weight: var(--dg-weight-semi); line-height: 1.05; letter-spacing: -0.035em; }
     .lp-principle p { margin: 0; color: var(--dg-text-muted); line-height: 1.6; max-width: 46ch; }
     @media (max-width: 860px) { .lp-principle { grid-column: 1 / -1; } }
@@ -250,7 +257,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     /* ================= 06 · CODE + RESULT ================= */
     .lp-code { row-gap: var(--dg-space-5); align-items: stretch; }
     .lp-code > .doc-code { grid-column: 1 / span 7; margin: 0; border-radius: 0; }
-    .lp-result { grid-column: 8 / -1; display: grid; place-items: center; gap: var(--dg-space-4); padding: var(--dg-space-7); background: var(--doc-demo-bg); align-content: center; }
+    .lp-result { grid-column: 8 / -1; display: grid; place-items: center; gap: var(--dg-space-4); padding: var(--dg-space-7); background: var(--doc-demo-bg); outline: 1px solid var(--doc-demo-line); outline-offset: -1px; align-content: center; }
     .lp-result .lp-eyebrow { color: var(--dg-text-faint); }
     @media (max-width: 860px) { .lp-code > .doc-code, .lp-result { grid-column: 1 / -1; } }
 
@@ -287,7 +294,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 
     .lp-footer { margin-top: var(--dg-space-9, 6rem); padding-block: var(--dg-space-5) var(--dg-space-8); background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) no-repeat; background-size: 100% 2px; background-origin: content-box; background-position: 0 calc(-1 * var(--dg-space-5)); row-gap: var(--dg-space-5); font-size: var(--dg-text-sm); }
     .lp-footer-brand { grid-column: 1 / span 4; align-self: start; display: inline-flex; align-items: center; gap: 0; font-size: 1.0625rem; font-weight: var(--dg-weight-bold); letter-spacing: -0.035em; }
-    .lp-footer-brand::before { content: ""; width: 9px; height: 9px; margin-right: 0.55em; background: var(--doc-accent); }
+    .lp-footer-brand::before { content: ""; width: 9px; height: 9px; margin-right: 0.55em; background: var(--doc-accent-fill); }
     .lp-footer-brand span { font-weight: var(--dg-weight-normal); margin-left: 0.24em; }
     .lp-footer nav { grid-column: span 3; display: grid; gap: var(--dg-space-2); align-content: start; }
     .lp-footer nav .lp-eyebrow { color: var(--dg-text-faint); margin-bottom: var(--dg-space-1); }
@@ -405,7 +412,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
             <label class="dg-check"><input type="checkbox" checked><span class="dg-check-box"></span> Recordarme</label>
           </div>
         </div>
-        <a class="lp-tile-meta" href="/forms/controls"><span class="lp-num lp-sub">02.2</span><div><h3>Formularios</h3><span>Campos y controles</span></div><Fragment set:html={arrow} /></a>
+        <a class="lp-tile-meta" href="/forms/fields"><span class="lp-num lp-sub">02.2</span><div><h3>Formularios</h3><span>Campos y controles</span></div><Fragment set:html={arrow} /></a>
       </article>
 
       <article class="lp-tile">
@@ -426,7 +433,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
       </article>
 
       <article class="lp-tile">
-        <div class="lp-tile-stage">
+        <div class="lp-tile-stage is-muted">
           <div class="dg-modal dg-modal-sm lp-tile-modal">
             <button type="button" class="dg-modal-close" aria-label="Cerrar"><svg class="dg-icon"><use href="#dg-x"/></svg></button>
             <div class="dg-modal-header"><h4 class="dg-modal-title">Invitar equipo</h4></div>

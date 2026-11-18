@@ -1,15 +1,18 @@
 /* ---- Typography ------------------------------------------ */
 .dg-display, .dg-h1, .dg-h2, .dg-h3,
 h1, h2, h3 {
-  font-family: var(--dg-font-serif);
-  font-weight: var(--dg-weight-medium);
+  font-family: var(--dg-font-heading);
+  font-weight: var(--dg-weight-semi);
   line-height: var(--dg-leading-tight);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   color: var(--dg-text);
   text-wrap: balance;
 }
 
-.dg-display { font-size: var(--dg-text-5xl); font-weight: var(--dg-weight-normal); letter-spacing: -0.02em; }
+.dg-display { font-size: var(--dg-text-5xl); font-weight: var(--dg-weight-bold); letter-spacing: -0.04em; line-height: 1; }
+/* The tight Swiss tracking is for the grotesque. A heading set in the condensed
+   face keeps its own spacing (a dg-tracking-* utility still wins). */
+:where(h1, h2, h3, .dg-display, .dg-h1, .dg-h2, .dg-h3).dg-font-condensed { letter-spacing: -0.01em; }
 h1, .dg-h1 { font-size: var(--dg-text-4xl); }
 h2, .dg-h2 { font-size: var(--dg-text-3xl); }
 h3, .dg-h3 { font-size: var(--dg-text-2xl); }
@@ -18,8 +21,8 @@ h5, .dg-h5 { font-family: var(--dg-font-sans); font-size: var(--dg-text-lg); fon
 h6, .dg-h6 { font-family: var(--dg-font-sans); font-size: var(--dg-text-base); font-weight: var(--dg-weight-semi); }
 
 .dg-lead { font-size: var(--dg-text-xl); line-height: var(--dg-leading-snug); color: var(--dg-text-muted); font-weight: var(--dg-weight-normal); }
-.dg-muted { color: var(--dg-text-muted); }
-.dg-faint { color: var(--dg-text-faint); }
+/* Deprecated alias of .dg-font-serif (same rule), kept for 1.x. Use
+   .dg-font-serif, next to .dg-font-sans and .dg-font-mono. Removed in 2.0. */
 .dg-serif { font-family: var(--dg-font-serif); }
 .dg-italic { font-style: italic; }
 
@@ -49,12 +52,13 @@ a.dg-link:hover { text-decoration-color: var(--dg-text); }
 
 code, kbd, samp, pre, .dg-code { font-family: var(--dg-font-mono); font-size: 0.9em; }
 .dg-code { background: var(--dg-surface-3); padding: 0.12em 0.4em; border-radius: var(--dg-radius-sm); }
-kbd { background: var(--dg-surface-3); border: 1px solid var(--dg-border-strong); border-bottom-width: 2px; border-radius: var(--dg-radius-sm); padding: 0.1em 0.45em; font-size: 0.8em; }
+kbd { background: var(--dg-surface-3); border: 1px solid var(--dg-border); border-bottom-width: 2px; border-radius: var(--dg-radius-sm); padding: 0.1em 0.45em; font-size: 0.8em; }
 
 blockquote.dg-quote {
-  font-family: var(--dg-font-serif);
+  font-family: var(--dg-font-heading);
   font-size: var(--dg-text-xl);
-  font-style: italic;
+  font-style: normal;
+  letter-spacing: -0.015em;
   line-height: var(--dg-leading-snug);
   padding-left: var(--dg-space-5);
   border-left: 2px solid var(--dg-text);

@@ -132,6 +132,16 @@ export function openOverlay(el) {
   if (backdrop) backdrop.classList.remove("is-closing");
   el.hidden = false;
   if (backdrop) backdrop.hidden = false;
+  // Restart every entrance (backdrop, modal effect, content) from its first
+  // frame. Safari can treat the animations of a previous opening as already
+  // played and show the overlay at its end state ("opens dry" from the
+  // second time on). One style pass with animation-name: none (.dg-anim-restart
+  // in base/_flat.scss), before anything paints, makes every engine start them
+  // again; nothing flashes because no frame is painted in between.
+  var restart = backdrop && backdrop !== el ? [el, backdrop] : [el];
+  restart.forEach(function (n) { n.classList.add("dg-anim-restart"); });
+  void el.offsetWidth;
+  restart.forEach(function (n) { n.classList.remove("dg-anim-restart"); });
   el.setAttribute("aria-hidden", "false");
   var focusEl = $("[autofocus]", el) || $(FOCUSABLE, el) || el;
   // preventScroll: focusing must never move the page behind the overlay.

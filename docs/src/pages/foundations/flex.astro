@@ -44,7 +44,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label"><code>.dg-flex</code></div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1"><code>.dg-flex</code></div>
       <div class={track}>
         <div class={item}>Logo</div>
         <div class={item}>Navegación</div>
@@ -52,7 +52,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label"><code>.dg-inline-flex</code></div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1"><code>.dg-inline-flex</code></div>
       <div class="dg-py-3 dg-px-4">
         <div class="dg-inline-flex dg-gap-2 dg-py-3 dg-px-4 dg-bg-surface-2 dg-border dg-rounded-sm">
           <div class={item}>Icono</div>
@@ -61,16 +61,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;span class="dg-inline-flex"&gt;
-  &lt;span class="dg-bg-dark dg-p-2"&gt;Icono&lt;/span&gt;
-  &lt;span class="dg-bg-dark dg-p-2"&gt;Etiqueta&lt;/span&gt;
-&lt;/span&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 2. DIRECTION ════════════════════════════════════════════════════── -->
@@ -82,7 +73,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">row (default)</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">row (default)</div>
       <div class={`${track} dg-flex-row`}>
         <div class={item}>Logo</div>
         <div class={item}>Navegación</div>
@@ -90,7 +81,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">row-reverse</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">row-reverse</div>
       <div class={`${track} dg-flex-row-reverse`}>
         <div class={item}>Logo</div>
         <div class={item}>Navegación</div>
@@ -98,15 +89,15 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">column</div>
-      <div class={`${track} dg-col-flex`}>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">column</div>
+      <div class={`${track} dg-flex-col`}>
         <div class={item}>Imagen</div>
         <div class={item}>Título</div>
         <div class={item}>Descripción</div>
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">column-reverse</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">column-reverse</div>
       <div class={`${track} dg-flex-col-reverse`}>
         <div class={item}>Imagen</div>
         <div class={item}>Título</div>
@@ -114,29 +105,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-flex-row"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-flex-row-reverse"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-col-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Imagen&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Título&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Descripción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-flex-col-reverse"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Imagen&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Título&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Descripción&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 3. JUSTIFY CONTENT ══════════════════════════════════════════════── -->
@@ -149,7 +118,7 @@ const alignContentValues = [
 <div class="doc-demo is-plain">
     {justifyValues.map(([cls, val]) => (
       <div>
-        <div class="doc-flex-label">{val}</div>
+        <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">{val}</div>
         <div class={`${track} ${cls}`}>
           <div class={item}>Logo</div>
           <div class={item}>Navegación</div>
@@ -158,35 +127,7 @@ const alignContentValues = [
       </div>
     ))}
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-justify-start"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-justify-end"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-justify-center"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-justify-between"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-justify-around"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Navegación&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 4. ALIGN ITEMS ══════════════════════════════════════════════════── -->
@@ -198,7 +139,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">flex-start</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex-start</div>
       <div class={`${track} dg-items-start dg-h-96`}>
         <div class={item}>Icono</div>
         <div class={item}>Contenido</div>
@@ -206,7 +147,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">flex-end</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex-end</div>
       <div class={`${track} dg-items-end dg-h-96`}>
         <div class={item}>Icono</div>
         <div class={item}>Contenido</div>
@@ -214,7 +155,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">center</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">center</div>
       <div class={`${track} dg-items-center dg-h-96`}>
         <div class={itemA}>Icono</div>
         <div class={itemB}>Contenido</div>
@@ -222,7 +163,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">baseline</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">baseline</div>
       <div class={`${track} dg-items-baseline dg-h-96`}>
         <div class={itemA}>Icono</div>
         <div class={itemB}>Contenido</div>
@@ -230,7 +171,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">stretch</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">stretch</div>
       <div class={`${track} dg-items-stretch dg-h-96`}>
         <div class={itemX}>Icono</div>
         <div class={itemX}>Contenido</div>
@@ -238,36 +179,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-items-start"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Icono&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Estado&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-items-end"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Icono&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Estado&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Padding asimétrico para ver la diferencia entre center y baseline --&gt;
-&lt;div class="dg-flex dg-items-center"&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pb-6"&gt;Icono&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-5"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pt-6"&gt;Estado&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-items-baseline"&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pb-6"&gt;Icono&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-5"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pt-6"&gt;Estado&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-items-stretch"&gt;
-  &lt;div class="dg-bg-dark dg-px-2"&gt;Icono&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2"&gt;Estado&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 5. ALIGN SELF ═══════════════════════════════════════════════════── -->
@@ -279,7 +191,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">flex-start</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex-start</div>
       <div class={`${track} dg-h-96`}>
         <div class={item}>Lateral</div>
         <div class={`${item} dg-self-start`}>Contenido</div>
@@ -287,7 +199,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">flex-end</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex-end</div>
       <div class={`${track} dg-h-96`}>
         <div class={item}>Lateral</div>
         <div class={`${item} dg-self-end`}>Contenido</div>
@@ -295,7 +207,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">center</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">center</div>
       <div class={`${track} dg-h-96`}>
         <div class={itemA}>Lateral</div>
         <div class={`${itemB} dg-self-center`}>Contenido</div>
@@ -303,7 +215,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">baseline</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">baseline</div>
       <div class={`${track} dg-h-96`}>
         <div class={itemA}>Lateral</div>
         <div class={`${itemB} dg-self-baseline`}>Contenido</div>
@@ -311,7 +223,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">stretch</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">stretch</div>
       <div class={`${track} dg-h-96`}>
         <div class={item}>Lateral</div>
         <div class={`${itemX} dg-self-stretch`}>Contenido</div>
@@ -319,35 +231,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-self-start"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-self-end"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pb-6"&gt;Lateral&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-5 dg-self-center"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pt-6"&gt;Lateral&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pb-6"&gt;Lateral&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-5 dg-self-baseline"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-py-2 dg-pt-6"&gt;Lateral&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-px-2 dg-self-stretch"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Lateral&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 6. AUTO MARGINS ═════════════════════════════════════════════════── -->
@@ -359,7 +243,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">sin auto margin</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">sin auto margin</div>
       <div class={track}>
         <div class={item}>Logo</div>
         <div class={item}>Login</div>
@@ -367,7 +251,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">margin-right: auto</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">margin-right: auto</div>
       <div class={track}>
         <div class={`${item} dg-mr-auto`}>Logo</div>
         <div class={item}>Login</div>
@@ -375,7 +259,7 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">margin-left: auto</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">margin-left: auto</div>
       <div class={track}>
         <div class={item}>Filtros</div>
         <div class={item}>Exportar</div>
@@ -383,17 +267,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-mr-auto"&gt;Logo&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Login&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Registro&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Filtros&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Exportar&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-ml-auto"&gt;Acción&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 7. WRAP ══════════════════════════════════════════════════════════── -->
@@ -405,36 +279,25 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">nowrap (default)</div>
-      <div class={`${track} dg-nowrap`} style="overflow:hidden">
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">nowrap (default)</div>
+      <div class={`${track} dg-nowrap dg-overflow-hidden`}>
         {['HTML','CSS','JS','React','Astro','Node','TS'].map(t => <div class={itemS}>{t}</div>)}
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">wrap</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">wrap</div>
       <div class={`${track} dg-wrap`}>
         {['HTML','CSS','JS','React','Astro','Node','TS'].map(t => <div class={itemS}>{t}</div>)}
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">wrap-reverse</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">wrap-reverse</div>
       <div class={`${track} dg-wrap-reverse`}>
         {['HTML','CSS','JS','React','Astro','Node','TS'].map(t => <div class={itemS}>{t}</div>)}
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-nowrap"&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;HTML&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;CSS&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;JS&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;React&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;Astro&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;Node&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;TS&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-wrap"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-wrap-reverse"&gt;...&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 8. GROW & SHRINK ════════════════════════════════════════════════── -->
@@ -446,7 +309,7 @@ const alignContentValues = [
   <div class="doc-example">
 <div class="doc-demo is-plain">
     <div>
-      <div class="doc-flex-label">flex: 1 1 auto</div>
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex: 1 1 auto</div>
       <div class={track}>
         <div class={`${item} dg-grow`}>Búsqueda</div>
         <div class={item}>Buscar</div>
@@ -454,25 +317,15 @@ const alignContentValues = [
       </div>
     </div>
     <div>
-      <div class="doc-flex-label">flex-shrink: 0</div>
-      <div class={track} style="overflow:hidden;width:320px">
+      <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">flex-shrink: 0</div>
+      <div class={`${track} dg-overflow-hidden dg-w-320`}>
         <div class={`${item} dg-shrink-0`}>Avatar</div>
         <div class={item}>Contenido principal</div>
         <div class={item}>Sidebar</div>
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-grow"&gt;Búsqueda&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Buscar&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Filtrar&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-shrink-0"&gt;Avatar&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Contenido principal&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;Sidebar&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 9. ORDER ════════════════════════════════════════════════════════── -->
@@ -491,12 +344,7 @@ const alignContentValues = [
       </div>
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;!-- DOM: Sidebar, Contenido, Anuncios — Visual: Contenido, Anuncios, Sidebar --&gt;
-&lt;div class="dg-flex"&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-order-3"&gt;Sidebar&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-order-1"&gt;Contenido&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2 dg-order-2"&gt;Anuncios&lt;/div&gt;
-&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ 10. ALIGN CONTENT ═══════════════════════════════════════════════── -->
@@ -509,28 +357,14 @@ const alignContentValues = [
 <div class="doc-demo is-plain">
     {alignContentValues.map(([cls, val]) => (
       <div>
-        <div class="doc-flex-label">{val}</div>
+        <div class="dg-text-xs dg-pt-2 dg-px-4 dg-pb-1">{val}</div>
         <div class={`${track} dg-wrap ${cls} dg-h-140`}>
           {['HTML','CSS','JS','React','Astro','Node','TS'].map(t => <div class={itemS}>{t}</div>)}
         </div>
       </div>
     ))}
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-wrap dg-content-start"&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;HTML&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;CSS&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;JS&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;React&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;Astro&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;Node&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-1"&gt;TS&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-wrap dg-content-center"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-wrap dg-content-end"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-wrap dg-content-between"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-wrap dg-content-around"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-wrap dg-content-stretch"&gt;...&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
   <!-- ══ GAP ═════════════════════════════════════════════════════════════── -->
@@ -539,51 +373,23 @@ const alignContentValues = [
 
   <div class="doc-example">
 <div class="doc-demo is-plain">
-    <div class="doc-flex-gap-stack">
-      {[1,2,3,4,5,6].map(n => (
-        <div class="doc-flex-gap-row">
-          <code class="doc-flex-gap-label">.dg-gap-{n}</code>
+    <div class="dg-stack dg-gap-3 dg-p-4">
+      {[2,4,6].map(n => (
+        <div class="dg-flex dg-items-center dg-gap-5">
+          <code class="dg-font-mono dg-text-xs dg-muted dg-w-80 dg-shrink-0">.dg-gap-{n}</code>
           <div class={`dg-flex dg-gap-${n}`}>
-            {['A','B','C','D','E'].map(l => <div class="doc-flex-gbox">{l}</div>)}
+            {['A','B','C','D','E'].map(l => <div class="dg-flex dg-items-center dg-justify-center dg-w-40 dg-h-40 dg-bg-surface-3 dg-rounded-sm dg-font-mono dg-text-xs">{l}</div>)}
           </div>
         </div>
       ))}
     </div>
   </div>
-  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre>&lt;div class="dg-flex dg-gap-1"&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;A&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;B&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;C&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;D&lt;/div&gt;
-  &lt;div class="dg-bg-dark dg-p-2"&gt;E&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="dg-flex dg-gap-2"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-gap-3"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-gap-4"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-gap-5"&gt;...&lt;/div&gt;
-&lt;div class="dg-flex dg-gap-6"&gt;...&lt;/div&gt;</pre></div>
+  <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
 <style>
-  .doc-flex-label {
-    padding: var(--dg-space-2) var(--dg-space-4) var(--dg-space-1);
-    font-size: var(--dg-text-xs);
-  }
   .doc-flex-note { color: var(--dg-text-faint); font-family: var(--dg-font-mono); margin-left: 0.4em; }
 
-  .doc-flex-gap-stack { display: grid; gap: var(--dg-space-3); padding: var(--dg-space-4); }
-  .doc-flex-gap-row   { display: flex; align-items: center; gap: var(--dg-space-5); }
-  .doc-flex-gap-label { font-family: var(--dg-font-mono); font-size: var(--dg-text-xs); color: var(--dg-text-muted); width: 70px; flex-shrink: 0; }
-  .doc-flex-gbox {
-    display: flex; align-items: center; justify-content: center;
-    width: 36px; height: 36px;
-    background: var(--dg-surface-3);
-    border-radius: var(--dg-radius-sm);
-    font-family: var(--dg-font-mono);
-    font-size: var(--dg-text-xs);
-    color: var(--dg-text-muted);
-  }
 </style>
 
 </Layout>

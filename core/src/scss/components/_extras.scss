@@ -76,7 +76,7 @@
 }
 .dg-pricing-name   { font-size: var(--dg-text-sm); font-weight: var(--dg-weight-semi); text-transform: uppercase; letter-spacing: 0.08em; color: var(--dg-text-muted); }
 .dg-pricing-price  { display: flex; align-items: baseline; gap: 0.2em; }
-.dg-pricing-amount { font-family: var(--dg-font-serif); font-size: var(--dg-text-4xl); font-weight: var(--dg-weight-normal); line-height: 1; letter-spacing: -0.02em; }
+.dg-pricing-amount { font-family: var(--dg-font-heading); font-size: var(--dg-text-4xl); font-weight: var(--dg-weight-semi); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .dg-pricing-period { font-size: var(--dg-text-sm); color: var(--dg-text-muted); }
 .dg-pricing-desc   { font-size: var(--dg-text-sm); color: var(--dg-text-muted); }
 .dg-pricing-divider { border: none; border-top: 1px solid var(--dg-border); margin: 0; }
@@ -135,23 +135,27 @@
   width: 1.8em;
   height: 1.8em;
   border-radius: 50%;
-  border: 2px solid var(--dg-border);
-  background: var(--dg-surface);
+  /* The ring is an outline (the flat reset removes borders) over the
+     background the timeline sits on, so it hides the line behind it. */
+  background: var(--dg-control-bg, var(--dg-paper));
+  outline: 2px solid var(--dg-border);
+  outline-offset: -2px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 1;
-  transition: border-color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
+  transition: outline-color var(--dg-dur) var(--dg-ease), background var(--dg-dur) var(--dg-ease);
 }
 .dg-timeline-item.is-done .dg-timeline-dot {
   background: var(--dg-solid);
-  border-color: var(--dg-solid);
+  outline-color: var(--dg-solid);
   color: var(--dg-on-solid);
 }
-.dg-timeline-item.is-active .dg-timeline-dot {
-  border-color: var(--dg-solid);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--dg-solid) 18%, transparent);
+/* In progress: a solid ring with a dot inside. */
+.dg-timeline-item.is-active .dg-timeline-dot { outline-color: var(--dg-solid); }
+.dg-timeline-item.is-active .dg-timeline-dot:empty::after {
+  content: ""; width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--dg-solid);
 }
 .dg-timeline-content { flex: 1; min-width: 0; padding-top: 0.15em; }
 .dg-timeline-date    { font-size: var(--dg-text-xs); color: var(--dg-text-muted); margin-bottom: var(--dg-space-1); }
@@ -233,7 +237,7 @@
 .dg-td-edit:focus {
   outline: 2px solid var(--dg-text);
   outline-offset: 2px;
-  border-radius: 3px;
+  border-radius: min(3px, var(--dg-radius-sm));
 }
 .dg-td-actions {
   display: inline-flex;
@@ -262,8 +266,8 @@
 }
 .dg-testimonial-quote {
   font-size: var(--dg-text-base);
-  font-family: var(--dg-font-serif);
-  font-style: italic;
+  font-family: var(--dg-font-heading);
+  font-style: normal;
   color: var(--dg-text);
   line-height: var(--dg-leading-normal);
   position: relative;

@@ -122,17 +122,17 @@
     },
     {
       "source": "/formularios/floating-labels",
-      "destination": "/forms/floating-labels",
+      "destination": "/forms/fields",
       "permanent": true
     },
     {
       "source": "/formularios/forms",
-      "destination": "/forms/controls",
+      "destination": "/forms/fields",
       "permanent": true
     },
     {
       "source": "/formularios/variants",
-      "destination": "/forms/variants",
+      "destination": "/forms/fields",
       "permanent": true
     },
     {
@@ -228,6 +228,26 @@
     {
       "source": "/utilidades/utilities",
       "destination": "/utilities",
+      "permanent": true
+    },
+    {
+      "source": "/forms/floating-labels",
+      "destination": "/forms/fields",
+      "permanent": true
+    },
+    {
+      "source": "/forms/controls",
+      "destination": "/forms/fields",
+      "permanent": true
+    },
+    {
+      "source": "/forms/variants",
+      "destination": "/forms/fields",
+      "permanent": true
+    },
+    {
+      "source": "/app-pack/steps",
+      "destination": "/forms/steps",
       "permanent": true
     }
   ]

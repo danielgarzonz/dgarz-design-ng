@@ -7,9 +7,11 @@ interface Props { currentHref: string; hideOnScroll?: boolean; showMainMenu?: bo
 const { currentHref, hideOnScroll = false, showMainMenu = true, variant = "default" } = Astro.props;
 /* Docs still ship the 1.x CSS/JS line; core's 2.0 alpha is separate. */
 const version = CHANGELOG[0]?.version ?? "1.2.0";
+/* "Documentación" is current on any docs page that has no shortcut of its own in the bar. */
+const docsCurrent = currentHref !== "/" && !TOP_NAV.some((item) => item.href === currentHref);
 ---
 <nav class:list={["dg-navbar pub-nav", variant === "swiss" && "is-swiss"]} id="pubNav" aria-label="Principal" data-hide-on-scroll={hideOnScroll ? "true" : undefined}>
-  <a href="/" class="dg-navbar-brand pub-brand" aria-label="dgarz design, inicio"><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
+  <a href="/" class="dg-navbar-brand pub-brand" aria-label="dgarz design, inicio"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">dgarz</span> <span class="brand-suffix">design</span></a>
   <div class="pub-nav-start">
     <a href="/getting-started/changelog" class="pub-version" title={`Versión ${version}`}>v{version}</a>
 
@@ -20,10 +22,17 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
         <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
       ))}
     </div>
-    <a href="/getting-started/intro" class="dg-nav-link pub-docs-btn" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
+    <a href="/getting-started/intro" class="dg-nav-link pub-docs-btn" aria-current={docsCurrent ? "page" : undefined}>Documentación</a>
     <button class="pub-theme-btn" aria-label="Cambiar tema" data-dg-theme-toggle>
       <svg class="dg-icon pub-sun"><use href="#dg-sun"/></svg>
       <svg class="dg-icon pub-moon"><use href="#dg-moon"/></svg>
+    </button>
+    <button class="pub-theme-btn pub-radius-btn" data-doc-radius-toggle aria-label="Esquinas de los componentes: semi" title="Esquinas: semi">
+      <svg class="dg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path class="pub-r-semi" d="M5 20v-9a6 6 0 0 1 6-6h9" />
+        <path class="pub-r-full" d="M5 20A15 15 0 0 1 20 5" />
+        <path class="pub-r-none" d="M5 20V5h15" />
+      </svg>
     </button>
     <slot name="actions" />
     {showMainMenu && <button class="pub-theme-btn pub-menu-btn" id="pubMenuToggle" aria-label="Abrir menú principal" aria-expanded="false" aria-controls="pubMenu">
@@ -37,12 +46,50 @@ const version = CHANGELOG[0]?.version ?? "1.2.0";
         {TOP_NAV.map((item) => (
           <a href={item.href} class:list={["dg-nav-link", item.href === currentHref && "is-active"]} aria-current={item.href === currentHref ? "page" : undefined}>{item.label}</a>
         ))}
-        <a href="/getting-started/intro" class="dg-nav-link" aria-current={currentHref !== "/" ? "page" : undefined}>Documentación</a>
+        <a href="/getting-started/intro" class="dg-nav-link" aria-current={docsCurrent ? "page" : undefined}>Documentación</a>
       </div>
     </div>
   </div>}
 </nav>
 {showMainMenu && <button type="button" class="pub-menu-backdrop" id="pubMenuBackdrop" aria-label="Cerrar menú" tabindex="-1" aria-hidden="true"></button>}
+
+<script is:inline>
+  // Corner style of the components, for the whole site: semi → full → none.
+  // Runs before the content is parsed, so no example paints with the wrong corners.
+  (function () {
+    var html = document.documentElement;
+    var NAMES = { semi: "semi", full: "redondeado", none: "recto" };
+    var ORDER = ["semi", "full", "none"];
+    var current = "semi";
+    try { var saved = localStorage.getItem("dg-doc-radius"); if (NAMES[saved]) current = saved; } catch (e) {}
+    html.setAttribute("data-doc-radius", current);
+    function label() {
+      document.querySelectorAll("[data-doc-radius-toggle]").forEach(function (b) {
+        b.setAttribute("aria-label", "Esquinas de los componentes: " + NAMES[current]);
+        b.setAttribute("title", "Esquinas: " + NAMES[current]);
+      });
+    }
+    window.__docGetRadius = function () { return current; };
+    window.__docSetRadius = function (value) {
+      if (!NAMES[value] || value === current) return;
+      current = value;
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        html.setAttribute("data-doc-radius-morph", "");
+        clearTimeout(window.__docRadiusMorph);
+        window.__docRadiusMorph = setTimeout(function () { html.removeAttribute("data-doc-radius-morph"); }, 600);
+      }
+      html.setAttribute("data-doc-radius", value);
+      try { localStorage.setItem("dg-doc-radius", value); } catch (e) {}
+      label();
+      document.dispatchEvent(new CustomEvent("doc:radius", { detail: { value: value } }));
+    };
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest || !e.target.closest("[data-doc-radius-toggle]")) return;
+      window.__docSetRadius(ORDER[(ORDER.indexOf(current) + 1) % ORDER.length]);
+    });
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", label); else label();
+  })();
+</script>
 
 <script is:inline>
   // La barra del teléfono usa el color del header, o el de la página si se oculta.

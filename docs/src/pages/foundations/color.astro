@@ -14,8 +14,8 @@ const colorScale = [
     { cls: "dg-bg-secondary",      full: true },
     { cls: "dg-bg-secondary-dark", full: true },
   ]},
-  { label: "Light",     chips: [{ cls: "dg-bg-light", full: true }] },
-  { label: "Dark",      chips: [{ cls: "dg-bg-dark",  full: true }] },
+  // Light and Dark are the neutral pair: one cell, each block half height.
+  { label: "Light y Dark", pair: true, chips: [{ cls: "dg-bg-light", full: true }, { cls: "dg-bg-dark", full: true }] },
   { label: "Success",   chips: [
     { cls: "dg-bg-success-subtle" },
     { cls: "dg-bg-success-light"  },
@@ -53,44 +53,44 @@ const gradientScale = [
 
 const textColors = [
   { label: "Neutros", chips: [
-    { cls: "dg-text-primary",   bg: "dg-bg-surface-2" },
-    { cls: "dg-text-secondary", bg: "dg-bg-surface-2" },
+    { cls: "dg-text-primary" },
+    { cls: "dg-text-secondary" },
   ]},
   { label: "Primary", chips: [
-    { cls: "dg-text-primary-subtle",   bg: "dg-bg-surface-2", mark: "dg-bg-primary" },
-    { cls: "dg-text-primary-light",    bg: "dg-bg-surface-2" },
-    { cls: "dg-text-primary",          bg: "dg-bg-surface-2" },
-    { cls: "dg-text-primary-dark",     bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-primary-subtle", mark: true },
+    { cls: "dg-text-primary-light" },
+    { cls: "dg-text-primary" },
+    { cls: "dg-text-primary-dark", full: true },
   ]},
   { label: "Secondary", chips: [
-    { cls: "dg-text-secondary-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-secondary" },
-    { cls: "dg-text-secondary-light",  bg: "dg-bg-surface-2" },
-    { cls: "dg-text-secondary",        bg: "dg-bg-surface-2" },
-    { cls: "dg-text-secondary-dark",   bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-secondary-subtle", mark: true },
+    { cls: "dg-text-secondary-light" },
+    { cls: "dg-text-secondary" },
+    { cls: "dg-text-secondary-dark", full: true },
   ]},
   { label: "Success", chips: [
-    { cls: "dg-text-success-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-success" },
-    { cls: "dg-text-success-light",  bg: "dg-bg-surface-2" },
-    { cls: "dg-text-success",        bg: "dg-bg-surface-2" },
-    { cls: "dg-text-success-dark",   bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-success-subtle", mark: true },
+    { cls: "dg-text-success-light" },
+    { cls: "dg-text-success" },
+    { cls: "dg-text-success-dark", full: true },
   ]},
   { label: "Warning", chips: [
-    { cls: "dg-text-warning-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-warning" },
-    { cls: "dg-text-warning-light",  bg: "dg-bg-surface-2" },
-    { cls: "dg-text-warning",        bg: "dg-bg-surface-2" },
-    { cls: "dg-text-warning-dark",   bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-warning-subtle", mark: true },
+    { cls: "dg-text-warning-light" },
+    { cls: "dg-text-warning" },
+    { cls: "dg-text-warning-dark", full: true },
   ]},
   { label: "Danger", chips: [
-    { cls: "dg-text-danger-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-danger" },
-    { cls: "dg-text-danger-light",  bg: "dg-bg-surface-2" },
-    { cls: "dg-text-danger",        bg: "dg-bg-surface-2" },
-    { cls: "dg-text-danger-dark",   bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-danger-subtle", mark: true },
+    { cls: "dg-text-danger-light" },
+    { cls: "dg-text-danger" },
+    { cls: "dg-text-danger-dark", full: true },
   ]},
   { label: "Info", chips: [
-    { cls: "dg-text-info-subtle", bg: "dg-bg-surface-2", mark: "dg-bg-info" },
-    { cls: "dg-text-info-light",  bg: "dg-bg-surface-2" },
-    { cls: "dg-text-info",        bg: "dg-bg-surface-2" },
-    { cls: "dg-text-info-dark",   bg: "dg-bg-surface-2", full: true },
+    { cls: "dg-text-info-subtle", mark: true },
+    { cls: "dg-text-info-light" },
+    { cls: "dg-text-info" },
+    { cls: "dg-text-info-dark", full: true },
   ]},
 ];
 
@@ -108,13 +108,13 @@ const textColors = [
 
   <div class="doc-example">
 <div class="doc-demo is-plain">
-    <div class="doc-color-role-section">
-      {colorScale.map(({ label, chips }) => (
-        <div class="doc-color-role-group">
-          <div class="doc-color-role-title">{label}</div>
+    <div class="doc-color-role-section is-bg">
+      {colorScale.map(({ label, chips, pair }) => (
+        <div class:list={["doc-color-role-group", pair && "is-pair"]} role="group" aria-label={label}>
+          
           <div class="doc-color-role-chips">
             {chips.map(({ cls, full }) => (
-              <div class:list={["doc-color-role-chip", cls, full && "full"]}>{cls.replace('dg-bg-', '')}</div>
+              <div class:list={["doc-color-role-chip", cls, full && "full"]}><span class="doc-chip-name">{cls.replace('dg-bg-', '')}</span><code class="doc-chip-hex" data-chip-hex></code></div>
             ))}
           </div>
         </div>
@@ -122,35 +122,42 @@ const textColors = [
     </div>
   </div>
 
-  <div class="doc-code">
+  <div class="doc-code" data-code-source="manual">
     <button class="cp">Copiar</button>
-    <pre>{`<!-- El color de texto es automático, no hace falta clase extra -->
+    <pre>{`<!-- Valores del tema claro; en oscuro cambian solos (ver la carta). -->
+<!-- El color de texto es automático, no hace falta clase extra. -->
 
-<!-- Brand -->
-<div class="dg-bg-primary-subtle">...</div>    <!-- #ececee + texto #0b0b0c -->
-<div class="dg-bg-primary-light">...</div>     <!-- #bcbcc3 + texto #0b0b0c -->
-<div class="dg-bg-primary">...</div>           <!-- #0b0b0c + texto #ffffff -->
-<div class="dg-bg-primary-dark">...</div>      <!-- #242428 + texto #ffffff -->
-<div class="dg-bg-secondary-subtle">...</div>  <!-- #f6f6f7 + texto #6f6f78 -->
-<div class="dg-bg-secondary-light">...</div>   <!-- #93939c + texto #0b0b0c -->
-<div class="dg-bg-secondary">...</div>         <!-- #6f6f78 + texto #ffffff -->
-<div class="dg-bg-secondary-dark">...</div>    <!-- #3b3b41 + texto #ffffff -->
-<div class="dg-bg-light">...</div>             <!-- #ececee + texto #0b0b0c -->
-<div class="dg-bg-dark">...</div>              <!-- #242428 + texto #ffffff -->
+<!-- Marca -->
+<div class="dg-bg-primary-subtle">...</div> <!-- #ececee + texto #0b0b0c -->
+<div class="dg-bg-primary-light">...</div>  <!-- #bcbcc3 + texto #0b0b0c -->
+<div class="dg-bg-primary">...</div>        <!-- #0b0b0c + texto #ffffff -->
+<div class="dg-bg-primary-dark">...</div>   <!-- #242428 + texto #ffffff -->
+<div class="dg-bg-secondary-subtle">...</div><!-- #f6f6f7 + texto #62626b -->
+<div class="dg-bg-secondary-light">...</div><!-- #93939c + texto #0b0b0c -->
+<div class="dg-bg-secondary">...</div>      <!-- #6f6f78 + texto #ffffff -->
+<div class="dg-bg-secondary-dark">...</div> <!-- #3b3b41 + texto #ffffff -->
+
+<!-- Neutros -->
+<div class="dg-bg-light">...</div>          <!-- #ececee + texto #0b0b0c -->
+<div class="dg-bg-dark">...</div>           <!-- #242428 + texto #ffffff -->
 
 <!-- Semánticos -->
-<div class="dg-bg-success-subtle">...</div>    <!-- #eef4f0 + texto #2f6b4f -->
-<div class="dg-bg-success">...</div>           <!-- #2f6b4f + texto #ffffff -->
-<div class="dg-bg-success-dark">...</div>      <!-- #1d4433 + texto #ffffff -->
-<div class="dg-bg-warning-subtle">...</div>    <!-- #f6f1e3 + texto #8a6d1f -->
-<div class="dg-bg-warning">...</div>           <!-- #8a6d1f + texto #ffffff -->
-<div class="dg-bg-warning-dark">...</div>      <!-- #5c4a15 + texto #ffffff -->
-<div class="dg-bg-danger-subtle">...</div>     <!-- #f6ecec + texto #9b3535 -->
-<div class="dg-bg-danger">...</div>            <!-- #9b3535 + texto #ffffff -->
-<div class="dg-bg-danger-dark">...</div>       <!-- #6b2424 + texto #ffffff -->
-<div class="dg-bg-info-subtle">...</div>       <!-- #eef1f5 + texto #3a5573 -->
-<div class="dg-bg-info">...</div>              <!-- #3a5573 + texto #ffffff -->
-<div class="dg-bg-info-dark">...</div>         <!-- #263849 + texto #ffffff -->`}</pre>
+<div class="dg-bg-success-subtle">...</div> <!-- #e7f8ee + texto #15803d -->
+<div class="dg-bg-success-light">...</div>  <!-- #4ade80 + texto #14532d -->
+<div class="dg-bg-success">...</div>        <!-- #15803d + texto #ffffff -->
+<div class="dg-bg-success-dark">...</div>   <!-- #166534 + texto #ffffff -->
+<div class="dg-bg-warning-subtle">...</div> <!-- #fffbeb + texto #a16207 -->
+<div class="dg-bg-warning-light">...</div>  <!-- #fde047 + texto #713f12 -->
+<div class="dg-bg-warning">...</div>        <!-- #eab308 + texto #1a1400 -->
+<div class="dg-bg-warning-dark">...</div>   <!-- #ca8a04 + texto #1a1400 -->
+<div class="dg-bg-danger-subtle">...</div>  <!-- #fef1f1 + texto #c81e1e -->
+<div class="dg-bg-danger-light">...</div>   <!-- #f87171 + texto #450a0a -->
+<div class="dg-bg-danger">...</div>         <!-- #dc2626 + texto #ffffff -->
+<div class="dg-bg-danger-dark">...</div>    <!-- #b91c1c + texto #ffffff -->
+<div class="dg-bg-info-subtle">...</div>    <!-- #eef5ff + texto #1d4ed8 -->
+<div class="dg-bg-info-light">...</div>     <!-- #60a5fa + texto #172554 -->
+<div class="dg-bg-info">...</div>           <!-- #2563eb + texto #ffffff -->
+<div class="dg-bg-info-dark">...</div>      <!-- #1d4ed8 + texto #ffffff -->`}</pre>
   </div>
 </div>
 
@@ -158,20 +165,20 @@ const textColors = [
   <div class="doc-sub">Color de texto</div>
   <p class="dg-muted dg-text-sm dg-mb-4">
     Clases <code class="dg-code">dg-text-*</code> para colorear solo el texto.
-    Las variantes subtle se muestran sobre fondo oscuro porque son tonos claros.
+    Las variantes subtle van sobre una etiqueta de contraste (oscura en el tema claro, clara en el oscuro), porque son tonos muy cercanos al fondo.
   </p>
 
   <div class="doc-example">
 <div class="doc-demo is-plain">
-    <div class="doc-color-role-section">
+    <div class="doc-color-role-section is-text">
       {textColors.map(({ label, chips }) => (
-        <div class="doc-color-role-group">
-          <div class="doc-color-role-title">{label}</div>
+        <div class="doc-color-role-group" role="group" aria-label={label}>
+          
           <div class="doc-color-role-chips">
             {chips.map(({ cls, bg, full, mark }) => (
               <div class:list={["doc-color-role-chip", bg, cls, full && "full"]}>
                 {mark
-                  ? <span class:list={["doc-chip-mark", mark]}>{cls.replace('dg-text-', '')}</span>
+                  ? <span class="doc-chip-mark">{cls.replace('dg-text-', '')}</span>
                   : cls.replace('dg-text-', '')}
               </div>
             ))}
@@ -181,58 +188,60 @@ const textColors = [
     </div>
   </div>
 
-  <div class="doc-code">
+  <div class="doc-code" data-code-source="manual">
     <button class="cp">Copiar</button>
-    <pre>{`<!-- Neutros -->
-<span class="dg-text-primary">...</span>            <!-- #0b0b0c -->
-<span class="dg-text-secondary">...</span>          <!-- #6f6f78 -->
+    <pre>{`<!-- Valores del tema claro; en oscuro cambian solos. -->
 
-<!-- Brand -->
-<span class="dg-text-primary-subtle">...</span>    <!-- #ececee -->
-<span class="dg-text-primary-light">...</span>     <!-- #bcbcc3 -->
-<span class="dg-text-primary">...</span>           <!-- #0b0b0c -->
-<span class="dg-text-primary-dark">...</span>      <!-- #242428 -->
-<span class="dg-text-secondary-subtle">...</span>  <!-- #f6f6f7 -->
-<span class="dg-text-secondary-light">...</span>   <!-- #93939c -->
-<span class="dg-text-secondary">...</span>         <!-- #6f6f78 -->
-<span class="dg-text-secondary-dark">...</span>    <!-- #3b3b41 -->
+<!-- Neutros -->
+<span class="dg-text-primary">...</span>      <!-- #0b0b0c -->
+<span class="dg-text-secondary">...</span>    <!-- #6f6f78 -->
+
+<!-- Marca -->
+<span class="dg-text-primary-subtle">...</span><!-- #ececee -->
+<span class="dg-text-primary-light">...</span><!-- #bcbcc3 -->
+<span class="dg-text-primary">...</span>      <!-- #0b0b0c -->
+<span class="dg-text-primary-dark">...</span> <!-- #242428 -->
+<span class="dg-text-secondary-subtle">...</span><!-- #f6f6f7 -->
+<span class="dg-text-secondary-light">...</span><!-- #93939c -->
+<span class="dg-text-secondary">...</span>    <!-- #6f6f78 -->
+<span class="dg-text-secondary-dark">...</span><!-- #3b3b41 -->
 
 <!-- Semánticos -->
-<span class="dg-text-success-subtle">...</span>    <!-- #eef4f0 -->
-<span class="dg-text-success-light">...</span>    <!-- #7ab49a -->
-<span class="dg-text-success">...</span>          <!-- #2f6b4f -->
-<span class="dg-text-success-dark">...</span>     <!-- #1d4433 -->
-<span class="dg-text-warning-subtle">...</span>   <!-- #f6f1e3 -->
-<span class="dg-text-warning-light">...</span>    <!-- #c49a36 -->
-<span class="dg-text-warning">...</span>          <!-- #8a6d1f -->
-<span class="dg-text-warning-dark">...</span>     <!-- #5c4a15 -->
-<span class="dg-text-danger-subtle">...</span>    <!-- #f6ecec -->
-<span class="dg-text-danger-light">...</span>     <!-- #c47575 -->
-<span class="dg-text-danger">...</span>           <!-- #9b3535 -->
-<span class="dg-text-danger-dark">...</span>      <!-- #6b2424 -->
-<span class="dg-text-info-subtle">...</span>      <!-- #eef1f5 -->
-<span class="dg-text-info-light">...</span>       <!-- #7aa0bf -->
-<span class="dg-text-info">...</span>             <!-- #3a5573 -->
-<span class="dg-text-info-dark">...</span>        <!-- #263849 -->`}</pre>
+<span class="dg-text-success-subtle">...</span><!-- #e7f8ee -->
+<span class="dg-text-success-light">...</span><!-- #4ade80 -->
+<span class="dg-text-success">...</span>      <!-- #15803d -->
+<span class="dg-text-success-dark">...</span> <!-- #166534 -->
+<span class="dg-text-warning-subtle">...</span><!-- #fffbeb -->
+<span class="dg-text-warning-light">...</span><!-- #fde047 -->
+<span class="dg-text-warning">...</span>      <!-- #eab308 -->
+<span class="dg-text-warning-dark">...</span> <!-- #ca8a04 -->
+<span class="dg-text-danger-subtle">...</span><!-- #fef1f1 -->
+<span class="dg-text-danger-light">...</span> <!-- #f87171 -->
+<span class="dg-text-danger">...</span>       <!-- #dc2626 -->
+<span class="dg-text-danger-dark">...</span>  <!-- #b91c1c -->
+<span class="dg-text-info-subtle">...</span>  <!-- #eef5ff -->
+<span class="dg-text-info-light">...</span>   <!-- #60a5fa -->
+<span class="dg-text-info">...</span>         <!-- #2563eb -->
+<span class="dg-text-info-dark">...</span>    <!-- #1d4ed8 -->`}</pre>
   </div>
 </div>
 
   <!-- ── Gradientes ───────────────────────────────────────────── -->
   <div class="doc-sub">Gradientes</div>
   <p class="dg-muted dg-text-sm dg-mb-4">
-    Clases <code class="dg-code">dg-gradient-*</code> que recorren las 4 variantes de cada color —
-    de <code class="dg-code">subtle</code> hasta <code class="dg-code">dark</code> en un solo degradado diagonal.
+    Clases <code class="dg-code">dg-gradient-*</code>: una diagonal limpia del tono <code class="dg-code">light</code>
+    al <code class="dg-code">subtle</code> de cada color, sin manchas oscuras. <code class="dg-code">primary</code> es la excepción: va
+    del tono base al <code class="dg-code">dark</code>, oscuro como el color de marca (en tema oscuro se invierte, igual que el primary). El texto encima mantiene su contraste en claro y oscuro.
   </p>
 
   <div class="doc-example">
 <div class="doc-demo is-plain">
-    <div class="doc-color-role-section">
+    <div class="doc-color-role-section is-grad">
       {gradientScale.map(({ label, chips }) => (
-        <div class="doc-color-role-group">
-          <div class="doc-color-role-title">{label}</div>
+        <div class="doc-color-role-group" role="group" aria-label={label}>
           <div class="doc-color-role-chips">
             {chips.map(({ cls, full }) => (
-              <div class:list={["doc-color-role-chip", cls, full && "full"]}>{cls.replace('dg-gradient-', '')}</div>
+              <div class:list={["doc-color-role-chip", cls, full && "full"]}><span class="doc-chip-name">{cls.replace('dg-gradient-', '')}</span><code class="doc-chip-hex" data-chip-grad></code></div>
             ))}
           </div>
         </div>
@@ -240,9 +249,9 @@ const textColors = [
     </div>
   </div>
 
-  <div class="doc-code">
+  <div class="doc-code" data-code-source="manual">
     <button class="cp">Copiar</button>
-    <pre>{`<!-- Cada gradiente recorre las 4 variantes: subtle → light → base → dark -->
+    <pre>{`<!-- Diagonal (135°) del tono light al subtle; primary: del base al dark -->
 <div class="dg-gradient-primary">...</div>
 <div class="dg-gradient-secondary">...</div>
 <div class="dg-gradient-success">...</div>
@@ -322,3 +331,36 @@ const textColors = [
   </div>
 
 </Layout>
+
+<script>
+  // Background swatches: show the real hex of each block (read from the
+  // rendered color, so it always matches the framework and the theme).
+  // Any CSS color (rgb, oklab, color-mix…) to #rrggbb: paint one pixel and read it.
+  const pixel = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  function toHex(color: string): string {
+    if (!pixel || !color) return '';
+    pixel.clearRect(0, 0, 1, 1);
+    pixel.fillStyle = '#000';
+    pixel.fillStyle = color;
+    pixel.fillRect(0, 0, 1, 1);
+    const [r, g, b] = pixel.getImageData(0, 0, 1, 1).data;
+    return '#' + [r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('');
+  }
+  function paintHex() {
+    document.querySelectorAll<HTMLElement>('[data-chip-hex]').forEach((el) => {
+      const chip = el.parentElement;
+      if (chip) el.textContent = toHex(getComputedStyle(chip).backgroundColor);
+    });
+    // Gradients: the two ends of the diagonal, read from the painted image.
+    document.querySelectorAll<HTMLElement>('[data-chip-grad]').forEach((el) => {
+      const chip = el.parentElement;
+      if (!chip) return;
+      const stops = getComputedStyle(chip).backgroundImage.match(/(?:rgba?|oklab|oklch|color)\([^()]*(?:\([^()]*\)[^()]*)*\)/g) ?? [];
+      el.textContent = stops.length >= 2 ? `${toHex(stops[0])} → ${toHex(stops[stops.length - 1])}` : '';
+    });
+  }
+  paintHex();
+  // The theme changes the tokens: repaint once the colors have settled.
+  new MutationObserver(() => requestAnimationFrame(paintHex))
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>

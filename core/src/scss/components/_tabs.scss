@@ -8,7 +8,14 @@
 }
 .dg-tab:hover { color: var(--dg-text); }
 .dg-tab.is-active { color: var(--dg-text); }
-.dg-tab.is-active::after { content: ""; position: absolute; left: 0.6em; right: 0.6em; bottom: -1px; height: 2px; background: var(--dg-text); border-radius: 2px; }
+.dg-tab.is-active::after { content: ""; position: absolute; left: 0.6em; right: 0.6em; bottom: 0; height: 2px; background: var(--dg-text); border-radius: 0; }
+/* Underline tabs: a subtle 1px baseline under the whole row (drawn as a
+   background: the flat reset removes borders); the active tab's 2px black
+   line sits on it. */
+.dg-tabs:not(.dg-tabs-pill, .dg-tabs-enclosed) {
+  background-image: linear-gradient(var(--dg-tabs-line, color-mix(in oklab, var(--dg-text) 14%, transparent)), var(--dg-tabs-line, color-mix(in oklab, var(--dg-text) 14%, transparent)));
+  background-repeat: no-repeat; background-size: 100% 1px; background-position: bottom;
+}
 
 /* Segmented — text options with underline on the active item.
    Uses ::after (background) so flat's border:none !important cannot remove it. */
@@ -129,7 +136,7 @@
 
 /* Underline tabs: same 2px line and .6em inset as the static ::after. */
 .dg-tabs:not(.dg-tabs-pill, .dg-tabs-enclosed).has-indicator::before {
-  top: auto; bottom: 0; height: 2px; border-radius: 2px;
+  top: auto; bottom: 0; height: 2px; border-radius: 0;
   width: calc(var(--dg-ind-w, 0px) - 1.2 * var(--dg-text-sm));
   translate: calc(var(--dg-ind-x, 0px) + .6 * var(--dg-text-sm)) 0;
   background: var(--dg-text);

@@ -18,6 +18,7 @@
 /* Flex direction */
 .dg-flex-row         { flex-direction: row; }
 .dg-flex-row-reverse { flex-direction: row-reverse; }
+/* Deprecated alias (see src/deprecated-classes.json): use .dg-flex-col. Removed in 2.0. */
 .dg-col-flex         { flex-direction: column; }
 .dg-flex-col-reverse { flex-direction: column-reverse; }
 
@@ -52,6 +53,7 @@
 .dg-grow       { flex: 1 1 auto; }
 .dg-shrink-0   { flex-shrink: 0; }
 .dg-shrink     { flex-shrink: 1; }
+/* Deprecated alias (see src/deprecated-classes.json): use .dg-shrink-0. Removed in 2.0. */
 .dg-no-shrink  { flex-shrink: 0; }
 .dg-basis-full { flex-basis: 100%; }
 
@@ -87,6 +89,10 @@
 /* Only the case: spacing is separate (.dg-tracking-*), so condensed or
    poster titles stay as wide as their letters. */
 .dg-uppercase { text-transform: uppercase; }
+.dg-lowercase { text-transform: lowercase; }
+.dg-capitalize { text-transform: capitalize; }
+/* Undo a case change inherited from a wrapper (e.g. inside .dg-uppercase). */
+.dg-normal-case { text-transform: none; }
 
 .dg-leading-tight  { line-height: var(--dg-leading-tight); }
 .dg-leading-snug   { line-height: var(--dg-leading-snug); }
@@ -113,7 +119,7 @@
 .dg-text-success-dark   { color: var(--dg-success-dark); }
 .dg-text-warning-subtle { color: var(--dg-warning-subtle); }
 .dg-text-warning-light  { color: var(--dg-warning-light); }
-.dg-text-warning        { color: var(--dg-warning); }
+.dg-text-warning        { color: var(--dg-warning-text); }
 .dg-text-warning-dark   { color: var(--dg-warning-dark); }
 .dg-text-danger-subtle  { color: var(--dg-danger-subtle); }
 .dg-text-danger-light   { color: var(--dg-danger-light); }
@@ -137,14 +143,18 @@
 .dg-text-on-info    { color: var(--dg-on-info); }
 .dg-text-white   { color: var(--dg-0); }
 .dg-text-black   { color: var(--dg-950); }
-.dg-text-muted   { color: var(--dg-text-muted); }
-.dg-text-faint   { color: var(--dg-text-faint); }
+/* Secondary and tertiary text. Utilities, so they win over a component's own
+   text color. .dg-text-muted / .dg-text-faint are deprecated aliases (2.0). */
+.dg-muted, .dg-text-muted { color: var(--dg-text-muted); }
+.dg-faint, .dg-text-faint { color: var(--dg-text-faint); }
+/* Deprecated alias (see src/deprecated-classes.json): use .dg-text-white / .dg-text-black. Removed in 2.0. */
 .dg-text-on-dark { color: var(--dg-0); }
 .dg-text-on-light { color: var(--dg-950); }
 
 /* Background utilities: explicit classes outrank component surface defaults. */
 .dg-bg-white.dg-bg-white {
   background: var(--dg-0);
+  --dg-control-bg: var(--dg-0);
   --dg-text: #0b0b0c;
   --dg-text-muted: #62626b;
   --dg-text-faint: #65656f;
@@ -152,99 +162,92 @@
 }
 .dg-bg-black.dg-bg-black {
   background: var(--dg-950);
+  --dg-control-bg: var(--dg-950);
   --dg-text: #f4f4f5;
   --dg-text-muted: #9a9aa2;
   --dg-text-faint: #9a9aa2;
   color: var(--dg-text);
 }
-.dg-bg-light.dg-bg-light     { background: var(--dg-light); color: var(--dg-on-light); }
-.dg-bg-dark.dg-bg-dark      { background: var(--dg-dark);  color: var(--dg-on-dark); }
-.dg-bg-paper.dg-bg-paper     { background: var(--dg-paper); color: var(--dg-text); }
-.dg-bg-surface.dg-bg-surface   { background: var(--dg-surface); color: var(--dg-text); }
-.dg-bg-surface-2.dg-bg-surface-2 { background: var(--dg-surface-2); color: var(--dg-text); }
-.dg-bg-surface-3.dg-bg-surface-3 { background: var(--dg-surface-3); color: var(--dg-text); }
+.dg-bg-light.dg-bg-light     { background: var(--dg-light); --dg-control-bg: var(--dg-light); color: var(--dg-on-light); }
+.dg-bg-dark.dg-bg-dark      { background: var(--dg-dark); --dg-control-bg: var(--dg-dark);  color: var(--dg-on-dark); }
+.dg-bg-paper.dg-bg-paper     { background: var(--dg-paper); --dg-control-bg: var(--dg-paper); color: var(--dg-text); }
+.dg-bg-surface.dg-bg-surface   { background: var(--dg-surface); --dg-control-bg: var(--dg-surface); color: var(--dg-text); }
+.dg-bg-surface-2.dg-bg-surface-2 { background: var(--dg-surface-2); --dg-control-bg: var(--dg-surface-2); color: var(--dg-text); }
+.dg-bg-surface-3.dg-bg-surface-3 { background: var(--dg-surface-3); --dg-control-bg: var(--dg-surface-3); color: var(--dg-text); }
 
 /* Semantic states */
-.dg-bg-success-subtle.dg-bg-success-subtle { background: var(--dg-success-subtle); color: var(--dg-on-success-subtle); }
-.dg-bg-success-light.dg-bg-success-light  { background: var(--dg-success-light);  color: var(--dg-on-success-light); }
-.dg-bg-success.dg-bg-success        { background: var(--dg-success);        color: var(--dg-on-success); }
-.dg-bg-success-dark.dg-bg-success-dark   { background: var(--dg-success-dark);   color: var(--dg-on-success-dark); }
-.dg-bg-warning-subtle.dg-bg-warning-subtle { background: var(--dg-warning-subtle); color: var(--dg-on-warning-subtle); }
-.dg-bg-warning-light.dg-bg-warning-light  { background: var(--dg-warning-light);  color: var(--dg-on-warning-light); }
-.dg-bg-warning.dg-bg-warning        { background: var(--dg-warning);        color: var(--dg-on-warning); }
-.dg-bg-warning-dark.dg-bg-warning-dark   { background: var(--dg-warning-dark);   color: var(--dg-on-warning-dark); }
-.dg-bg-danger-subtle.dg-bg-danger-subtle  { background: var(--dg-danger-subtle);  color: var(--dg-on-danger-subtle); }
-.dg-bg-danger-light.dg-bg-danger-light   { background: var(--dg-danger-light);   color: var(--dg-on-danger-light); }
-.dg-bg-danger.dg-bg-danger         { background: var(--dg-danger);         color: var(--dg-on-danger); }
-.dg-bg-danger-dark.dg-bg-danger-dark    { background: var(--dg-danger-dark);    color: var(--dg-on-danger-dark); }
-.dg-bg-info-subtle.dg-bg-info-subtle    { background: var(--dg-info-subtle);    color: var(--dg-on-info-subtle); }
-.dg-bg-info-light.dg-bg-info-light     { background: var(--dg-info-light);     color: var(--dg-on-info-light); }
-.dg-bg-info.dg-bg-info           { background: var(--dg-info);           color: var(--dg-on-info); }
-.dg-bg-info-dark.dg-bg-info-dark      { background: var(--dg-info-dark);      color: var(--dg-on-info-dark); }
+.dg-bg-success-subtle.dg-bg-success-subtle { background: var(--dg-success-subtle); --dg-control-bg: var(--dg-success-subtle); color: var(--dg-on-success-subtle); }
+.dg-bg-success-light.dg-bg-success-light  { background: var(--dg-success-light); --dg-control-bg: var(--dg-success-light);  color: var(--dg-on-success-light); }
+.dg-bg-success.dg-bg-success        { background: var(--dg-success); --dg-control-bg: var(--dg-success);        color: var(--dg-on-success); }
+.dg-bg-success-dark.dg-bg-success-dark   { background: var(--dg-success-dark); --dg-control-bg: var(--dg-success-dark);   color: var(--dg-on-success-dark); }
+.dg-bg-warning-subtle.dg-bg-warning-subtle { background: var(--dg-warning-subtle); --dg-control-bg: var(--dg-warning-subtle); color: var(--dg-on-warning-subtle); }
+.dg-bg-warning-light.dg-bg-warning-light  { background: var(--dg-warning-light); --dg-control-bg: var(--dg-warning-light);  color: var(--dg-on-warning-light); }
+.dg-bg-warning.dg-bg-warning        { background: var(--dg-warning); --dg-control-bg: var(--dg-warning);        color: var(--dg-on-warning); }
+.dg-bg-warning-dark.dg-bg-warning-dark   { background: var(--dg-warning-dark); --dg-control-bg: var(--dg-warning-dark);   color: var(--dg-on-warning-dark); }
+.dg-bg-danger-subtle.dg-bg-danger-subtle  { background: var(--dg-danger-subtle); --dg-control-bg: var(--dg-danger-subtle);  color: var(--dg-on-danger-subtle); }
+.dg-bg-danger-light.dg-bg-danger-light   { background: var(--dg-danger-light); --dg-control-bg: var(--dg-danger-light);   color: var(--dg-on-danger-light); }
+.dg-bg-danger.dg-bg-danger         { background: var(--dg-danger); --dg-control-bg: var(--dg-danger);         color: var(--dg-on-danger); }
+.dg-bg-danger-dark.dg-bg-danger-dark    { background: var(--dg-danger-dark); --dg-control-bg: var(--dg-danger-dark);    color: var(--dg-on-danger-dark); }
+.dg-bg-info-subtle.dg-bg-info-subtle    { background: var(--dg-info-subtle); --dg-control-bg: var(--dg-info-subtle);    color: var(--dg-on-info-subtle); }
+.dg-bg-info-light.dg-bg-info-light     { background: var(--dg-info-light); --dg-control-bg: var(--dg-info-light);     color: var(--dg-on-info-light); }
+.dg-bg-info.dg-bg-info           { background: var(--dg-info); --dg-control-bg: var(--dg-info);           color: var(--dg-on-info); }
+.dg-bg-info-dark.dg-bg-info-dark      { background: var(--dg-info-dark); --dg-control-bg: var(--dg-info-dark);      color: var(--dg-on-info-dark); }
 
 /* Brand colors */
-.dg-bg-primary-subtle.dg-bg-primary-subtle   { background: var(--dg-primary-subtle);   color: var(--dg-on-primary-subtle); }
-.dg-bg-primary-light.dg-bg-primary-light    { background: var(--dg-primary-light);    color: var(--dg-on-primary-light); }
-.dg-bg-primary.dg-bg-primary          { background: var(--dg-primary);          color: var(--dg-on-primary); }
-.dg-bg-primary-dark.dg-bg-primary-dark     { background: var(--dg-primary-dark);     color: var(--dg-on-primary-dark); }
-.dg-bg-secondary-subtle.dg-bg-secondary-subtle { background: var(--dg-secondary-subtle); color: var(--dg-on-secondary-subtle); }
-.dg-bg-secondary-light.dg-bg-secondary-light  { background: var(--dg-secondary-light);  color: var(--dg-on-secondary-light); }
-.dg-bg-secondary.dg-bg-secondary        { background: var(--dg-secondary);        color: var(--dg-on-secondary); }
-.dg-bg-secondary-dark.dg-bg-secondary-dark   { background: var(--dg-secondary-dark);   color: var(--dg-on-secondary-dark); }
+.dg-bg-primary-subtle.dg-bg-primary-subtle   { background: var(--dg-primary-subtle); --dg-control-bg: var(--dg-primary-subtle);   color: var(--dg-on-primary-subtle); }
+.dg-bg-primary-light.dg-bg-primary-light    { background: var(--dg-primary-light); --dg-control-bg: var(--dg-primary-light);    color: var(--dg-on-primary-light); }
+.dg-bg-primary.dg-bg-primary          { background: var(--dg-primary); --dg-control-bg: var(--dg-primary);          color: var(--dg-on-primary); }
+.dg-bg-primary-dark.dg-bg-primary-dark     { background: var(--dg-primary-dark); --dg-control-bg: var(--dg-primary-dark);     color: var(--dg-on-primary-dark); }
+.dg-bg-secondary-subtle.dg-bg-secondary-subtle { background: var(--dg-secondary-subtle); --dg-control-bg: var(--dg-secondary-subtle); color: var(--dg-on-secondary-subtle); }
+.dg-bg-secondary-light.dg-bg-secondary-light  { background: var(--dg-secondary-light); --dg-control-bg: var(--dg-secondary-light);  color: var(--dg-on-secondary-light); }
+.dg-bg-secondary.dg-bg-secondary        { background: var(--dg-secondary); --dg-control-bg: var(--dg-secondary);        color: var(--dg-on-secondary); }
+.dg-bg-secondary-dark.dg-bg-secondary-dark   { background: var(--dg-secondary-dark); --dg-control-bg: var(--dg-secondary-dark);   color: var(--dg-on-secondary-dark); }
 
-/* Gradients — mesh/aurora: large soft blobs, dark corners, subtle center */
+/* Gradients — Swiss: a clean diagonal from the light to the subtle tone of
+   each color. No dark blobs (they read as shadows on a flat system). */
 .dg-gradient-primary {
-  background-color: var(--dg-primary-light);
+  /* Primary is the brand's solid color: its gradient is dark (it inverts with
+     the theme, like the primary color itself). */
+  background-color: var(--dg-primary);
   background-image:
-    radial-gradient(ellipse 80% 80% at 10% 15%,  var(--dg-primary-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 88% 85%,  var(--dg-primary-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 55% 40%,  var(--dg-primary-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 18% 78%,  var(--dg-primary-subtle) 0%, transparent 58%);
-  color: var(--dg-on-primary-light);
+    linear-gradient(135deg, var(--dg-primary) 0%, var(--dg-primary-dark) 100%);
+  color: var(--dg-on-primary);
 }
 .dg-gradient-secondary {
   background-color: var(--dg-secondary-light);
   background-image:
-    radial-gradient(ellipse 80% 80% at 88% 12%,  var(--dg-secondary-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 12% 88%,  var(--dg-secondary-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 45% 55%,  var(--dg-secondary-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 82% 75%,  var(--dg-secondary-subtle) 0%, transparent 58%);
+    linear-gradient(135deg, var(--dg-secondary-light) 0%, var(--dg-secondary-subtle) 100%);
   color: var(--dg-on-secondary-light);
 }
 .dg-gradient-success {
   background-color: var(--dg-success-light);
   background-image:
-    radial-gradient(ellipse 80% 80% at 10% 15%,  var(--dg-success-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 88% 85%,  var(--dg-success-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 55% 40%,  var(--dg-success-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 18% 78%,  var(--dg-success-subtle) 0%, transparent 58%);
+    linear-gradient(135deg, var(--dg-success-light) 0%, var(--dg-success-subtle) 100%);
   color: var(--dg-on-success-light);
 }
 .dg-gradient-warning {
   background-color: var(--dg-warning-light);
   background-image:
-    radial-gradient(ellipse 80% 80% at 88% 12%,  var(--dg-warning-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 12% 88%,  var(--dg-warning-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 45% 50%,  var(--dg-warning-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 80% 75%,  var(--dg-warning-subtle) 0%, transparent 58%);
+    linear-gradient(135deg, var(--dg-warning-light) 0%, var(--dg-warning-subtle) 100%);
   color: var(--dg-on-warning-light);
+}
+/* Dark theme: warning is the only light tone with dark text; it goes from ochre
+   to near black, so no text color reads on all of it. Start it a bit darker and
+   use white text, like the other gradients in dark. */
+[data-theme="dark"] .dg-gradient-warning {
+  background-image: linear-gradient(135deg, color-mix(in oklab, var(--dg-warning-light) 72%, #000) 0%, var(--dg-warning-subtle) 100%);
+  color: #fff;
 }
 .dg-gradient-danger {
   background-color: var(--dg-danger-light);
   background-image:
-    radial-gradient(ellipse 80% 80% at 15% 88%,  var(--dg-danger-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 85% 12%,  var(--dg-danger-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 50% 55%,  var(--dg-danger-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 78% 80%,  var(--dg-danger-subtle) 0%, transparent 58%);
+    linear-gradient(135deg, var(--dg-danger-light) 0%, var(--dg-danger-subtle) 100%);
   color: var(--dg-on-danger-light);
 }
 .dg-gradient-info {
   background-color: var(--dg-info-light);
   background-image:
-    radial-gradient(ellipse 80% 80% at 12% 82%,  var(--dg-info-dark)   0%, transparent 65%),
-    radial-gradient(ellipse 75% 75% at 82% 18%,  var(--dg-info-dark)   0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 48% 48%,  var(--dg-info-subtle) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 22% 20%,  var(--dg-info-subtle) 0%, transparent 58%);
+    linear-gradient(135deg, var(--dg-info-light) 0%, var(--dg-info-subtle) 100%);
   color: var(--dg-on-info-light);
 }
 
@@ -256,7 +259,6 @@
 
 
 /* Sizing */
-.dg-w-full { width: 100%; }
 .dg-w-40p { width: 40%; }
 .dg-w-43p { width: 43%; }
 .dg-w-45p { width: 45%; }
@@ -276,7 +278,6 @@
 .dg-w-160 { width: 160px; }
 .dg-w-200 { width: 200px; }
 .dg-w-126 { width: 126px; }
-.dg-h-full   { height: 100%; }
 .dg-h-18 { height: 18px; }
 .dg-h-30 { height: 30px; }
 .dg-h-38 { height: 38px; }
@@ -293,7 +294,6 @@
 .dg-h-214 { height: 214px; }
 .dg-h-240 { height: 240px; }
 .dg-h-screen { height: 100vh; }
-.dg-w-screen { width: 100vw; }
 .dg-min-w-0  { min-width: 0; }
 .dg-min-h-0  { min-height: 0; }
 .dg-min-h-180 { min-height: 180px; }
@@ -301,7 +301,6 @@
 .dg-min-h-240 { min-height: 240px; }
 .dg-min-h-420 { min-height: 420px; }
 .dg-min-h-7em { min-height: 7em; }
-.dg-max-w-full { max-width: 100%; }
 .dg-max-w-24ch { max-width: 24ch; }
 .dg-max-w-260 { max-width: 260px; }
 .dg-max-w-xs { max-width: 380px; }
@@ -419,6 +418,7 @@
 .dg-opacity-100 { opacity: 1; }
 .dg-pointer-events-none { pointer-events: none; }
 .dg-pointer-events-auto { pointer-events: auto; }
+/* Deprecated alias (see src/deprecated-classes.json): use .dg-place-items-center. Removed in 2.0. */
 .dg-place-center { place-items: center; }
 .dg-select-none  { user-select: none; }
 .dg-select-all   { user-select: all; }
@@ -464,6 +464,9 @@
 .dg-font-mono { font-family: var(--dg-font-mono); }
 .dg-font-serif { font-family: var(--dg-font-serif); }
 .dg-font-sans { font-family: var(--dg-font-sans); }
+/* Deprecated aliases (see src/deprecated-classes.json), removed in 2.0:
+   .dg-text-decoration-none → .dg-no-underline, .dg-lh-1 → .dg-leading-none,
+   .dg-fs-2xl → .dg-text-2xl. */
 .dg-text-decoration-none { text-decoration: none; }
 .dg-lh-1 { line-height: 1; }
 .dg-leading-12 { line-height: 1.2; }
@@ -481,6 +484,7 @@
 @media (max-width: 575px)  { .dg-hidden-xs { display: none !important; } }
 @media (min-width: 576px) and (max-width: 767px) { .dg-hidden-sm { display: none !important; } }
 @media (min-width: 768px) and (max-width: 991px) { .dg-hidden-md { display: none !important; } }
+/* Deprecated alias (see src/deprecated-classes.json): use .dg-hidden-desktop (same breakpoint). Removed in 2.0. */
 @media (min-width: 992px) { .dg-visible-xs, .dg-visible-sm { display: none !important; } }
 @media (max-width: 991px) { .dg-hidden-mobile { display: none !important; } }
 @media (min-width: 992px) { .dg-hidden-desktop { display: none !important; } }
@@ -597,11 +601,12 @@
   --dg-text: #1c1c1c; --dg-text-muted: #55555c; --dg-text-faint: #6b6b72;
   color: var(--dg-text);
 }
-.dg-bg-sand.dg-bg-sand           { background: var(--dg-sand); }
-.dg-bg-sand-deep.dg-bg-sand-deep { background: var(--dg-sand-deep); }
-.dg-bg-cream.dg-bg-cream         { background: var(--dg-cream); }
+.dg-bg-sand.dg-bg-sand           { background: var(--dg-sand); --dg-control-bg: var(--dg-sand); }
+.dg-bg-sand-deep.dg-bg-sand-deep { background: var(--dg-sand-deep); --dg-control-bg: var(--dg-sand-deep); }
+.dg-bg-cream.dg-bg-cream         { background: var(--dg-cream); --dg-control-bg: var(--dg-cream); }
 .dg-bg-graphite.dg-bg-graphite {
   background: var(--dg-graphite);
+  --dg-control-bg: var(--dg-graphite);
   --dg-text: #ffffff; --dg-text-muted: #a1a1a8; --dg-text-faint: #8a8a91;
   color: var(--dg-text);
 }
@@ -631,7 +636,7 @@
   mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
 }
 
-/* ---- Animation speed: slow down a dg-fade-in-* / dg-pop-in entrance. ---- */
+/* ---- Animation speed: slow down any entrance (dg-fade-in*, dg-zoom-*, dg-blur-in*, dg-rise-in, dg-drop-in, dg-pop-in). ---- */
 .dg-anim-slow   { animation-duration: 1.2s; }
 .dg-anim-slower { animation-duration: 1.8s; }
 

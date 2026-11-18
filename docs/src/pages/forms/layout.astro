@@ -1,0 +1,109 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Grupos con título</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-fieldset</code> con <code class="dg-code">.dg-legend</code> agrupa campos que van juntos, como los datos de envío o de pago. Los lectores de pantalla anuncian el título al entrar al grupo. Dos grupos seguidos se separan solos, y <code class="dg-code">disabled</code> en el fieldset desactiva todos sus campos.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-max-w-520">
+          <fieldset class="dg-fieldset">
+            <legend class="dg-legend">Datos de contacto</legend>
+            <div class="dg-field">
+              <label class="dg-label" for="fs-name">Nombre</label>
+              <input class="dg-input" id="fs-name" autocomplete="name" />
+            </div>
+            <div class="dg-field">
+              <label class="dg-label" for="fs-mail">Correo</label>
+              <input class="dg-input" id="fs-mail" type="email" autocomplete="email" />
+            </div>
+          </fieldset>
+          <fieldset class="dg-fieldset">
+            <legend class="dg-legend">Dirección de envío</legend>
+            <div class="dg-field">
+              <label class="dg-label" for="fs-street">Calle y número</label>
+              <input class="dg-input" id="fs-street" autocomplete="street-address" />
+            </div>
+            <div class="dg-grid dg-grid-cols-2 dg-gap-4">
+              <div class="dg-field">
+                <label class="dg-label" for="fs-city">Ciudad</label>
+                <input class="dg-input" id="fs-city" autocomplete="address-level2" />
+              </div>
+              <div class="dg-field">
+                <label class="dg-label" for="fs-zip">Código postal</label>
+                <input class="dg-input" id="fs-zip" autocomplete="postal-code" />
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Obligatorio y opcional</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Marca solo lo que sea minoría. Si casi todo es obligatorio, señala los opcionales con <code class="dg-code">.dg-label-optional</code>. Si casi todo es opcional, marca los obligatorios con <code class="dg-code">.dg-label.is-required</code>, que añade un asterisco. Pon también <code class="dg-code">required</code> en el input: el asterisco es solo visual.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-5 dg-max-w-480">
+          <div class="dg-field">
+            <label class="dg-label is-required" for="rq-mail">Correo</label>
+            <input class="dg-input" id="rq-mail" type="email" required />
+          </div>
+          <div class="dg-field">
+            <label class="dg-label" for="rq-company">Empresa <span class="dg-label-optional">(opcional)</span></label>
+            <input class="dg-input" id="rq-company" />
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Etiqueta a la izquierda</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-field-row</code> a <code class="dg-code">.dg-field</code> para poner la etiqueta en una columna a la izquierda desde 768px. La ayuda, el contador y los errores se alinean con el campo. En móvil vuelve a apilarse. Va bien en ajustes y paneles con muchos campos cortos.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-5 dg-max-w-xl">
+          <div class="dg-field dg-field-row">
+            <label class="dg-label" for="hz-name">Nombre público</label>
+            <input class="dg-input" id="hz-name" value="Estudio Norte" />
+          </div>
+          <div class="dg-field dg-field-row">
+            <label class="dg-label" for="hz-url">Sitio web</label>
+            <input class="dg-input" id="hz-url" type="url" placeholder="https://" />
+            <span class="dg-help">Aparece junto a tu nombre.</span>
+          </div>
+          <div class="dg-field dg-field-row">
+            <label class="dg-label" for="hz-lang">Idioma</label>
+            <select class="dg-select" id="hz-lang">
+              <option>Español</option>
+              <option>English</option>
+              <option>Português</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Barra de acciones</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Los botones del formulario van al final, alineados a la derecha, con la acción principal en último lugar. No hace falta una clase propia, se arma con utilidades: <code class="dg-code">dg-flex dg-justify-end dg-gap-3</code>. Para separar una acción destructiva, empújala a la izquierda con <code class="dg-code">dg-mr-auto</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <form class="dg-stack dg-gap-5 dg-max-w-520">
+          <div class="dg-field">
+            <label class="dg-label" for="ac-title">Título del proyecto</label>
+            <input class="dg-input" id="ac-title" value="Rediseño de marca" />
+          </div>
+          <div class="dg-flex dg-justify-end dg-gap-3">
+            <button type="button" class="dg-btn dg-btn-text dg-mr-auto">Eliminar</button>
+            <button type="button" class="dg-btn dg-btn-subtle">Cancelar</button>
+            <button type="submit" class="dg-btn dg-btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>`;
+---
+
+<Layout title="Estructura" lead="Cómo organizar un formulario: grupos con título, campos obligatorios y opcionales, etiqueta a la izquierda y barra de acciones." currentHref="/forms/layout">
+  <Fragment set:html={pageContent} />
+</Layout>

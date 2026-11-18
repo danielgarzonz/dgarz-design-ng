@@ -17,7 +17,7 @@ import Code from "../../components/Code.astro";
   </p>
 
   <div class="doc-sub">Serie 1 · Fintech glass</div>
-  <p class="dg-muted dg-text-sm dg-mb-4">Superficies de vidrio sobre un gradiente frío, con pills, campos flotantes y botones de gradiente.</p>
+  <p class="dg-muted dg-text-sm dg-mb-4">Superficies de vidrio sobre un gradiente frío, con pills, campos y botones de gradiente.</p>
   <div class="doc-example">
 <Demo plain class="dg-surface-gradient-cool dg-rounded-xl">
     <div class="dg-grid dg-grid-2">
@@ -27,22 +27,22 @@ import Code from "../../components/Code.astro";
           <h3 class="dg-h4">Create savings pocket</h3>
           <p class="dg-muted dg-text-sm">Onboarding corto para abrir una nueva meta financiera.</p>
           <div class="dg-stack dg-mt-4 dg-gap-3">
-            <div class="dg-float-field">
-              <input class="dg-input" id="cool-pocket" type="text" placeholder=" " />
-              <label for="cool-pocket">Pocket name</label>
+            <div class="dg-field">
+              <label class="dg-label" for="cool-pocket">Pocket name</label>
+              <input class="dg-input" id="cool-pocket" type="text" />
             </div>
-            <div class="dg-float-field">
-              <input class="dg-input" id="cool-goal" type="number" placeholder=" " />
-              <label for="cool-goal">Goal amount</label>
+            <div class="dg-field">
+              <label class="dg-label" for="cool-goal">Goal amount</label>
+              <input class="dg-input" id="cool-goal" type="number" />
             </div>
-            <div class="dg-float-field">
+            <div class="dg-field">
+              <label class="dg-label" for="cool-plan">Contribution</label>
               <select class="dg-select" id="cool-plan">
                 <option value="">Monthly plan</option>
                 <option>$200 / month</option>
                 <option>$500 / month</option>
                 <option>$900 / month</option>
               </select>
-              <label for="cool-plan">Contribution</label>
             </div>
           </div>
           <div class="dg-flex dg-gap-2 dg-mt-4">
@@ -58,7 +58,7 @@ import Code from "../../components/Code.astro";
               <div>
                 <span class="dg-glass-pill">Card</span>
                 <h3 class="dg-h4 dg-mt-3">$23,558 saved</h3>
-                <p class="dg-text-sm dg-max-w-24ch dg-text-muted">Mastercard pocket with auto-invest enabled and weekly transfers.</p>
+                <p class="dg-text-sm dg-max-w-24ch dg-muted">Mastercard pocket with auto-invest enabled and weekly transfers.</p>
               </div>
               <button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Abrir"><svg class="dg-icon dg-icon-sm"><use href="#dg-external"/></svg></button>
             </div>
@@ -88,73 +88,7 @@ import Code from "../../components/Code.astro";
       </section>
     </div>
   </Demo>
-  <Code>&lt;div class="dg-grid dg-grid-2"&gt;
-  &lt;section class="dg-card dg-surface-glass-strong"&gt;
-    &lt;div class="dg-card-body"&gt;
-      &lt;span class="dg-glass-pill"&gt;Form&lt;/span&gt;
-      &lt;h3 class="dg-h4"&gt;Create savings pocket&lt;/h3&gt;
-      &lt;p class="dg-muted dg-text-sm"&gt;Onboarding corto para abrir una nueva meta financiera.&lt;/p&gt;
-      &lt;div class="dg-stack dg-mt-4 dg-gap-3"&gt;
-        &lt;div class="dg-float-field"&gt;
-          &lt;input class="dg-input" id="cool-pocket" type="text" placeholder=" " /&gt;
-          &lt;label for="cool-pocket"&gt;Pocket name&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="dg-float-field"&gt;
-          &lt;input class="dg-input" id="cool-goal" type="number" placeholder=" " /&gt;
-          &lt;label for="cool-goal"&gt;Goal amount&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="dg-float-field"&gt;
-          &lt;select class="dg-select" id="cool-plan"&gt;
-            &lt;option value=""&gt;Monthly plan&lt;/option&gt;
-            &lt;option&gt;$200 / month&lt;/option&gt;
-            &lt;option&gt;$500 / month&lt;/option&gt;
-            &lt;option&gt;$900 / month&lt;/option&gt;
-          &lt;/select&gt;
-          &lt;label for="cool-plan"&gt;Contribution&lt;/label&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
-        &lt;button class="dg-btn dg-btn-glass"&gt;Later&lt;/button&gt;
-        &lt;button class="dg-btn dg-btn-gradient"&gt;Create pocket&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
-  &lt;section class="dg-stack dg-gap-4"&gt;
-    &lt;article class="dg-card dg-surface-gradient-cool dg-surface-shine"&gt;
-      &lt;div class="dg-card-body"&gt;
-        &lt;div class="dg-flex dg-items-start dg-justify-between"&gt;
-          &lt;div&gt;
-            &lt;span class="dg-glass-pill"&gt;Card&lt;/span&gt;
-            &lt;h3 class="dg-h4 dg-mt-3"&gt;$23,558 saved&lt;/h3&gt;
-            &lt;p class="dg-text-sm dg-max-w-24ch dg-text-muted"&gt;Mastercard pocket with auto-invest enabled and weekly transfers.&lt;/p&gt;
-          &lt;/div&gt;
-          &lt;button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Abrir"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-external"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/article&gt;
-    &lt;article class="dg-card dg-surface-glass-strong"&gt;
-      &lt;div class="dg-card-body"&gt;
-        &lt;div class="dg-flex dg-items-center dg-justify-between"&gt;
-          &lt;div&gt;
-            &lt;span class="dg-glass-pill"&gt;Modal preview&lt;/span&gt;
-            &lt;h3 class="dg-h4 dg-mt-3"&gt;Confirm transfer&lt;/h3&gt;
-          &lt;/div&gt;
-          &lt;button class="dg-btn dg-btn-glass dg-btn-icon" aria-label="Cerrar"&gt;&lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class="dg-card dg-bg-surface-2 dg-p-4 dg-mt-4"&gt;
-          &lt;div class="dg-text-sm dg-muted"&gt;Send from&lt;/div&gt;
-          &lt;div class="dg-fw-semi"&gt;Emergency fund&lt;/div&gt;
-          &lt;div class="dg-text-sm dg-muted dg-mt-3"&gt;To&lt;/div&gt;
-          &lt;div class="dg-fw-semi"&gt;Travel pocket&lt;/div&gt;
-          &lt;div class="dg-flex dg-gap-2 dg-mt-4"&gt;
-            &lt;button class="dg-btn dg-btn-glass dg-btn-block"&gt;Cancel&lt;/button&gt;
-            &lt;button class="dg-btn dg-btn-gradient dg-btn-block"&gt;Transfer&lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/article&gt;
-  &lt;/section&gt;
-&lt;/div&gt;</Code>
+  <Code />
 </div>
 
   <div class="doc-sub">Serie 2 · Editorial warm</div>

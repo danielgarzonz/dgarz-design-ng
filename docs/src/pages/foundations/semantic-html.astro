@@ -61,12 +61,7 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         </div>
       </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- idéntico en ambas columnas — la única diferencia es el .dg-auto del padre --&gt;
-&lt;form&gt;
-  &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
-  &lt;input id="nombre" name="nombre" required /&gt;
-  &lt;button type="submit"&gt;Guardar&lt;/button&gt;
-&lt;/form&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
       </div>
 
       <div class="doc-sub">Qué cubre</div>
@@ -101,17 +96,16 @@ const pageContent = `<div class="dg-callout dg-callout-info dg-measure-md dg-mb-
         texto del botón.
       </p>
       <div class="doc-example">
-<div class="doc-demo is-plain dg-auto">
+<div class="doc-demo is-plain">
+        <div class="dg-auto">
         <div class="dg-cluster">
           <button type="submit">Guardar (auto, sin clases)</button>
           <button type="button" class="dg-btn dg-btn-cancel">Cancelar (variante explícita)</button>
           <button type="button" class="dg-btn dg-btn-danger">Eliminar (variante explícita)</button>
         </div>
+        </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- dentro de .dg-auto --&gt;
-&lt;button type="submit"&gt;Guardar&lt;/button&gt;                        &lt;!-- look por defecto, sin clases --&gt;
-&lt;button class="dg-btn dg-btn-cancel"&gt;Cancelar&lt;/button&gt;         &lt;!-- variante explícita, igual que siempre --&gt;
-&lt;button class="dg-btn dg-btn-danger"&gt;Eliminar&lt;/button&gt;          &lt;!-- variante explícita, igual que siempre --&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="dg-callout dg-callout-warning dg-measure-md dg-mt-5">

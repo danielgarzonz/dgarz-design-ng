@@ -1,5 +1,14 @@
+/* Monogram "dg" (docs/public/img/logo-dg-mark.png, cut out from
+   logo-dgarz-design.png) used as a mask, so it takes the text color: black
+   in light, white in dark. */
+.brand-mark {
+  display: inline-block; flex: none;
+  width: 1.45em; height: 1.2em; margin-right: 0.45em; vertical-align: -0.2em;
+  background-color: currentColor;
+  -webkit-mask: url("/img/logo-dg-mark.png") center / contain no-repeat;
+  mask: url("/img/logo-dg-mark.png") center / contain no-repeat;
+}
+
 /* Nombre del framework: "dgarz" recto y "design" en itálica. */
-.brand-name { font-style: normal; color: #000; }
-.brand-suffix { font-style: italic; color: #404040; }
-[data-theme="dark"] .brand-name { color: #fff; }
-[data-theme="dark"] .brand-suffix { color: #a1a1aa; }
+.brand-name { font-style: normal; color: var(--dg-text); }
+.brand-suffix { font-style: italic; color: var(--dg-text-muted); }

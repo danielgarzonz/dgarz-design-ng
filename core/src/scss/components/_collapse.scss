@@ -10,7 +10,7 @@
   border-radius: var(--dg-radius-lg);
   background: var(--dg-surface-2);
 }
-.dg-collapse-group.dg-collapse-bordered { border: 1px solid var(--dg-border-strong); background: var(--dg-surface); }
+.dg-collapse-group.dg-collapse-bordered { border: 1px solid var(--dg-border); background: var(--dg-surface); }
 .dg-collapse-group.dg-collapse-muted { background: var(--dg-surface-3); }
 .dg-collapse-trigger {
   display: flex; align-items: center; gap: var(--dg-space-4);

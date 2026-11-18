@@ -32,6 +32,7 @@
   --dg-modal-section-bg: var(--dg-modal-section-solid);
   width: 100%; max-width: 720px;
   background: var(--dg-surface);
+  --dg-control-bg: var(--dg-surface);
   border: 1px solid var(--dg-border);
   border-radius: var(--dg-radius-xl);
   /* Exposed as a custom property (not just a shadow value) so .dg-modal-glow
@@ -298,15 +299,16 @@
   flex-shrink: 0;
 }
 
-/* Gray cancel action across all modal surfaces and themes. */
+/* Cancel action in a modal: a tint of the text over the modal surface, so it
+   reads as secondary in both themes (light gray in light, dark gray in dark). */
 .dg-modal .dg-btn-cancel {
-  background: #b8b8bf;
-  color: #27272a;
+  background: color-mix(in oklab, var(--dg-text) 9%, transparent);
+  color: var(--dg-text);
   border-color: transparent;
 }
 .dg-modal .dg-btn-cancel:hover {
-  background: #a6a6af;
-  color: #27272a;
+  background: color-mix(in oklab, var(--dg-text) 15%, transparent);
+  color: var(--dg-text);
   opacity: 1;
 }
 
@@ -370,6 +372,7 @@
 /* Wide floating footer: floats across modal width with margin and rounded corners */
 .dg-modal-footer-wide,
 .dg-modal-footer.is-wide,
+/* .dg-modal-footer-expanded is a deprecated alias of .dg-modal-footer-wide (removed in 2.0). */
 .dg-modal-footer-expanded,
 .dg-modal-footer.is-expanded {
   position: absolute;
@@ -1009,4 +1012,28 @@
   }
   .dg-modal.is-glass.is-closing,
   :where([data-surface="glass"]) .dg-modal:not(.is-solid).is-closing { animation-name: dg-modal-solid-out; }
+}
+
+/* Status and confirmation modals (alerts): the footer belongs to the modal.
+   No floating box, fill, blur or shadow — the buttons sit centered on the
+   modal itself, so the alert follows the same corners and surface as the
+   rest of the system. Wins over the glass and reduced-transparency footer. */
+.dg-modal:is(.dg-modal-confirm, .dg-modal-accent, :has(> .dg-modal-status-hero)) > .dg-modal-footer.dg-modal-footer:not(.dg-modal-footer-flush, .is-flush) {
+  position: static;
+  transform: none;
+  align-self: stretch;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--dg-space-5) var(--dg-space-6);
+  justify-content: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.dg-modal:is(.dg-modal-confirm, .dg-modal-accent, :has(> .dg-modal-status-hero)) > .dg-modal-body {
+  padding-bottom: var(--dg-space-6);
 }

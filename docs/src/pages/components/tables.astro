@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/DocsLayout.astro";
-const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tablas"><a class="dg-btn dg-btn-outline dg-btn-sm" href="#basica">Tabla básica</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#alternada">Filas alternadas y hover</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#sin-radio">Sin esquinas redondeadas</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#bordes">Tabla con bordes</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#responsive">Tabla con desplazamiento horizontal</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#ordenable">Ordenamiento y selección</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#compacta">Cabecera fija</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#movil">Tarjetas en móvil</a></nav>
+const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tablas"><a class="dg-btn dg-btn-outline dg-btn-sm" href="#basica">Tabla básica</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#alternada">Filas alternadas y hover</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#bordes">Tabla con bordes</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#responsive">Tabla con desplazamiento horizontal</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#ordenable">Ordenamiento y selección</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#compacta">Cabecera fija</a><a class="dg-btn dg-btn-outline dg-btn-sm" href="#movil">Tarjetas en móvil</a></nav>
 <h2 class="doc-sub" id="basica">Tabla básica</h2>
 <p class="dg-muted dg-mb-4">Para listados sencillos con cabeceras y valores numéricos alineados. Todas las tablas resaltan sus filas al pasar el cursor. Su contenedor incluye scroll horizontal cuando el contenido no cabe, sin clases adicionales.</p>
 <div class="doc-example">
@@ -51,32 +51,6 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
     &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;16&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;/div&gt;</pre></div>
-</div>
-<h2 class="doc-sub" id="sin-radio">Sin esquinas redondeadas</h2>
-<p class="dg-muted dg-mb-4">Agrega <code>dg-table-square</code> al contenedor para usar <code>border-radius: 0</code>. Se puede combinar con las variantes compacta, con bordes o filas alternadas. Conserva el hover por defecto.</p>
-<div class="doc-example">
-<div class="doc-demo is-plain" style="display:block"><div class="dg-table-card dg-table-square" role="region" aria-label="Tabla con esquinas rectas" tabindex="0">
-  <table class="dg-table">
-    <caption class="dg-table-caption">Inventario de productos</caption>
-    <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="dg-cell-num">Precio</th></tr></thead>
-    <tbody>
-      <tr><td>Cuaderno editorial</td><td>Papelería</td><td class="dg-cell-num">$180.00</td></tr>
-      <tr><td>Lámpara de escritorio</td><td>Iluminación</td><td class="dg-cell-num">$950.00</td></tr>
-      <tr><td>Organizador modular</td><td>Accesorios</td><td class="dg-cell-num">$420.00</td></tr>
-    </tbody>
-  </table>
-</div></div>
-<div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card dg-table-square" role="region" aria-label="Tabla con esquinas rectas" tabindex="0"&gt;
-  &lt;table class="dg-table"&gt;
-    &lt;caption class="dg-table-caption"&gt;Inventario de productos&lt;/caption&gt;
-    &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Producto&lt;/th&gt;&lt;th scope="col"&gt;Categoría&lt;/th&gt;&lt;th scope="col" class="dg-cell-num"&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;&lt;td&gt;Cuaderno editorial&lt;/td&gt;&lt;td&gt;Papelería&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$180.00&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;Lámpara de escritorio&lt;/td&gt;&lt;td&gt;Iluminación&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$950.00&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;Organizador modular&lt;/td&gt;&lt;td&gt;Accesorios&lt;/td&gt;&lt;td class="dg-cell-num"&gt;$420.00&lt;/td&gt;&lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
 &lt;/div&gt;</pre></div>
 </div>
 <h2 class="doc-sub" id="bordes">Tabla con bordes</h2>
@@ -171,42 +145,7 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
         </div>
         <p class="dg-text-xs dg-faint dg-mt-3">Pulsa una cabecera con flecha para ordenar. El checkbox de la cabecera selecciona todas las filas.</p>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-table-card"&gt;
-  &lt;table class="dg-table dg-table-hover" data-dg-sortable&gt;
-    &lt;thead&gt;&lt;tr&gt;
-      &lt;th class="dg-cell-check"&gt;
-        &lt;label class="dg-check"&gt;&lt;input type="checkbox" /&gt;&lt;span class="dg-check-box"&gt;&lt;/span&gt;&lt;/label&gt;
-      &lt;/th&gt;
-      &lt;th class="dg-sortable"&gt;Cliente&lt;/th&gt;
-      &lt;th class="dg-sortable"&gt;Estado&lt;/th&gt;
-      &lt;th class="dg-sortable dg-cell-num"&gt;Total&lt;/th&gt;
-      &lt;th class="dg-text-right"&gt;Acciones&lt;/th&gt;
-    &lt;/tr&gt;&lt;/thead&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td class="dg-cell-check"&gt;
-          &lt;label class="dg-check"&gt;&lt;input type="checkbox" /&gt;&lt;span class="dg-check-box"&gt;&lt;/span&gt;&lt;/label&gt;
-        &lt;/td&gt;
-        &lt;td&gt;&lt;div class="dg-cell-user"&gt;&lt;span class="dg-avatar"&gt;AR&lt;/span&gt;Ana Rivas&lt;/div&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;span class="dg-badge dg-badge-dot dg-badge-success"&gt;Pagado&lt;/span&gt;&lt;/td&gt;
-        &lt;!-- data-sort: valor numérico usado para ordenar --&gt;
-        &lt;td class="dg-cell-num" data-sort="128"&gt;$128.00&lt;/td&gt;
-        &lt;td class="dg-text-right"&gt;
-          &lt;div class="dg-cell-actions"&gt;
-            &lt;button class="dg-icon-btn" aria-label="Editar"&gt;
-              &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-edit"&gt;&lt;/use&gt;&lt;/svg&gt;
-            &lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
-&lt;/div&gt;
-
-&lt;!-- data-dg-sortable + th.dg-sortable → ordena al hacer click (requiere dgarz.js).
-     Al ordenar se emite el evento "dg:sort" con { column, ascending }.
-     El checkbox de .dg-cell-check en thead selecciona todas las filas,
-     marca cada &lt;tr&gt; con .is-selected y emite "dg:select" con { selected, total }. --&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <h2 class="doc-sub" id="compacta">Compacta · filas alternadas · cabecera fija</h2>
@@ -227,24 +166,7 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
           </table>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;!-- .dg-table-sticky: cabecera fija con scroll vertical (alto máx. 360px) --&gt;
-&lt;div class="dg-table-card dg-table-sticky"&gt;
-  &lt;table class="dg-table dg-table-sm dg-table-striped"&gt;
-    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Componente&lt;/th&gt;&lt;th&gt;Clase&lt;/th&gt;&lt;th&gt;Estado&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td&gt;Botón&lt;/td&gt;
-        &lt;td&gt;&lt;code class="dg-code"&gt;.dg-btn&lt;/code&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;span class="dg-badge dg-badge-dot dg-badge-success"&gt;Listo&lt;/span&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      …
-    &lt;/tbody&gt;
-  &lt;/table&gt;
-&lt;/div&gt;
-
-&lt;!-- Tamaños: dg-table-sm · (default) · dg-table-lg
-     Para otra altura, añade p. ej. dg-h-200 al contenedor
-     (+ dg-scroll del app pack para una scrollbar fina) --&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <h2 class="doc-sub" id="movil">Tabla adaptada a móvil → tarjetas</h2>
@@ -296,51 +218,12 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
         <button type="button" id="tablePreviewHandle" role="slider" aria-label="Cambiar ancho de la tabla" aria-orientation="horizontal" aria-valuemin="320" aria-valuemax="1000" aria-valuenow="960" aria-describedby="tablePreviewHelp" title="Arrastra para cambiar el ancho"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-table-resize-icon d="m8 8-4 4 4 4m8-8 4 4-4 4M4 12h16"/></svg></button>
         </div>
       </div>
-      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre>&lt;!-- El contenedor adapta la tabla según su propio ancho --&gt;
-&lt;div class="dg-table-adaptive"&gt;
-&lt;!-- Desktop: se oculta hasta 768px --&gt;
-&lt;div class="dg-table-desktop"&gt;
-  &lt;table class="dg-table"&gt;…&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;!-- Móvil: se muestra hasta 768px, mismos datos --&gt;
-&lt;div class="dg-table-cards"&gt;
-  &lt;div class="dg-table-rowcard"&gt;
-    &lt;div class="dg-table-rowcard-row"&gt;
-      &lt;span class="dg-table-rowcard-label"&gt;Cliente&lt;/span&gt;
-      &lt;span class="dg-table-rowcard-value"&gt;Ana Rivas&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="dg-table-rowcard-row"&gt;
-      &lt;span class="dg-table-rowcard-label"&gt;Total&lt;/span&gt;
-      &lt;span class="dg-table-rowcard-value"&gt;$128.00&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="dg-table-rowcard-actions"&gt;
-      &lt;button class="dg-btn dg-btn-sm dg-btn-ghost"&gt;Ver&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;!-- Ambos bloques leen del mismo array de datos del lado del componente —
-     solo cambia el markup de presentación, no la lógica. --&gt;</pre></div>
+      <div class="doc-code" data-code-source="manual"><button class="cp">Copiar</button><pre></pre></div>
 </div>`;
 ---
 
 <Layout title="Tablas" lead="Tablas básicas, con bordes, filas alternadas, scroll horizontal y tarjetas en móvil. Ejemplos y código en una sola sección." currentHref="/components/tables">
-  <section class="dg-mb-5" aria-labelledby="table-corners-label">
-    <h2 class="doc-sub" id="table-corners-label">Esquinas de las tablas</h2>
-    <p class="dg-muted dg-mb-3">Elige un acabado para probarlo en las tablas de esta página.</p>
-    <div class="dg-segmented" id="tableCorners" role="group" aria-labelledby="table-corners-label">
-      <button type="button" data-corners="default" class="is-active" aria-pressed="true">Original</button>
-      <button type="button" data-corners="rounded" aria-pressed="false">Redondeadas</button>
-      <button type="button" data-corners="square" aria-pressed="false">Rectas · sin radius</button>
-    </div>
-    <p class="dg-text-sm dg-mt-3" id="tableCornersHint" aria-live="polite">Cada ejemplo conserva su acabado original.</p>
-  </section>
-  <div id="tableExamples" data-corners="default">
-    <Fragment set:html={pageContent} />
-  </div>
+  <Fragment set:html={pageContent} />
 </Layout>
 
 <style is:global>
@@ -349,14 +232,12 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
   #tableMobilePreview { width: 100%; }
   #tablePreviewHandle {
     position: absolute; right: -48px; top: 50%; transform: translateY(-50%);
-    width: 32px; height: 44px; padding: 0; border: 0; border-radius: 12px;
+    width: 32px; height: 44px; padding: 0; border: 0; border-radius: 0;
     display: flex; align-items: center; justify-content: center;
     background: #0b0b0c; color: #fff; cursor: ew-resize;
     touch-action: none; user-select: none; z-index: 2;
   }
   #tablePreviewHandle:hover, #tablePreviewHandle:active { background: #3f3f46; }
-  #tableExamples[data-corners="square"] .doc-demo :is(.dg-table-card, .dg-table-rowcard) { border-radius: 0; }
-  #tableExamples[data-corners="rounded"] .doc-demo :is(.dg-table-card, .dg-table-rowcard) { border-radius: var(--dg-radius-lg); }
 </style>
 <script>
   const widthHandle = document.querySelector<HTMLButtonElement>('#tablePreviewHandle');
@@ -439,21 +320,4 @@ const pageContent = `<nav class="dg-cluster dg-mb-5" aria-label="Ejemplos de tab
       updateTableWidth(Number(widthHandle?.getAttribute('aria-valuenow') ?? maximum));
     }).observe(stage);
   }
-  const corners = document.getElementById('tableCorners');
-  const examples = document.getElementById('tableExamples');
-  const hint = document.getElementById('tableCornersHint');
-  corners?.querySelectorAll<HTMLButtonElement>('button[data-corners]').forEach(button => {
-    button.addEventListener('click', () => {
-      const value = button.dataset.corners!;
-      examples!.dataset.corners = value;
-      corners.querySelectorAll('button').forEach(option => {
-        option.classList.toggle('is-active', option === button);
-        option.setAttribute('aria-pressed', String(option === button));
-      });
-      hint!.textContent = value === 'square'
-        ? 'Esquinas rectas. Para usarlas en tu proyecto, agrega dg-table-square al contenedor.'
-        : value === 'rounded' ? 'Esquinas redondeadas con el radio del tema.'
-        : 'Cada ejemplo conserva su acabado original.';
-    });
-  });
 </script>

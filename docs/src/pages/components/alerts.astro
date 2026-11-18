@@ -39,10 +39,7 @@ const pageContent = `<div class="doc-sub">Neutral</div>
           <div class="dg-alert-body"><div class="dg-alert-title">Error</div>No se pudo conectar con el servidor.</div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-alert dg-alert-info"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-alert-success"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-alert-warning"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-alert-danger"&gt;…&lt;/div&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub">Variantes sólidas</div>
@@ -66,10 +63,7 @@ const pageContent = `<div class="doc-sub">Neutral</div>
           <div class="dg-alert-body"><div class="dg-alert-title">Error</div>No se pudo conectar con el servidor.</div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-alert dg-bg-info dg-border-transparent"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-bg-success dg-border-transparent"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-bg-warning dg-border-transparent"&gt;…&lt;/div&gt;
-&lt;div class="dg-alert dg-bg-danger dg-border-transparent"&gt;…&lt;/div&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub">Descartable (con botón de cierre)</div>
@@ -84,13 +78,7 @@ const pageContent = `<div class="doc-sub">Neutral</div>
           </button>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-alert dg-bg-info dg-border-transparent"&gt;
-  &lt;div class="dg-alert-body"&gt;…&lt;/div&gt;
-  &lt;!-- .dg-alert-close empuja el botón a la derecha --&gt;
-  &lt;button class="dg-alert-close" onclick="this.closest('.dg-alert').remove()"&gt;
-    &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="dgarz-icons.svg#dg-x"&gt;&lt;/use&gt;&lt;/svg&gt;
-  &lt;/button&gt;
-&lt;/div&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub dg-mt-7">Glass</div>
@@ -117,6 +105,6 @@ const pageContent = `<div class="doc-sub">Neutral</div>
 </div>`;
 ---
 
-<Layout title="Alerts" lead="Mensajes de contexto con variantes de color." currentHref="/components/alerts">
+<Layout title="Avisos" lead="Mensajes en línea dentro de la página, con variantes de color. Para avisos en un modal, usa Alertas." currentHref="/components/alerts">
   <Fragment set:html={pageContent} />
 </Layout>

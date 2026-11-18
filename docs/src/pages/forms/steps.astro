@@ -11,28 +11,7 @@ const pageContent = `<div class="doc-sub">Horizontal</div>
           <div class="dg-step"><span class="dg-step-dot">4</span><span class="dg-step-label">Listo</span></div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-steps" data-dg-steps-play&gt;
-  &lt;div class="dg-step is-done"&gt;
-    &lt;span class="dg-step-dot"&gt;
-      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="#dg-check"/&gt;&lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class="dg-step-label"&gt;Cuenta&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-step is-done"&gt;
-    &lt;span class="dg-step-dot"&gt;
-      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="#dg-check"/&gt;&lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class="dg-step-label"&gt;Perfil&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-step is-active"&gt;
-    &lt;span class="dg-step-dot"&gt;3&lt;/span&gt;
-    &lt;span class="dg-step-label"&gt;Pago&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-step"&gt;
-    &lt;span class="dg-step-dot"&gt;4&lt;/span&gt;
-    &lt;span class="dg-step-label"&gt;Listo&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</pre></div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
 </div>
 
       <div class="doc-sub">Vertical con descripción</div>
@@ -45,34 +24,36 @@ const pageContent = `<div class="doc-sub">Horizontal</div>
           <div class="dg-step"><span class="dg-step-dot">3</span><div class="dg-step-body"><div class="dg-step-label">Confirmación</div><div class="dg-step-desc">Revisa y finaliza tu registro.</div></div></div>
         </div>
       </div>
-      <div class="doc-code"><button class="cp">Copiar</button><pre>&lt;div class="dg-steps dg-steps-vertical" data-dg-steps-play&gt;
-  &lt;div class="dg-step is-done"&gt;
-    &lt;span class="dg-step-dot"&gt;
-      &lt;svg class="dg-icon dg-icon-sm"&gt;&lt;use href="#dg-check"/&gt;&lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;div class="dg-step-body"&gt;
-      &lt;div class="dg-step-label"&gt;Crear cuenta&lt;/div&gt;
-      &lt;div class="dg-step-desc"&gt;Email verificado correctamente.&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-step is-active"&gt;
-    &lt;span class="dg-step-dot"&gt;2&lt;/span&gt;
-    &lt;div class="dg-step-body"&gt;
-      &lt;div class="dg-step-label"&gt;Datos de pago&lt;/div&gt;
-      &lt;div class="dg-step-desc"&gt;Añade un método de pago para continuar.&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class="dg-step"&gt;
-    &lt;span class="dg-step-dot"&gt;3&lt;/span&gt;
-    &lt;div class="dg-step-body"&gt;
-      &lt;div class="dg-step-label"&gt;Confirmación&lt;/div&gt;
-      &lt;div class="dg-step-desc"&gt;Revisa y finaliza tu registro.&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</pre></div>
-</div>`;
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+      <div class="doc-sub">Formulario por pasos</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Combina los pasos con el panel del paso actual y sus acciones. El paso activo se marca con <code class="dg-code">.is-active</code> y los completados con <code class="dg-code">.is-done</code>; tu aplicación cambia esas clases al avanzar o retroceder.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-6 dg-max-w-xl">
+          <div class="dg-steps">
+            <div class="dg-step is-done"><span class="dg-step-dot"><svg class="dg-icon dg-icon-sm"><use href="#dg-check"/></svg></span><span class="dg-step-label">Cuenta</span></div>
+            <div class="dg-step is-active"><span class="dg-step-dot">2</span><span class="dg-step-label">Envío</span></div>
+            <div class="dg-step"><span class="dg-step-dot">3</span><span class="dg-step-label">Pago</span></div>
+          </div>
+          <div class="dg-stack dg-gap-4">
+            <div class="dg-field"><label class="dg-label" for="wz-addr">Dirección</label><input class="dg-input" id="wz-addr" placeholder="Calle y número" /></div>
+            <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-gap-4">
+              <div class="dg-field"><label class="dg-label" for="wz-city">Ciudad</label><input class="dg-input" id="wz-city" /></div>
+              <div class="dg-field"><label class="dg-label" for="wz-zip">Código postal</label><input class="dg-input" id="wz-zip" data-mask="zip" /></div>
+            </div>
+          </div>
+          <div class="dg-flex dg-justify-between">
+            <button type="button" class="dg-btn dg-btn-subtle">Anterior</button>
+            <button type="button" class="dg-btn-primary">Siguiente</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+`;
 ---
 
-<Layout title="Steps" lead="Indicador de pasos para flujos multi-etapa." currentHref="/app-pack/steps">
+<Layout title="Formulario por pasos" lead="Indicador de pasos para flujos de varias etapas, y cómo combinarlo con un formulario." currentHref="/forms/steps">
   <Fragment set:html={pageContent} />
 </Layout>

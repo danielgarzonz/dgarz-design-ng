@@ -7,7 +7,7 @@
   background: var(--dg-surface-3); color: var(--dg-text); border: 1px solid var(--dg-border);
 }
 .dg-badge-solid { background: var(--dg-solid); color: var(--dg-on-solid); border-color: transparent; }
-.dg-badge-outline { background: transparent; border-color: var(--dg-border-strong); }
+.dg-badge-outline { background: transparent; border-color: var(--dg-border); }
 .dg-badge-success { background: var(--dg-success-bg); color: var(--dg-on-success-subtle); border-color: transparent; }
 .dg-badge-warning { background: var(--dg-warning-bg); color: var(--dg-on-warning-subtle); border-color: transparent; }
 .dg-badge-danger { background: var(--dg-danger-bg); color: var(--dg-on-danger-subtle); border-color: transparent; }

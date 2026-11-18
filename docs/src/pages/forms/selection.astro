@@ -1,0 +1,167 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Checkbox y Radio</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Los checkboxes y radios personalizados usan un <code class="dg-code">&lt;input hidden&gt;</code>
+        dentro de un <code class="dg-code">.dg-check</code>. El elemento visual es <code class="dg-code">.dg-check-box</code>;
+        para el radio, añade <code class="dg-code">.dg-radio</code> al mismo elemento.
+      </p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-row">
+          <div class="dg-col-12 dg-col-md-6">
+            <p class="dg-text-sm dg-fw-medium dg-mb-3">Checkboxes</p>
+            <div class="dg-stack dg-gap-3">
+              <label class="dg-check"><input type="checkbox" checked /><span class="dg-check-box"></span> Acepto los términos</label>
+              <label class="dg-check"><input type="checkbox" /><span class="dg-check-box"></span> Suscribirse al newsletter</label>
+              <label class="dg-check"><input type="checkbox" disabled /><span class="dg-check-box"></span> <span class="dg-faint">No disponible</span></label>
+            </div>
+          </div>
+          <div class="dg-col-12 dg-col-md-6">
+            <p class="dg-text-sm dg-fw-medium dg-mb-3">Radios</p>
+            <div class="dg-stack dg-gap-3">
+              <label class="dg-check"><input type="radio" name="plan" checked /><span class="dg-check-box dg-radio"></span> Plan Free</label>
+              <label class="dg-check"><input type="radio" name="plan" /><span class="dg-check-box dg-radio"></span> Plan Pro — $12/mes</label>
+              <label class="dg-check"><input type="radio" name="plan" /><span class="dg-check-box dg-radio"></span> Plan Studio — $29/mes</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Opciones en tarjeta</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Un radio o un checkbox con forma de tarjeta: todo el bloque se puede pulsar y la opción elegida se marca con una línea. Se arma con <code class="dg-code">.dg-check.dg-option-card</code> y las piezas <code class="dg-code">-body</code>, <code class="dg-code">-title</code>, <code class="dg-code">-desc</code> y <code class="dg-code">-meta</code>. Ideal para planes, métodos de envío o de pago.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-3 dg-gap-3" role="radiogroup" aria-label="Plan">
+            <label class="dg-check dg-option-card"><input type="radio" name="oc-plan" /><span class="dg-check-box dg-radio"></span><span class="dg-option-card-body"><span class="dg-option-card-title">Personal</span><span class="dg-option-card-desc">Un proyecto, 5 GB.</span></span><span class="dg-option-card-meta">$0</span></label>
+            <label class="dg-check dg-option-card"><input type="radio" name="oc-plan" checked /><span class="dg-check-box dg-radio"></span><span class="dg-option-card-body"><span class="dg-option-card-title">Estudio</span><span class="dg-option-card-desc">Proyectos ilimitados, 100 GB.</span></span><span class="dg-option-card-meta">$12</span></label>
+            <label class="dg-check dg-option-card"><input type="radio" name="oc-plan" /><span class="dg-check-box dg-radio"></span><span class="dg-option-card-body"><span class="dg-option-card-title">Equipo</span><span class="dg-option-card-desc">Hasta 20 personas, 1 TB.</span></span><span class="dg-option-card-meta">$39</span></label>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Opción múltiple en tarjeta</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con checkbox, cada tarjeta se marca por separado.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-grid dg-grid-cols-1 dg-md-grid-cols-2 dg-gap-3 dg-max-w-xl">
+            <label class="dg-check dg-option-card"><input type="checkbox" name="oc-extra-1" checked /><span class="dg-check-box"></span><span class="dg-option-card-body"><span class="dg-option-card-title">Dominio propio</span><span class="dg-option-card-desc">Conecta tu dirección web.</span></span><span class="dg-option-card-meta">+$4</span></label>
+            <label class="dg-check dg-option-card"><input type="checkbox" name="oc-extra-2" /><span class="dg-check-box"></span><span class="dg-option-card-body"><span class="dg-option-card-title">Copias diarias</span><span class="dg-option-card-desc">Recupera cualquier día de los últimos 30.</span></span><span class="dg-option-card-meta">+$6</span></label>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Switch / Toggle</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">
+        Igual que el checkbox pero con aspecto de interruptor. Usa el mismo
+        patrón: <code class="dg-code">&lt;input&gt;</code> oculto dentro de <code class="dg-code">.dg-switch</code>,
+        y <code class="dg-code">.dg-switch-track</code> como indicador visual.
+      </p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-stack dg-gap-3">
+          <label class="dg-switch"><input type="checkbox" checked /><span class="dg-switch-track"></span> Notificaciones por correo</label>
+          <label class="dg-switch"><input type="checkbox" /><span class="dg-switch-track"></span> Modo compacto</label>
+          <label class="dg-switch"><input type="checkbox" checked disabled /><span class="dg-switch-track"></span> <span class="dg-faint">Activado (bloqueado)</span></label>
+        </div>
+      </div>
+      <div class="doc-code"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Opción múltiple (combobox)</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-combobox</code> permite elegir varias opciones, que aparecen como etiquetas dentro del campo. Se puede escribir para filtrar, navegar con las flechas y quitar cada etiqueta con su ×. Emite el evento <code class="dg-code">dg:change</code> con la selección.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-md">
+          <label class="dg-label">Países</label>
+          <div class="dg-combobox" data-placeholder="Elige países">
+            <div class="dg-combobox-control"><input class="dg-combobox-input" type="text" aria-label="Elige países" /></div>
+            <div class="dg-combobox-dropdown" hidden><div class="dg-combobox-list" role="listbox"><div class="dg-combobox-option" data-value="mx" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">México</span></div><div class="dg-combobox-option" data-value="co" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Colombia</span></div><div class="dg-combobox-option" data-value="ar" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Argentina</span></div><div class="dg-combobox-option" data-value="cl" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Chile</span></div><div class="dg-combobox-option" data-value="pe" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Perú</span></div><div class="dg-combobox-option" data-value="es" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">España</span></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Selección simple con búsqueda</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">data-single</code> el combobox elige una sola opción: un select con buscador, útil cuando la lista es larga.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-md">
+          <label class="dg-label">Zona horaria</label>
+          <div class="dg-combobox" data-single data-placeholder="Busca una zona">
+            <div class="dg-combobox-control"><input class="dg-combobox-input" type="text" aria-label="Busca una zona" /></div>
+            <div class="dg-combobox-dropdown" hidden><div class="dg-combobox-list" role="listbox"><div class="dg-combobox-option" data-value="cdmx" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Ciudad de México (GMT−6)</span></div><div class="dg-combobox-option" data-value="bog" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Bogotá (GMT−5)</span></div><div class="dg-combobox-option" data-value="bue" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Buenos Aires (GMT−3)</span></div><div class="dg-combobox-option" data-value="mad" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Madrid (GMT+1)</span></div><div class="dg-combobox-option" data-value="nyc" role="option"><span class="dg-combobox-check"></span><span class="dg-combobox-label">Nueva York (GMT−5)</span></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Slider de rango</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-range</code> da estilo a un control para elegir un valor dentro de un intervalo.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain dg-stack dg-max-w-sm">
+        <div class="dg-field">
+          <label class="dg-label" for="rg-budget">Presupuesto: $600</label>
+          <input class="dg-range" id="rg-budget" type="range" min="0" max="1000" value="600" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Valoración</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-rating</code> son radios nativos con forma de estrella, en orden del 1 al 5: se envían con el formulario, se manejan con las flechas del teclado y no necesitan JavaScript. Al pasar el puntero se previsualiza la nota y al elegirla la estrella hace un pequeño salto. Toma el color del texto. Cambia el tamaño con <code class="dg-code">dg-text-*</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <fieldset class="dg-fieldset">
+          <legend class="dg-legend">¿Qué te pareció el taller?</legend>
+          <div class="dg-rating">
+            <input type="radio" id="rt-workshop-1" name="rt-workshop" value="1" />
+            <label for="rt-workshop-1"><span class="dg-sr-only">1 estrella</span></label>
+            <input type="radio" id="rt-workshop-2" name="rt-workshop" value="2" />
+            <label for="rt-workshop-2"><span class="dg-sr-only">2 estrellas</span></label>
+            <input type="radio" id="rt-workshop-3" name="rt-workshop" value="3" />
+            <label for="rt-workshop-3"><span class="dg-sr-only">3 estrellas</span></label>
+            <input type="radio" id="rt-workshop-4" name="rt-workshop" value="4" />
+            <label for="rt-workshop-4"><span class="dg-sr-only">4 estrellas</span></label>
+            <input type="radio" id="rt-workshop-5" name="rt-workshop" value="5" />
+            <label for="rt-workshop-5"><span class="dg-sr-only">5 estrellas</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Valoración de solo lectura</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Para mostrar una nota sin que se pueda cambiar, marca la opción con <code class="dg-code">checked</code> y desactiva las demás con <code class="dg-code">disabled</code>. Aquí, más pequeña, con <code class="dg-code">dg-text-base</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-flex dg-items-center dg-gap-3">
+          <div class="dg-rating dg-text-base" role="img" aria-label="4 de 5 estrellas">
+            <input type="radio" id="rt-avg-1" name="rt-avg" value="1" disabled />
+            <label for="rt-avg-1"><span class="dg-sr-only">1 estrella</span></label>
+            <input type="radio" id="rt-avg-2" name="rt-avg" value="2" disabled />
+            <label for="rt-avg-2"><span class="dg-sr-only">2 estrellas</span></label>
+            <input type="radio" id="rt-avg-3" name="rt-avg" value="3" disabled />
+            <label for="rt-avg-3"><span class="dg-sr-only">3 estrellas</span></label>
+            <input type="radio" id="rt-avg-4" name="rt-avg" value="4" checked disabled />
+            <label for="rt-avg-4"><span class="dg-sr-only">4 estrellas</span></label>
+            <input type="radio" id="rt-avg-5" name="rt-avg" value="5" disabled />
+            <label for="rt-avg-5"><span class="dg-sr-only">5 estrellas</span></label>
+          </div>
+          <span class="dg-text-sm dg-muted">4,0 · 128 reseñas</span>
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>`;
+---
+
+<Layout title="Selección" lead="Checkbox, radio, tarjetas, switch, opción múltiple, slider y valoración." currentHref="/forms/selection">
+  <Fragment set:html={pageContent} />
+</Layout>

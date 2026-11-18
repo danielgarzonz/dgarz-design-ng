@@ -8,6 +8,12 @@
 
 .dg-spinner { width: 1.2em; height: 1.2em; border: 2px solid var(--dg-border-strong); border-top-color: var(--dg-text); border-radius: 50%; animation: dg-spin .7s linear infinite; }
 @keyframes dg-spin { to { transform: rotate(360deg); } }
+/* Inside a button it takes the button's text color (white on a solid
+   button, dark on a subtle one) instead of the page's text color. */
+:where(.dg-btn, [class^="dg-btn-"], [class*=" dg-btn-"]) .dg-spinner {
+  border-color: color-mix(in oklab, currentColor 30%, transparent);
+  border-top-color: currentColor;
+}
 
 .dg-tooltip { position: relative; display: inline-flex; }
 .dg-tooltip::after {

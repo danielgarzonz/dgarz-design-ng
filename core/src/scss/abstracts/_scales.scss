@@ -92,11 +92,11 @@ $gap: ();
 
 // ---- Groups: sizes ------------------------------------------
 $fit: (auto: auto, fit: fit-content, min: min-content, max: max-content);
-$width: sizes('w', width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: $fit);
+$width: sizes('w', width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: map.merge($fit, (full: 100%, screen: 100vw)));
 $min-width: sizes('min-w', min-width, $with-pct: (), $keywords: (full: 100%, fit: fit-content));
-$max-width: map.merge(sizes('max-w', max-width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: (none: none)), ());
+$max-width: map.merge(sizes('max-w', max-width, $with-pct: $pct, $with-view: $quarters, $view-unit: vw, $keywords: (none: none, full: 100%)), ());
 @each $n in $px-wide { $max-width: map.merge($max-width, ('max-w-#{$n}': (max-width: $n * 1px))); }
-$height: sizes('h', height, $with-pct: $quarters, $with-view: $quarters, $keywords: (auto: auto, fit: fit-content));
+$height: sizes('h', height, $with-pct: $quarters, $with-view: $quarters, $keywords: (auto: auto, fit: fit-content, full: 100%));
 $min-height: sizes('min-h', min-height, $with-view: $quarters, $keywords: (full: 100%));
 $max-height: sizes('max-h', max-height, $with-view: $quarters, $keywords: (full: 100%, none: none));
 $square: ();
@@ -147,7 +147,7 @@ $extra: (
   // display
   contents: (display: contents), flow-root: (display: flow-root), inline-grid: (display: inline-grid),
   // flex
-  flex-auto: (flex: 1 1 auto), flex-none: (flex: none), justify-evenly: (justify-content: space-evenly),
+  flex-auto: (flex: 1 1 auto), /* deprecated alias of .dg-grow */ flex-none: (flex: none), justify-evenly: (justify-content: space-evenly),
   // type
   text-justify: (text-align: justify), text-start: (text-align: start), text-end: (text-align: end),
   lowercase: (text-transform: lowercase), capitalize: (text-transform: capitalize), normal-case: (text-transform: none),
@@ -172,6 +172,7 @@ $extra: (
 $grays: (0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950);
 $color: (text-current: (color: currentColor), text-inherit: (color: inherit), bg-transparent: (background-color: transparent));
 @each $g in $grays {
+  // Deprecated (removed in 2.0): the gray scale. Use .dg-muted / .dg-faint or the surfaces.
   $color: map.merge($color, ('text-gray-#{$g}': (color: var(--dg-#{$g})), 'bg-gray-#{$g}': (background-color: var(--dg-#{$g}))));
 }
 
@@ -297,6 +298,7 @@ $line: color-mix(in oklab, currentColor 18%, transparent);
   // Space and lines between children (lines are a 1px background, so the
   // flat reset that removes borders leaves them alone).
   @each $k, $v in $space {
+    // Deprecated (removed in 2.0): use .dg-stack / .dg-cluster + .dg-gap-*.
     .dg-space-y-#{$k} > * + * { margin-top: $v; }
     .dg-space-x-#{$k} > * + * { margin-left: $v; }
   }

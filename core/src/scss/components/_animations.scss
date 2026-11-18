@@ -215,16 +215,23 @@
   transform: translateY(16px);
   transition: transform var(--dg-dur-slow) var(--dg-ease-motion);
 }
+/* Direction modifiers (dg-reveal stays the hook the script observes):
+   dg-reveal-down comes down, -left in from the left, -right from the right. */
+.dg-reveal.dg-reveal-down  { transform: translateY(-16px); }
+.dg-reveal.dg-reveal-left  { transform: translateX(-16px); }
+.dg-reveal.dg-reveal-right { transform: translateX(16px); }
 .dg-reveal.is-visible { transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .dg-reveal { transform: none; transition: none; }
+  .dg-reveal, .dg-reveal:is(.dg-reveal-down, .dg-reveal-left, .dg-reveal-right) { transform: none; transition: none; }
 }
 @media print {
-  .dg-reveal { transform: none; }
+  .dg-reveal, .dg-reveal:is(.dg-reveal-down, .dg-reveal-left, .dg-reveal-right) { transform: none; }
 }
 
 /* ============================================================
-   ENTRANCE ANIMATIONS — fade-in-{up,down,left,right}, pop-in
+   ENTRANCE ANIMATIONS — fade-in-{up,down,left,right}, pop-in, fade-in,
+   zoom-{in,out}, blur-in(-up,-down,-left,-right), rise-in(-left,-right),
+   drop-in
    Play on mount (no JS/observer needed). Combine with
    .dg-delay-1..16 to stagger a group of elements.
    ============================================================ */
@@ -239,6 +246,53 @@
 .dg-fade-in-left  { animation-name: dg-fade-in-left;  animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
 .dg-fade-in-right { animation-name: dg-fade-in-right; animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards; }
 .dg-pop-in        { animation-name: dg-pop-in;        animation-duration: .7s; animation-timing-function: cubic-bezier(.34,1.56,.64,1); animation-fill-mode: backwards; }
+
+/* ---- More entrances: plain fade, zoom, blur and rise ----
+   Same contract as the fades above: they play on mount, the backwards fill
+   keeps the element hidden during its delay, and nothing is left on the
+   element once they end (no transform, filter or clip stays applied).
+   .dg-anim-slow / -slower / -none change them like the rest. */
+@keyframes dg-fade-in     { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dg-zoom-in     { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes dg-zoom-out    { from { opacity: 0; transform: scale(1.15); } to { opacity: 1; transform: scale(1); } }
+@keyframes dg-blur-in     { from { opacity: 0; filter: blur(16px); } to { opacity: 1; filter: blur(0); } }
+@keyframes dg-blur-in-up  { from { opacity: 0; filter: blur(12px); transform: translateY(24px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+@keyframes dg-blur-in-down  { from { opacity: 0; filter: blur(12px); transform: translateY(-24px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+@keyframes dg-blur-in-left  { from { opacity: 0; filter: blur(12px); transform: translateX(-24px); } to { opacity: 1; filter: blur(0); transform: translateX(0); } }
+@keyframes dg-blur-in-right { from { opacity: 0; filter: blur(12px); transform: translateX(24px); } to { opacity: 1; filter: blur(0); transform: translateX(0); } }
+/* Rise: the element comes up out of its own bottom edge, as if from the
+   ground. The clip moves with the transform and always ends at the box's
+   original baseline, so no wrapper with overflow hidden is needed. Use one
+   block element per line for headings. */
+@keyframes dg-rise-in     { from { transform: translateY(100%); clip-path: inset(0 0 100% 0); } to { transform: translateY(0); clip-path: inset(0 0 0 0); } }
+/* Drop: the mirror, down from its own top edge. */
+@keyframes dg-drop-in     { from { transform: translateY(-100%); clip-path: inset(100% 0 0 0); } to { transform: translateY(0); clip-path: inset(0 0 0 0); } }
+/* Sideways: out of its own left edge (moving right) or its right edge
+   (moving left); same naming as dg-fade-in-left/-right (where it comes from). */
+@keyframes dg-rise-in-left  { from { transform: translateX(-100%); clip-path: inset(0 0 0 100%); } to { transform: translateX(0); clip-path: inset(0 0 0 0); } }
+@keyframes dg-rise-in-right { from { transform: translateX(100%); clip-path: inset(0 100% 0 0); } to { transform: translateX(0); clip-path: inset(0 0 0 0); } }
+
+.dg-fade-in, .dg-zoom-in, .dg-zoom-out,
+.dg-blur-in, .dg-blur-in-up, .dg-blur-in-down, .dg-blur-in-left, .dg-blur-in-right,
+.dg-rise-in, .dg-drop-in, .dg-rise-in-left, .dg-rise-in-right {
+  animation-duration: .6s; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-fill-mode: backwards;
+}
+.dg-fade-in    { animation-name: dg-fade-in; }
+.dg-zoom-in    { animation-name: dg-zoom-in; }
+.dg-zoom-out   { animation-name: dg-zoom-out; }
+.dg-blur-in    { animation-name: dg-blur-in;    animation-duration: .8s; }
+.dg-blur-in-up { animation-name: dg-blur-in-up; animation-duration: .8s; }
+.dg-blur-in-down  { animation-name: dg-blur-in-down;  animation-duration: .8s; }
+.dg-blur-in-left  { animation-name: dg-blur-in-left;  animation-duration: .8s; }
+.dg-blur-in-right { animation-name: dg-blur-in-right; animation-duration: .8s; }
+.dg-rise-in    { animation-name: dg-rise-in;    animation-duration: .8s; }
+.dg-drop-in    { animation-name: dg-drop-in;    animation-duration: .8s; }
+.dg-rise-in-left  { animation-name: dg-rise-in-left;  animation-duration: .8s; }
+.dg-rise-in-right { animation-name: dg-rise-in-right; animation-duration: .8s; }
+
+/* Set by dgarz.js on entrances below the fold until they scroll into view:
+   paused at the start, the backwards fill keeps them hidden. */
+.dg-anim-wait { animation-play-state: paused; }
 
 /* Stagger delays — 100ms increments, 16 steps */
 @for $i from 1 through 16 {

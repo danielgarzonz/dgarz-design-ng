@@ -1,6 +1,6 @@
 {
   "name": "dgarz-design",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Corporate, omnichannel component design system built with Stencil.js Web Components, native CSS and design tokens.",
   "main": "dist/dgarz.js",
   "module": "dist/dgarz.esm.js",
@@ -74,7 +74,8 @@
     "build": "npm run build:components && npm run build:legacy",
     "dev": "npm run build:components && stencil build --watch --dev --buildDist --max-workers=2",
     "prepublishOnly": "npm run build",
-    "build:legacy": "npm run build:css && npm run build:css:min && npm run build:js && npm run build:icons",
+    "build:legacy": "npm run build:css && npm run build:css:min && npm run build:js && npm run build:icons && npm run build:deprecated",
+    "build:deprecated": "node -e \"require('fs').copyFileSync('src/deprecated-classes.json', 'dist/deprecated-classes.json')\"",
     "build:components": "node scripts/build-components.mjs --clean && stencil build --prod --max-workers=2 && node scripts/build-components.mjs",
     "dev:legacy": "sass --watch src/scss/dgarz.scss:dist/dgarz.css src/scss/dgarz-full.scss:dist/dgarz.full.css src/scss/dgarz-app.scss:dist/dgarz-app.css --no-source-map",
     "test": "vitest run",

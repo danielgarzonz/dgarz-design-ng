@@ -45,7 +45,7 @@ function is(name: string) {
     <span class="dg-muted">{example.tag} / {example.components.slice(0, 2).join(" · ")}</span>
   </div>
 
-  <div data-theme={example.skin === "dark" ? "dark" : undefined} class:list={["dg-rounded-xl dg-overflow-hidden dg-p-5 dg-min-h-420", skinClass]}>
+  <div data-doc-scope data-theme={example.skin === "dark" ? "dark" : undefined} class:list={["dg-rounded-xl dg-overflow-hidden dg-p-5 dg-min-h-420", skinClass]}>
     {example.tag === "Desktop" && (
       <div class="dg-stack dg-gap-4">
 
@@ -264,7 +264,7 @@ function is(name: string) {
                     { name: "Javier Luna", text: "Can you share the staging link once the pricing table is live?", time: "3h", initials: "JL" },
                   ].map((c) => (
                     <div class:list={["dg-list-item", c.active && "dg-bg-surface-2"]}>
-                      {c.img ? <img class="dg-avatar dg-no-shrink" src={c.img} alt="" loading="lazy" /> : <span class="dg-avatar dg-no-shrink">{c.initials}</span>}
+                      {c.img ? <img class="dg-avatar dg-shrink-0" src={c.img} alt="" loading="lazy" /> : <span class="dg-avatar dg-shrink-0">{c.initials}</span>}
                       <div class="dg-min-w-0">
                         <div class="dg-list-title">{c.name}</div>
                         <div class="dg-list-meta dg-truncate">{c.text}</div>
@@ -489,13 +489,13 @@ function is(name: string) {
                 <p class="dg-text-sm dg-muted">Continue with your email or social provider.</p>
               </div>
               <div class="dg-stack dg-gap-3">
-                <div class="dg-float-field">
-                  <input class="dg-input" id="mLoginEmail" type="email" placeholder=" " />
-                  <label for="mLoginEmail">Email address</label>
+                <div class="dg-field">
+                  <label class="dg-label" for="mLoginEmail">Email address</label>
+                  <input class="dg-input" id="mLoginEmail" type="email" />
                 </div>
-                <div class="dg-float-field">
-                  <input class="dg-input" id="mLoginPw" type="password" placeholder=" " />
-                  <label for="mLoginPw">Password</label>
+                <div class="dg-field">
+                  <label class="dg-label" for="mLoginPw">Password</label>
+                  <input class="dg-input" id="mLoginPw" type="password" />
                 </div>
                 <button class="dg-btn dg-btn-gradient dg-btn-block">Log in</button>
                 <div class="dg-divider-label">o</div>

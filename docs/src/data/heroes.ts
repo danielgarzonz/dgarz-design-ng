@@ -320,7 +320,7 @@ export const heroes: Hero[] = [
   </header>
   <!-- El carrusel sube sobre el título (dg-overlap-20): se ve el 80% superior de la palabra -->
   <div class="dg-cq dg-grow dg-flex dg-flex-col dg-justify-center dg-pt-3">
-    <h1 class="dg-text-center dg-fit-7 dg-fit-cap-40 dg-leading-none dg-tracking-tight dg-overlap-20 dg-mb-0 dg-fade-in-up dg-anim-slower dg-delay-2">Imagen</h1>
+    <h1 class="dg-font-serif dg-fw-medium dg-text-center dg-fit-7 dg-fit-cap-40 dg-leading-none dg-tracking-tight dg-overlap-20 dg-mb-0 dg-fade-in-up dg-anim-slower dg-delay-2">Imagen</h1>
     <div class="dg-carousel dg-carousel-focus dg-relative dg-z-10 dg-w-full" data-dg-carousel data-dg-carousel-autoplay="3000" aria-label="Trabajo reciente">
       <div class="dg-carousel-inner">
       <div class="dg-carousel-item">
@@ -436,7 +436,7 @@ export const heroes: Hero[] = [
     id: "altera",
     title: "Constructora con collage",
     summary: "Título serif en dos líneas, un collage de tres fotos encimadas y una lista de proyectos con flechas.",
-    desc: "Solo clases del framework. Fondo dg-bg-sand y todo dentro de un dg-container en columna de pantalla completa. Cabecera con dos menús dg-flex-1 a los lados, así la marca queda al centro exacto (en móvil, marca y menú de dos líneas). El título usa dg-font-serif con dg-fit-12 dentro de una columna dg-cq; la segunda línea va en dg-italic dg-text-muted. El collage es un bloque dg-relative: la foto principal al 80% del ancho y dg-h-50vh, y dos fotos de dg-h-25vh dg-absolute encima (arriba a la derecha con dg-top-5 dg-right-0, abajo con dg-top-75p dg-left-50p). La lista de proyectos son enlaces dg-flex dg-justify-between con líneas dg-h-px dg-bg-current dg-opacity-25 (el reset del framework quita los bordes). El collage se oculta en móvil y tablet (dg-hidden-mobile); dg-grow (no dg-flex-1) deja crecer la fila si el contenido es más alto que la pantalla, y dg-content-center junta las filas al centro cuando las columnas se apilan en móvil.",
+    desc: "Solo clases del framework. Fondo dg-bg-sand y todo dentro de un dg-container en columna de pantalla completa. Cabecera con dos menús dg-flex-1 a los lados, así la marca queda al centro exacto (en móvil, marca y menú de dos líneas). El título usa dg-font-serif con dg-fit-12 dentro de una columna dg-cq; la segunda línea va en dg-italic dg-muted. El collage es un bloque dg-relative: la foto principal al 80% del ancho y dg-h-50vh, y dos fotos de dg-h-25vh dg-absolute encima (arriba a la derecha con dg-top-5 dg-right-0, abajo con dg-top-75p dg-left-50p). La lista de proyectos son enlaces dg-flex dg-justify-between con líneas dg-h-px dg-bg-current dg-opacity-25 (el reset del framework quita los bordes). El collage se oculta en móvil y tablet (dg-hidden-mobile); dg-grow (no dg-flex-1) deja crecer la fila si el contenido es más alto que la pantalla, y dg-content-center junta las filas al centro cuando las columnas se apilan en móvil.",
     html: `<section class="dg-bg-sand">
   <div class="dg-container dg-flex dg-flex-col dg-min-h-screen">
     <header class="dg-flex dg-justify-between dg-items-center dg-gap-5 dg-pt-5 dg-text-xs dg-uppercase dg-tracking-widest dg-fw-medium dg-fade-in-down">
@@ -453,7 +453,7 @@ export const heroes: Hero[] = [
     </header>
     <div class="dg-grow dg-row dg-items-center dg-content-center dg-py-6">
       <div class="dg-col-12 dg-col-lg-6 dg-cq dg-mb-6">
-        <h1 class="dg-font-serif dg-fw-medium dg-tracking-tight dg-leading-none dg-fit-12 dg-mb-0 dg-fade-in-up dg-anim-slow dg-delay-1">Construcciones<br><span class="dg-italic dg-text-muted">Integrales</span></h1>
+        <h1 class="dg-font-serif dg-fw-medium dg-tracking-tight dg-leading-none dg-fit-12 dg-mb-0 dg-fade-in-up dg-anim-slow dg-delay-1">Construcciones<br><span class="dg-italic dg-muted">Integrales</span></h1>
         <p class="dg-text-xs dg-uppercase dg-tracking-widest dg-fw-medium dg-mt-6 dg-mb-0 dg-fade-in-up dg-delay-3">Altera S.A. de C.V.</p>
       </div>
       <div class="dg-hidden-mobile dg-col-12 dg-col-lg-3">

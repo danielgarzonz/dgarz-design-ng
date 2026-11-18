@@ -18,7 +18,7 @@
 .gallery-intro p { max-width:340px; font-size:13px; color:var(--dg-text-muted); }
 .gallery-count { display:grid; flex-shrink:0; gap:10px; font-size:11px; color:var(--dg-text-muted); }
 .gallery-count strong { font:500 84px/1 var(--dg-font-sans); letter-spacing:-.07em; color:#007fff; }
-.doc-gallery-card.doc-gallery-link { border-radius:12px; box-shadow:none; transition:border-color .2s,transform .2s; }
+.doc-gallery-card.doc-gallery-link { border-radius:0; box-shadow:none; transition:border-color .2s,transform .2s; }
 .doc-gallery-card.doc-gallery-link:hover { border-color:#007fff; transform:translateY(-3px); }
 .doc-gallery-card.doc-gallery-link:focus-visible { outline:3px solid #007fff; outline-offset:4px; }
 .doc-gallery-link .dg-card-title { font-family:var(--dg-font-sans); font-size:20px; font-weight:600; letter-spacing:-.04em; }
@@ -94,7 +94,7 @@
   border-radius: var(--dg-radius-pill);
   background: transparent;
   /* Outline survives the flat border reset. */
-  outline: 1px solid color-mix(in oklab, var(--dg-text) 14%, transparent);
+  outline: 1px solid color-mix(in oklab, var(--dg-text) 10%, transparent);
   outline-offset: 0;
 }
 .gallery-device-tabs .dg-tab {

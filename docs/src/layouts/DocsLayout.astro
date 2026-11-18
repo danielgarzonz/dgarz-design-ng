@@ -37,13 +37,14 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
 ---
 
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="light" data-radius="none">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" id="docThemeColor" />
   <title>{title} — dgarz design</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://api.fontshare.com" />
@@ -61,21 +62,24 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     html { scroll-behavior: smooth; scroll-padding-top: 76px; }
     /* Swiss editorial: one grid, one typeface family, one accent, hairline rules. */
     :root {
+      /* Identity colors live in styles/swiss.css (shared with the landing). */
       --doc-page-bg: #ffffff;
-      --doc-panel-bg: #fff;
-      --doc-demo-bg: var(--dg-card-bg, #f8f8f8);
-      --doc-accent: #e10600;
-      --doc-rule: color-mix(in oklab, var(--dg-text) 14%, transparent);
-      --doc-rule-strong: var(--dg-text);
+      --doc-panel-bg: #ffffff;
+      --doc-demo-bg: #ffffff;
+      --doc-accent: #354b60;
+      /* Lines are subtle, like every border of dgarz design; section openers
+         keep their weight through thickness (2px), not color. */
+      --doc-rule: color-mix(in oklab, var(--dg-text) 10%, transparent);
+      --doc-rule-strong: color-mix(in oklab, var(--dg-text) 18%, transparent);
       --doc-gutter: var(--dg-space-5);
     }
     [data-theme="dark"] {
-      --doc-page-bg: var(--dg-paper);
-      --doc-panel-bg: var(--dg-surface);
-      --doc-demo-bg: var(--dg-surface-2);
-      --doc-accent: #ff453a;
+      --doc-page-bg: #000000;
+      --doc-panel-bg: #0d0b09;
+      --doc-demo-bg: #000000;
+      --doc-accent: #b8d0de;
     }
-    body { --doc-header-offset: 60px; overflow-x: hidden; padding-top: 60px; background: var(--doc-page-bg); }
+    body { --doc-header-offset: 60px; overflow-x: hidden; padding-top: 60px; background: var(--doc-page-bg); --dg-control-bg: var(--doc-page-bg); }
     body:has(.pub-nav.is-hidden) { --doc-header-offset: 0px; }
 
     /* Flat presentation across the entire docs site, including live examples.
@@ -84,10 +88,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       box-shadow: none !important;
       text-shadow: none !important;
     }
-    :focus-visible {
-      outline: 2px solid var(--dg-accent) !important;
-      outline-offset: 3px;
-    }
+    /* Keyboard focus ring: the framework's flat layer draws it (and skips
+       text fields, which mark focus with their own border). */
 
     /* ---- shell: 12-column grid (index 3 · content 9) ---- */
     .doc-shell {
@@ -120,11 +122,11 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       display: flex; align-items: baseline; gap: var(--dg-space-3);
       font-family: var(--dg-font-sans); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
       text-transform: uppercase; letter-spacing: 0.12em; color: var(--dg-text);
-      margin: var(--dg-space-6) 0 var(--dg-space-2);
-      padding-top: var(--dg-space-3);
-      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
+      margin: var(--dg-space-7) 0 var(--dg-space-2);
     }
     .doc-nav-label:first-child { margin-top: 0; }
+    /* Groups are separated by space, not by rules. */
+    .doc-sidebar > div + div { margin-top: var(--dg-space-7); }
     .doc-nav-num { font-family: var(--dg-font-mono); font-weight: var(--dg-weight-normal); letter-spacing: 0; color: var(--doc-accent); }
     .doc-nav a {
       position: relative; display: block;
@@ -135,11 +137,11 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     }
     .doc-nav a:hover { color: var(--dg-text); }
     .doc-nav a.is-active, .doc-nav a[aria-current="page"] { color: var(--dg-text); font-weight: var(--dg-weight-semi); }
-    /* Active page: a small red square in the number column. */
+    /* Active page: a small square in the brand gradient, in the number column. */
     .doc-nav a.is-active::before {
       content: ""; position: absolute; left: 0; top: 50%;
       width: 7px; height: 7px; translate: 0 -50%;
-      background: var(--doc-accent);
+      background: var(--doc-accent-fill);
     }
 
     /* ---- main ---- */
@@ -168,7 +170,7 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       line-height: 0.95;
       color: var(--dg-text);
       text-wrap: balance;
-      margin: var(--dg-space-7) 0 var(--dg-space-7);
+      --doc-title-my: var(--dg-space-7);
     }
     .doc-hero-body { display: grid; grid-template-columns: subgrid; row-gap: var(--dg-space-5); }
     .doc-hero-lead {
@@ -181,6 +183,7 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     .doc-hero-meta dl { margin: 0; }
     .doc-hero-meta dl > div {
       display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--dg-space-3);
+      /* Label/value rows keep their hairlines: they read like a small table. */
       padding: var(--dg-space-2) 0;
       background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat;
     }
@@ -190,9 +193,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     .doc-hero-meta a:hover { text-decoration: underline; text-underline-offset: 3px; }
     .doc-toc { margin-top: var(--dg-space-5); }
     .doc-toc-label {
-      margin: 0; padding-top: var(--dg-space-2);
+      margin: 0;
       font-size: var(--dg-text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dg-text-faint);
-      background: linear-gradient(var(--doc-rule-strong), var(--doc-rule-strong)) top / 100% 1px no-repeat;
     }
     .doc-toc ol { list-style: none; margin: var(--dg-space-2) 0 0; padding: 0; counter-reset: doc-toc; }
     .doc-toc li { counter-increment: doc-toc; display: grid; grid-template-columns: 2.5ch 1fr; gap: var(--dg-space-2); padding: 0.18em 0; }
@@ -205,11 +207,49 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     }
 
     /* ---- page text entrance ---- */
-    .doc-hero-kicker, .doc-hero-title, .doc-hero-body { animation: dg-text-in var(--dg-dur-motion) var(--dg-ease-motion) backwards; }
-    .doc-hero-title { animation-delay: 60ms; }
-    .doc-hero-body { animation-delay: 140ms; }
+    /* Live variants ([data-doc-switch]) — docs only, the framework is not
+       touched. While the option changes, [data-doc-morph] animates every
+       corner inside the demo. The default pill radius is redefined here with
+       a finite value that is still a full pill (1.5em ≥ half the height of a
+       field or button) in the rounded option: with 999px the visible change would only happen in
+       the last frames and look like a jump. */
+    [data-doc-target][data-radius="full"] { --dg-radius-pill: 1.5em; --dg-field-radius: 1.5em; }
+    [data-doc-morph], [data-doc-morph] *, [data-doc-morph] *::before, [data-doc-morph] *::after {
+      transition: border-radius .5s var(--dg-ease-motion);
+    }
+    /* Page entrance: only the title — a left → right sweep with a soft edge,
+       coming into focus out of a blur. The mask lives only in the keyframes,
+       so nothing stays applied once it ends. The rest of the page appears
+       as is. */
+    /* fit-content: the sweep crosses the words, not the empty column. */
+    /* The mask only paints inside the box, and the tight line-height leaves
+       descenders (g, p) and the last letter's edge outside it: grow the box
+       with padding and cancel it with the same negative margin, so the mask
+       covers whole letters and the layout does not move. */
+    .doc-hero-title {
+      width: fit-content; max-width: 100%;
+      padding: .12em .12em .22em;
+      margin: calc(var(--doc-title-my) - .12em) -.12em calc(var(--doc-title-my) - .22em);
+      animation: doc-title-sweep 1.2s cubic-bezier(.45, 0, .25, 1) backwards;
+    }
+    @keyframes doc-title-sweep {
+      from {
+        -webkit-mask-image: linear-gradient(to right, #000 0 40%, transparent 60%);
+        mask-image: linear-gradient(to right, #000 0 40%, transparent 60%);
+        -webkit-mask-size: 250% 100%; mask-size: 250% 100%;
+        -webkit-mask-position: 100% 0; mask-position: 100% 0;
+        filter: blur(10px);
+      }
+      to {
+        -webkit-mask-image: linear-gradient(to right, #000 0 40%, transparent 60%);
+        mask-image: linear-gradient(to right, #000 0 40%, transparent 60%);
+        -webkit-mask-size: 250% 100%; mask-size: 250% 100%;
+        -webkit-mask-position: 0% 0; mask-position: 0% 0;
+        filter: blur(0);
+      }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .doc-hero-kicker, .doc-hero-title, .doc-hero-body { animation: none; }
+      .doc-hero-title { animation: none; }
     }
 
     /* ---- section headings: numbered automatically, hairline rule above ---- */
@@ -255,36 +295,46 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
       margin-block: var(--dg-space-5) var(--dg-space-7);
       border-radius: 0;
       overflow: hidden;
-      background: var(--doc-demo-bg);
+      background: var(--doc-demo-bg); --dg-control-bg: var(--doc-demo-bg);
+      outline: 1px solid var(--doc-demo-line); outline-offset: -1px;
     }
     .doc-example > .doc-demo { margin: 0; border-radius: 0; outline: none; }
+    /* The code fills the bottom of the example: no margins, flush with the
+       panel's edges. */
     .doc-example > .doc-code { margin: 0; border-radius: 0; outline: none; }
+    /* Swiss: code blocks are square everywhere in the docs. */
+    .doc-main .doc-code { border-radius: 0; }
 
     /* ---- demo block (docs layer: utilities on it still win) ---- */
     @layer dg.docs {
-    /* Swiss: the docs' own headings are set in the grotesque, not the framework's
-       serif default. Live examples keep the framework look; an explicit
-       dg-font-serif still wins (utilities come after this layer). */
-    .doc-main :is(h2, h3):not(.doc-demo *, .doc-example *, .doc-hero *) {
-      font-family: var(--dg-font-sans);
-      font-weight: var(--dg-weight-semi);
-      letter-spacing: -0.025em;
+    /* Swiss chrome: notes and structural cards of the docs pages (not the live
+       examples) — no boxes, no tints, square corners. Utilities still win. */
+    .doc-main .dg-callout:not(.doc-demo *, .doc-example *) {
+      border-radius: 0; color: var(--dg-text-muted);
+      background: none; padding: 0;
     }
+    .doc-main .dg-callout:not(.doc-demo *, .doc-example *) .dg-callout-title {
+      color: var(--doc-accent); font-size: var(--dg-text-xs); font-weight: var(--dg-weight-semi);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: var(--dg-space-2);
+    }
+    .doc-main .dg-callout:not(.doc-demo *, .doc-example *) :is(a, code, strong) { color: var(--dg-text); }
+    .doc-main .dg-card:not(.doc-demo *, .doc-example *, [data-doc-scope] *) { border-radius: 0; }
     .doc-demo {
       border-radius: 0;
       padding: var(--dg-space-7) var(--dg-space-6);
       background: var(--doc-demo-bg);
+      outline: 1px solid var(--doc-demo-line); outline-offset: -1px;
     }
     .doc-demo.is-plain { background-image: none; }
-    /* Glass demos: colorful, detailed stand-in for a photo so the blur is visible. */
+    /* Glass demos sit on the brand light: frost glowing from the left into
+       ink, so each glass shows its blur and tint. It is an "image", so it
+       stays the same in both themes. */
     .doc-demo.glass-stage {
+      position: relative;
+      isolation: isolate;
+      overflow: clip;
       padding: 3rem 1.5rem;
-      background:
-        repeating-linear-gradient(115deg, rgb(255 255 255 / .22) 0 6px, transparent 6px 22px),
-        radial-gradient(circle at 18% 30%, #ff7a1a 0, transparent 34%),
-        radial-gradient(circle at 78% 22%, #8e7dff 0, transparent 36%),
-        radial-gradient(circle at 60% 90%, #22c55e 0, transparent 38%),
-        linear-gradient(135deg, #0f1a2e, #247cff);
+      background: var(--brand-glow);
     }
     }
     .doc-demo:has(+ .doc-code) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
@@ -328,7 +378,7 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     @media (max-width: 860px) {
       .doc-main { padding-inline: var(--dg-space-4); }
       .doc-hero { padding-top: var(--dg-space-5); margin-bottom: var(--dg-space-7); }
-      .doc-hero-title { margin: var(--dg-space-5) 0; }
+      .doc-hero-title { --doc-title-my: var(--dg-space-5); }
       .doc-hero-lead { font-size: var(--dg-text-lg); }
       .doc-toc { display: none; }
       .doc-example { margin-inline: calc(var(--dg-space-4) * -1); }
@@ -471,7 +521,7 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   </script>
 
   <!-- Main -->
-  <main class="doc-main" data-dg-reveal-children>
+  <main class="doc-main">
     <!-- Hero -->
     <header class="doc-hero" data-dg-no-reveal>
       <div class="doc-hero-kicker">
@@ -606,6 +656,8 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     'link', 'meta', 'param', 'source', 'track', 'wbr'
   ]);
 
+  const RUNTIME_CLASSES = new Set(['dg-anim-wait', 'is-visible', 'is-indicator-ready', 'is-entering']);
+
   function serializeDemoNode(node, depth = 0) {
     if (node.nodeType === Node.TEXT_NODE) {
       const text = node.textContent?.replace(/\s+/g, ' ').trim();
@@ -617,7 +669,9 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     }
 
     const el = node as HTMLElement;
-    if (el.hasAttribute('hidden')) {
+    // Docs-only controls (replay buttons…) are not part of the example.
+    // Hidden elements stay: a closed menu is part of the markup to copy.
+    if (el.hasAttribute('data-doc-skip')) {
       return '';
     }
 
@@ -625,10 +679,18 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
     const tag = el.tagName.toLowerCase();
     const attrs = el
       .getAttributeNames()
+      // Docs hooks, Astro scoping and empty styles left by scripts are noise.
+      .filter((name) => !/^data-(doc|astro)-/.test(name) && !(name === 'style' && !el.getAttribute('style')?.trim()))
       .map((name) => {
+        if (name === 'class') {
+          // State classes added at runtime (entrance waiting, reveal done).
+          const cls = [...el.classList].filter((c) => !RUNTIME_CLASSES.has(c)).join(' ');
+          return cls ? `class="${cls}"` : '';
+        }
         const value = el.getAttribute(name);
         return value === '' ? name : `${name}="${value}"`;
       })
+      .filter(Boolean)
       .join(' ');
     const openTag = attrs ? `<${tag} ${attrs}>` : `<${tag}>`;
 
@@ -672,6 +734,10 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   }
 
   syncExampleCodeBlocks();
+  // Lets the highlighter script regenerate an example's code after a live
+  // change to its demo (see [data-doc-switch] below).
+  (window as any).__docSerializeDemo = (demo: HTMLElement) => Array.from(demo.childNodes)
+    .map((node) => serializeDemoNode(node, 0)).filter(Boolean).join('\n\n');
 
   // Copy buttons. navigator.clipboard only exists on secure origins (HTTPS or
   // localhost); opened from a phone over the LAN (http://192.168.x.x) it is
@@ -728,6 +794,56 @@ const jsHref  = import.meta.env.DEV ? "/__core/dgarz.js" : "/dist/dgarz.js";
   });
 
   Prism.highlightAll();
+
+  // Live variants: a .dg-segmented with data-doc-switch="<attribute>" and
+  // buttons with data-value sets that attribute on the [data-doc-target] of
+  // its example (an empty value removes it), then regenerates the example's
+  // code so it always shows the chosen option.
+  document.querySelectorAll<HTMLElement>('[data-doc-switch]').forEach((seg) => {
+    const example = seg.closest('.doc-example');
+    const target = example?.querySelector<HTMLElement>('[data-doc-target]');
+    const attr = seg.dataset.docSwitch;
+    if (!example || !target || !attr) return;
+    // The corner switch is the site-wide setting (top bar "Esquinas" button):
+    // it follows that setting and changes it.
+    const isRadius = attr === 'data-radius';
+    const select = (value: string, animate: boolean) => {
+      const btn = seg.querySelector<HTMLButtonElement>(`button[data-value="${value}"]`);
+      if (!btn) return;
+      seg.querySelectorAll('button').forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      // The corners morph softly (see [data-doc-morph] in the styles); with
+      // reduced motion the change is instant.
+      if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        target.setAttribute('data-doc-morph', '');
+        window.clearTimeout((target as any).__docMorph);
+        (target as any).__docMorph = window.setTimeout(() => target.removeAttribute('data-doc-morph'), 600);
+      }
+      if (value) target.setAttribute(attr, value); else target.removeAttribute(attr);
+      const demo = example.querySelector<HTMLElement>(':scope > .doc-demo');
+      const code = example.querySelector<HTMLElement>(':scope > .doc-code pre code');
+      const serialize = (window as any).__docSerializeDemo;
+      if (demo && code && serialize) {
+        code.textContent = serialize(demo);
+        Prism.highlightElement(code);
+      }
+    };
+    const fromGlobal = (v: string) => (v === 'semi' ? '' : v);
+    seg.addEventListener('click', (event) => {
+      const btn = (event.target as Element).closest<HTMLButtonElement>('button[data-value]');
+      if (!btn) return;
+      const value = btn.dataset.value ?? '';
+      select(value, true);
+      if (isRadius) (window as any).__docSetRadius?.(value || 'semi');
+    });
+    if (isRadius) {
+      const now = (window as any).__docGetRadius?.() ?? 'semi';
+      if (now !== 'semi') select(fromGlobal(now), false);
+      document.addEventListener('doc:radius', (e) => select(fromGlobal((e as CustomEvent).detail.value), true));
+    }
+  });
 </script>
 </body>
 </html>

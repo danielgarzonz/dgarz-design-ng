@@ -1,5 +1,6 @@
 // Every dg-* class written in the docs (pages, Studio designs, examples) must
-// exist in the framework CSS, and Studio designs and examples must not use
+// exist in the framework CSS and must not be a deprecated alias
+// (core/src/deprecated-classes.json), and Studio designs and examples must not use
 // style="" (they are built only with framework classes).
 //
 //   node docs/scripts/verify-classes.mjs      (after building core)
@@ -10,6 +11,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../..', import.meta.url));
 const css = ['dgarz.full.css'].map((f) => readFileSync(join(root, 'core/dist', f), 'utf8')).join('\n');
 const defined = new Set([...css.matchAll(/\.(dg-[a-zA-Z0-9_-]*[a-zA-Z0-9])/g)].map((m) => m[1]));
+// Deprecated aliases (they still work, but the docs must teach the class to use).
+const { aliases: deprecated } = JSON.parse(readFileSync(join(root, 'core/src/deprecated-classes.json'), 'utf8'));
 
 // Classes that are hooks for JavaScript or docs-only markers, not styles.
 const hooks = /^dg-(js-|is-|has-)/;
@@ -33,6 +36,10 @@ for (const file of files) {
     for (const cls of list.split(/\s+/)) {
       if (!cls.startsWith('dg-') || cls.includes('$') || cls.includes('{') || hooks.test(cls)) continue;
       if (!defined.has(cls)) problems.push(`${rel}: unknown class ${cls}`);
+      else {
+        const hit = deprecated[cls] ?? Object.entries(deprecated).find(([k]) => k.endsWith('*') && cls.startsWith(k.slice(0, -1)))?.[1];
+        if (hit) problems.push(`${rel}: deprecated class ${cls} (use ${hit})`);
+      }
     }
   }
   if (noStyle.some((re) => re.test(rel)) && /\sstyle="/.test(text)) problems.push(`${rel}: style="" is not allowed here`);

@@ -21,14 +21,14 @@ const scales = [
   { family: "Esquinas por lado", classes: "dg-rounded-t, -b, -l, -r", steps: "(radio por defecto) · -0 · -sm · -lg · -xl · -pill · una esquina: dg-rounded-tl-full…" },
   { family: "Texto", classes: "dg-text-*, dg-line-clamp-*", steps: "tamaños xs–5xl · left, center, right, justify, start, end · lowercase, capitalize, normal-case · line-clamp 1–5" },
   { family: "Opacidad", classes: "dg-opacity-*", steps: "0 10 20 25 30 40 50 60 70 75 80 90 100" },
-  { family: "Grises", classes: "dg-text-gray-*, dg-bg-gray-*", steps: "0 50 100 200 300 400 500 600 700 800 900 950 · dg-text-current, dg-text-inherit, dg-bg-transparent" },
+  { family: "Color heredado", classes: "dg-text-current, dg-text-inherit, dg-bg-transparent", steps: "toma el color del contenedor · sin fondo" },
   { family: "Texto grande y fluido", classes: "dg-text-6xl…9xl, dg-text-fluid-*", steps: "80 · 96 · 128 · 160 px · fluid: sm, md, lg, xl (crece con la ventana entre un mínimo y un máximo)" },
   { family: "Tipografía extra", classes: "dg-fw-thin, -light, -black · dg-leading-loose · dg-tracking-tighter", steps: "dg-text-pretty · dg-tabular-nums · dg-hyphens-auto · dg-whitespace-pre · dg-underline-offset-2/4/8" },
   { family: "Columnas de texto", classes: "dg-columns-*, dg-break-inside-avoid", steps: "1–4 (también responsivas: dg-md-columns-2)" },
   { family: "Transformaciones", classes: "dg-rotate-*, dg-scale-*, dg-translate-*, dg-flip-*", steps: "rotar 1 3 6 12 45 90 180 (n = negativo) · escala 50 75 90 95 100 105 110 125 · dg-translate-center, -x-n50, -y-n50 · dg-center-abs · se combinan entre sí" },
   { family: "Filtros y fusión", classes: "dg-blur-*, dg-brightness-*, dg-backdrop-blur-*, dg-mix-*", steps: "blur sm md lg · brillo 50 75 110 125 · dg-contrast-125 · dg-grayscale, dg-invert, dg-sepia · mix multiply, screen, difference, overlay · dg-isolate" },
   { family: "Velos sobre fotos", classes: "dg-scrim-*", steps: "b (abajo) · t (arriba) · full · light-b — en una capa dg-absolute dg-inset-0" },
-  { family: "Entre hijos", classes: "dg-space-y-*, dg-space-x-*, dg-divide-y, dg-divide-x", steps: "espacio 0–9 · líneas de 1px sin borde" },
+  { family: "Líneas entre hijos", classes: "dg-divide-y, dg-divide-x", steps: "líneas de 1px sin borde (el espacio va con dg-stack o dg-cluster + dg-gap-*)" },
   { family: "Hover y grupo", classes: "dg-hover-*, dg-group + dg-group-hover-*", steps: "hover: lift, scale-105, opacity-75/100, underline, bg-surface-2/3 · grupo: scale-105/110, opacity-75/100, underline, nudge, x, lift" },
   { family: "Scroll y toque", classes: "dg-scroll-mt-*, dg-scrollbar-none, dg-touch-*", steps: "scroll-mt 0–9 (anclas con cabecera fija) · overscroll-none · touch none, pan-x, pan-y · appearance-none · resize none, y · cursores zoom-in, move, help, wait" },
   { family: "Tema e impresión", classes: "dg-only-light, dg-only-dark, dg-print-*", steps: "mostrar solo en tema claro u oscuro · print-hidden, print-only, print-break-before/after" },
@@ -142,7 +142,7 @@ const examples = [
   {
     id: "listas",
     title: "Espacio y líneas entre elementos",
-    desc: "dg-space-y-* separa a los hijos sin tocar al primero, y dg-divide-y dibuja una línea fina entre ellos (es un fondo de 1px, así que el reset que quita los bordes la respeta). dg-tabular-nums alinea las cifras.",
+    desc: "dg-divide-y dibuja una línea fina entre los elementos de una lista (es un fondo de 1px, así que el reset que quita los bordes la respeta). dg-tabular-nums alinea las cifras.",
     html: `<ul class="dg-list-none dg-divide-y dg-max-w-400 dg-mb-0">
   <li class="dg-flex dg-justify-between dg-py-3"><span>Plan Estudio</span><span class="dg-tabular-nums">$ 1,200</span></li>
   <li class="dg-flex dg-justify-between dg-py-3"><span>Plan Equipo</span><span class="dg-tabular-nums">$ 4,850</span></li>

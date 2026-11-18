@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/DocsLayout.astro";
+const pageContent = `
+      <div class="doc-sub">Calendario</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Añade <code class="dg-code">.dg-datepicker</code> a un input y, al enfocarlo, se abre un calendario: se navega por meses y años, y el día de hoy aparece marcado. El formato por defecto es <code class="dg-code">DD/MM/YYYY</code>; cámbialo con <code class="dg-code">data-format</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-xs">
+          <label class="dg-label" for="dp-date">Fecha de entrega</label>
+          <input class="dg-input dg-datepicker" id="dp-date" placeholder="DD/MM/AAAA" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Fecha y hora</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">data-time</code> el calendario suma la selección de hora y minutos; el formato pasa a <code class="dg-code">DD/MM/YYYY HH:mm</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-xs">
+          <label class="dg-label" for="dp-time">Cita</label>
+          <input class="dg-input dg-datepicker" id="dp-time" data-time placeholder="DD/MM/AAAA HH:mm" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Rango de fechas</div>
+      <p class="dg-muted dg-text-sm dg-mb-4">Con <code class="dg-code">data-range</code> se eligen dos fechas: el primer clic marca el inicio, el segundo el final, y los días entre ambas quedan resaltados. El valor queda como <code class="dg-code">DD/MM/AAAA – DD/MM/AAAA</code>. Admite <code class="dg-code">data-min</code> y <code class="dg-code">data-max</code>.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-sm">
+          <label class="dg-label" for="dp-stay">Estancia</label>
+          <input class="dg-input dg-datepicker" id="dp-stay" data-range placeholder="Llegada – Salida" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Hora</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">.dg-timepicker</code> abre solo el selector de horas y minutos. <code class="dg-code">data-minute-step</code> hace que los minutos avancen de ese en ese (por ejemplo, de 15 en 15 para citas).</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-xs">
+          <label class="dg-label" for="tp-hour">Hora de la cita</label>
+          <input class="dg-input dg-timepicker" id="tp-hour" data-minute-step="15" placeholder="HH:mm" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+
+      <div class="doc-sub">Fechas mínima y máxima</div>
+      <p class="dg-muted dg-text-sm dg-mb-4"><code class="dg-code">data-min</code> y <code class="dg-code">data-max</code> (en formato AAAA-MM-DD) desactivan los días fuera del rango, por ejemplo para no reservar en el pasado.</p>
+      <div class="doc-example">
+<div class="doc-demo is-plain">
+        <div class="dg-field dg-max-w-xs">
+          <label class="dg-label" for="dp-range">Reserva (diciembre)</label>
+          <input class="dg-input dg-datepicker" id="dp-range" data-min="2026-12-01" data-max="2026-12-31" placeholder="DD/MM/AAAA" />
+        </div>
+      </div>
+      <div class="doc-code" data-lang="html"><button class="cp">Copiar</button><pre></pre></div>
+</div>
+`;
+---
+
+<Layout title="Fechas y hora" lead="Calendario con selección de fecha, de hora y límites." currentHref="/forms/dates">
+  <Fragment set:html={pageContent} />
+</Layout>

@@ -48,10 +48,10 @@ const latestReleased = CHANGELOG.find((r) => !r.unreleased);
     font-family: var(--dg-font-sans); font-size: clamp(2.5rem, 1.6rem + 2.6vw, 4rem); font-weight: var(--dg-weight-bold);
     line-height: 0.9; letter-spacing: -0.05em; font-variant-numeric: tabular-nums;
   }
-  /* The current release: the red square, as in the index and the top bar. */
+  /* The current release: the brand square, as in the index and the top bar. */
   .cl-release.is-latest .cl-version::after {
     content: ""; display: inline-block; width: 0.16em; height: 0.16em; margin-left: 0.06em;
-    background: var(--doc-accent);
+    background: var(--doc-accent-fill);
   }
   .cl-meta { margin: 0; font-size: var(--dg-text-sm); }
   .cl-meta > div {
@@ -66,12 +66,11 @@ const latestReleased = CHANGELOG.find((r) => !r.unreleased);
   .cl-summary { margin: 0 0 var(--dg-space-5); font-size: var(--dg-text-xl); line-height: 1.4; letter-spacing: -0.015em; color: var(--dg-text); text-wrap: pretty; max-width: 46ch; }
   .cl-highlights { list-style: none; margin: 0; padding: 0; }
   .cl-highlights li {
-    position: relative; padding: var(--dg-space-3) 0 var(--dg-space-3) 1.4em;
+    position: relative; padding: var(--dg-space-2) 0 var(--dg-space-2) 1.4em;
     font-size: var(--dg-text-sm); line-height: 1.55; color: var(--dg-text-muted);
-    background: linear-gradient(var(--doc-rule), var(--doc-rule)) top / 100% 1px no-repeat;
   }
   .cl-highlights li::before {
-    content: ""; position: absolute; left: 0; top: calc(var(--dg-space-3) + 0.55em);
+    content: ""; position: absolute; left: 0; top: calc(var(--dg-space-2) + 0.55em);
     width: 6px; height: 6px; background: var(--dg-text);
   }
   .cl-note { margin-top: var(--dg-space-6); color: var(--dg-text-muted); font-size: var(--dg-text-sm); }

@@ -36,8 +36,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--dg-font-serif);
+  font-family: var(--dg-font-heading);
   font-size: var(--dg-text-2xl);
+  letter-spacing: -0.03em;
   background: var(--dg-surface-3);
   color: var(--dg-text-muted);
 }

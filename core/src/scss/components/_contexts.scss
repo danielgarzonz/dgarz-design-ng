@@ -24,3 +24,15 @@
 /* A menu never inherits the alignment of where it is placed (e.g. a table
    cell with .dg-text-right): its items always read from the start. */
 .dg-menu { text-align: start; }
+
+/* iOS Safari zooms the page when a field with text under 16px gets focus.
+   On touch screens, fields use at least 16px (desktop keeps 14px). The page
+   zoom stays available: no maximum-scale in the viewport (accessibility). */
+@media (pointer: coarse) {
+  .dg-input, .dg-textarea, .dg-select,
+  .dg-input-sm, .dg-textarea-sm,
+  .dg-combobox-input,
+  :where(.dg-auto) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"], [type="submit"], [type="button"], [type="reset"]), textarea, select):not([class]) {
+    font-size: max(16px, 1rem);
+  }
+}

@@ -9,6 +9,7 @@
 .dg-menu {
   position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; z-index: 40;
   background: var(--dg-surface);
+  --dg-control-bg: var(--dg-surface);
   border: 1px solid var(--dg-field-border);
   border-radius: var(--dg-radius);
   box-shadow:
